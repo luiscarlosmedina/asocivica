@@ -1,0 +1,10 @@
+:root{
+    --azul:#134074;
+    --naranja:#fa8131;
+    --blanco:#fff;
+    --fuente:'Quicksand', sans-serif;
+    --naranjaClaro:#ffad77;
+}
+.contenido{
+    background-color: var(--blanco);
+}
