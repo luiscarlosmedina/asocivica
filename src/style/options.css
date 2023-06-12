@@ -1,10 +1,30 @@
-:root{
-    --azul:#134074;
-    --naranja:#fa8131;
-    --blanco:#fff;
-    --fuente:'Quicksand', sans-serif;
-    --naranjaClaro:#ffad77;
+:root {
+    --azul: #134074;
+    --naranja: #fa8131;
+    --blanco: #fff;
+    --fuente: 'Quicksand', sans-serif;
+    --naranjaClaro: #ffad77;
 }
-.contenido{
+
+.barra {
+    background-color: var(--azul);
+    color: var(--blanco);
+    border-bottom: #15b7f2 3px solid;
+}
+
+.btn-close {
     background-color: var(--blanco);
+}
+
+.col {
+    padding: 18px;
+}
+
+.op {
+    padding: 15px 0;
+}
+
+.op:hover {
+    background-color: var(--naranja);
+    border-radius: 15px;
 }
