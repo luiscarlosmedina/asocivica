@@ -2,8 +2,6 @@
     --azul:#134074;
     --naranja:#fa8131;
     --blanco:#fff;
-    --fuente:'Quicksand', sans-serif;
-    --naranjaClaro:#ffad77;
 }
 .barra{
     background-color: var(--azul);
