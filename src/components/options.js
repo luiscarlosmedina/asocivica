@@ -5,6 +5,11 @@ const Options = () => {
     return (
         <ul className="navbar-nav d-flex justify-content-end flex-grow-1 pe-4" id='menu'>
             <li className="nav-item dropdown">
+                <a className="nav-link op text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i className="bi bi-house"></i> <span className='ms-2'>Inicio</span>
+                </a>
+            </li>
+            <li className="nav-item dropdown">
                 <a className="nav-link op dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i className="bi bi-journal-bookmark"></i> <span className='ms-2'>Gestion de empresas</span>
                 </a>
