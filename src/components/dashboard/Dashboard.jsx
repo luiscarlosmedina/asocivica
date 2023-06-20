@@ -8,7 +8,6 @@ import "../../style/app.css";
 export default function Dashboard() {
   return(
   <div>
-    <h2>Esto es la Dashboard</h2>
     <Navbar />
     <div className="container-fluid d-flex flex-column">
       <div className="row">

@@ -1,16 +1,22 @@
 import React from 'react'
 import "../../style/options.css"
+import { Link } from 'react-router-dom'
 
 const Options = () => {
     return (
         <ul className="navbar-nav d-flex justify-content-end flex-grow-1 pe-4" id='menu'>
+            <li className="nav-item dropdown">
+                <a className="nav-link active op" aria-current="page" href='#' >
+                <i class="bi bi-house"></i><Link to={"inicio"} className='ms-2 op  text-white'>Inicio</Link>
+                </a>
+            </li>
             <li className="nav-item dropdown">
                 <a className="nav-link op dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i className="bi bi-journal-bookmark"></i> <span className='ms-2'>Gestion de empresas</span>
                 </a>
                 <ul className="dropdown-menu">
                     <li><a className="dropdown-item" href="#">Ver empresas</a></li>
-                    <li><a className="dropdown-item" href="#">Agregar empresas</a></li>
+                    <li><a href="#"><Link to={"registrar-empresa"} className="dropdown-item" >Agregar empresas</Link></a></li>
                 </ul>
             </li>
             <li className="nav-item dropdown">
