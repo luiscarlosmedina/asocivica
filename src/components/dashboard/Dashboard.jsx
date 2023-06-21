@@ -3,6 +3,7 @@ import Navbar from "./navbar";
 import Options from "./options";
 import User from "./User";
 import Content from "./Content";
+import Home from "./Home";
 import "../../style/app.css";
 
 export default function Dashboard() {
