@@ -1,25 +1,20 @@
-import Navbar from './components/navbar';
-import Options from './components/options';
-import User from './components/User';
-import Content from './components/Content';
-import "./style/app.css"
-
+import "./style/app.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Dashboard from "./components/dashboard/Dashboard";
+import SignIn from "./components/signIn/SignIn";
 
 function App() {
-  return (<>
-    <Navbar />
-    <div className='container-fluid d-flex flex-column'>
-      <div className='row'>
-        <div className='col-1 uno'>
-          <User />
-          <Options />
-        </div>
-        <div className='col container-fluid dos'>
-          <Content />
-        </div>
+  return (
+    <>
+      <div className="wrapper">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/*" element={<Dashboard />} />
+            <Route path="/login" element={<SignIn />} />
+          </Routes>
+        </BrowserRouter>
       </div>
-    </div>
-  </>
+    </>
   );
 }
 
