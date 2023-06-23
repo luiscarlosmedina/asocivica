@@ -1,0 +1,121 @@
+:root{
+    --azul:#134074;
+    --naranja:#fa8131;
+    --blanco:#fff;
+    --fuente:'Quicksand', sans-serif;
+    --naranjaClaro:#ffad77;
+    margin: auto;
+}
+
+
+.body{
+    font-family: var(--fuente);
+    background-color: var(--azul);
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.imagen-formulario{
+    background-image: url('../../img/corporativolg.jpg');
+    background-position: center center;
+    background-size: cover;
+    width: 100vh;
+    flex: 0 0 calc(68%);
+    position: relative;
+}
+.logo{
+    height: 100vh;
+}
+.imagen-formulario::before{
+   content: '';
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   background: linear-gradient(to right,rgba(141,169,196,.5), rgba(19, 64, 116, .5) );
+}
+@media(max-width:500px){
+    .imagen-formulario{
+        display: none;
+    }
+}
+@media(min-width:768px){
+    .imagen-formulario{
+        height: auto;
+        background-position: right;
+    }
+    .contenedor-formulario{
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+}
+@media(min-width:1200px){
+    .imagen-formulario{
+        background-position: center;
+    }
+}
+
+.formulario{
+    margin: 0 auto;
+    padding: 50px;
+    background-color: var(--azul);
+}
+.texto-formulario h2, .input label, .password-olvidada a, .texto-formulario p{
+    color: var(--blanco);
+}
+.texto-formulario h2{ 
+    font-size: 32px;
+    text-align: center;
+    margin: 0;
+}
+.imgform{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.imgform>img{
+    width: 60%;
+}
+
+.texto-formulario p{
+    font-size: 22px;
+    text-align: center;
+}
+.input label{
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+}
+.password-olvidada a{
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 12px;
+}
+.input input{
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 5px;
+    outline: none;
+}
+.input input[type="submit"]{
+    background-color: var(--naranja);
+    color: var(--blanco);
+    font-size: 22px;
+    font-weight: bold;
+    border: none;
+    margin-top: 5px;
+    transition: background-color .3s ease-in-out;
+}
+.input input[type="submit"]:hover{
+  
+    cursor: pointer;
+    background-color: var(--naranjaClaro);
+}
+
