@@ -25,7 +25,8 @@ const Options = () => {
                 </a>
                 <ul className="dropdown-menu">
                     <li><a className="dropdown-item" href="inicio">Ver novedades</a></li>
-                    <li><a className="dropdown-item" href="inicio">Agregar Novedades</a></li>
+                    <li><a href="inicio"><Link to={"registrar-novedades"} className="dropdown-item" >Agregar Novedades</Link></a></li>
+                 
                 </ul>
             </li>
             <li className="nav-item dropdown">
@@ -34,7 +35,7 @@ const Options = () => {
                 </a>
                 <ul className="dropdown-menu">
                     <li><a className="dropdown-item" href="inicio">Ver empleados</a></li>
-                    <li><a className="dropdown-item" href="inicio">Agregar empleados</a></li>
+                    <li><a href="inicio"><Link to={"registrar-empleado"} className="dropdown-item" >Agregar empleado</Link></a></li>
                 </ul>
             </li>
             <li className="nav-item dropdown">
@@ -43,7 +44,7 @@ const Options = () => {
                 </a>
                 <ul className="dropdown-menu">
                     <li><a className="dropdown-item" href="inicio">Ver reportes</a></li>
-                    <li><a className="dropdown-item" href="inicio">Agregar reportes</a></li>
+                    <li><a href="inicio"><Link to={"registrar-reportes"} className="dropdown-item" >Agregar reportes</Link></a></li>
                 </ul>
             </li>
         </ul>
