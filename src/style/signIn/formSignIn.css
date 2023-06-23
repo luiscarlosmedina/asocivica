@@ -7,11 +7,8 @@
     margin: auto;
 }
 
-*,*::after, *::before{
-    box-sizing: inherit;
-}
 
-body{
+.body{
     font-family: var(--fuente);
     background-color: var(--azul);
     display: flex;

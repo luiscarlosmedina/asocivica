@@ -5,6 +5,7 @@ import Fondo from "../../img/corporativolg.jpg";
 
 export default function SignIn() {
   return (
+    <div className="Body">
     <div className="contenedor-formulario">
     <div className="imagen-formulario">
       <div className="logo">
@@ -31,6 +32,7 @@ export default function SignIn() {
         <input type="submit" value="Ingresar" onclick="validar_logueo()"/>
       </div>
     </form>
+  </div>
   </div>
   );
 }
