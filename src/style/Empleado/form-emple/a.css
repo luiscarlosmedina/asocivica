@@ -1,0 +1,10 @@
+
+.box-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-main2{
+   width: 70%;
+}
