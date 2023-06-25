@@ -10,7 +10,8 @@ const Vercompany = () => {
             setEmpresalist(response.data);
         })
     }
-    getEmpresas();
+    getEmpresas()
+   
     return (
         <table className="table table-striped">
             <thead>
