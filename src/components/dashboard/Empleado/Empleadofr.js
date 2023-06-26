@@ -1,6 +1,6 @@
 import React from 'react'
 import "../../../style/Empleado/empleadofr.css";
-import F_emple from './form_emple/a';
+import D_emple from './form_emple/d';
 
 export default function Empleadofr() {
   return (
@@ -12,39 +12,54 @@ export default function Empleadofr() {
                     <button className='sub-menu'>
                         <div className='box-options'>
                         <div>Información empresa</div>
+                        <div className='circle-options'>
                         <i className="bi bi-check-circle-fill"></i> 
+                        <i class="bi bi-x-circle-fill"></i>
+                        </div>
                         </div>
                     </button>
                     <button className='sub-menu'>
                         <div className='box-options'>
                         <div>Información empleados 1</div>
+                        <div className='circle-options'>
                         <i className="bi bi-check-circle-fill"></i> 
+                        <i class="bi bi-x-circle-fill"></i>
+                        </div>
                         </div>
                     </button>
                     <button className='sub-menu'>
                         <div className='box-options'>
                         <div>Información personal 2</div>
+                        <div className='circle-options'>
                         <i className="bi bi-check-circle-fill"></i> 
+                        <i class="bi bi-x-circle-fill"></i>
+                        </div>
                         </div>
                     </button>
 
                     <button className='sub-menu'>
                         <div className='box-options'>
                         <div>Contactos emergencia</div>
+                        <div className='circle-options'>
                         <i className="bi bi-check-circle-fill"></i> 
+                        <i class="bi bi-x-circle-fill"></i>
+                        </div>
                         </div>
                     </button>
                     <button className='sub-menu'>
                         <div className='box-options'>
                         <div>Contrato empleado</div>
+                        <div className='circle-options'>
                         <i className="bi bi-check-circle-fill"></i> 
+                        <i class="bi bi-x-circle-fill"></i>
+                        </div>
                         </div>
                     </button>
                 </div>
             </header>
             <section className='secundary-box'>
             <div className='container'>
-                <F_emple />
+                <D_emple />
               </div>
             </section>
             
