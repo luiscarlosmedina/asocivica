@@ -1,6 +1,6 @@
 import React from 'react'
 import "../../../style/Empleado/empleadofr.css";
-import D_emple from './form_emple/d';
+import E_emple from './form_emple/e';
 
 export default function Empleadofr() {
   return (
@@ -59,7 +59,7 @@ export default function Empleadofr() {
             </header>
             <section className='secundary-box'>
             <div className='container'>
-                <D_emple />
+                <E_emple />
               </div>
             </section>
             

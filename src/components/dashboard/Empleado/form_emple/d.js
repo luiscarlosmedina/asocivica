@@ -6,7 +6,7 @@ const D_emple = () => {
         <div className="box-main2">
                 <div class="box1">
                     <label for="validationDefault02" class="form-label">Nombre de contacto 1</label>  
-                    <input type="Text" class="form-control" i   d="validationDefault01"  required/>
+                    <input type="Text" class="form-control" id="validationDefault01"  required/>
                 </div>
                 <div>
                     <label for="validationDefault02" class="form-label">Telefono Celular</label>
@@ -18,7 +18,7 @@ const D_emple = () => {
                 </div>
                 <div>
                     <label for="validationDefault02" class="form-label">Nombre de contacto 2</label>  
-                    <input type="Text" class="form-control" i   d="validationDefault01"  required/>
+                    <input type="Text" class="form-control" id="validationDefault01"  required/>
                 </div>
                 <div>
                     <label for="validationDefault02" class="form-label">Telefono Celular</label>

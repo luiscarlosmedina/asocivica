@@ -11,7 +11,7 @@ const C_emple = () => {
               <option select value="">Libreta de primera clase</option>
               <option select value="">Libreta de segunda clase </option>
               <option select value="">Targeta de indentidad</option>
-                </select>
+            </select>
           </div>
           <div >  
           <label for="validationDefault02" class="form-label">Tipo de licencia de conducción</label>

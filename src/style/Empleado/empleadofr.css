@@ -12,7 +12,7 @@
     height: 37em;
     width: 100%;
 }
-.box-menu{
+.box-menu{  
     display: flex;
     font-weight: 550;
     color: #004884;
@@ -35,6 +35,7 @@
 }
 .secundary-box .container{
     background-color: rgb(227, 231, 235);
+    border-radius: 7px;
     
 }
 
