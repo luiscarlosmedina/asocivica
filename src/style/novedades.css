@@ -1,0 +1,35 @@
+
+h3 {
+    color: #103F99;
+    padding: 10px;
+    font-weight: bold;
+}
+
+#comment {
+    resize: none;
+    height: 250px;
+}
+
+#Enviar {
+    display: block;
+    padding: 0.5rem 1rem;
+    width: 200px;
+    margin: 0 auto;
+}
+
+label {
+  display: block;
+  margin: 7px 0;
+  font-size: 0.98rem;
+}
+
+input[type="text"] {
+  display: inline-block;
+  width: 100%;
+  height: 26px;
+  margin: 2px 0;
+  border: 1px solid #ccc;
+}
+.btn{
+  text-align: center;
+}
