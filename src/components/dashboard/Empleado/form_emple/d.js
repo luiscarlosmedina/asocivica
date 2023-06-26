@@ -16,8 +16,6 @@ const D_emple = () => {
                     <label for="validationDefault02" class="form-label">Telefono fijo</label>
                     <input type="text" class="form-control" id="validationBarriot02" required/>
                 </div>
-
-
                 <div>
                     <label for="validationDefault02" class="form-label">Nombre de contacto 2</label>  
                     <input type="Text" class="form-control" i   d="validationDefault01"  required/>
