@@ -1,9 +1,10 @@
 import React from 'react'
+import FormularioRegistro from "./FormularioRegistro";
 
 export default function Empresafr() {
   return (
-    <div>
-      <h2>Esto es un formulario</h2>
+    <div className='container'>
+      <FormularioRegistro />
     </div>
   )
 }
