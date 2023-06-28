@@ -5,6 +5,7 @@ import Fondo from "../../img/corporativolg.jpg";
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 
+
 export default function SignIn() {
   const [body, setBody] = useState({ ID_Em: "", passw: "" });
 
@@ -18,10 +19,10 @@ export default function SignIn() {
 
   const onSubmit = () => {
     axios.post('http://localhost:3001/api/login',body)
-    .then(({data})=>{
-          localStorage.setItem('auth','"yes"')  
-    })
-    .catch(({response})=>{
+    .then(({data})=> 
+    {console.log(data)})
+    .catch(({response})=>
+    {
       console.log(response.data)
     })
   };
