@@ -15,7 +15,7 @@ const Options = () => {
                     <i className="bi bi-journal-bookmark"></i> <span className='ms-2'>Gestion de empresas</span>
                 </a>
                 <ul className="dropdown-menu">
-                    <li><a className="dropdown-item" href="inicio">Ver empresas</a></li>
+                    <li><a href="inicio"><Link to={"consultar-empresas"} className="dropdown-item" >Ver empresas</Link></a></li>
                     <li><a href="inicio"><Link to={"registrar-empresa"} className="dropdown-item" >Agregar empresas</Link></a></li>
                 </ul>
             </li>

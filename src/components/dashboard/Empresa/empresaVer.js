@@ -1,0 +1,45 @@
+import {UseGet } from "../useFetchGet"
+
+export default function EmpresaVer() {
+    const {data}  = UseGet("https://developersaurios.000webhostapp.com/api.php?apicall=readempresas")
+    console.log(data);
+    return (
+        <div className="consultar-container">
+            <h2>Empresas</h2>
+            <table className="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nit</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Representante</th>
+                        <th scope="col">T Doc</th>
+                        <th scope="col">N° Documento</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Detalles</th>
+                    </tr>
+                </thead>
+                <tbody className="table-group-divider">
+                    {Array.isArray(data) ? (
+                        data.map(item => (
+                            <tr key={item.id_e}>
+                                <th scope="row">{item.Nit_E}</th>
+                                <td>{item.Nom_E}</td>
+                                <td>{item.Eml_E}</td>
+                                <td>{item.telefonoGeneral}</td>
+                                <td>{item.Nom_Rl}</td>
+                                <td>{item.N_TDoc}</td>
+                                <td>{item.CC_Rl}</td>
+                                <td>{item.Est_E === "0" ? "Activo" : "Inactivo"}</td>
+                                <td><button value={item.id_e} type="button" className="btn btn-primary">Ver mas</button></td>
+                            </tr>
+                        ))
+                    ) : (
+                        <p>No hay datos disponibles</p>
+                    )}
+                </tbody>
+            </table>
+        </div>
+    )
+}
