@@ -1,8 +1,18 @@
-import {UseGet } from "../useFetchGet"
+import React, { useEffect, useState } from "react";
 
-export default function EmpresaVer() {
-    const {data}  = UseGet("https://developersaurios.000webhostapp.com/api.php?apicall=readempresas")
-    console.log(data);
+export default function EmpresaVer({ dataUpdated }) {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+      fetchData();
+    }, [dataUpdated]); // Agregar dataUpdated como dependencia
+  
+    const fetchData = () => {
+      fetch('https://developersaurios.000webhostapp.com/api.php?apicall=readempresas')
+        .then((response) => response.json())
+        .then((data) => setData(data.contenido))
+        .catch((error) => console.log(error));
+    };
     return (
         <div className="consultar-container">
             <h2>Empresas</h2>

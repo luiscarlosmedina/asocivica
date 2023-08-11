@@ -8,18 +8,19 @@ import Empleadofr from './Empleado/Empleadofr'
 import Novedades from './Novedades/Novedades'
 import Reportes from './Reportes/Reportes'
 
-const Content = () => {
+function Content() {
     const [dataUpdated, setDataUpdated] = useState(false);
 
     const handleDataUpdate = () => {
-        setDataUpdated(true);
+      setDataUpdated(true);
     };
+  
     return (
         <div className='contenido'>
             <Routes>
                 <Route path='*' element={<Home />} />
-                <Route path='registrar-empresa' element={<Empresafr />} />
-                <Route path='consultar-empresas' element={<EmpresaVer/>} />
+                <Route path='registrar-empresa' element={<Empresafr onDataUpdate={handleDataUpdate} />}/>
+                <Route path='consultar-empresas' element={<EmpresaVer dataUpdated={dataUpdated}/>} />
                 <Route path='registrar-empleado' element={<Empleadofr />} />
                 <Route path='registrar-novedades' element={<Novedades />} />
                 <Route path='registrar-reportes' element={<Reportes/>} />

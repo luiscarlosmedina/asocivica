@@ -3,7 +3,7 @@ import "../../style/options.css"
 import { Link } from 'react-router-dom'
 
 const Options = () => {
-    return (
+      return (
         <ul className="navbar-nav d-flex justify-content-end flex-grow-1 pe-4" id='menu'>
             <li className="nav-item dropdown">
                 <a className="nav-link active op" aria-current="page" href={'inicio'} >

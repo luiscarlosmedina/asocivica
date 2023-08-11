@@ -1,7 +1,6 @@
-import { useState } from 'react'
-//import { UsePost } from '../useFetchPost';
+import React, { useState } from 'react';
 
-export default function Empresafr() {
+function Empresafr({ onDataUpdate }) {
     const [nit, setNit] = useState("")
     const [nombre, setNombre] = useState("")
     const [correo, setCorreo] = useState("")
@@ -35,6 +34,7 @@ export default function Empresafr() {
             sector,
             actividad,
         };
+
         fetch('https://developersaurios.000webhostapp.com/api.php?apicall=createempresa', {
             method: 'POST',
             headers: {
@@ -47,15 +47,29 @@ export default function Empresafr() {
                 if (data.error) {
                     setMessage('Error al crear el usuario');
                 } else {
-                    setMessage('Usuario creado correctamente');
+                    setMessage('empresa creado correctamente');
+                    setNit("");
+                    setNombre("");
+                    setCorreo("");
+                    setRep("");
+                    setTp_doc("");
+                    setRepDoc("");
+                    setTelefono("");
+                    setValor("");
+                    setEstado("");
+                    setFhInicio("");
+                    setFhFin("");
+                    setSector("");
+                    setActividad("");
+                    setMessage("");
+                    onDataUpdate();
                 }
             })
             .catch(error => {
                 setMessage('Error en la solicitud');
                 console.log(error);
             });
-    };
-    //const { loading, response, error } = UsePost("https://developersaurios.000webhostapp.com/api.php?apicall=createempresa",{handleSubmit})
+        };
     return (
         <div className="ingresar-container">
             <h2>Registro de empresa</h2>
@@ -67,7 +81,7 @@ export default function Empresafr() {
                         id="nit"
                         value={nit}
                         onChange={e => setNit(e.target.value)}
-                        required
+                        
                     />
                 </div>
                 <div>
@@ -77,7 +91,7 @@ export default function Empresafr() {
                         id="nombre"
                         value={nombre}
                         onChange={e => setNombre(e.target.value)}
-                        required
+                        
                     />
                 </div>
                 <div>
@@ -87,7 +101,7 @@ export default function Empresafr() {
                         id="correo"
                         value={correo}
                         onChange={e => setCorreo(e.target.value)}
-                        required
+                        
                     />
                 </div>
                 <div>
@@ -97,7 +111,7 @@ export default function Empresafr() {
                         id="rep"
                         value={rep}
                         onChange={e => setRep(e.target.value)}
-                        required
+                        
                     />
                 </div>
                 <div>
@@ -107,7 +121,7 @@ export default function Empresafr() {
                         id="tp_doc"
                         value={tp_doc}
                         onChange={e => setTp_doc(e.target.value)}
-                        required
+                        
                     />
                 </div>
                 <div>
@@ -117,7 +131,7 @@ export default function Empresafr() {
                         id="repDoc"
                         value={repDoc}
                         onChange={e => setRepDoc(e.target.value)}
-                        required
+                        
                     />
                 </div>
                 <div>
@@ -127,7 +141,7 @@ export default function Empresafr() {
                         id="telefono"
                         value={telefono}
                         onChange={e => setTelefono(e.target.value)}
-                        required
+                        
                     />
                 </div>
                 <div>
@@ -137,7 +151,7 @@ export default function Empresafr() {
                         id="valor"
                         value={valor}
                         onChange={e => setValor(e.target.value)}
-                        required
+                        
                     />
                 </div>
                 <div>
@@ -147,7 +161,7 @@ export default function Empresafr() {
                         id="estado"
                         value={estado}
                         onChange={e => setEstado(e.target.value)}
-                        required
+                        
                     />
                 </div>
                 <div>
@@ -157,7 +171,7 @@ export default function Empresafr() {
                         id="fhInicio"
                         value={fhInicio}
                         onChange={e => setFhInicio(e.target.value)}
-                        required
+                        
                     />
                 </div>
                 <div>
@@ -167,7 +181,7 @@ export default function Empresafr() {
                         id="fhFin"
                         value={fhFin}
                         onChange={e => setFhFin(e.target.value)}
-                        required
+                        
                     />
                 </div>
                 <div>
@@ -177,7 +191,7 @@ export default function Empresafr() {
                         id="sector"
                         value={sector}
                         onChange={e => setSector(e.target.value)}
-                        required
+                        
                     />
                 </div>
                 <div>
@@ -187,7 +201,7 @@ export default function Empresafr() {
                         id="actividad"
                         value={actividad}
                         onChange={e => setActividad(e.target.value)}
-                        required
+                        
                     />
                 </div>
 
@@ -197,3 +211,5 @@ export default function Empresafr() {
         </div>
     )
 }
+
+export default Empresafr;
