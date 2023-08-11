@@ -7,6 +7,7 @@ import EmpresaVer from "./Empresa/empresaVer"
 import Empleadofr from './Empleado/Empleadofr'
 import Novedades from './Novedades/Novedades'
 import Reportes from './Reportes/Reportes'
+import EmpleadominVer from './Empleado/content_empl';
 
 function Content() {
     const [dataUpdated, setDataUpdated] = useState(false);
@@ -24,6 +25,8 @@ function Content() {
                 <Route path='registrar-empleado' element={<Empleadofr />} />
                 <Route path='registrar-novedades' element={<Novedades />} />
                 <Route path='registrar-reportes' element={<Reportes/>} />
+                <Route path='consultar-min-empleado' element={<EmpleadominVer/>} />
+
             </Routes>
         </div>
     )
