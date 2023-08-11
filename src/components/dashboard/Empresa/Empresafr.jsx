@@ -35,7 +35,7 @@ function Empresafr({ onDataUpdate }) {
             actividad,
         };
 
-        fetch('https://developersaurios.000webhostapp.com/api.php?apicall=createempresa', {
+        fetch('http://localhost/api/api.php?apicall=createempresa', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -167,7 +167,7 @@ function Empresafr({ onDataUpdate }) {
                 <div>
                     <label htmlFor="fhInicio">Fecha de afiliacion</label>
                     <input
-                        type="date"
+                        type="text"
                         id="fhInicio"
                         value={fhInicio}
                         onChange={e => setFhInicio(e.target.value)}
@@ -177,7 +177,7 @@ function Empresafr({ onDataUpdate }) {
                 <div>
                     <label htmlFor="fhFin">Fecha de desactivacion</label>
                     <input
-                        type="date"
+                        type="text"
                         id="fhFin"
                         value={fhFin}
                         onChange={e => setFhFin(e.target.value)}
