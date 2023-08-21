@@ -167,7 +167,7 @@ function Empresafr({ onDataUpdate }) {
                 <div>
                     <label htmlFor="fhInicio">Fecha de afiliacion</label>
                     <input
-                        type="text"
+                        type="date"
                         id="fhInicio"
                         value={fhInicio}
                         onChange={e => setFhInicio(e.target.value)}
@@ -177,7 +177,7 @@ function Empresafr({ onDataUpdate }) {
                 <div>
                     <label htmlFor="fhFin">Fecha de desactivacion</label>
                     <input
-                        type="text"
+                        type="date"
                         id="fhFin"
                         value={fhFin}
                         onChange={e => setFhFin(e.target.value)}
@@ -205,7 +205,7 @@ function Empresafr({ onDataUpdate }) {
                     />
                 </div>
 
-                <button type="submit">Registrar</button>
+                <button type="submit" className="btn btn-primary">Registrar</button>
             </form>
             {message && <p>{message}</p>}
         </div>

@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
+import {Link} from "react-router-dom";
 
-export default function EmpresaVer({ dataUpdated }) {
+export default function EmpresaVer({ dataUpdated}) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-      fetchData();
+        fetchData();
     }, [dataUpdated]); // Agregar dataUpdated como dependencia
-  
+
     const fetchData = () => {
-      fetch('http://localhost/api/api.php?apicall=readempresas')
-        .then((response) => response.json())
-        .then((data) => setData(data.contenido))
-        .catch((error) => console.log(error));
+        fetch('http://localhost/api/api.php?apicall=readempresas')
+            .then((response) => response.json())
+            .then((data) => setData(data.contenido))
+            .catch((error) => console.log(error));
     };
+    let id = "";
     return (
         <div className="consultar-container">
-            <h2>Empresas</h2>
+            <h3>Empresas</h3>
             <table className="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -42,7 +44,7 @@ export default function EmpresaVer({ dataUpdated }) {
                                 <td>{item.N_TDoc}</td>
                                 <td>{item.CC_Rl}</td>
                                 <td>{item.Est_E === "0" ? "Activo" : "Inactivo"}</td>
-                                <td><button value={item.id_e} type="button" className="btn btn-primary">Ver mas</button></td>
+                                <td><Link to={id = item.id_e}><button value={id} type="button" className="btn btn-primary">Ver mas</button></Link></td>
                             </tr>
                         ))
                     ) : (
