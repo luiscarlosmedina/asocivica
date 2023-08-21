@@ -35,7 +35,7 @@ function Empresafr({ onDataUpdate }) {
             actividad,
         };
 
-        fetch('http://localhost/api/api.php?apicall=createempresa', {
+        fetch('https://developersaurios.000webhostapp.com/api.php?apicall=createempresa', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

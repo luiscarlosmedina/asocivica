@@ -9,7 +9,7 @@ export default function EmpresaVer({ dataUpdated}) {
     }, [dataUpdated]); // Agregar dataUpdated como dependencia
 
     const fetchData = () => {
-        fetch('http://localhost/api/api.php?apicall=readempresas')
+        fetch('https://developersaurios.000webhostapp.com/api.php?apicall=readempresas')
             .then((response) => response.json())
             .then((data) => setData(data.contenido))
             .catch((error) => console.log(error));

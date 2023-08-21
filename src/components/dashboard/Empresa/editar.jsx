@@ -6,7 +6,7 @@ export default function Editar({id}) {
     const handlePostData = async () => {
   
       const response = await fetch(
-        "http://localhost/api/api.php?apicall=updateempresa",
+        "https://developersaurios.000webhostapp.com/api.php?apicall=updateempresa",
         {
           method: "POST",
           headers: {
