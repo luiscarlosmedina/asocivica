@@ -11,7 +11,7 @@ export default function EmpresaVerDetalle() {
   const handlePostData = async () => {
 
     const response = await fetch(
-      "http://localhost/api/api.php?apicall=readidempresa",
+      "http://developersaurios.000webhostapp.com/api.php?apicall=readidempresa",
       {
         method: "POST",
         headers: {

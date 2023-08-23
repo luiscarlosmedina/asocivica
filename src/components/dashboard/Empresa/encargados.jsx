@@ -6,7 +6,7 @@ export default function Encargados({id}) {
     const handlePostData = async () => {
 
         const response = await fetch(
-            "http://localhost/api/api.php?apicall=readTelSedeId",
+            "http://developersaurios.000webhostapp.com/api.php?apicall=readTelSedeId",
             {
                 method: "POST",
                 headers: {
