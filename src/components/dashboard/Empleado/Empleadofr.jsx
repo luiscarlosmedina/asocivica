@@ -59,10 +59,10 @@ export default function Empleadofr() {
             </header>
             <section className='secundary-box'>
             <div className='container'>
-                <F_emple />
+                <F_efmple />
               </div>
             </section>
-            
+    
         </div>
 
     </div>

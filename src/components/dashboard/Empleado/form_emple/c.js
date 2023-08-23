@@ -10,7 +10,6 @@ const C_emple = () => {
               <option select value="">Seleccione una opción </option>
               <option select value="">Libreta de primera clase</option>
               <option select value="">Libreta de segunda clase </option>
-              <option select value="">Targeta de indentidad</option>
             </select>
           </div>
           <div >  

@@ -30,13 +30,13 @@ export default function EmpleadominVer({ dataUpdated }) {
                 <tbody className="table-group-divider">
                     {Array.isArray(data) ? (
                         data.map(item => (
-                            <tr key={item.id_Em}>
-                                <th scope="row">{item.ID_Doc}</th>
+                            <tr key={item.id_em}>
+                                <th scope="row">{item.id_doc}</th>
                                 <td>{item.documento}</td>
-                                <td>{item.N_Em}</td>
-                                <td>{item.A_Em}</td>
-                                <td>{item.Eml_Em}</td>
-                                <td>{item.tel_Em}</td>
+                                <td>{item.n_em}</td>
+                                <td>{item.a_em}</td>
+                                <td>{item.eml_em}</td>
+                                <td>{item.tel_em}</td>
                                 <td><button value={item.id_e} type="button" className="btn btn-primary">Ver mas</button></td>
                             </tr>
                         ))

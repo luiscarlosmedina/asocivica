@@ -9,7 +9,7 @@ const B_emple = () => {
             <select class="form-select" id="validationDefault04" required>
               <option select value="">Seleccione una opción </option>
               <option select value="">Cedula de ciudadania</option>
-              <option select value="">Cedula de estrangeria</option>
+              <option select value="">Cedulae estrange</option>
               <option select value="">Targeta de indentidad</option>
             </select>
           </div>
