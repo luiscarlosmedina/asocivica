@@ -22,7 +22,8 @@ const Options = () => {
                     <i className="bi bi-pencil-square"></i> <span className='ms-2'>Gestion de novedades</span>
                 </a>
                 <ul className="dropdown-menu">
-                    <li><a className="dropdown-item" href="inicio">Ver novedades</a></li>
+                    
+                    <li><Link to={"consultar-novedades"} className="dropdown-item" >Ver Novedades</Link></li>
                     <li><Link to={"registrar-novedades"} className="dropdown-item" >Agregar Novedades</Link></li>
                  
                 </ul>
