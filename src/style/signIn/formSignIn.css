@@ -37,7 +37,7 @@
    right: 0;
    background: linear-gradient(to right,rgba(141,169,196,.5), rgba(19, 64, 116, .5) );
 }
-@media(max-width:500px){
+@media(max-width:800px){
     .imagen-formulario{
         display: none;
     }
@@ -60,6 +60,7 @@
 }
 
 .formulario{
+    height: 100vh;
     margin: 0 auto;
     padding: 50px;
     background-color: var(--azul);
