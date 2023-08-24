@@ -1,31 +1,10 @@
 import React, { useState } from "react";
 import Logo from "../../img/logosf.png";
 import "../../style/signIn/formSignIn.css";
-import Fondo from "../../img/corporativolg.jpg";
-import axios from 'axios';
-import {Link} from 'react-router-dom'
+
 
 
 export default function SignIn() {
-  const [body, setBody] = useState({ ID_Em: "", passw: "" });
-
-  const inputChange = ({ target }) => {
-    const { name, value } = target;
-    setBody({
-      ...body,
-      [name]: value
-    });
-  };
-
-  const onSubmit = () => {
-    axios.post('http://localhost:3008/api/login',body)
-    .then(({data})=> 
-    {console.log(data)})
-    .catch(({response})=>
-    {
-      console.log(response.data)
-    })
-  };
   return (
     <div className="Body">
       <div className="contenedor-formulario">
@@ -42,8 +21,6 @@ export default function SignIn() {
             <input
               placeholder="Documento"
               type="number"
-              value={body.ID_Em}
-              onChange={inputChange}
               name="ID_Em"
             />
           </div>
@@ -52,8 +29,6 @@ export default function SignIn() {
             <input
               placeholder="Contraseña"
               type="password"
-              value={body.passw}
-              onChange={inputChange}
               name="passw"
             />
           </div>
@@ -61,7 +36,7 @@ export default function SignIn() {
             <a href="#">¿Olvidaste tu contraseña?</a>
           </div>
           <div className="input">
-            <input type="submit" value="Ingresar" onClick={onSubmit} />
+            <input type="submit" value="Ingresar" />
           </div>
         </div>
       </div>
