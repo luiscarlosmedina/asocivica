@@ -3,26 +3,16 @@ import React, { useEffect, useState } from "react";
 export default function Encargados({id}) {
     const [data, setData] = useState("");
 
-    const handlePostData = async () => {
-
-        const response = await fetch(
-            "https://developersaurios.000webhostapp.com/api.php?apicall=readTelSedeId",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ id }),
-            }
-        );
-
-        const data = await response.json();
-        setData(data.contenido);
-    };
-
     useEffect(() => {
-        handlePostData();
-    }, [id]);
+        fetchData();
+      },); // Agregar dataUpdated como dependencia
+    
+      const fetchData = () => {
+        fetch(`https://developersaurios.000webhostapp.com/api.php?apicall=readTelSede&id=${id}`)
+          .then((response) => response.json())
+          .then((data) => setData(data.contenido))
+          .catch((error) => console.log(error));
+      };
     return (
         <div>
             <table className="table table-striped table-hover">
