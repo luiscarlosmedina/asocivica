@@ -1,70 +1,83 @@
-import React from 'react'
-import "../../../style/Empleado/empleadofr.css";
-import F_emple from './form_emple/a';
+import React from "react";
+import A_emple from "./form_emple/a";
+import B_emple from "./form_emple/b";
+import C_emple from "./form_emple/c";
+import D_emple from "./form_emple/d";
+import E_emple from "./form_emple/e";
 
-export default function Empleadofr() {
-  return (
-    <div>
-      <h2>Esta plantilla corresponde a la gestion Empleados, esto esta sujeto a sus correspondinetes ajustes</h2>
-      <div className='main-box'>
-            <header className='primary-box'>
-                <div className= "box-menu">
-                    <button className='sub-menu'>
-                        <div className='box-options'>
-                        <div>Información empresa</div>
-                        <div className='circle-options'>
-                        <i className="bi bi-check-circle-fill"></i> 
-                        <i class="bi bi-x-circle-fill"></i>
-                        </div>
-                        </div>
-                    </button>
-                    <button className='sub-menu'>
-                        <div className='box-options'>
-                        <div>Información empleados 1</div>
-                        <div className='circle-options'>
-                        <i className="bi bi-check-circle-fill"></i> 
-                        <i class="bi bi-x-circle-fill"></i>
-                        </div>
-                        </div>
-                    </button>
-                    <button className='sub-menu'>
-                        <div className='box-options'>
-                        <div>Información personal 2</div>
-                        <div className='circle-options'>
-                        <i className="bi bi-check-circle-fill"></i> 
-                        <i class="bi bi-x-circle-fill"></i>
-                        </div>
-                        </div>
-                    </button>
+class Empleadofr extends React.Component {
+  state = {
+    paso: 1,
+  };
 
-                    <button className='sub-menu'>
-                        <div className='box-options'>
-                        <div>Contactos emergencia</div>
-                        <div className='circle-options'>
-                        <i className="bi bi-check-circle-fill"></i> 
-                        <i class="bi bi-x-circle-fill"></i>
-                        </div>
-                        </div>
-                    </button>
-                    <button className='sub-menu'>
-                        <div className='box-options'>
-                        <div>Contrato empleado</div>
-                        <div className='circle-options'>
-                        <i className="bi bi-check-circle-fill"></i> 
-                        <i class="bi bi-x-circle-fill"></i>
-                        </div>
-                        </div>
-                    </button>
-                </div>
-            </header>
-            <section className='secundary-box'>
-            <div className='container'>
-                <F_efmple />
-              </div>
-            </section>
-    
-        </div>
+  siguientePaso = () => {
+    const { paso } = this.state;
+    this.setState({
+      paso: paso + 1,
+    });
+  };
 
-    </div>
-  )
+  handleInputChange = (event) => {
+    const { paso } = this.state;
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  anteriorPaso = () => {
+    const { paso } = this.state;
+    this.setState({
+      paso: paso - 1,
+    });
+  };
+
+  render() {
+    switch (this.state.paso) {
+      case 1:
+        return (
+          <A_emple
+            handleInputChange={this.handleInputChange}
+            siguientePaso={this.siguientePaso}
+          />
+        );
+      case 2:
+        return (
+          <B_emple
+            handleInputChange={this.handleInputChange}
+            siguientePaso={this.siguientePaso}
+            anteriorPaso={this.anteriorPaso}
+          />
+        );
+      case 3:
+        return (
+          <C_emple
+            handleInputChange={this.handleInputChange}
+            siguientePaso={this.siguientePaso}
+            anteriorPaso={this.anteriorPaso}
+          />
+        );
+
+      case 4:
+        return (
+          <D_emple
+            handleInputChange={this.handleInputChange}
+            siguientePaso={this.siguientePaso}
+            anteriorPaso={this.anteriorPaso}
+          />
+        );
+      case 5:
+        return (
+          <E_emple
+            handleInputChange={this.handleInputChange}
+            siguientePaso={this.siguientePaso}
+            anteriorPaso={this.anteriorPaso}
+          />
+        );
+
+      default:
+        return <div>error</div>;
+    }
+  }
 }
+
+export default Empleadofr;
