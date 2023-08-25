@@ -10,10 +10,10 @@ export default function EmpresaVerDetalle() {
 
   useEffect(() => {
     fetchData();
-  }, []); // Agregar dataUpdated como dependencia
+  },); // Agregar dataUpdated como dependencia
 
   const fetchData = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempresa&id=${id}`)
+    fetch(`https://developersaurios.000webhostapp.com/api.php?apicall=readempresa&id=${id}`)
       .then((response) => response.json())
       .then((data) => setData(data.contenido))
       .catch((error) => console.log(error));
@@ -138,7 +138,7 @@ export default function EmpresaVerDetalle() {
         <p>No Encontramos la informacion que buscas</p>
       )}
       <h3>Sedes y encargados</h3>
-    
+        <Sede id={id} />
     </div>
   );
 }
