@@ -34,8 +34,9 @@ function Empresafr({ onDataUpdate }) {
             sector,
             actividad,
         };
-
-        fetch('https://developersaurios.000webhostapp.com/api.php?apicall=createempresa', {
+        console.log(empresa);
+        //http://localhost/api_proyecto.github.io/api.php?apicall=readempresas
+        fetch('http://localhost/api_proyecto.github.io/api.php?apicall=createempresa', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -5,29 +5,19 @@ import Editar from './editar';
 
 export default function EmpresaVerDetalle() {
   const [data, setData] = useState("");
-  const { id } = useParams();
+  const  {id}  = useParams();
   const back = useNavigate()
 
-  const handlePostData = async () => {
-
-    const response = await fetch(
-      "https://developersaurios.000webhostapp.com/api.php?apicall=readidempresa",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      }
-    );
-
-    const data = await response.json();
-    setData(data.contenido);
-  };
-
   useEffect(() => {
-    handlePostData();
-  }, [id]);
+    fetchData();
+  }, []); // Agregar dataUpdated como dependencia
+
+  const fetchData = () => {
+    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempresa&id=${id}`)
+      .then((response) => response.json())
+      .then((data) => setData(data.contenido))
+      .catch((error) => console.log(error));
+  };
 
   return (
     <div>
@@ -63,7 +53,7 @@ export default function EmpresaVerDetalle() {
                       aria-label="Close"
                     ></button>
                   </div>
-                    <Editar />
+                  <Editar />
                   <div className="modal-footer">
                     <button
                       type="button"
@@ -148,7 +138,7 @@ export default function EmpresaVerDetalle() {
         <p>No Encontramos la informacion que buscas</p>
       )}
       <h3>Sedes y encargados</h3>
-      <Sede id={id} />
+    
     </div>
   );
 }
