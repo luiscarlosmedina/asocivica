@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function EmpresaVer({ dataUpdated}) {
+export default function EmpresaVer({ dataUpdated }) {
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchData();
-    }, [dataUpdated]); // Agregar dataUpdated como dependencia
+    }, []); // Agregar dataUpdated como dependencia
 
     const fetchData = () => {
-        fetch('https://developersaurios.000webhostapp.com/api.php?apicall=readempresa')
+        fetch(`https://developersaurios.000webhostapp.com/api.php?apicall=readempresa`)
             .then((response) => response.json())
-            .then((data) => setData(data.contenido))
-            .catch((error) => console.log(error));
+            .then((data) => {
+                setData(data.contenido);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
     };
     let id = "";
     return (
@@ -33,7 +40,11 @@ export default function EmpresaVer({ dataUpdated}) {
                     </tr>
                 </thead>
                 <tbody className="table-group-divider">
-                    {Array.isArray(data) ? (
+                    {loading ? (
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Cargando...</span>
+                        </div>
+                    ) : Array.isArray(data) ? (
                         data.map(item => (
                             <tr key={item.id_e}>
                                 <th scope="row">{item.Nit_E}</th>
