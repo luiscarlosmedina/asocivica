@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - asocivica
 on:
   push:
     branches:
-      - gh-pages
+      - main
   workflow_dispatch:
 
 jobs:
