@@ -1,18 +1,18 @@
 import "./style/app.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from "./components/dashboard/Dashboard"
+import { HashRouter, Routes, Route } from "react-router-dom";
+import Dashboard from "./components/dashboard/Dashboard";
 import SignIn from "./components/signIn/SignIn";
 
 function App() {
   return (
     <>
       <div className="wrapper">
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route path="/*" element={<Dashboard />} />
             <Route path="/login" element={<SignIn />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </div>
     </>
   );
