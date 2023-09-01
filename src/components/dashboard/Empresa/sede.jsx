@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import Encargados from './encargados';
+import Editar_s from './editarsede';
 
 export default function Sede({ id }) {
     const [data, setData] = useState("");
@@ -10,7 +11,7 @@ export default function Sede({ id }) {
     }, []); // Agregar dataUpdated como dependencia
 
     const fetchData = () => {
-        fetch(`https://developersaurios.000webhostapp.com/api.php?apicall=readsede&id=${id}`)
+        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readsede&id=${id}`)
             .then((response) => response.json())
             .then((data) => {
                 setData(data.contenido);
@@ -29,7 +30,11 @@ export default function Sede({ id }) {
                     <h3>Sedes y encargados</h3>
                 </div>
                 <div>
-                    <button type="button" className="btn btn-link" data-bs-toggle="modal" data-bs-target="#editar" data-bs-whatever="@mdo">Agregar sede </button>
+                    <button type="button" className="btn btn-link" data-bs-toggle="modal" data-bs-target="#sede" data-bs-whatever="@mdo">Agregar sede </button>
+                </div>
+                {/* Modal */}
+                <div class="modal fade" id="sede" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <Editar_s id={id} tp={"1"}/>
                 </div>
             </div>
             <hr className='pb-3' />
@@ -50,7 +55,7 @@ export default function Sede({ id }) {
                             data.map(item => (
                                 <Fragment key={item.ID_S}>
                                     <tr>
-                                        <th scope="row">{item.Dic_S}</th>
+                                        <td>{item.Dic_S}</td>
                                         <td>{item.Sec_V}</td>
                                         <td><button className='btn btn-link'>Editar</button></td>
                                         <td>
