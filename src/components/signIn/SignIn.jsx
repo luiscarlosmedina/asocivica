@@ -9,18 +9,6 @@ export default function SignIn() {
     usuario: "",
     password: ""
   })
-  const navigate = useNavigate()
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios.post("http://localhost:3001/login", values)
-    .then(res => {
-      if(res.data.Status === "Success"){
-        navigate("/*")
-      } else {
-        alert("Error")
-      }
-    }).then(err => console.log(err));
-  }
   return (
     <div className="Body">
       <div className="contenedor-formulario">
