@@ -4,7 +4,7 @@ export default function Encargados({ id }) {
     const [data, setData] = useState("");
     const [loading, setLoading] = useState(true);
     const fetchData = () => {
-        fetch(`https://developersaurios.000webhostapp.com/api.php?apicall=readTelSede&id=${id}`)
+        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readTelSede&id=${id}`)
             .then((response) => response.json())
             .then((data) => {
                 setData(data.contenido);
@@ -25,22 +25,26 @@ export default function Encargados({ id }) {
                 <thead>
                     <tr>
                         <th scope="col">Nombre encargado</th>
-                        <th scope="col">Telefono</th>
+                        <th scope="col">Telefono 1</th>
+                        <th scope="col">Telefono 2</th>
+                        <th scope="col">Telefono 3</th>
 
                     </tr>
                 </thead>
                 <tbody className="table-group-divider">
                     {loading ? (
-                        <p>Cargando...</p>
+                        <tr>Cargando...</tr>
                     ) : Array.isArray(data) ? (
                         data.map(item => (
-                            <tr key={item.id_e}>
+                            <tr key={item.ID_En}>
                                 <td>{item.N_En}</td>
-                                <td>{item.tel}</td>
+                                <td>{item.telefono.split(',')[0]}</td>
+                                <td>{item.telefono.split(',')[1]}</td>
+                                <td>{item.telefono.split(',')[2]}</td>
                             </tr>
                         ))
                     ) : (
-                        <p>No hay datos disponibles</p>
+                        <tr>No hay datos disponibles</tr>
                     )}
                 </tbody>
             </table>

@@ -5,6 +5,10 @@ import "../../style/signIn/formSignIn.css";
 
 
 export default function SignIn() {
+  const [values, setValues] = useState({
+    usuario: "",
+    password: ""
+  })
   return (
     <div className="Body">
       <div className="contenedor-formulario">
