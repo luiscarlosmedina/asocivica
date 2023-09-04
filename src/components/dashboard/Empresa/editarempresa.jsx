@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import swal from 'sweetalert';
 
-export default function Editar({ id }) {
+export default function Editar_e({ id }) {
     const [empresa, setEmpresa] = useState({
         id_e: "",
         Nit_E: "",
@@ -55,12 +56,18 @@ export default function Editar({ id }) {
         })
             .then(response => response.json())
             .then(responseData => {
-                console.log(responseData);
-                // Manejar la respuesta del servidor
+                if(responseData){
+                    setTimeout(function(){
+                        window.location.reload();
+                    }, 1200);
+                    swal("Buen trabajo!", 'Actualizacion exitosa', "success");
+                    // Manejar la respuesta del servidor
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
-            });
+                swal("Ocurrio un error!", 'Intentalo mas tarde', "error");
+            }); 
     };
     const handleInputChange = event => {
         const { name, value } = event.target;
