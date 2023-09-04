@@ -5,6 +5,7 @@ import Home from './Home'
 import Empresafr from './Empresa/Empresafr'
 import EmpresaVer from "./Empresa/empresaVer"
 import EmpresaVerDetalle from './Empresa/empresaVerDetalle';
+//import Empleadofr_ps from './Empleado/Empleadofr_ps'
 import Empleadofr from './Empleado/Empleadofr'
 import Novedades from './Novedades/Novedades'
 //import VerDetalleNovedades from '.Novedades/VerDetalleNovedades'

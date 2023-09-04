@@ -1,241 +1,329 @@
 import React, { useState } from 'react';
 
-function Empleadofr_ps({ onDataUpdate }) {
-    const [estado, setEstado] = useState("")
-    const [rol, setRol] = useState("")
-    const [nombre, setNombre] = useState("")
-    const [apellido, setApellido] = useState("")   
-    const [correo, setCorreo] = useState("")
-    const [contraseña, setContraseña] = useState("")
-    const [tipdoc, setTipDoc] = useState("")
-    const [numdoc, setNumDoc] = useState("")
-    const [barrio, setBarrio] = useState("")
-    const [direccion, setDireccion] = useState("")
-    const [telcel, setTel] = useState("")
-    const [tiplib, setTipLib] = useState("")
-    const [tiplic, setTipLic] = useState("")
-    const [eps, setEps] = useState('')
-    const [fonpen, setFonPen] = useState('')
-    const [fonces, setFonCes] = useState('')
-    const [arl, setArl] = useState('')
-    const [message, setMessage] = useState('');
-    
-    const handleSubmit = (e) => {
-        e.preventDefault();
+function Empleado_ps({ onDataUpdate }) {
+  const [empleadoData, setEmpleadoData] = useState({
+    id_doc: '',
+    documento: '',
+    n_em: '',
+    a_em: '',
+    eml_em: '',
+    f_em: '',
+    dir_em: '',
+    lic_emp: '',
+    lib_em: '',
+    tel_em: '',
+    contrato: '',
+    barloc_em: '',
+    id_pens: '',
+    id_eps: '',
+    id_arl: '',
+    id_ces: '',
+    id_rh: '',
+    id_rol: '',
+    estado: '',
+    passw: '',
+  });
 
-        const empleado = {
-            estado,
-            rol,
-            nombre,
-            apellido,
-            correo,
-            contraseña,
-            tipdoc,
-            numdoc,
-            barrio,
-            direccion,
-            telcel,
-            tiplib,
-            tiplic,
-            eps,
-            fonpen,
-            fonces,
-            arl,
+  const [message, setMessage] = useState('');
 
-        };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEmpleadoData({
+      ...empleadoData,
+      [name]: value,
+    });
+  };
 
-        fetch('https://developersaurios.000webhostapp.com/api.php?apicall=createempleado', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(empleado),
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    setMessage('Error al crear el usuario');
-                } else {
-                    setMessage('empleado creado correctamente');
-                    setEstado("");
-                    setRol("");
-                    setNombre("");
-                    setApellido("");
-                    setContraseña("");
-                    setTipDoc("");
-                    setNumDoc("");
-                    setBarrio("");
-                    setDireccion("");
-                    setTel("");;
-                    setTipLib("");
-                    setTipLic("");
-                    setEps("");
-                    setFonPen("");
-                    setFonCes("");
-                    setArl("");
-
-                    onDataUpdate();
-                }
-            })
-            .catch(error => {
-                setMessage('Error en la solicitud');
-                console.log(error);
-            });
-        };
-    return (
-        <div class="box-main">
-            <h2>Agregar un empleado</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="estado">Nit</label>
-                    <select
-                        id="estado"
-                        value={estado}
-                        onChange={e => setEstado(e.target.value)}
-                    >
-                         <option select value="opcion1">Seleccione una opción </option>
-                         <option select value="opcion2">Activo</option>
-                         <option select value="opcion3">Inactivo</option>
-                    </select>
-                </div>
-                <div>
-                    <label htmlFor="rol">Rol</label>
-                    <input
-                        type="text"
-                        id="rol"
-                        value={rol}
-                        onChange={e => setRol(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="nombre">Nombre</label>
-                    <input
-                        type="text"
-                        id="nombre"
-                        value={nombre}
-                        onChange={e => setNombre(e.target.value)}
-                        
-                    />
-                </div>
-                <div>
-                    <label htmlFor='apellido'>apellido</label>
-                    <input
-                        type="text"
-                        id="apellido"
-                        value={apellido}
-                        onChange={e => setNombre(e.target.value)}
-                    />
-
-                </div>
-                <div>
-                    <label htmlFor='correo'>Correo electronico</label>
-                    <input
-                        type="email"
-                        id="correo"
-                        value={correo}
-                        onChange={e => setCorreo(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor='contraseña'>contraseña</label>
-                    <input
-                        type="password"
-                        id="contraseña"
-                        value={contraseña}
-                        onChange={e => setContraseña(e.target.value)}
-                    />
-                </div>
-                <div >
-                    <label htmlFor='tipdoc'>Tipo de Documento</label>
-                    <select
-                        id="tipdoc"
-                        value={tipdoc}
-                        onChange={e => setTipDoc(e.target.value)}
-                    >
-                    <option select value="">Seleccione una opción </option>
-                    <option select value="">Cedula de ciudadania</option>
-                    <option select value="">Cedula de estrangera</option>
-                    <option select value="">Targeta de indentidad</option>
-                    </select>
-                </div>
-                <div>
-                    <label htmlFor='numdoc'> Numero de documento</label>
-                    <input
-                        type="text"
-                        value={numdoc}
-                        onChange={e => setNumDoc(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor='barrio'>Barrio</label>
-                    <input
-                        type="text"
-                        value={barrio}
-                        onChange={e => setBarrio(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor='direccion'>Direcion</label>
-                    <input
-                        type="text"
-                        value={direccion}
-                        onChange={e => setDireccion(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor='direccion'>Telefono</label>
-                    <input
-                        type="text"
-                        value={direccion}
-                        onChange={e => setDireccion(e.target.value)}
-                    />
-                </div>
-                <div >
-                    <label htmlFor='tiplib'>Tipo de libreta Militar</label>
-                    <select
-                        id="tiplib"
-                        value={tiplib}
-                        onChange={e => setTipLib(e.target.value)}
-                    >
-                    <option select value="opcion1">Seleccione una opción </option>
-                    <option select value="opcion2">Libreta de primera clase</option>
-                    <option select value="opcion3">Libreta de segunda clase </option>
-                    </select>
-                </div>
-                <div >
-                    <label htmlFor='tiplic'>Tipo de licencia de conducción</label>
-                    <select
-                        id="tiplic"
-                        value={tiplic}
-                        onChange={e => setTipLic(e.target.value)}
-                    >
-                    <option select value="opcion1">Seleccione una opción </option>
-                    <option select value="opcion2">A1</option>
-                    <option select value="opcion3">A2</option>
-                    <option select value="opcion4">B1</option>
-                    <option select value="opcion5">B2</option>
-                    <option select value="opcion6">B3</option>
-                    <option select value="opcion7">C1</option>
-                    <option select value="opcion8">C2</option>
-                    </select>
-                </div>
-                
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
 
+    fetch('http://localhost/API/api.php?apicall=createempleado', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(empleadoData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          setMessage('Error al crear el empleado');
+        } else {
+          setMessage('Empleado creado correctamente');
+          // Limpia el formulario después de un registro exitoso
+          setEmpleadoData({
+            id_doc: '',
+            documento: '',
+            n_em: '',
+            a_em: '',
+            eml_em: '',
+            f_em: '',
+            dir_em: '',
+            lic_emp: '',
+            lib_em: '',
+            tel_em: '',
+            contrato: '',
+            barloc_em: '',
+            id_pens: '',
+            id_eps: '',
+            id_arl: '',
+            id_ces: '',
+            id_rh: '',
+            id_rol: '',
+            estado: '',
+            passw: '',
+          });
+          onDataUpdate(); // Llama a la función de actualización de datos proporcionada como prop
+        }
+      })
+      .catch((error) => {
+        setMessage('Error en la solicitud');
+        console.error(error);
+      });
+  };
 
-
-
-
-
-
-
-               
-
-                <button type="submit" className="btn btn-primary">Registrar</button>
-            </form>
-            {message && <p>{message}</p>}
+  return (
+    <div>
+      <h2>Agregar un empleado</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="id_doc">Tipo de Documento</label>
+          <input
+            type="text"
+            id="id_doc"
+            name="id_doc"
+            value={empleadoData.id_doc}
+            onChange={handleInputChange}
+            required
+          />
         </div>
-    )
+        <div>
+          <label htmlFor="documento">Documento</label>
+          <input
+            type="text"
+            id="documento"
+            name="documento"
+            value={empleadoData.documento}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="n_em">Nombre</label>
+          <input
+            type="text"
+            id="n_em"
+            name="n_em"
+            value={empleadoData.n_em}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="a_em">Apellido</label>
+          <input
+            type="text"
+            id="a_em"
+            name="a_em"
+            value={empleadoData.a_em}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="eml_em">Correo Electrónico</label>
+          <input
+            type="email"
+            id="eml_em"
+            name="eml_em"
+            value={empleadoData.eml_em}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="f_em">Foto</label>
+          <input
+            type="text"
+            id="f_em"
+            name="f_em"
+            value={empleadoData.f_em}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="dir_em">Dirección</label>
+          <input
+            type="text"
+            id="dir_em"
+            name="dir_em"
+            value={empleadoData.dir_em}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="lic_emp">Licencia</label>
+          <input
+            type="text"
+            id="lic_emp"
+            name="lic_emp"
+            value={empleadoData.lic_emp}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="lib_em">Libreta</label>
+          <input
+            type="text"
+            id="lib_em"
+            name="lib_em"
+            value={empleadoData.lib_em}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="tel_em">Teléfono</label>
+          <input
+            type="text"
+            id="tel_em"
+            name="tel_em"
+            value={empleadoData.tel_em}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="contrato">Contrato</label>
+          <input
+            type="text"
+            id="contrato"
+            name="contrato"
+            value={empleadoData.contrato}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="barloc_em">Barrio y Localidad</label>
+          <input
+            type="text"
+            id="barloc_em"
+            name="barloc_em"
+            value={empleadoData.barloc_em}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="id_pens">Tipo de Pensión</label>
+          <input
+            type="text"
+            id="id_pens"
+            name="id_pens"
+            value={empleadoData.id_pens}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="id_eps">EPS</label>
+          <input
+            type="text"
+            id="id_eps"
+            name="id_eps"
+            value={empleadoData.id_eps}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="id_arl">ARL</label>
+          <input
+            type="text"
+            id="id_arl"
+            name="id_arl"
+            value={empleadoData.id_arl}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="id_ces">Cesantías</label>
+          <input
+            type="text"
+            id="id_ces"
+            name="id_ces"
+            value={empleadoData.id_ces}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="id_rh">RH</label>
+          <input
+            type="text"
+            id="id_rh"
+            name="id_rh"
+            value={empleadoData.id_rh}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="id_rol">Rol</label>
+          <input
+            type="text"
+            id="id_rol"
+            name="id_rol"
+            value={empleadoData.id_rol}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="estado">Estado</label>
+          <input
+            type="text"
+            id="estado"
+            name="estado"
+            value={empleadoData.estado}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="passw">Contraseña</label>
+          <input
+            type="password"
+            id="passw"
+            name="passw"
+            value={empleadoData.passw}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <button type="submit">Registrar Empleado</button>
+      </form>
+      {message && <p>{message}</p>}
+    </div>
+  );
 }
 
-export default Empleadofr_ps;
+export default Empleado_ps;
+
+
+
+
+
+
+
+
+
+
+
+

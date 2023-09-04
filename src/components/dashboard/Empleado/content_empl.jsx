@@ -8,7 +8,7 @@ export default function EmpleadominVer({ dataUpdated }) {
     }, [dataUpdated]); // Agregar dataUpdated como dependencia
   
     const fetchData = () => {
-      fetch('https://developersaurios.000webhostapp.com/api.php?apicall=readminempleado')
+      fetch('http://localhost/API/api.php?apicall=readminempleado')
         .then((response) => response.json())
         .then((data) => setData(data.contenido))
         .catch((error) => console.log(error));
