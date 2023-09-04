@@ -4,6 +4,10 @@ import swal from 'sweetalert';
 export default function Editar_s({ id, tp }) {
     const [Dic_S, setDic_S] = useState("")
     const [Sec_V, setSec_V] = useState("")
+    const [N_En, setN_En] = useState("")
+    const [tel1, settel1] = useState("")
+    const [tel2, settel2] = useState("")
+    const [tel3, settel3] = useState("")
 
     const handleSubmit = (e) => {
 
@@ -11,8 +15,12 @@ export default function Editar_s({ id, tp }) {
             Dic_S,
             Sec_V,
             id_e: id,
+            N_En,
+            Est_en: "0",
+            tel1,
+            tel2,
+            tel3,
         };
-        console.log(sede);
         //http://localhost/api_proyecto.github.io/api.php?apicall=readempresas
         fetch('http://localhost/api_proyecto.github.io/api.php?apicall=createsede', {
             method: 'POST',
@@ -29,7 +37,11 @@ export default function Editar_s({ id, tp }) {
                 } else {
                     setDic_S("");
                     setSec_V("");
-                    setTimeout(function(){
+                    setN_En("")
+                    settel1("")
+                    settel2("")
+                    settel3("")
+                    setTimeout(function () {
                         window.location.reload();
                     }, 1200);
                     swal("Buen trabajo!", 'sede creada correctamente', "success");
@@ -42,19 +54,19 @@ export default function Editar_s({ id, tp }) {
     }
     return (
 
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="agregarsede">{tp == "1" ? "Nueva sede" : "Editar sede"}</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div className="modal-dialog">
+            <div className="modal-content">
+                <div className="modal-header">
+                    <h1 className="modal-title fs-5" id="agregarsede">{tp == "1" ? "Nueva sede" : "Editar sede"}</h1>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div className="modal-body">
                     <div className="modal-body">
-                        <form className='d-flex justify-content-around'>
+                        <form>
                             <div className="mb-3">
                                 <label htmlFor="Direccion">Direccion de sede</label>
                                 <input
-                                    type="text"
+                                    type="list"
                                     id="Direccion"
                                     className="form-control"
                                     value={Dic_S}
@@ -77,11 +89,55 @@ export default function Editar_s({ id, tp }) {
                                     <option value="4">4</option>
                                 </select>
                             </div>
+                            <div className="mb-3">
+                                <label htmlFor="nombre">Nombre encargado</label>
+                                <input
+                                    type="text"
+                                    id="nombre"
+                                    className="form-control"
+                                    value={N_En}
+                                    onChange={e => setN_En(e.target.value)}
+
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="tel1">Telefono encargado 1</label>
+                                <input
+                                    type="text"
+                                    id="tel1"
+                                    className="form-control"
+                                    value={tel1}
+                                    onChange={e => settel1(e.target.value)}
+
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="tel2">Telefono encargado 2</label>
+                                <input
+                                    type="text"
+                                    id="tel2"
+                                    className="form-control"
+                                    value={tel2}
+                                    onChange={e => settel2(e.target.value)}
+
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="tel3">Telefono encargado 3</label>
+                                <input
+                                    type="text"
+                                    id="tel3"
+                                    className="form-control"
+                                    value={tel3}
+                                    onChange={e => settel3(e.target.value)}
+
+                                />
+                            </div>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" onClick={handleSubmit}>Crear</button>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" className="btn btn-primary" onClick={handleSubmit}>Crear</button>
                     </div>
                 </div>
             </div>

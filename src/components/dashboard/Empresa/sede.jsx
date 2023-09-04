@@ -33,7 +33,7 @@ export default function Sede({ id }) {
                     <button type="button" className="btn btn-link" data-bs-toggle="modal" data-bs-target="#sede" data-bs-whatever="@mdo">Agregar sede </button>
                 </div>
                 {/* Modal */}
-                <div class="modal fade" id="sede" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal fade" id="sede" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <Editar_s id={id} tp={"1"}/>
                 </div>
             </div>
@@ -50,7 +50,7 @@ export default function Sede({ id }) {
                     </thead>
                     <tbody>
                         {loading ? (
-                            <p>Cargando...</p>
+                            <tr>Cargando...</tr>
                         ) : Array.isArray(data) ? (
                             data.map(item => (
                                 <Fragment key={item.ID_S}>

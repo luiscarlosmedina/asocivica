@@ -41,9 +41,11 @@ export default function EmpresaVer({ dataUpdated }) {
                 </thead>
                 <tbody className="table-group-divider">
                     {loading ? (
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Cargando...</span>
-                        </div>
+                        <tr>
+                            <td className="spinner-border text-primary" role="status">
+                                <span className="visually-hidden">Cargando...</span>
+                            </td>
+                        </tr>
                     ) : Array.isArray(data) ? (
                         data.map(item => (
                             <tr key={item.id_e}>
