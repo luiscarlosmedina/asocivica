@@ -11,7 +11,7 @@ export default function Sede({ id }) {
     }, []); // Agregar dataUpdated como dependencia
 
     const fetchData = () => {
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readsede&id=${id}`)
+        fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readsede&id=${id}`)
             .then((response) => response.json())
             .then((data) => {
                 setData(data.contenido);

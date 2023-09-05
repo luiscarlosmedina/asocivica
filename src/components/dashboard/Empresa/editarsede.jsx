@@ -22,7 +22,7 @@ export default function Editar_s({ id, tp }) {
             tel3,
         };
         //http://localhost/api_proyecto.github.io/api.php?apicall=readempresas
-        fetch('http://localhost/api_proyecto.github.io/api.php?apicall=createsede', {
+        fetch('https://20.106.206.47/api_proyecto.github.io/api.php?apicall=createsede', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

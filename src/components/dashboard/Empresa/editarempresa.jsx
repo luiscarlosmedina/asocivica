@@ -20,7 +20,7 @@ export default function Editar_e({ id }) {
     })
 
     useEffect(() => {
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempresa&id=${id}`)
+        fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readempresa&id=${id}`)
             .then(response => response.json())
             .then(data => {
                 setEmpresa(data.contenido[0]); // Actualiza el estado del empleado con los datos obtenidos
@@ -47,7 +47,7 @@ export default function Editar_e({ id }) {
             'COD_AE': empresa.COD_AE
         };
         console.log(datosActualizados);
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateempresa`, {
+        fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=updateempresa`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

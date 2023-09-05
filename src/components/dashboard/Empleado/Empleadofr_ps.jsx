@@ -38,7 +38,7 @@ function Empleado_ps({ onDataUpdate }) {
     e.preventDefault();
 
 
-    fetch('http://localhost/API/api.php?apicall=createempleado', {
+    fetch('https://20.106.206.47/api_proyecto.github.io/api.php?apicall=createempleado', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

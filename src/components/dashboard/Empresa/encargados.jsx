@@ -4,7 +4,7 @@ export default function Encargados({ id }) {
     const [data, setData] = useState("");
     const [loading, setLoading] = useState(true);
     const fetchData = () => {
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readTelSede&id=${id}`)
+        fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readTelSede&id=${id}`)
             .then((response) => response.json())
             .then((data) => {
                 setData(data.contenido);
