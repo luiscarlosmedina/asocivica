@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/asocivica/static/css/main.1fadc7a2.css",
-    "main.js": "/asocivica/static/js/main.f6d9bdb7.js",
+    "main.css": "/asocivica/static/css/main.81c14900.css",
+    "main.js": "/asocivica/static/js/main.3a40f460.js",
     "static/js/787.f3c98735.chunk.js": "/asocivica/static/js/787.f3c98735.chunk.js",
     "static/media/bner2.png": "/asocivica/static/media/bner2.82ac4d350bf25bb4b191.png",
     "static/media/logosf.png": "/asocivica/static/media/logosf.c8977e68e19a61216cf0.png",
     "static/media/corporativolg.jpg": "/asocivica/static/media/corporativolg.c91e7de730386bb63a99.jpg",
     "static/media/bner1.jpg": "/asocivica/static/media/bner1.286b44efed26fe4be720.jpg",
     "index.html": "/asocivica/index.html",
-    "main.1fadc7a2.css.map": "/asocivica/static/css/main.1fadc7a2.css.map",
-    "main.f6d9bdb7.js.map": "/asocivica/static/js/main.f6d9bdb7.js.map",
+    "main.81c14900.css.map": "/asocivica/static/css/main.81c14900.css.map",
+    "main.3a40f460.js.map": "/asocivica/static/js/main.3a40f460.js.map",
     "787.f3c98735.chunk.js.map": "/asocivica/static/js/787.f3c98735.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1fadc7a2.css",
-    "static/js/main.f6d9bdb7.js"
+    "static/css/main.81c14900.css",
+    "static/js/main.3a40f460.js"
   ]
 }
