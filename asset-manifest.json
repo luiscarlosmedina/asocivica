@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/asocivica/static/css/main.81c14900.css",
-    "main.js": "/asocivica/static/js/main.3a40f460.js",
+    "main.js": "/asocivica/static/js/main.0c428f2e.js",
     "static/js/787.f3c98735.chunk.js": "/asocivica/static/js/787.f3c98735.chunk.js",
     "static/media/bner2.png": "/asocivica/static/media/bner2.82ac4d350bf25bb4b191.png",
     "static/media/logosf.png": "/asocivica/static/media/logosf.c8977e68e19a61216cf0.png",
@@ -9,11 +9,11 @@
     "static/media/bner1.jpg": "/asocivica/static/media/bner1.286b44efed26fe4be720.jpg",
     "index.html": "/asocivica/index.html",
     "main.81c14900.css.map": "/asocivica/static/css/main.81c14900.css.map",
-    "main.3a40f460.js.map": "/asocivica/static/js/main.3a40f460.js.map",
+    "main.0c428f2e.js.map": "/asocivica/static/js/main.0c428f2e.js.map",
     "787.f3c98735.chunk.js.map": "/asocivica/static/js/787.f3c98735.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.81c14900.css",
-    "static/js/main.3a40f460.js"
+    "static/js/main.0c428f2e.js"
   ]
 }
