@@ -56,7 +56,7 @@ export default function EmpresaVer({ dataUpdated }) {
                                 <td>{item.Nom_Rl}</td>
                                 <td>{item.N_TDoc}</td>
                                 <td>{item.CC_Rl}</td>
-                                <td>{item.Est_E === "0" ? "Activo" : "Inactivo"}</td>
+                                <td>{item.Est_E === "0" ? "Activo" : item.Est_E === "1" ? "En estudio" : "Inactivo"}</td>
                                 <td><Link to={id = item.id_e}><button value={id} type="button" className="btn btn-primary">Ver mas</button></Link></td>
                             </tr>
                         ))
