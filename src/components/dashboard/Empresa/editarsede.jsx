@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import swal from 'sweetalert';
 
-export default function Editar_s({ id, tp }) {
+export default function Editar_s({ id, sid=null }) {
+    const [edit, setEdit] = useState(false)
     const [Dic_S, setDic_S] = useState("")
     const [Sec_V, setSec_V] = useState("")
     const [N_En, setN_En] = useState("")
@@ -22,7 +23,8 @@ export default function Editar_s({ id, tp }) {
             tel3,
         };
         //http://localhost/api_proyecto.github.io/api.php?apicall=readempresas
-        fetch('http://localhost/api_proyecto.github.io/api.php?apicall=createsede', {
+        const url = !edit ? 'http://localhost/api_proyecto.github.io/api.php?apicall=createsede' : 'http://localhost/api_proyecto.github.io/api.php?apicall=updatesede'
+        fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -32,7 +34,7 @@ export default function Editar_s({ id, tp }) {
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
-                    swal("Ocurrio un error!", 'Error al crear sede', "error");
+                    swal("Ocurrio un error!", edit ? 'Error al crear sede' : 'error al actualizar sede', "error");
                     // Manejar la respuesta del servidor
                 } else {
                     setDic_S("");
@@ -41,6 +43,7 @@ export default function Editar_s({ id, tp }) {
                     settel1("")
                     settel2("")
                     settel3("")
+                    setEdit(true)
                     setTimeout(function () {
                         window.location.reload();
                     }, 1200);
@@ -57,7 +60,7 @@ export default function Editar_s({ id, tp }) {
         <div className="modal-dialog">
             <div className="modal-content">
                 <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="agregarsede">{tp == "1" ? "Nueva sede" : "Editar sede"}</h1>
+                    <h1 className="modal-title fs-5" id="agregarsede">{sid == null ? "Nueva sede" : "Editar sede" }</h1>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body">

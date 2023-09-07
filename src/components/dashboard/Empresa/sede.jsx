@@ -5,6 +5,7 @@ import Editar_s from './editarsede';
 export default function Sede({ id }) {
     const [data, setData] = useState("");
     const [loading, setLoading] = useState(true);
+    const [ids, setIds] = useState(null)
 
     useEffect(() => {
         fetchData();
@@ -16,13 +17,16 @@ export default function Sede({ id }) {
             .then((data) => {
                 setData(data.contenido);
                 setLoading(false);
+                console.log(data);
             })
             .catch((error) => {
                 console.log(error);
                 setLoading(false);
             });
     };
-
+    const handleActual = (b)=>{
+        setIds(b)
+    }
     return (
         <div>
             <div className='d-flex justify-content-between align-items-center'>
@@ -34,7 +38,7 @@ export default function Sede({ id }) {
                 </div>
                 {/* Modal */}
                 <div className="modal fade" id="sede" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <Editar_s id={id} tp={"1"}/>
+                    <Editar_s id={id} />
                 </div>
             </div>
             <hr className='pb-3' />
@@ -57,7 +61,15 @@ export default function Sede({ id }) {
                                     <tr>
                                         <td>{item.Dic_S}</td>
                                         <td>{item.Sec_V}</td>
-                                        <td><button className='btn btn-link'>Editar</button></td>
+                                        <td>
+                                            <div>
+                                                <button type="button" className="btn btn-link" data-bs-toggle="modal" data-bs-target="#edisede" data-bs-whatever="@mdo" onClick={ () => handleActual(item.ID_S) }>Editar </button>
+                                            </div>
+                                            {/* Modal */}
+                                            <div className="modal fade" id="edisede" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <Editar_s id={id} sid={ids} />
+                                            </div>
+                                        </td>
                                         <td>
                                             <button
                                                 className="btn btn-primary"
