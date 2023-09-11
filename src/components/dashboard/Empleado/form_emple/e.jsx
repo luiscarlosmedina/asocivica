@@ -61,6 +61,55 @@ const E_emple = (props) => {
               <div className="box-main2">
                 <div>
                   <label for="validationDefault02" className="form-label">
+                    Link Tipo de contrato
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    aria-label="file example"
+                    onChange={props.handleInputChange}
+                    required
+                  />
+                 
+                </div>
+
+                <div className=" float-end ">
+                  <button
+                    className="btn btn-primary m-2"
+                    onClick={props.siguientePaso}
+                  >
+                    siguiente
+                  </button>
+                </div>
+
+                <div className=" float-start">
+                  <button
+                    className="btn btn-primary m-2"
+                    onClick={props.anteriorPaso}
+                  >
+                    anterior
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default E_emple;
+
+
+/*
+
+ <section className="secundary-box">
+          <div className="container">
+            <form className="box-main">
+              <div className="box-main2">
+                <div>
+                  <label for="validationDefault02" className="form-label">
                     Tipo de contrato
                   </label>
                   <select
@@ -144,9 +193,5 @@ const E_emple = (props) => {
             </form>
           </div>
         </section>
-      </div>
-    </div>
-  );
-};
 
-export default E_emple;
+        */
