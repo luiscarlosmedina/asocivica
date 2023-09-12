@@ -137,7 +137,7 @@ export default function Sede({ id }) {
               ) : Array.isArray(data) ? (
                 data.map((item) => (
                   <React.Fragment key={item.ID_S}>
-                    <TableRow style={{ cursor: 'pointer' }}>
+                    <TableRow>
                       <TableCell>
                         {editing[item.ID_S] ? (
                           <TextField

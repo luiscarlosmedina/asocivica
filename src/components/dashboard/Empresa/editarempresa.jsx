@@ -47,7 +47,6 @@ export default function Editar_e({ id }) {
             'COD_SE': empresa.COD_SE,
             'COD_AE': empresa.COD_AE
         };
-        console.log(datosActualizados);
         fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateempresa`, {
             method: 'POST',
             headers: {
