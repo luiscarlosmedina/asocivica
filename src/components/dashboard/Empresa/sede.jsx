@@ -107,9 +107,9 @@ export default function Sede({ id }) {
           <h3>Sedes y encargados</h3>
         </div>
         <div>
-          <button variant="outlined" color="primary" data-bs-toggle="modal" data-bs-target="#sede">
+          <Button variant="outlined" color="primary" data-bs-toggle="modal" data-bs-target="#sede">
             Agregar sede
-          </button>
+          </Button>
         </div>
         {/* Modal */}
         <div className="modal fade" id="sede" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
