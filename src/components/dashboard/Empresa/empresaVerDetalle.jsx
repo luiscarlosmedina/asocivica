@@ -108,7 +108,7 @@ export default function EmpresaVerDetalle() {
                   </div>
                   <div className="input-group mb-3 align-items-center">
                     <span className="input-group-text text-primary bg-transparent" id="inputGroup-sizing-default">Estado</span>
-                    <input type="text" className="form-control bg-transparent border border-0 fw-bold" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.Est_E === "0" ? "Activo" : "Inactivo"} />
+                    <input type="text" className="form-control bg-transparent border border-0 fw-bold" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.Est_E === "0" ? "Activo" : empresa.Est_E === "1" ? "En estudio" : "Inactivo"} />
                   </div>
                   {empresa.Est_E === "0" ? (
                     <div className="input-group mb-3 align-items-center">
