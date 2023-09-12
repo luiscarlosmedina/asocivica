@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
 
 export default function VerNovedades({ dataUpdated }) {
   const [data, setData] = useState([]);
@@ -9,7 +9,7 @@ export default function VerNovedades({ dataUpdated }) {
   }, []); // Agregar dataUpdated como dependencia
 
   const fetchData = () => {
-    fetch("http://localhost/api_proyecto/api.php?apicall=readnovedad&id")
+    fetch(`http://localhost/api_proyecto/api.php?apicall=readnovedad&id`)
       .then((response) => response.json())
       .then((data) => {
         setData(data.contenido);
@@ -20,84 +20,160 @@ export default function VerNovedades({ dataUpdated }) {
         setLoading(false);
       });
   };
-  return /*(
+  return (
     <>
-      {loading ? (
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Cargando...</span>
+      <div>
+        <h3>Novedades</h3>
+      </div>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-primary" type="submit">
+              Search
+            </button>
+          </form>
         </div>
-      ) : Array.isArray(data) ? (
-        data.map((item) => (
-          <div key={item.ID_Novedad}>
-            <div class="card" style={{ width: "18rem" }}>
-              <div class="card-body">
-                <h5 class="card-title">Fecha: {item.Fecha_Novedad}</h5>
-                <p class="card-text">{item.Descripcion_Novedad}</p>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Direccion: {item.Direccion}</li>
-                <li class="list-group-item">
-                  Tipo de novedad: {item.Tipo_Novedad}
-                </li>
-                <li class="list-group-item">
-                  Descripcion de novedad: {item.Descripcion_Novedad}
-                </li>
-                <li class="list-group-item">
-                  Nombre del empleado: {item.Nombre_Completo_Empleado}
-                </li>
-              </ul>
-              <div class="card-body">
-                <a href="#" class="card-link">
-                  ver más
-                </a>
-                <a href="#" class="card-link">
-                  Another link
-                </a>
+      </nav>
+      <div class="row row-cols row-cols-md-3 g-1">
+        {loading ? (
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        ) : Array.isArray(data) ? (
+          data.map((item) => (
+            <div class="card-group">
+              <div class="card border rounded-0 p-2" key={item.ID_Novedad}>
+                <div class="card-header row">
+                  <div className="col">
+                    <h4 class="card-title">{item.Tipo_Novedad}</h4>
+                  </div>
+                  <div className="col">
+                    <div className="float-end">
+                      <button class="btn btn-outline-primary" type="submit">
+                        Ver Más
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <h6 class="card-title">{item.Direccion}</h6>
+                  <p class="card-text">{item.Descripcion_Novedad}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    {item.Nombre_Completo_Empleado}
+                  </li>
+                </ul>
+                <div class="card-footer">
+                  <small class="text-body-secondary">
+                    {item.Fecha_Novedad}
+                  </small>
+                </div>
               </div>
             </div>
+          ))
+        ) : (
+          <p>A simple primary alert—check it out!</p>
+        )}
+      </div>
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+              Accordion Item #1
+            </button>
+          </h2>
+          <div
+            id="collapseOne"
+            class="accordion-collapse collapse show"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <strong>This is the first item's accordion body.</strong> It is
+              shown by default, until the collapse plugin adds the appropriate
+              classes that we use to style each element. These classes control
+              the overall appearance, as well as the showing and hiding via CSS
+              transitions. You can modify any of this with custom CSS or
+              overriding our default variables. It's also worth noting that just
+              about any HTML can go within the <code>.accordion-body</code>,
+              though the transition does limit overflow.
+            </div>
           </div>
-        ))
-      ) : (
-        <p>A simple primary alert—check it out!</p>
-      )}
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo"
+              aria-expanded="false"
+              aria-controls="collapseTwo"
+            >
+              Accordion Item #2
+            </button>
+          </h2>
+          <div
+            id="collapseTwo"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <strong>This is the second item's accordion body.</strong> It is
+              hidden by default, until the collapse plugin adds the appropriate
+              classes that we use to style each element. These classes control
+              the overall appearance, as well as the showing and hiding via CSS
+              transitions. You can modify any of this with custom CSS or
+              overriding our default variables. It's also worth noting that just
+              about any HTML can go within the <code>.accordion-body</code>,
+              though the transition does limit overflow.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseThree"
+              aria-expanded="false"
+              aria-controls="collapseThree"
+            >
+              Accordion Item #3
+            </button>
+          </h2>
+          <div
+            id="collapseThree"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <strong>This is the third item's accordion body.</strong> It is
+              hidden by default, until the collapse plugin adds the appropriate
+              classes that we use to style each element. These classes control
+              the overall appearance, as well as the showing and hiding via CSS
+              transitions. You can modify any of this with custom CSS or
+              overriding our default variables. It's also worth noting that just
+              about any HTML can go within the <code>.accordion-body</code>,
+              though the transition does limit overflow.
+            </div>
+          </div>
+        </div>
+      </div>
     </>
-  );*/
-  (
-    <div className="consultar-container">
-        <h3>Novedad</h3>
-        <table className="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">tipo de novedad</th>
-                    <th scope="col">direccion</th>
-                    <th scope="col">descripcion</th>
-                    <th scope="col">nombre completo</th>
-                </tr>
-            </thead>
-            <tbody className="table-group-divider">
-                {loading ? (
-                    <tr>
-                        <td className="spinner-border text-primary" role="status">
-                            <span className="visually-hidden">Cargando...</span>
-                        </td>
-                    </tr>
-                ) : Array.isArray(data) ? (
-                    data.map(item => (
-                        <tr key={item.ID_Novedad}>
-                            <th scope="row">{item.Fecha_Novedad}</th>
-                            <td>{item.Tipo_Novedad}</td>
-                            <td>{item.Direccion}</td>
-                            <td>{item.Descripcion_Novedad}</td>
-                            <td>{item.Nombre_Completo_Empleado}</td>
-                        </tr>
-                    ))
-                ) : (
-                    <p>No hay datos disponibles</p>
-                )}
-            </tbody>
-        </table>
-    </div>
-)
+  );
 }
