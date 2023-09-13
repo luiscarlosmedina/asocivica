@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import TiempoTranscurrido from "./ComponentsFunction/TiempoTranscurrido";
+import FormateadorFecha from "./ComponentsFunction/FormateadorFecha";
+import { Link } from "react-router-dom";
 
 export default function VerNovedades({ dataUpdated }) {
   const [data, setData] = useState([]);
@@ -20,6 +23,7 @@ export default function VerNovedades({ dataUpdated }) {
         setLoading(false);
       });
   };
+  let idn = "";
   return (
     <>
       <div>
@@ -49,17 +53,11 @@ export default function VerNovedades({ dataUpdated }) {
           data.map((item) => (
             <div class="card-group">
               <div class="card border rounded-0 p-2" key={item.ID_Novedad}>
-                <div class="card-header row">
-                  <div className="col">
-                    <h4 class="card-title">{item.Tipo_Novedad}</h4>
-                  </div>
-                  <div className="col">
-                    <div className="float-end">
-                      <button class="btn btn-outline-primary" type="submit">
-                        Ver Más
-                      </button>
-                    </div>
-                  </div>
+                <div class="card-header">
+                  <p class="card-text">
+                    <FormateadorFecha fechaDada={item.Fecha_Novedad} />
+                  </p>
+                  <h4 class="card-title">{item.Tipo_Novedad}</h4>
                 </div>
                 <div class="card-body">
                   <h6 class="card-title">{item.Direccion}</h6>
@@ -69,10 +67,18 @@ export default function VerNovedades({ dataUpdated }) {
                   <li class="list-group-item">
                     {item.Nombre_Completo_Empleado}
                   </li>
+                  <li class="list-group-item">
+                    <div className="d-flex justify-content-between">
+                      <button class="btn btn-primary" type="submit">
+                        Editar
+                      </button>
+                      <Link to={idn = item.ID_Novedad}><button value={idn} type="button" className="btn btn-primary">Ver mas</button></Link>
+                    </div>
+                  </li>
                 </ul>
                 <div class="card-footer">
                   <small class="text-body-secondary">
-                    {item.Fecha_Novedad}
+                    <TiempoTranscurrido fechaDada={item.Fecha_Novedad} />
                   </small>
                 </div>
               </div>
