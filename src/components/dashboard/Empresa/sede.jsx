@@ -162,12 +162,17 @@ export default function Sede({ id }) {
                       </TableCell>
                       <TableCell>
                         {editing[item.ID_S] ? (
-                          <Button
-                            color="primary"
-                            onClick={() => handleSaveToAPI(item.ID_S, 'ID_S', item.ID_S)}
-                          >
-                            Guardar
-                          </Button>
+                          <>
+                            <Button
+                              color="primary"
+                              onClick={() => handleSaveToAPI(item.ID_S, 'ID_S', item.ID_S)}
+                            >
+                              Guardar
+                            </Button>
+                            <button className="btn btn-danger ml-2" onClick={() => setEditing({ ...editing, [item.ID_S]: false })}>
+                              <i className="fa fa-times"></i> Cancelar
+                            </button>
+                          </>
                         ) : (
                           <Button
                             color="primary"

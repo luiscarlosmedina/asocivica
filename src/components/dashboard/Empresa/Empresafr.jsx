@@ -36,7 +36,7 @@ function Empresafr({ onDataUpdate }) {
         };
         console.log(empresa);
         //http://localhost/api_proyecto.github.io/api.php?apicall=readempresas
-        fetch('https://20.106.206.47/api.php?apicall=createempresa', {
+        fetch('http://localhost/api_proyecto.github.io/api.php?apicall=createempresa', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

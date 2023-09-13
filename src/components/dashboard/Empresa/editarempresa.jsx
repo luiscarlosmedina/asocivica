@@ -21,7 +21,7 @@ export default function Editar_e({ id }) {
     const fecha = new Date()
     const hoy = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate()
     useEffect(() => {
-        fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readempresa&id=${id}`)
+        fetch(`http://localhost/api_proyecto.github.io/api_proyecto.github.io/api.php?apicall=readempresa&id=${id}`)
             .then(response => response.json())
             .then(data => {
                 setEmpresa(data.contenido[0]); // Actualiza el estado del empleado con los datos obtenidos
@@ -48,7 +48,7 @@ export default function Editar_e({ id }) {
             'COD_AE': empresa.COD_AE
         };
         console.log(datosActualizados);
-        fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=updateempresa`, {
+        fetch(`http://localhost/api_proyecto.github.io/api_proyecto.github.io/api.php?apicall=updateempresa`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

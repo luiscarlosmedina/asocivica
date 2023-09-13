@@ -29,7 +29,7 @@ export default function EmpresaVerDetalle() {
   }, []);
 
   const fetchData = () => {
-    fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readempresa&id=${id}`)
+    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempresa&id=${id}`)
       .then((response) => response.json())
       .then((data) => {
         setEmpresa(data.contenido[0]);
