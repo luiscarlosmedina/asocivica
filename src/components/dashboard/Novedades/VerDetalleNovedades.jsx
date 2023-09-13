@@ -22,7 +22,7 @@ export default function VerDetalleNovedad() {
   }, []);
 
   const fetchData = () => {
-    fetch(`http://localhost/api_proyecto/api.php?apicall=readnovedad&id=${idn}`)
+    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readnovedad&id=${idn}`)
       .then((response) => response.json())
       .then((data) => {
         setNovedad(data.contenido[0]);
@@ -44,7 +44,7 @@ export default function VerDetalleNovedad() {
                   <h3>Datos Basicos</h3>
                 </div>
                 <div>
-                  <button type="button" className="btn btn-link" onClick={() => back('/consultar-novedad')}>Salir</button>
+                  <button type="button" className="btn btn-link" onClick={() => back('/consultar-novedades')}>Salir</button>
                   <button type="button" className="btn btn-link" data-bs-toggle="modal" data-bs-target="#editarempresa" data-bs-whatever="@mdo"> Editar </button>
                 </div>
               </div>

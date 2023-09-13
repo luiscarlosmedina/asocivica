@@ -12,7 +12,7 @@ export default function VerNovedades({ dataUpdated }) {
   }, []); // Agregar dataUpdated como dependencia
 
   const fetchData = () => {
-    fetch(`http://localhost/api_proyecto/api.php?apicall=readnovedad&id`)
+    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readnovedad&id`)
       .then((response) => response.json())
       .then((data) => {
         setData(data.contenido);
