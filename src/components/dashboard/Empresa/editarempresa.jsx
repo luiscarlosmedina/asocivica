@@ -21,7 +21,7 @@ export default function Editar_e({ id }) {
     const fecha = new Date()
     const hoy = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate()
     useEffect(() => {
-        fetch(`http://localhost/api_proyecto.github.io/api_proyecto.github.io/api.php?apicall=readempresa&id=${id}`)
+        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempresa&id=${id}`)
             .then(response => response.json())
             .then(data => {
                 setEmpresa(data.contenido[0]); // Actualiza el estado del empleado con los datos obtenidos
@@ -106,7 +106,7 @@ export default function Editar_e({ id }) {
                             </select>
                         </div>
                         <div>
-                            <input type='hidden' value={!empresa.Est_E && empresa.Est_E === "0" || empresa.Est_E === "1" ? empresa.Fh_Afi = hoy : empresa.fechaFinalizacion = hoy} />
+                            <input type='hidden' value={(!empresa.Est_E && empresa.Est_E === "0") || empresa.Est_E === "1" ? empresa.Fh_Afi = hoy : empresa.fechaFinalizacion = hoy} />
                         </div>
                         <div className="mb-3">
                             <label
