@@ -18,7 +18,8 @@ export default function Editar_e({ id }) {
         COD_SE: "",
         COD_AE: ""
     })
-
+    const fecha = new Date()
+    const hoy = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate()
     useEffect(() => {
         fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readempresa&id=${id}`)
             .then(response => response.json())
@@ -56,8 +57,8 @@ export default function Editar_e({ id }) {
         })
             .then(response => response.json())
             .then(responseData => {
-                if(responseData){
-                    setTimeout(function(){
+                if (responseData) {
+                    setTimeout(function () {
                         window.location.reload();
                     }, 1200);
                     swal("Buen trabajo!", 'Actualizacion exitosa', "success");
@@ -67,7 +68,7 @@ export default function Editar_e({ id }) {
             .catch(error => {
                 console.error('Error:', error);
                 swal("Ocurrio un error!", 'Intentalo mas tarde', "error");
-            }); 
+            });
     };
     const handleInputChange = event => {
         const { name, value } = event.target;
@@ -104,7 +105,9 @@ export default function Editar_e({ id }) {
                                 <option value="3" >Seleccione una opcion</option>
                             </select>
                         </div>
-
+                        <div>
+                            <input type='hidden' value={!empresa.Est_E && empresa.Est_E === "0" || empresa.Est_E === "1" ? empresa.Fh_Afi = hoy : empresa.fechaFinalizacion = hoy} />
+                        </div>
                         <div className="mb-3">
                             <label
                                 htmlFor="Nom_E"

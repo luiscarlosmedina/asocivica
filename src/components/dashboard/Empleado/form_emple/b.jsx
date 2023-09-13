@@ -63,6 +63,117 @@ const B_emple = (props) => {
                   <label for="validationDefault02" className="form-label">
                     Tipo de Documento
                   </label>
+                 <input
+                    type="Number"
+                    className="form-control"
+                    id="validationDefault01"
+                    onChange={props.handleInputChange}
+                    required
+
+                 />
+                  <div id="emailHelp" className="form-text">
+                    aqui un texto por una exclamación
+                  </div>
+
+                </div>
+                <div>
+                  <label for="validationDefault02" className="form-label">
+                    Numero de Documento
+                  </label>
+                  <input
+                    type="Number"
+                    className="form-control"
+                    id="validationDefault01"
+                    onChange={props.handleInputChange}
+                    required
+                  />
+                   <div id="emailHelp" className="form-text">
+                    aqui un texto por una exclamación
+                  </div>
+                </div>
+                <div>
+                  <label for="validationDefault02" className="form-label">
+                    Barrio y localidad
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="validationBarriot02"
+                    onChange={props.handleInputChange}
+                    required
+                  />
+                   <div id="emailHelp" className="form-text">
+                    aqui un texto por una exclamación
+                  </div>
+                </div>
+                <div>
+                  <label for="validationDefault02" className="form-label">
+                    Dirección
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="validationBarriot02"
+                    onChange={props.handleInputChange}
+                    required
+                  />
+                   <div id="emailHelp" className="form-text">
+                    aqui un texto por una exclamación
+                  </div>
+                </div>
+                <div>
+                  <label for="validationDefault02" className="form-label">
+                    Telefono 
+                  </label>
+                  <input
+                    type="Number"
+                    className="form-control"
+                    id="validationBarriot02"
+                    onChange={props.handleInputChange}
+                    required
+                  />
+                   <div id="emailHelp" className="form-text">
+                    aqui un texto por una exclamación
+                  </div>
+                </div>
+
+                <div className=" float-start">
+                  <button
+                    className="btn btn-primary m-2"
+                    onClick={props.anteriorPaso}
+                  >
+                    anterior
+                  </button>
+                </div>
+
+                <div className=" float-end ">
+                  <button
+                    className="btn btn-primary m-2"
+                    onClick={props.siguientePaso}
+                  >
+                    siguiente
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default B_emple;
+
+
+/* <section className="secundary-box">
+          <div className="container">
+            <form className="box-main">
+              <div className="box-main2">
+                <div>
+                  <label for="validationDefault02" className="form-label">
+                    Tipo de Documento
+                  </label>
                   <select
                     className="form-select"
                     id="validationDefault04"
@@ -165,9 +276,6 @@ const B_emple = (props) => {
             </form>
           </div>
         </section>
-      </div>
-    </div>
-  );
-};
 
-export default B_emple;
+
+        */

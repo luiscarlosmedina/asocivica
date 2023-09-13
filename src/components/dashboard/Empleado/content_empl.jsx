@@ -8,7 +8,7 @@ export default function EmpleadominVer({ dataUpdated }) {
     }, [dataUpdated]); // Agregar dataUpdated como dependencia
   
     const fetchData = () => {
-      fetch('https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readminempleado')
+      fetch('http://localhost/API/api.php?apicall=readminempleado')
         .then((response) => response.json())
         .then((data) => setData(data.contenido))
         .catch((error) => console.log(error));
@@ -33,7 +33,7 @@ export default function EmpleadominVer({ dataUpdated }) {
                             <tr key={item.id_em}>
                                 <th scope="row">{item.id_doc}</th>
                                 <td>{item.documento}</td>
-                                <td>{item.n_em}</td>
+                                <td>{item.n_em}</td>    
                                 <td>{item.a_em}</td>
                                 <td>{item.eml_em}</td>
                                 <td>{item.tel_em}</td>

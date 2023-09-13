@@ -21,11 +21,16 @@
 }
 
 .op {
-    padding: 15px 0;
-    text-decoration: none;
+    border-radius: 15px;
 }
 
 .op:hover {
     background-color: var(--naranja);
     border-radius: 15px;
-}
+} 
+  /* Cambiar el color de fondo a naranja */
+  .nav-item.dropdown:hover .nav-link,
+  .nav-item.dropdown .active .nav-link {
+    background-color: var(--naranja);
+  }
+  

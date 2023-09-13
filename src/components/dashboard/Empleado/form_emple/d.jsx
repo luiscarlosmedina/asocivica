@@ -61,6 +61,76 @@ const D_emple = (props) => {
               <div className="box-main2">
                 <div className="box1">
                   <label for="validationDefault02" className="form-label">
+                    Nombre 
+                  </label>
+                  <input
+                    type="Text"
+                    class="form-control"
+                    id="validationDefault01"
+                    onChange={props.handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="box1">
+                  <label for="validationDefault02" className="form-label">
+                    consaguinidad 
+                  </label>
+                  <input
+                    type="Text"
+                    class="form-control"
+                    id="validationDefault01"
+                    onChange={props.handleInputChange}
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="validationDefault02" className="form-label">
+                    Telefono Celular
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="validationBarriot02"
+                    onChange={props.handleInputChange}
+                    required
+                  />
+                </div>
+                <div className=" float-start">
+                  <button
+                    className="btn btn-primary m-2"
+                    onClick={props.anteriorPaso}
+                  >
+                    anterior
+                  </button>
+                </div>
+
+                <div className=" float-end ">
+                  <button
+                    className="btn btn-primary m-2"
+                    onClick={props.siguientePaso}
+                  >
+                    siguiente
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default D_emple;
+
+
+/*
+        <section className="secundary-box">
+          <div className="container">
+            <form className="box-main">
+              <div className="box-main2">
+                <div className="box1">
+                  <label for="validationDefault02" className="form-label">
                     Nombre de contacto 1
                   </label>
                   <input
@@ -153,9 +223,5 @@ const D_emple = (props) => {
             </form>
           </div>
         </section>
-      </div>
-    </div>
-  );
-};
 
-export default D_emple;
+*/
