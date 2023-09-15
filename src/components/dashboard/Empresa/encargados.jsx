@@ -25,61 +25,38 @@ export default function Encargados({ id }) {
   const [showInsertForm, setShowInsertForm] = useState(false);
   const [editMode, setEditMode] = useState({});
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost/api_proyecto.github.io/api.php?apicall=readTelSede&id=${id}`
-      );
-      const result = await response.json();
-      // Procesar los números de teléfono para separar ID y teléfono
-      const newData = result.contenido.map((item) => {
-        const telefonos = item.telefono.split(',');
-        const telefonosSeparados = telefonos.map((telefono, index) => {
-          const [id_tel, tel] = telefono.split('-');
-          return {
-            [`id_tel${index + 1}`]: id_tel,
-            [`tel${index + 1}`]: tel,
-          };
-        });
-        return {
-          ...item,
-          ...Object.assign({}, ...telefonosSeparados),
-        };
+  const fetchData = () => {
+    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readTelSede&id=${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Filtrar encargados activos (Est_en === "0")
+        const activeEncargados = data.contenido.filter((item) => item.Est_en === "0");
+        setData(activeEncargados);
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      setData(newData);
-    } catch (error) {
-      console.error("Error:", error);
-    }
   };
 
-  const handleInputChange = (e, ID_En, telefonoIndex) => {
-    const { name, value } = e.target;
-    const newData = [...data];
-    const index = newData.findIndex((item) => item.ID_En === ID_En);
-    if (index !== -1) {
-      newData[index] = {
-        ...newData[index],
-        [`tel${telefonoIndex + 1}`]: value,
-      };
-      setData(newData);
-    }
+  const handleInputChange = (e, ID_En, fieldName) => {
+    const { value } = e.target;
+    const newData = data.map((item) => {
+      if (item.ID_En === ID_En) {
+        return { ...item, [fieldName]: value };
+      }
+      return item;
+    });
+    setData(newData);
   };
 
-  const saveEnc = async (ID_En, telefonos) => {
-    // Enviar los datos actualizados al servidor y guardarlos
-    const updatedData = {
-      ID_En,
-      N_En: data.find((item) => item.ID_En === ID_En).N_En,
-      ...Object.assign({}, ...telefonos),
-    };
-    console.log(updatedData);
+  const saveEnc = async (ID_En, updatedEncargado) => {
     try {
       const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateencargado`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedData),
+        body: JSON.stringify(updatedEncargado),
       });
       const responseData = await response.json();
 
@@ -262,94 +239,96 @@ export default function Encargados({ id }) {
           </TableHead>
           <TableBody>
             {data.map((item) => (
-              item.Est_en === "0" && (
-                <TableRow key={item.ID_En}>
-                  <TableCell>
-                    {editMode[item.ID_En] ? (
-                      <TextField
-                        name="N_En"
-                        label="Nombre encargado"
-                        variant="outlined"
-                        size="small"
-                        value={item.N_En}
-                        onChange={(e) => handleInputChange(e, item.ID_En, 0)}
-                      />
-                    ) : (
-                      item.N_En
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {editMode[item.ID_En] ? (
-                      <TextField
-                        name="tel1"
-                        label="Telefono 1"
-                        variant="outlined"
-                        size="small"
-                        value={item.tel1}
-                        onChange={(e) => handleInputChange(e, item.ID_En, 0)}
-                      />
-                    ) : (
-                      item.tel1
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {editMode[item.ID_En] ? (
-                      <TextField
-                        name="tel2"
-                        label="Telefono 2"
-                        variant="outlined"
-                        size="small"
-                        value={item.tel2}
-                        onChange={(e) => handleInputChange(e, item.ID_En, 1)}
-                      />
-                    ) : (
-                      item.tel2
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {editMode[item.ID_En] ? (
-                      <TextField
-                        name="tel3"
-                        label="Telefono 3"
-                        variant="outlined"
-                        size="small"
-                        value={item.tel3}
-                        onChange={(e) => handleInputChange(e, item.ID_En, 2)}
-                      />
-                    ) : (
-                      item.tel3
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {editMode[item.ID_En] ? (
-                      <Button
-                        color="primary"
-                        onClick={() => saveEnc(item.ID_En, [
-                          { id_tel: item.id_tel1, tel: item.tel1 },
-                          { id_tel: item.id_tel2, tel: item.tel2 },
-                          { id_tel: item.id_tel3, tel: item.tel3 },
-                        ])}
-                      >
-                        Guardar
-                      </Button>
-                    ) : (
+              <TableRow key={item.ID_En}>
+                <TableCell>
+                  {editMode[item.ID_En] ? (
+                    <TextField
+                      name="N_En"
+                      label="Nombre encargado"
+                      variant="outlined"
+                      size="small"
+                      value={item.N_En}
+                      onChange={(e) => handleInputChange(e, item.ID_En, "N_En")}
+                    />
+                  ) : (
+                    item.N_En
+                  )}
+                </TableCell>
+                <TableCell>
+                  {editMode[item.ID_En] ? (
+                    <TextField
+                      name="tel1"
+                      label="Telefono 1"
+                      variant="outlined"
+                      size="small"
+                      value={item.tel1}
+                      onChange={(e) => handleInputChange(e, item.ID_En, "tel1")}
+                    />
+                  ) : (
+                    item.tel1
+                  )}
+                </TableCell>
+                <TableCell>
+                  {editMode[item.ID_En] ? (
+                    <TextField
+                      name="tel2"
+                      label="Telefono 2"
+                      variant="outlined"
+                      size="small"
+                      value={item.tel2}
+                      onChange={(e) => handleInputChange(e, item.ID_En, "tel2")}
+                    />
+                  ) : (
+                    item.tel2
+                  )}
+                </TableCell>
+                <TableCell>
+                  {editMode[item.ID_En] ? (
+                    <TextField
+                      name="tel3"
+                      label="Telefono 3"
+                      variant="outlined"
+                      size="small"
+                      value={item.tel3}
+                      onChange={(e) => handleInputChange(e, item.ID_En, "tel3")}
+                    />
+                  ) : (
+                    item.tel3
+                  )}
+                </TableCell>
+                <TableCell>
+                  {editMode[item.ID_En] ? (
+                    <Button
+                      color="primary"
+                      onClick={() => saveEnc(item.ID_En, {
+                        ID_En: item.ID_En,
+                        N_En: item.N_En,
+                        tel1: item.tel1,
+                        tel2: item.tel2,
+                        tel3: item.tel3,
+                      })}
+                    >
+                      Guardar
+                    </Button>
+                  ) : (
+                    <>
                       <Button
                         color="primary"
                         onClick={() => editeEnc(item.ID_En)}
                       >
                         Editar
                       </Button>
-                    )}
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      onClick={() => deleteEnc(item.ID_En)}
-                    >
-                      Eliminar
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              )
+                      <Button
+                        variant="outlined"
+                        color="secondary"
+                        onClick={() => deleteEnc(item.ID_En)}
+                      >
+                        Eliminar
+                      </Button>
+                    </>
+                  )}
+                </TableCell>
+              </TableRow>
             ))}
           </TableBody>
         </Table>
