@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 export default function EmpleadominVer({ dataUpdated }) {
+    
     const [data, setData] = useState([]);
 
     useEffect(() => {

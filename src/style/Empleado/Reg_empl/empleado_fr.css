@@ -1,0 +1,48 @@
+.primary-box{
+    height: 11em;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-main2{
+   width: 70%;
+   margin-top: 30px;
+   margin-bottom: 70px;
+}
+
+
+.box-menu{  
+    display: flex;
+    font-weight: 550;
+    color: #004884;
+}
+.box-options{
+    display: flex;
+    justify-content: center;
+}
+
+.box-options i {
+    color:#004884 ;
+    margin-right: 10px;
+  }
+
+
+
+  
+.sub-menu{
+    border: rgb(202, 206, 220) solid 3px;
+     width: 10.2em;
+     height: 5em;
+     margin-left: 1px;
+     border-radius: 10px;
+     font-size: 18px;
+ }
+ 

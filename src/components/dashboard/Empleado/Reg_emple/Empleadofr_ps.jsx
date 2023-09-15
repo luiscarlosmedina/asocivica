@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+/*import React, { useState } from 'react';
 
 function Empleado_ps({ onDataUpdate }) {
   const [empleadoData, setEmpleadoData] = useState({
@@ -7,7 +7,6 @@ function Empleado_ps({ onDataUpdate }) {
     n_em: '',
     a_em: '',
     eml_em: '',
-    f_em: '',
     dir_em: '',
     lic_emp: '',
     lib_em: '',
@@ -327,3 +326,4 @@ export default Empleado_ps;
 
 
 
+*/

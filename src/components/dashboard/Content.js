@@ -5,14 +5,14 @@ import Home from './Home'
 import Empresafr from './Empresa/Empresafr'
 import EmpresaVer from "./Empresa/empresaVer"
 import EmpresaVerDetalle from './Empresa/empresaVerDetalle';
-//import Empleadofr_ps from './Empleado/Empleadofr_ps'
-import Empleadofr from './Empleado/Empleadofr'
+import Empleadofr from './Empleado/Reg_emple/Empleadofr'
+import EmpleadominVer from './Empleado/Mos_emple/content_empl';
 import Novedades from './Novedades/Novedades'
 //import VerDetalleNovedades from '.Novedades/VerDetalleNovedades'
 import VerNovedades from './Novedades/VerNovedades';
 
 import Reportes from './Reportes/Reportes'
-import EmpleadominVer from './Empleado/content_empl';
+
 
 function Content() {
     const [dataUpdated, setDataUpdated] = useState(false);
