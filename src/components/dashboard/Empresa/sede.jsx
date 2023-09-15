@@ -21,13 +21,12 @@ import Encargados from './encargados'; // Importa tu componente Encargados aquí
 export default function Sede({ id }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [ids, setIds] = useState(null);
   const [editing, setEditing] = useState({}); // Para rastrear las filas que se están editando
   const [expandedSede, setExpandedSede] = useState(null); // Para rastrear la sede expandida
 
   useEffect(() => {
     fetchData();
-  }, []);
+  },[]);
 
   const fetchData = () => {
     fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readsede&id=${id}`)
@@ -35,16 +34,11 @@ export default function Sede({ id }) {
       .then((data) => {
         setData(data.contenido);
         setLoading(false);
-        console.log(data);
       })
       .catch((error) => {
         console.log(error);
         setLoading(false);
       });
-  };
-
-  const handleActual = (b) => {
-    setIds(b);
   };
 
   const handleEdit = (id) => {
