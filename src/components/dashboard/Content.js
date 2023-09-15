@@ -7,7 +7,7 @@ import EmpresaVer from "./Empresa/empresaVer";
 import EmpresaVerDetalle from "./Empresa/empresaVerDetalle";
 //import Empleadofr_ps from './Empleado/Empleadofr_ps'
 import Empleadofr from "./Empleado/Empleadofr";
-import Novedades from "./Novedades/Novedades";
+import NovedadForm from "./Novedades/NovedadForm";
 import VerDetalleNovedad from "./Novedades/VerDetalleNovedades";
 import VerNovedades from "./Novedades/VerNovedades";
 import Reportes from "./Reportes/Reportes";
@@ -26,9 +26,9 @@ function Content() {
                 <Route path='consultar-empresas' element={<EmpresaVer dataUpdated={dataUpdated} />} />
                 <Route path='consultar-empresas/:id' element={< EmpresaVerDetalle />} />
                 <Route path='registrar-empleado' element={<Empleadofr/>} />
-                <Route path='registrar-novedades' element={<Novedades />} />
+                <Route path='registrar-novedades' element={<NovedadForm />} />
                 <Route path='consultar-novedades' element={<VerNovedades />} />
-                <Route path='consultar-novedades/:idn' element={<VerDetalleNovedad />} />
+                <Route path='consultar-novedades/:novedadID' element={<VerDetalleNovedad />} />
                 <Route path='registrar-reportes' element={<Reportes/>} />
                 <Route path='consultar-min-empleado' element={<EmpleadominVer dataUpdated={dataUpdated}/>} />
             </Routes>

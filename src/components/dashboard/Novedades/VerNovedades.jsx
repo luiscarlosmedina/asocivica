@@ -12,7 +12,9 @@ export default function VerNovedades({ dataUpdated }) {
   }, []); // Agregar dataUpdated como dependencia
 
   const fetchData = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readnovedad&id`)
+    fetch(
+      `http://localhost/api_proyecto.github.io/api.php?apicall=readnovedad&id`
+    )
       .then((response) => response.json())
       .then((data) => {
         setData(data.contenido);
@@ -23,7 +25,7 @@ export default function VerNovedades({ dataUpdated }) {
         setLoading(false);
       });
   };
-  let idn = "";
+  let novedadID;
   return (
     <>
       <div>
@@ -72,7 +74,18 @@ export default function VerNovedades({ dataUpdated }) {
                       <button class="btn btn-primary" type="submit">
                         Editar
                       </button>
-                      <Link to={idn = item.ID_Novedad}><button value={idn} type="button" className="btn btn-primary">Ver mas</button></Link>
+                      <Link
+                        to={`/consultar-novedades/${(novedadID =
+                          item.ID_Novedad)}`}
+                      >
+                        <button
+                          value={novedadID}
+                          type="button"
+                          className="btn btn-primary"
+                        >
+                          Ver mas
+                        </button>
+                      </Link>
                     </div>
                   </li>
                 </ul>
@@ -85,100 +98,10 @@ export default function VerNovedades({ dataUpdated }) {
             </div>
           ))
         ) : (
-          <p>A simple primary alert—check it out!</p>
+          <div class="alert alert-primary" role="alert">
+            No Hay datos disponibles
+          </div>
         )}
-      </div>
-      <div class="accordion" id="accordionExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button
-              class="accordion-button"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseOne"
-              aria-expanded="true"
-              aria-controls="collapseOne"
-            >
-              Accordion Item #1
-            </button>
-          </h2>
-          <div
-            id="collapseOne"
-            class="accordion-collapse collapse show"
-            data-bs-parent="#accordionExample"
-          >
-            <div class="accordion-body">
-              <strong>This is the first item's accordion body.</strong> It is
-              shown by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseTwo"
-              aria-expanded="false"
-              aria-controls="collapseTwo"
-            >
-              Accordion Item #2
-            </button>
-          </h2>
-          <div
-            id="collapseTwo"
-            class="accordion-collapse collapse"
-            data-bs-parent="#accordionExample"
-          >
-            <div class="accordion-body">
-              <strong>This is the second item's accordion body.</strong> It is
-              hidden by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseThree"
-              aria-expanded="false"
-              aria-controls="collapseThree"
-            >
-              Accordion Item #3
-            </button>
-          </h2>
-          <div
-            id="collapseThree"
-            class="accordion-collapse collapse"
-            data-bs-parent="#accordionExample"
-          >
-            <div class="accordion-body">
-              <strong>This is the third item's accordion body.</strong> It is
-              hidden by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );

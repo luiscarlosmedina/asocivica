@@ -1,8 +1,7 @@
 import React from "react";
-import "../../../style/novedades.css";
 //import { useState } from 'react';
 
-export default function Novedades() {
+export default function NovedadForm() {
   const fecha = () => {
     let fecha = new Date();
     let mes = parseInt(fecha.getMonth() + 1);

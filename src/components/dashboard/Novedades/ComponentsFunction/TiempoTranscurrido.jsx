@@ -30,7 +30,7 @@ function TiempoTranscurrido({ fechaDada }) {
     }
   }, [fechaDada]);
 
-  return <div>{tiempoTranscurrido}</div>;
+  return <>{tiempoTranscurrido}</>;
 }
 
 export default TiempoTranscurrido;

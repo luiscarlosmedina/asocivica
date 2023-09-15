@@ -12,7 +12,7 @@ function FormateadorFecha({ fechaDada }) {
 
   const fechaFormateada = formatearFecha(fechaDada);
 
-  return <div>{fechaFormateada}</div>;
+  return <>{fechaFormateada}</>;
 }
 
 export default FormateadorFecha;
