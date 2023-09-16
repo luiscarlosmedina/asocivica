@@ -48,7 +48,7 @@ export default function VerDetalleNovedades() {
             <div
               className="modal fade"
               id="editar"
-              tabindex="-1"
+              tabIndex="-1"
               aria-labelledby="exampleModalLabel"
               aria-hidden="true"
             >

@@ -23,7 +23,7 @@ export default function Novedades() {
   // const handleShow = () => setShow(true);
 
   return (
-    <div class="container">
+    <div className="container">
       <div className="MainContent">
         <section className="contenido">
           <h3>REGISTRAR NOVEDAD</h3>
@@ -96,7 +96,7 @@ export default function Novedades() {
               <div
                 className="modal fade"
                 id="tpnov"
-                tabindex="-1"
+                tabIndex="-1"
                 aria-labelledby="exampleModalLabel"
                 aria-hidden="true"
               >
@@ -187,49 +187,49 @@ export default function Novedades() {
             </div>
             <div className="con">
               <div
-                class="modal fade"
+                className="modal fade"
                 id="direccion"
-                tabindex="-1"
+                tabIndex="-1"
                 aria-labelledby="exampleModalLabel"
                 aria-hidden="true"
               >
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="exampleModalLabel">
                         Nueva direccion
                       </h5>
                       <button
                         type="button"
-                        class="btn-close"
+                        className="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"
                       ></button>
                     </div>
-                    <div class="modal-body">
+                    <div className="modal-body">
                       <form>
-                        <div class="mb-3">
-                          <label for="recipient-name" class="col-form-label">
+                        <div className="mb-3">
+                          <label for="recipient-name" className="col-form-label">
                             Ingresa direccion
                           </label>
                           <input
                             type="text"
-                            class="form-control"
+                            className="form-control"
                             id="recipient-name"
                           />
                         </div>
-                        <div class="mb-3">{/* colocar api mapa */}</div>
+                        <div className="mb-3">{/* colocar api mapa */}</div>
                       </form>
                     </div>
-                    <div class="modal-footer">
+                    <div className="modal-footer">
                       <button
                         type="button"
-                        class="btn btn-secondary"
+                        className="btn btn-secondary"
                         data-bs-dismiss="modal"
                       >
                         Cancelar
                       </button>
-                      <button type="button" class="btn btn-primary">
+                      <button type="button" className="btn btn-primary">
                         Agregar
                       </button>
                     </div>

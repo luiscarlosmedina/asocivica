@@ -6,7 +6,7 @@ const Options = () => {
   return (
     <ul className="navbar-nav d-flex justify-content-end flex-grow-1 pe-4" id='menu'>
       <li className="nav-item dropdown">
-        <NavLink exact to="/" className="nav-link op text-white" activeClassName="active">
+        <NavLink exact to="/" className="nav-link op text-white" activeclass="active">
           <i className="bi bi-house"></i> Inicio
         </NavLink>
       </li>

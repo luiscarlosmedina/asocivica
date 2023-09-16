@@ -59,7 +59,7 @@ export default function EmpresaVerDetalle() {
               <div
                 className="modal fade"
                 id="editarempresa"
-                tabindex="-1"
+                tabIndex="-1"
                 aria-labelledby="exampleModalLabel"
                 aria-hidden="true"
                 data-bs-backdrop="static"
@@ -89,7 +89,7 @@ export default function EmpresaVerDetalle() {
                     <input type="text" className="form-control bg-transparent border border-0 fw-bold" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.Val_E !== "" ? empresa.Val_E : "No registra"} />
                   </div>
                   <div className="input-group mb-3 align-items-center">
-                    <span className="input-group-text bg-transparent" id="inputGroup-sizing-default"><i class="bi bi-person-fill text-primary"></i></span>
+                    <span className="input-group-text bg-transparent" id="inputGroup-sizing-default"><i className="bi bi-person-fill text-primary"></i></span>
                     <input type="text" className="form-control bg-transparent border border-0 fw-bold" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.Nom_Rl !== "" ? empresa.Nom_Rl : "No registra"} />
                   </div>
                 </div>

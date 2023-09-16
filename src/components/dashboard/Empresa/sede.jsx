@@ -12,10 +12,12 @@ import {
   AccordionDetails,
   Button,
   TextField,
+  MenuItem,
+  Select,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import EditarSede from './editarsede'; // Importa tu componente EditarSede aquí
+import CrearSede from './crearsede'; // Importa tu componente EditarSede aquí
 import Encargados from './encargados'; // Importa tu componente Encargados aquí
 
 export default function Sede({ id }) {
@@ -26,7 +28,7 @@ export default function Sede({ id }) {
 
   useEffect(() => {
     fetchData();
-  },[]);
+  }, []);
 
   const fetchData = () => {
     fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readsede&id=${id}`)
@@ -94,6 +96,56 @@ export default function Sede({ id }) {
     setExpandedSede(id === expandedSede ? null : id);
   };
 
+  const handleToggleSede = (id, isActive) => {
+    // Llama a la API para cambiar el estado de activo/inactivo de la sede
+    const newIsActive = !isActive; // Invierte el estado actual
+
+    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=togglesede&id=${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        if (responseData) {
+          // Actualiza el estado de activo/inactivo localmente
+          const updatedData = data.map((item) => {
+            if (item.ID_S === id) {
+              return { ...item, activo: newIsActive };
+            }
+            return item;
+          });
+          setData(updatedData);
+        } else {
+          console.error('Error al cambiar el estado de la sede');
+        }
+      })
+      .catch((error) => {
+        console.error('Error al cambiar el estado de la sede:', error);
+      });
+  };
+
+  const handleEliminarSede = (id) => {
+    // Llama a la API para eliminar la sede
+    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=deletesede&id=${id}`, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        if (responseData) {
+          // Elimina la sede localmente
+          const updatedData = data.filter((item) => item.ID_S !== id);
+          setData(updatedData);
+        } else {
+          console.error('Error al eliminar la sede');
+        }
+      })
+      .catch((error) => {
+        console.error('Error al eliminar la sede:', error);
+      });
+  };
+
   return (
     <div>
       <div className='d-flex justify-content-between align-items-center'>
@@ -107,7 +159,7 @@ export default function Sede({ id }) {
         </div>
         {/* Modal */}
         <div className="modal fade" id="sede" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <EditarSede id={id} />
+          <CrearSede id={id} />
         </div>
       </div>
       <hr className='pb-3' />
@@ -118,6 +170,7 @@ export default function Sede({ id }) {
               <TableRow>
                 <TableCell>Direccion</TableCell>
                 <TableCell>Sector de vigilancia</TableCell>
+                <TableCell>Detalles</TableCell>
                 <TableCell>Mas opciones</TableCell>
               </TableRow>
             </TableHead>
@@ -145,11 +198,16 @@ export default function Sede({ id }) {
                       </TableCell>
                       <TableCell>
                         {editing[item.ID_S] ? (
-                          <TextField
+                          <Select
                             fullWidth
                             value={item.Sec_V}
                             onChange={(e) => handleSaveLocally(item.ID_S, 'Sec_V', e.target.value)}
-                          />
+                          >
+                            <MenuItem value="1">1</MenuItem>
+                            <MenuItem value="2">2</MenuItem>
+                            <MenuItem value="3">3</MenuItem>
+                            <MenuItem value="4">4</MenuItem>
+                          </Select>
                         ) : (
                           item.Sec_V
                         )}
@@ -168,21 +226,39 @@ export default function Sede({ id }) {
                             </button>
                           </>
                         ) : (
-                          <Button
-                            color="primary"
-                            onClick={() => handleEdit(item.ID_S)}
-                          >
-                            Editar
-                          </Button>
+                          <>
+                            <Button
+                              color="primary"
+                              onClick={() => handleEdit(item.ID_S)}
+                            >
+                              Editar
+                            </Button>
+                            <Button
+                              variant="contained"
+                              color="info"
+                              onClick={() => handleExpandSede(item.ID_S)}
+                            >
+                              Encargados
+                            </Button>
+                          </>
                         )}
-                        <Button variant="contained" color="info" onClick={() => handleExpandSede(item.ID_S)}>
-                          Encargados
+                      </TableCell>
+                      <TableCell>
+                        {item.est_sed ? <button className='btn'
+                          onClick={() => handleToggleSede(item.ID_S, item.est_sed)}
+                        ><i className="bi bi-emoji-smile  text-success"></i></button> : <button className='btn'
+                          onClick={() => handleToggleSede(item.ID_S, item.Est_sed)}
+                        ><i className="bi bi-emoji-frown text-danger"></i></button>}
+                        <Button
+                          onClick={() => handleEliminarSede(item.ID_S)}
+                        >
+                          <i className="bi bi-trash3 text-danger"></i>
                         </Button>
                       </TableCell>
                     </TableRow>
                     {expandedSede === item.ID_S && (
                       <TableRow>
-                        <TableCell colSpan={3}>
+                        <TableCell colSpan={4}>
                           <Accordion expandIcon={<ExpandMoreIcon />}>
                             <AccordionDetails>
                               <Encargados id={item.ID_S} />
@@ -195,7 +271,7 @@ export default function Sede({ id }) {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={3} align="center">
+                  <TableCell colSpan={4} align="center">
                     No existen datos registrados
                   </TableCell>
                 </TableRow>

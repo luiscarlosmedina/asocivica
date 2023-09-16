@@ -11,15 +11,19 @@ import {
   CircularProgress,
   Button,
   TextField,
-  TablePagination,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 
 export default function EmpresaVer({ dataUpdated }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterStates, setFilterStates] = useState({
+    active: true,
+    inStudy: true,
+    inactive: false,
+  });
 
   useEffect(() => {
     fetchData();
@@ -38,32 +42,66 @@ export default function EmpresaVer({ dataUpdated }) {
       });
   };
 
-  const handleChangePage = ( newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   const filteredData = data.filter(
     (item) =>
-      item.Nom_E.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.Nit_E.toLowerCase().includes(searchTerm.toLowerCase())
+      (item.Nom_E.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.Nit_E.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      (filterStates.active && item.Est_E === "0") ||
+      (filterStates.inStudy && item.Est_E === "1") ||
+      (filterStates.inactive && item.Est_E === "2")
   );
+
+  const handleFilterChange = (event) => {
+    const { name, checked } = event.target;
+    setFilterStates((prevFilterStates) => ({
+      ...prevFilterStates,
+      [name]: checked,
+    }));
+  };
 
   return (
     <div className="consultar-container">
       <h3>Empresas</h3>
       <TextField
-        label="Buscar"
+        label="Buscar por nombre o NIT"
         variant="outlined"
         fullWidth
         margin="normal"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
+      <div>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={filterStates.active}
+              onChange={handleFilterChange}
+              name="active"
+            />
+          }
+          label="Activo"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={filterStates.inStudy}
+              onChange={handleFilterChange}
+              name="inStudy"
+            />
+          }
+          label="En estudio"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={filterStates.inactive}
+              onChange={handleFilterChange}
+              name="inactive"
+            />
+          }
+          label="Inactivo"
+        />
+      </div>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -81,55 +119,44 @@ export default function EmpresaVer({ dataUpdated }) {
           <TableBody>
             {loading ? (
               <TableRow>
-                <TableCell colSpan={9} align="center">
+                <TableCell colSpan={8} align="center">
                   <CircularProgress color="primary" />
                 </TableCell>
               </TableRow>
             ) : filteredData.length > 0 ? (
-              filteredData
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((item) => (
-                  <TableRow key={item.id_e}>
-                    <TableCell>{item.Nit_E}</TableCell>
-                    <TableCell>{item.Nom_E}</TableCell>
-                    <TableCell>{item.Eml_E}</TableCell>
-                    <TableCell>{item.telefonoGeneral}</TableCell>
-                    <TableCell>{item.Nom_Rl}</TableCell>
-                    <TableCell>{item.CC_Rl}</TableCell>
-                    <TableCell>
-                      {item.Est_E === "0"
-                        ? "Activo"
-                        : item.Est_E === "1"
-                        ? "En estudio"
-                        : "Inactivo"}
-                    </TableCell>
-                    <TableCell>
-                      <Link to={item.id_e}>
-                        <Button variant="contained" color="primary">
-                          Ver mas
-                        </Button>
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                ))
+              filteredData.map((item) => (
+                <TableRow key={item.id_e}>
+                  <TableCell>{item.Nit_E}</TableCell>
+                  <TableCell>{item.Nom_E}</TableCell>
+                  <TableCell>{item.Eml_E}</TableCell>
+                  <TableCell>{item.telefonoGeneral}</TableCell>
+                  <TableCell>{item.Nom_Rl}</TableCell>
+                  <TableCell>{item.CC_Rl}</TableCell>
+                  <TableCell>
+                    {item.Est_E === "0"
+                      ? "Activo"
+                      : item.Est_E === "1"
+                      ? "En estudio"
+                      : "Inactivo"}
+                  </TableCell>
+                  <TableCell>
+                    <Link to={item.id_e}>
+                      <Button variant="contained" color="primary">
+                        Ver mas
+                      </Button>
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              ))
             ) : (
               <TableRow>
-                <TableCell colSpan={9} align="center">
+                <TableCell colSpan={8} align="center">
                   No hay datos disponibles
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 50]}
-          component="div"
-          count={filteredData.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
       </TableContainer>
     </div>
   );
