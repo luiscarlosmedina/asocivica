@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import swal from 'sweetalert';
 import {
   Table,
   TableBody,
@@ -17,7 +18,7 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import CrearSede from './crearsede'; // Importa tu componente EditarSede aquí
+import CrearSede from './crearsede'; // Importa tu componente CrearSede aquí
 import Encargados from './encargados'; // Importa tu componente Encargados aquí
 
 export default function Sede({ id }) {
@@ -45,7 +46,9 @@ export default function Sede({ id }) {
 
   const handleEdit = (id) => {
     // Rastrea el estado de edición para la fila
-    setEditing({ ...editing, [id]: true });
+    if (data.find((item) => item.ID_S === id).est_sed !== "1") {
+      setEditing({ ...editing, [id]: true });
+    }
   };
 
   const handleSaveLocally = (id, field, newValue) => {
@@ -96,56 +99,70 @@ export default function Sede({ id }) {
     setExpandedSede(id === expandedSede ? null : id);
   };
 
-  const handleToggleSede = (id, isActive) => {
-    // Llama a la API para cambiar el estado de activo/inactivo de la sede
-    const newIsActive = !isActive; // Invierte el estado actual
-
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=togglesede&id=${id}`, {
+  const handleToggleSede = (id, estado) => {
+    if (estado === "2") {
+      // Muestra un SweetAlert de confirmación
+      swal({
+        title: '¿Estás seguro?',
+        text: 'Una vez eliminado no podrá recuperar este dato',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((confirmation) => {
+        if (confirmation) {
+          performDeleteSede(id)
+          .then(() => {
+            swal('Eliminado con éxito', { icon: 'success' });
+            fetchData();
+          })
+          .catch((error) => {
+            console.error('Error al eliminar la sede:', error);
+          });
+        } else {
+          swal('Información a salvo');
+        }
+      });
+    } else {
+      // Si el estado no es "2", realiza la petición directamente
+      performDeleteSede(id, estado)
+      .catch((error) => {
+        console.error('Error al cambiar el estado de la sede:', error);
+      });
+    }
+  };
+  
+  const performDeleteSede = (id, estado) => {
+    // Construye el objeto de datos a enviar al servidor
+    const dataToSend = {
+      ID_S: id,
+      est_sed: estado,
+    };
+  
+    return fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateestsd`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(dataToSend), // Envía el objeto JSON correcto
     })
-      .then((response) => response.json())
-      .then((responseData) => {
-        if (responseData) {
-          // Actualiza el estado de activo/inactivo localmente
-          const updatedData = data.map((item) => {
-            if (item.ID_S === id) {
-              return { ...item, activo: newIsActive };
-            }
-            return item;
-          });
-          setData(updatedData);
-        } else {
-          console.error('Error al cambiar el estado de la sede');
-        }
-      })
-      .catch((error) => {
-        console.error('Error al cambiar el estado de la sede:', error);
-      });
+    .then((response) => response.json())
+    .then((responseData) => {
+      if (responseData) {
+        // Actualiza el estado de activo/inactivo localmente
+        const updatedData = data.map((item) => {
+          if (item.ID_S === id) {
+            return { ...item, est_sed: estado };
+          }
+          return item;
+        });
+        setData(updatedData);
+      } else {
+        console.error('Error al cambiar el estado de la sede');
+      }
+    });
   };
-
-  const handleEliminarSede = (id) => {
-    // Llama a la API para eliminar la sede
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=deletesede&id=${id}`, {
-      method: 'DELETE',
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        if (responseData) {
-          // Elimina la sede localmente
-          const updatedData = data.filter((item) => item.ID_S !== id);
-          setData(updatedData);
-        } else {
-          console.error('Error al eliminar la sede');
-        }
-      })
-      .catch((error) => {
-        console.error('Error al eliminar la sede:', error);
-      });
-  };
-
+  
   return (
     <div>
       <div className='d-flex justify-content-between align-items-center'>
@@ -177,85 +194,89 @@ export default function Sede({ id }) {
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={3} align="center">
+                  <TableCell colSpan={4} align="center">
                     <CircularProgress color="primary" />
                   </TableCell>
                 </TableRow>
               ) : Array.isArray(data) ? (
                 data.map((item) => (
                   <React.Fragment key={item.ID_S}>
-                    <TableRow>
-                      <TableCell>
-                        {editing[item.ID_S] ? (
-                          <TextField
-                            fullWidth
-                            value={item.Dic_S}
-                            onChange={(e) => handleSaveLocally(item.ID_S, 'Dic_S', e.target.value)}
-                          />
-                        ) : (
-                          item.Dic_S
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        {editing[item.ID_S] ? (
-                          <Select
-                            fullWidth
-                            value={item.Sec_V}
-                            onChange={(e) => handleSaveLocally(item.ID_S, 'Sec_V', e.target.value)}
+                    {item.est_sed !== '2' && ( // Comprueba si el estado no es "2"
+                      <TableRow>
+                        <TableCell>
+                          {editing[item.ID_S] ? (
+                            <TextField
+                              fullWidth
+                              value={item.Dic_S}
+                              onChange={(e) => handleSaveLocally(item.ID_S, 'Dic_S', e.target.value)}
+                            />
+                          ) : (
+                            item.Dic_S
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          {editing[item.ID_S] ? (
+                            <Select
+                              fullWidth
+                              value={item.Sec_V}
+                              onChange={(e) => handleSaveLocally(item.ID_S, 'Sec_V', e.target.value)}
+                            >
+                              <MenuItem value="1">1</MenuItem>
+                              <MenuItem value="2">2</MenuItem>
+                              <MenuItem value="3">3</MenuItem>
+                              <MenuItem value="4">4</MenuItem>
+                            </Select>
+                          ) : (
+                            item.Sec_V
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          {editing[item.ID_S] ? (
+                            <>
+                              <Button
+                                color="primary"
+                                onClick={() => handleSaveToAPI(item.ID_S, 'ID_S', item.ID_S)}
+                              >
+                                Guardar
+                              </Button>
+                              <button className="btn btn-danger ml-2" onClick={() => setEditing({ ...editing, [item.ID_S]: false })}>
+                                <i className="fa fa-times"></i> Cancelar
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <Button
+                                color="primary"
+                                onClick={() => handleEdit(item.ID_S)}
+                                disabled={item.est_sed === '1'} // Deshabilita el botón si el estado es "1"
+                              >
+                                Editar
+                              </Button>
+                              <Button
+                                variant="contained"
+                                color="info"
+                                onClick={() => handleExpandSede(item.ID_S)}
+                                disabled={item.est_sed === '1'}
+                              >
+                                Encargados
+                              </Button>
+                            </>
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          {item.est_sed === "0" ? <button className='btn'
+                            onClick={() => handleToggleSede(item.ID_S, "1")}
+                          ><i className="bi bi-emoji-smile  text-success"></i></button> : <button className='btn'
+                            onClick={() => handleToggleSede(item.ID_S, "0")}
+                          ><i className="bi bi-emoji-frown text-warning"></i></button>}
+                          <Button
+                            onClick={() => handleToggleSede(item.ID_S,"2")}
                           >
-                            <MenuItem value="1">1</MenuItem>
-                            <MenuItem value="2">2</MenuItem>
-                            <MenuItem value="3">3</MenuItem>
-                            <MenuItem value="4">4</MenuItem>
-                          </Select>
-                        ) : (
-                          item.Sec_V
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        {editing[item.ID_S] ? (
-                          <>
-                            <Button
-                              color="primary"
-                              onClick={() => handleSaveToAPI(item.ID_S, 'ID_S', item.ID_S)}
-                            >
-                              Guardar
-                            </Button>
-                            <button className="btn btn-danger ml-2" onClick={() => setEditing({ ...editing, [item.ID_S]: false })}>
-                              <i className="fa fa-times"></i> Cancelar
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <Button
-                              color="primary"
-                              onClick={() => handleEdit(item.ID_S)}
-                            >
-                              Editar
-                            </Button>
-                            <Button
-                              variant="contained"
-                              color="info"
-                              onClick={() => handleExpandSede(item.ID_S)}
-                            >
-                              Encargados
-                            </Button>
-                          </>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        {item.est_sed ? <button className='btn'
-                          onClick={() => handleToggleSede(item.ID_S, item.est_sed)}
-                        ><i className="bi bi-emoji-smile  text-success"></i></button> : <button className='btn'
-                          onClick={() => handleToggleSede(item.ID_S, item.Est_sed)}
-                        ><i className="bi bi-emoji-frown text-danger"></i></button>}
-                        <Button
-                          onClick={() => handleEliminarSede(item.ID_S)}
-                        >
-                          <i className="bi bi-trash3 text-danger"></i>
-                        </Button>
-                      </TableCell>
-                    </TableRow>
+                            <i className="bi bi-trash3 text-danger"></i>
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    )}
                     {expandedSede === item.ID_S && (
                       <TableRow>
                         <TableCell colSpan={4}>
