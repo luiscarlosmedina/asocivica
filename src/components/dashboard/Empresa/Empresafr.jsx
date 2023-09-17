@@ -1,87 +1,136 @@
 import React, { useState } from 'react';
 
 function Empresafr({ onDataUpdate }) {
-    const [nit, setNit] = useState("")
-    const [nombre, setNombre] = useState("")
-    const [correo, setCorreo] = useState("")
-    const [rep, setRep] = useState("")
-    const [tp_doc, setTp_doc] = useState("")
-    const [repDoc, setRepDoc] = useState("")
-    const [telefono, setTelefono] = useState("")
-    const [valor, setValor] = useState("")
-    const [estado, setEstado] = useState("")
-    const [fhInicio, setFhInicio] = useState("")
-    const [fhFin, setFhFin] = useState("")
-    const [sector, setSector] = useState("")
-    const [actividad, setActividad] = useState("")
+    const [nit, setNit] = useState("");
+    const [nombre, setNombre] = useState("");
+    const [correo, setCorreo] = useState("");
+    const [rep, setRep] = useState("");
+    const [tp_doc, setTp_doc] = useState("");
+    const [repDoc, setRepDoc] = useState("");
+    const [telefono, setTelefono] = useState("");
+    const [valor, setValor] = useState("");
+    const [estado, setEstado] = useState("");
+    const [fhInicio, setFhInicio] = useState("");
+    const [fhFin, setFhFin] = useState("");
+    const [sector, setSector] = useState("");
+    const [actividad, setActividad] = useState("");
     const [message, setMessage] = useState('');
+    const [sedes, setSedes] = useState([{ Dic_S: "", Sec_V: "", encargados: [] }]);
+    const [empresa, setEmpresa] = useState({
+        Nit_E: "",
+        Nom_E: "",
+        Eml_E: "",
+        Nom_Rl: "",
+        ID_Doc: 1,
+        CC_Rl: "",
+        telefonoGeneral: "",
+        Val_E: 1,
+        Est_E: "",
+        Fh_Afi: "",
+        fechaFinalizacion: "",
+        COD_SE: "",
+        COD_AE: "",
+        sedes: [
+            {
+                Dic_S: "",
+                Sec_V: "",
+                encargados: [
+                    {
+                        N_En: "",
+                        tel1: "",
+                        tel2: "",
+                        tel3: "",
+                        Est_en: ""
+                    }
+                ]
+            }
+        ]
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setEmpresa({ ...empresa, [name]: value });
+    };
+
+    const handleSedeChange = (index, field, value) => {
+        const updatedSedes = [...empresa.sedes];
+        updatedSedes[index][field] = value;
+        setEmpresa({ ...empresa, sedes: updatedSedes });
+    };
+
+    const handleEncargadoChange = (sedeIndex, encargadoIndex, field, value) => {
+        const updatedSedes = [...empresa.sedes];
+        updatedSedes[sedeIndex].encargados[encargadoIndex][field] = value;
+        setEmpresa({ ...empresa, sedes: updatedSedes });
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        const empresa = {
-            nit,
-            nombre,
-            correo,
-            rep,
-            tp_doc,
-            repDoc,
-            telefono,
-            valor,
-            estado,
-            fhInicio,
-            fhFin,
-            sector,
-            actividad,
-        };
+        // Aquí puedes realizar la solicitud POST a la API con el objeto 'empresa'
         console.log(empresa);
-        //http://localhost/api_proyecto.github.io/api.php?apicall=readempresas
-        fetch('http://localhost/api_proyecto.github.io/api.php?apicall=createempresa', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(empresa),
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    setMessage('Error al crear el usuario');
-                } else {
-                    setMessage('empresa creado correctamente');
-                    setNit("");
-                    setNombre("");
-                    setCorreo("");
-                    setRep("");
-                    setTp_doc("");
-                    setRepDoc("");
-                    setTelefono("");
-                    setValor("");
-                    setEstado("");
-                    setFhInicio("");
-                    setFhFin("");
-                    setSector("");
-                    setActividad("");
-                    setMessage("");
-                    onDataUpdate();
+
+        // Limpia el formulario después de enviar
+        setEmpresa({
+            Nit_E: "",
+            Nom_E: "",
+            Eml_E: "",
+            Nom_Rl: "",
+            ID_Doc: "",
+            CC_Rl: "",
+            telefonoGeneral: "",
+            Val_E: "",
+            Est_E: "",
+            Fh_Afi: hoy,
+            fechaFinalizacion: hoy,
+            COD_SE: "",
+            COD_AE: "",
+            sedes: [
+                {
+                    Dic_S: "",
+                    Sec_V: "",
+                    encargados: [
+                        {
+                            N_En: "",
+                            tel1: "",
+                            tel2: "",
+                            tel3: "",
+                            Est_en: ""
+                        }
+                    ]
                 }
-            })
-            .catch(error => {
-                setMessage('Error en la solicitud');
-                console.log(error);
-            });
-        };
+            ]
+        });
+
+        onDataUpdate();
+    };
+    const fecha = new Date()
+    const hoy = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate()
+
+    const handleAddSede = () => {
+        const updatedSedes = [...empresa.sedes, { Dic_S: "", Sec_V: "", encargados: [] }];
+        setEmpresa({ ...empresa, sedes: updatedSedes });
+    };
+
+    const handleAddEncargado = (sedeIndex) => {
+        const updatedSedes = [...empresa.sedes];
+        updatedSedes[sedeIndex].encargados.push({ N_En: "", tel1: "", tel2: "", tel3: "", Est_en: "" });
+        setEmpresa({ ...empresa, sedes: updatedSedes });
+    };
+
     return (
-        <div className="ingresar-container">
-            <h2>Registro de empresa</h2>
+        <div className="container mt-5">
+            <h2 className="mb-4">Registro de Empresa</h2>
             <form onSubmit={handleSubmit}>
+                {/* Campos para la Empresa */}
                 <div>
                     <label htmlFor="nit">Nit</label>
                     <input
                         type="text"
                         id="nit"
-                        value={nit}
-                        onChange={e => setNit(e.target.value)}
+                        className="form-control"
+                        name="Nit_E"
+                        value={empresa.Nit_E}
+                        onChange={handleChange}
                         
                     />
                 </div>
@@ -90,8 +139,10 @@ function Empresafr({ onDataUpdate }) {
                     <input
                         type="text"
                         id="nombre"
-                        value={nombre}
-                        onChange={e => setNombre(e.target.value)}
+                        className="form-control"
+                        name="Nom_E"
+                        value={empresa.Nom_E}
+                        onChange={handleChange}
                         
                     />
                 </div>
@@ -100,8 +151,10 @@ function Empresafr({ onDataUpdate }) {
                     <input
                         type="text"
                         id="correo"
-                        value={correo}
-                        onChange={e => setCorreo(e.target.value)}
+                        className="form-control"
+                        name="Eml_E"
+                        value={empresa.Eml_E}
+                        onChange={handleChange}
                         
                     />
                 </div>
@@ -110,8 +163,10 @@ function Empresafr({ onDataUpdate }) {
                     <input
                         type="text"
                         id="rep"
-                        value={rep}
-                        onChange={e => setRep(e.target.value)}
+                        className="form-control"
+                        name="Nom_Rl"
+                        value={empresa.Nom_Rl}
+                        onChange={handleChange}
                         
                     />
                 </div>
@@ -120,8 +175,10 @@ function Empresafr({ onDataUpdate }) {
                     <input
                         type="text"
                         id="tp_doc"
-                        value={tp_doc}
-                        onChange={e => setTp_doc(e.target.value)}
+                        className="form-control"
+                        name="ID_Doc"
+                        value={empresa.ID_Doc}
+                        onChange={handleChange}
                         
                     />
                 </div>
@@ -130,8 +187,10 @@ function Empresafr({ onDataUpdate }) {
                     <input
                         type="number"
                         id="repDoc"
-                        value={repDoc}
-                        onChange={e => setRepDoc(e.target.value)}
+                        className="form-control"
+                        name="CC_Rl"
+                        value={empresa.CC_Rl}
+                        onChange={handleChange}
                         
                     />
                 </div>
@@ -140,48 +199,34 @@ function Empresafr({ onDataUpdate }) {
                     <input
                         type="number"
                         id="telefono"
-                        value={telefono}
-                        onChange={e => setTelefono(e.target.value)}
+                        className="form-control"
+                        name="telefonoGeneral"
+                        value={empresa.telefonoGeneral}
+                        onChange={handleChange}
                         
                     />
                 </div>
                 <div>
-                    <label htmlFor="valor">valor</label>
+                    <label htmlFor="valor">Valor</label>
                     <input
                         type="number"
                         id="valor"
-                        value={valor}
-                        onChange={e => setValor(e.target.value)}
+                        className="form-control"
+                        name="Val_E"
+                        value={empresa.Val_E}
+                        onChange={handleChange}
                         
                     />
                 </div>
                 <div>
                     <label htmlFor="estado">Estado</label>
                     <input
-                        type="number"
+                        type="text"
                         id="estado"
-                        value={estado}
-                        onChange={e => setEstado(e.target.value)}
-                        
-                    />
-                </div>
-                <div>
-                    <label htmlFor="fhInicio">Fecha de afiliacion</label>
-                    <input
-                        type="date"
-                        id="fhInicio"
-                        value={fhInicio}
-                        onChange={e => setFhInicio(e.target.value)}
-                        
-                    />
-                </div>
-                <div>
-                    <label htmlFor="fhFin">Fecha de desactivacion</label>
-                    <input
-                        type="date"
-                        id="fhFin"
-                        value={fhFin}
-                        onChange={e => setFhFin(e.target.value)}
+                        className="form-control"
+                        name="Est_E"
+                        value={empresa.Est_E}
+                        onChange={handleChange}
                         
                     />
                 </div>
@@ -190,8 +235,10 @@ function Empresafr({ onDataUpdate }) {
                     <input
                         type="text"
                         id="sector"
-                        value={sector}
-                        onChange={e => setSector(e.target.value)}
+                        className="form-control"
+                        name="COD_SE"
+                        value={empresa.COD_SE}
+                        onChange={handleChange}
                         
                     />
                 </div>
@@ -200,17 +247,113 @@ function Empresafr({ onDataUpdate }) {
                     <input
                         type="text"
                         id="actividad"
-                        value={actividad}
-                        onChange={e => setActividad(e.target.value)}
+                        className="form-control"
+                        name="COD_AE"
+                        value={empresa.COD_AE}
+                        onChange={handleChange}
                         
                     />
                 </div>
 
-                <button type="submit" className="btn btn-primary">Registrar</button>
+                {/* Campos para Sedes */}
+                <div className="mb-4">
+                    <h3>Sedes</h3>
+                    {empresa.sedes.map((sede, index) => (
+                        <div key={index} className="border p-3 mb-3">
+                            <div className="mb-3">
+                                <label htmlFor={`Dic_S_${index}`}>Dirección Sede</label>
+                                <input
+                                    type="text"
+                                    id={`Dic_S_${index}`}
+                                    className="form-control"
+                                    name={`Dic_S_${index}`}
+                                    value={sede.Dic_S}
+                                    onChange={(e) => handleSedeChange(index, "Dic_S", e.target.value)}
+                                    
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor={`Sec_V_${index}`}>Secuencia</label>
+                                <input
+                                    type="number"
+                                    id={`Sec_V_${index}`}
+                                    className="form-control"
+                                    name={`Sec_V_${index}`}
+                                    value={sede.Sec_V}
+                                    onChange={(e) => handleSedeChange(index, "Sec_V", e.target.value)}
+                                    
+                                />
+                            </div>
+                            <h5>Encargados</h5>
+                            {sede.encargados.map((encargado, encargadoIndex) => (
+                                <div key={encargadoIndex} className="border p-3 mb-3">
+                                    <div className="mb-3">
+                                        <label htmlFor={`N_En_${index}_${encargadoIndex}`}>Nombre Encargado</label>
+                                        <input
+                                            type="text"
+                                            id={`N_En_${index}_${encargadoIndex}`}
+                                            className="form-control"
+                                            name={`N_En_${index}_${encargadoIndex}`}
+                                            value={encargado.N_En}
+                                            onChange={(e) => handleEncargadoChange(index, encargadoIndex, "N_En", e.target.value)}
+                                            
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor={`tel1_${index}_${encargadoIndex}`}>Teléfono 1</label>
+                                        <input
+                                            type="text"
+                                            id={`tel1_${index}_${encargadoIndex}`}
+                                            className="form-control"
+                                            name={`tel1_${index}_${encargadoIndex}`}
+                                            value={encargado.tel1}
+                                            onChange={(e) => handleEncargadoChange(index, encargadoIndex, "tel1", e.target.value)}
+                                            
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor={`tel2_${index}_${encargadoIndex}`}>Teléfono 2</label>
+                                        <input
+                                            type="text"
+                                            id={`tel2_${index}_${encargadoIndex}`}
+                                            className="form-control"
+                                            name={`tel2_${index}_${encargadoIndex}`}
+                                            value={encargado.tel2}
+                                            onChange={(e) => handleEncargadoChange(index, encargadoIndex, "tel2", e.target.value)}
+                                            
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor={`tel3_${index}_${encargadoIndex}`}>Teléfono 3</label>
+                                        <input
+                                            type="text"
+                                            id={`tel3_${index}_${encargadoIndex}`}
+                                            className="form-control"
+                                            name={`tel3_${index}_${encargadoIndex}`}
+                                            value={encargado.tel3}
+                                            onChange={(e) => handleEncargadoChange(index, encargadoIndex, "tel3", e.target.value)}
+                                            
+                                        />
+                                    </div>
+                                </div>
+                            ))}
+                            <button type="button" className="btn btn-secondary" onClick={() => handleAddEncargado(index)}>
+                                Agregar Encargado
+                            </button>
+                        </div>
+                    ))}
+                    <button type="button" className="btn btn-secondary" onClick={handleAddSede}>
+                        Agregar Sede
+                    </button>
+                </div>
+
+                <button type="submit" className="btn btn-primary">
+                    Registrar Empresa
+                </button>
+                {message && <p className="mt-3">{message}</p>}
             </form>
-            {message && <p>{message}</p>}
         </div>
-    )
+    );
 }
 
 export default Empresafr;
