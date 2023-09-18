@@ -18,19 +18,23 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import CrearSede from './crearsede'; // Importa tu componente CrearSede aquí
-import Encargados from './encargados'; // Importa tu componente Encargados aquí
+import CrearSede from './crearsede';
+import Encargados from './encargados';
 
 export default function Sede({ id }) {
+  // Estados
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [editing, setEditing] = useState({}); // Para rastrear las filas que se están editando
-  const [expandedSede, setExpandedSede] = useState(null); // Para rastrear la sede expandida
+  const [editing, setEditing] = useState({});
+  const [expandedSede, setExpandedSede] = useState(null);
+  const [errors, setErrors] = useState({});
 
+  // Efecto para cargar datos
   useEffect(() => {
     fetchData();
   }, []);
 
+  // Función para cargar datos
   const fetchData = () => {
     fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readsede&id=${id}`)
       .then((response) => response.json())
@@ -39,130 +43,147 @@ export default function Sede({ id }) {
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         setLoading(false);
       });
   };
 
+  // Función para manejar la edición de un elemento
   const handleEdit = (id) => {
-    // Rastrea el estado de edición para la fila
-    if (data.find((item) => item.ID_S === id).est_sed !== "1") {
+    const isEditable = data.find((item) => item.ID_S === id).est_sed !== '1';
+    if (isEditable) {
       setEditing({ ...editing, [id]: true });
     }
   };
 
+  // Función para guardar localmente los cambios en un campo
   const handleSaveLocally = (id, field, newValue) => {
-    // Obtiene el valor editado y el campo correspondiente
-    const updatedData = data.map((item) => {
-      if (item.ID_S === id) {
-        return { ...item, [field]: newValue };
-      }
-      return item;
-    });
-
+    const updatedData = data.map((item) => (item.ID_S === id ? { ...item, [field]: newValue } : item));
     setData(updatedData);
   };
 
+  // Función para validar direcciones colombianas
+  const isColombianAddressValid = (address) => {
+    const colombianAddressRegex = /^[A-Za-z0-9\s#-]+$/; // Expresión regular para validar direcciones en Colombia
+    return colombianAddressRegex.test(address);
+  };
+
+  // Función para manejar el evento onBlur de un campo
+  const handleBlur = (id, field, value) => {
+    if (field === 'Dic_S' && !isColombianAddressValid(value)) {
+      setErrors({ ...errors, [id]: 'La dirección ingresada no es válida.' });
+    } else {
+      setErrors({ ...errors, [id]: '' });
+    }
+  };
+
+  // Función para guardar los cambios en la API
   const handleSaveToAPI = (id, field, newValue) => {
-    // Obtiene el objeto de datos correspondiente
-    const editedRow = data.find((row) => row.ID_S === id);
-
-    // Actualiza el campo editado en el objeto de la fila
-    editedRow[field] = newValue;
-
-    // Envía los datos actualizados a la API
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updatesede`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(editedRow),
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        if (responseData) {
-          // Actualiza el estado de edición para esta fila
-          setEditing({ ...editing, [id]: false });
-          // Puedes realizar una nueva solicitud para actualizar los datos si es necesario
-          fetchData();
-        } else {
-          console.error('Error al actualizar los datos');
-        }
+    // Realiza la validación aquí antes de enviar los datos a la API
+    let isValid = true;
+  
+    if (field === 'Dic_S' && !isColombianAddressValid(newValue)) {
+      // Si el campo es 'Dic_S' y la dirección no es válida, establece isValid en falso
+      isValid = false;
+      setErrors({ ...errors, [id]: 'La dirección ingresada no es válida para Colombia.' });
+    } else {
+      setErrors({ ...errors, [id]: '' });
+    }
+  
+    if (isValid) {
+      // Si todos los campos son válidos, procede a enviar los datos a la API
+      const editedRow = data.find((row) => row.ID_S === id);
+      editedRow[field] = newValue;
+  
+      fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updatesede`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editedRow),
       })
-      .catch((error) => {
-        console.error('Error al actualizar los datos:', error);
-      });
+        .then((response) => response.json())
+        .then((responseData) => {
+          if (responseData) {
+            setEditing({ ...editing, [id]: false });
+            fetchData();
+          } else {
+            console.error('Error al actualizar los datos');
+          }
+        })
+        .catch((error) => {
+          console.error('Error al actualizar los datos:', error);
+        });
+    }
   };
+  
 
+  // Función para expandir o colapsar una sede
   const handleExpandSede = (id) => {
-    // Rastrea qué sede está expandida
-    setExpandedSede(id === expandedSede ? null : id);
+    setExpandedSede((prevExpanded) => (prevExpanded === id ? null : id));
   };
 
+  // Función para cambiar el estado de una sede
   const handleToggleSede = (id, estado) => {
-    if (estado === "2") {
-      // Muestra un SweetAlert de confirmación
+    const deleteConfirmation = () => {
       swal({
         title: '¿Estás seguro?',
         text: 'Una vez eliminado no podrá recuperar este dato',
         icon: 'warning',
         buttons: true,
         dangerMode: true,
-      })
-      .then((confirmation) => {
+      }).then((confirmation) => {
         if (confirmation) {
           performDeleteSede(id)
-          .then(() => {
-            swal('Eliminado con éxito', { icon: 'success' });
-            fetchData();
-          })
-          .catch((error) => {
-            console.error('Error al eliminar la sede:', error);
-          });
+            .then(() => {
+              swal('Eliminado con éxito', { icon: 'success' });
+              fetchData();
+            })
+            .catch((error) => {
+              console.error('Error al eliminar la sede:', error);
+            });
         } else {
           swal('Información a salvo');
         }
       });
+    };
+
+    if (estado === '2') {
+      deleteConfirmation();
     } else {
-      // Si el estado no es "2", realiza la petición directamente
-      performDeleteSede(id, estado)
-      .catch((error) => {
+      performDeleteSede(id, estado).catch((error) => {
         console.error('Error al cambiar el estado de la sede:', error);
       });
     }
   };
-  
+
+  // Función para realizar la eliminación de una sede
   const performDeleteSede = (id, estado) => {
-    // Construye el objeto de datos a enviar al servidor
     const dataToSend = {
       ID_S: id,
       est_sed: estado,
     };
-  
+
     return fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateestsd`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(dataToSend), // Envía el objeto JSON correcto
+      body: JSON.stringify(dataToSend),
     })
-    .then((response) => response.json())
-    .then((responseData) => {
-      if (responseData) {
-        // Actualiza el estado de activo/inactivo localmente
-        const updatedData = data.map((item) => {
-          if (item.ID_S === id) {
-            return { ...item, est_sed: estado };
-          }
-          return item;
-        });
-        setData(updatedData);
-      } else {
-        console.error('Error al cambiar el estado de la sede');
-      }
-    });
+      .then((response) => response.json())
+      .then((responseData) => {
+        if (responseData) {
+          const updatedData = data.map((item) =>
+            item.ID_S === id ? { ...item, est_sed: estado } : item
+          );
+          setData(updatedData);
+        } else {
+          console.error('Error al cambiar el estado de la sede');
+        }
+      });
   };
-  
+
   return (
     <div>
       <div className='d-flex justify-content-between align-items-center'>
@@ -198,18 +219,21 @@ export default function Sede({ id }) {
                     <CircularProgress color="primary" />
                   </TableCell>
                 </TableRow>
-              ) : Array.isArray(data) ? (
+              ) : (
                 data.map((item) => (
                   <React.Fragment key={item.ID_S}>
-                    {item.est_sed !== '2' && ( // Comprueba si el estado no es "2"
+                    {item.est_sed !== '2' && (
                       <TableRow>
                         <TableCell>
                           {editing[item.ID_S] ? (
-                            <TextField
-                              fullWidth
-                              value={item.Dic_S}
-                              onChange={(e) => handleSaveLocally(item.ID_S, 'Dic_S', e.target.value)}
-                            />
+                            <>
+                              <TextField
+                                value={item.Dic_S}
+                                onChange={(e) => handleSaveLocally(item.ID_S, 'Dic_S', e.target.value)}
+                                onBlur={(e) => handleBlur(item.ID_S, 'Dic_S', e.target.value)}
+                              />
+                              {errors[item.ID_S] && <div className="text-danger">{errors[item.ID_S]}</div>}
+                            </>
                           ) : (
                             item.Dic_S
                           )}
@@ -248,7 +272,7 @@ export default function Sede({ id }) {
                               <Button
                                 color="primary"
                                 onClick={() => handleEdit(item.ID_S)}
-                                disabled={item.est_sed === '1'} // Deshabilita el botón si el estado es "1"
+                                disabled={item.est_sed === '1'}
                               >
                                 Editar
                               </Button>
@@ -264,14 +288,16 @@ export default function Sede({ id }) {
                           )}
                         </TableCell>
                         <TableCell>
-                          {item.est_sed === "0" ? <button className='btn'
-                            onClick={() => handleToggleSede(item.ID_S, "1")}
-                          ><i className="bi bi-emoji-smile  text-success"></i></button> : <button className='btn'
-                            onClick={() => handleToggleSede(item.ID_S, "0")}
-                          ><i className="bi bi-emoji-frown text-warning"></i></button>}
-                          <Button
-                            onClick={() => handleToggleSede(item.ID_S,"2")}
-                          >
+                          {item.est_sed === '0' ? (
+                            <button className='btn' onClick={() => handleToggleSede(item.ID_S, '1')}>
+                              <i className="bi bi-emoji-smile  text-success"></i>
+                            </button>
+                          ) : (
+                            <button className='btn' onClick={() => handleToggleSede(item.ID_S, '0')}>
+                              <i className="bi bi-emoji-frown text-warning"></i>
+                            </button>
+                          )}
+                          <Button onClick={() => handleToggleSede(item.ID_S, '2')}>
                             <i className="bi bi-trash3 text-danger"></i>
                           </Button>
                         </TableCell>
@@ -290,12 +316,6 @@ export default function Sede({ id }) {
                     )}
                   </React.Fragment>
                 ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={4} align="center">
-                    No existen datos registrados
-                  </TableCell>
-                </TableRow>
               )}
             </TableBody>
           </Table>
