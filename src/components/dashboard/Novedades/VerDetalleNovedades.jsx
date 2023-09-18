@@ -1,122 +1,110 @@
 import React, { useEffect, useState } from "react";
-import Editar from './editar';
-import { Link } from 'react-router-dom';
-import Sede from "../Empresa/sede";
-import Novedades from "./Novedades";
+import TiempoTranscurrido from "./ComponentsFunction/TiempoTranscurrido";
+import FormateadorFecha from "./ComponentsFunction/FormateadorFecha";
+import figura from "../../../img/figura.jpg";
+import { useParams, useNavigate } from "react-router-dom";
 
-
-export default function VerDetalleNovedades() {
-  const [data, setData] = useState("");
-  const { id } = useParams();
-  const back = useNavigate()
-
-  const handlePostData = async () => {
-
-    const response = await fetch(
-      "api-novedad",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      }
-    );
-
-    const data = await response.json();
-    setData(data.contenido);
-  };
+export default function VerDetalleNovedad() {
+  const [loading, setLoading] = useState(true);
+  const { novedadID } = useParams();
+  const back = useNavigate();
+  const [novedad, setNovedad] = useState({
+    ID_Novedad: "",
+    Fecha_Novedad: "",
+    Tipo_Novedad: "",
+    Descripcion_Tipo: "",
+    Direccion: "",
+    Descripcion_Novedad: "",
+    Adjunto_Evidencia: "",
+    Nombre_Completo_Empleado: "",
+  });
 
   useEffect(() => {
-    handlePostData();
-  }, [id]);
+    fetchData();
+  }, []);
 
+  const fetchData = () => {
+    fetch(
+      `http://localhost/api_proyecto.github.io/api.php?apicall=readnovedad&id=${novedadID}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setNovedad(data.contenido[0]);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  };
   return (
+    <>
     <div>
-      {Array.isArray(data) ? (
-        data.map(item => (
-          <div key={item.id_e} >
-            <div className='d-flex justify-content-between align-items-center'>
-              <div>
-                <h3>Datos registrados</h3>
-              </div>
-              <div>
-                <button type="button" className="btn btn-link" onClick={() => back(-1)}>Salir</button>
-                <button type="button" className="btn btn-link" data-bs-toggle="modal" data-bs-target="#editar" data-bs-whatever="@mdo"> Editar </button>
-              </div>
+      {loading ? (
+        <p>Cargando...</p>
+      ) : (
+          <div key={novedad.ID_Novedad}>
+          <div className="row justify-content-between">
+            <div className="col-4 p-3">
+              <h3>Novedad</h3>
             </div>
-            <div
-              className="modal fade"
-              id="editar"
-              tabIndex="-1"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel">
-                      Editar novedad
-                    </h5>
-                    <button
-                      type="button"
-                      className="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                    <Editar />
-                  <div className="modal-footer">
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
-                      Cancelar
-                    </button>
-                    <button type="button" className="btn btn-primary">
-                      Guardar
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <hr className='pb-3' />
-            <div className='d-flex justify-content-around '>
-              <div>
-                <div className="input-group mb-3 align-items-center">
-                  <span className="input-group-text bg-transparent" id="inputGroup-sizing-default"><i className="bi bi-buildings-fill text-primary"></i></span>
-                  <input type="text" className="form-control bg-transparent border border-0 fw-bold" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={item.ID_Nov} />
-                </div>
-                <div className="input-group mb-3 align-items-center">
-                  <span className="input-group-text bg-transparent" id="inputGroup-sizing-default"><i className="bi bi-envelope-fill text-primary">Direccion</i></span>
-                  <input type="text" className="form-control bg-transparent border border-0 fw-bold" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={item.Dic_Nov} />
-                </div>
-                <div className="input-group mb-3 align-items-center">
-                  <span className="input-group-text bg-transparent" id="inputGroup-sizing-default"><i className="bi bi-telephone-fill text-primary"></i>Descripcion</span>
-                  <input type="text" className="form-control bg-transparent border border-0 fw-bold" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={item.Des_Nov} />
-                </div>
-                <div className="input-group mb-3 align-items-center">
-                  <span className="input-group-text bg-transparent" id="inputGroup-sizing-default"><i className="bi bi-currency-dollar text-primary"></i></span>
-                  <input type="text" className="form-control bg-transparent border border-0 fw-bold" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={item.id_evi} />
-                </div>
-              </div>
-              <div>
-                <div className="input-group mb-3 align-items-center">
-                  <span className="input-group-text text-primary bg-transparent" id="inputGroup-sizing-default"></span>
-                  <input type="text" className="form-control bg-transparent border border-0 fw-bold" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={item.id_em} />
-                </div>
-                <div className="input-group mb-3 align-items-center">
-                  <span className="input-group-text text-primary bg-transparent" id="inputGroup-sizing-default"></span>
-                  <input type="text" className="form-control bg-transparent border border-0 fw-bold" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={item.ID_S} />
-                </div>
-              </div>
+            <div className="col-4 text-end p-2">
+              <button class="btn btn-outline-primary" type="button">
+                Editar
+              </button>
+              <button
+                type="button"
+                class="btn-close m-3"
+                aria-label="Close"
+                onClick={() => back("/consultar-novedades")}
+              ></button>
             </div>
           </div>
-        ))
-      ) : (
-        <p>No Encontramos la informacion que buscas</p>
+          <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded-4">
+            <div className="border-bottom border-start border-3 rounded-start border-primary ps-3">
+              <div className="row justify-content-between">
+                <div className="col-6">
+                  <blockquote class="blockquote">
+                    <h1>{novedad.Tipo_Novedad}</h1>
+                  </blockquote>
+                  <figcaption class="blockquote-footer">
+                    <em className="fs-5">Descripción de novedad: {novedad.Descripcion_Tipo}</em>
+                  </figcaption>
+                  <figcaption class="blockquote-footer">
+                    <em className="fs-5 pt-0 mt-0">Dirección: {novedad.Direccion}</em>
+                  </figcaption>
+                </div>
+                <div className="container col-6 text-end me-0">
+                  <blockquote class="blockquote p-0 m-0">
+                    <h1 className="p-0 m-0">Creada: <TiempoTranscurrido fechaDada={novedad.Fecha_Novedad}/></h1>
+                  </blockquote>
+                  <figcaption class="blockquote-footer p-0 m-0">
+                    <em className="fs-5 pt-0 mt-0">Fecha de creación: <FormateadorFecha fechaDada={novedad.Fecha_Novedad}/></em>
+                  </figcaption>
+                  <p className="fs-5 pt-0 mt-0 text-capitalize fw-lighter">by: {novedad.Nombre_Completo_Empleado}</p>
+                </div>
+              </div>
+            </div>
+            <div className="row justify-content-between">
+              <div class="col-4 w-50 p-3 overflow-scroll">
+                <figure class="figure">
+                  <img
+                    src={figura}
+                    class="figure-img img-fluid rounded"
+                    alt="..."
+                  />
+                  <figcaption class="figure-caption">Direccion: {novedad.Direccion}</figcaption>
+                </figure>
+              </div>
+              <div className="col-6 mt-3">
+                <p className="fs-5">{novedad.Descripcion_Novedad}</p>
+              </div>
+            </div>
+            <div><p><a class="link-opacity-100-hover fs-3" href={novedad.Adjunto_Evidencia}>Evidencia: {novedad.Adjunto_Evidencia}</a></p></div> 
+          </div>
+        </div>        
       )}
     </div>
+    </>
   );
 }

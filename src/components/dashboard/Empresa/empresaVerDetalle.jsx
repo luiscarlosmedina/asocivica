@@ -6,7 +6,7 @@ import EditarE from './editarempresa'
 export default function EmpresaVerDetalle() {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
-  const back = useNavigate()
+  const back = useNavigate();
   const [empresa, setEmpresa] = useState({
     id_e: "",
     Nit_E: "",
