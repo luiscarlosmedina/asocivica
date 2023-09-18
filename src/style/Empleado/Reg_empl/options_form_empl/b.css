@@ -1,14 +1,24 @@
 
 .secundary-box{
-    height: 37em;
+    height: 50em;
     width: 100%;
 }
-
 .secundary-box .container{
-    background-color: rgb(227, 231, 235);
+    
     border-radius: 7px;
+    width: 80%;
+    height: 40em;
     
 }
+
+input[type="text"] {
+    display: inline-block;
+    width: 100%;
+    height: 35px;
+    margin: 2px 0;
+    border: 1px solid #ccc;
+}
+
 
 
 

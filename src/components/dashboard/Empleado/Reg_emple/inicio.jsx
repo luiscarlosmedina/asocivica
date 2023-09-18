@@ -4,7 +4,7 @@ function Inicio(props) {
     const {siguientePaso} = props;
 
   return (
-    <div>
+    <div  >
         <h1>
         Esta seccion es de registrar un empleado, 
         para hacerlo porfavor dale siguiente

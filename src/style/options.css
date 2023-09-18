@@ -1,5 +1,5 @@
 :root {
-    --azul: #134074;
+    --azul: #0d284d;
     --naranja: #fa8131;
     --blanco: #fff;
     --fuente: 'Quicksand', sans-serif;
@@ -18,6 +18,7 @@
 
 .col {
     padding: 18px;
+   
 }
 
 .op {

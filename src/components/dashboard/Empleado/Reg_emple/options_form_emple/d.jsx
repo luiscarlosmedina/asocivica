@@ -1,75 +1,108 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../../../../style/Empleado/Reg_empl/options_form_empl/d.css";
-function D_emple(props) {
+function DEmple(props) {
   const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
+
+  const [errores, setErrores] = useState({});
+
+  const validarCampo = (nombreCampo, valorCampo) => {
+    const nuevosErrores = { ...errores };
+
+    switch (nombreCampo) {
+      case "n_coe":
+        if (valorCampo === "" && valorCampo === null ) {
+          nuevosErrores.n_coe = "Por favor, seleccione un estado válido";
+        } else {
+          delete nuevosErrores.n_coe;
+        }
+        break;
+
+      case "csag":
+        if (valorCampo === "" && valorCampo === null ) {
+          nuevosErrores.csag = "Por favor, seleccione un estado válido";
+        } else {
+          delete nuevosErrores.csag;
+        }
+
+        break;
+      case "t_cem":
+        if (valorCampo === "" && valorCampo === null ) {
+          nuevosErrores.t_cem = "Por favor, seleccione un estado válido";
+        } else {
+          delete nuevosErrores.t_cem;
+        }
+
+        break;
+
+      default:
+        // No se realiza ninguna validación para otros campos
+        break;
+    }
+
+    setErrores(nuevosErrores);
+  };
+
   return (
     <section className="secundary-box">
       <div className="container">
         <form className="box-main">
           <div className="box-main2">
             <div className="box1">
-              <label for="validationDefault02" className="form-label">
-                Nombre
-              </label>
+              <label className="form-label">Nombre</label>
               <input
                 type="Text"
                 name="n_coe"
-                className="form-control"
-                id="validationDefault01"
-                onChange={handleInputChange}
+                className={`form-control ${errores.n_coe ? "is-invalid" : valores.n_coe ? "is-valid" : ""
+                  }`}
+                onChange={(e) => {
+                  handleInputChange(e);
+                  validarCampo("n_coe", e.target.value);
+                }}
                 value={valores.n_coe}
-              
               />
-              <div id="emailHelp" className="form-text">
-                aqui un texto por una exclamación
-              </div>
+              <div className="invalid-feedback">{errores.n_coe}</div>
             </div>
             <div className="box1">
-              <label for="validationDefault02" className="form-label">
-                consaguinidad
-              </label>
+              <label className="form-label">consaguinidad</label>
               <input
                 type="Text"
                 name="csag"
-                className="form-control"
-                id="validationDefault01"
-                onChange={handleInputChange}
+                className={`form-control ${errores.csag ? "is-invalid" : valores.csag ? "is-valid" : ""
+                  }`}
+                onChange={(e) => {
+                  handleInputChange(e);
+                  validarCampo("csag", e.target.value);
+                }}
                 value={valores.csag}
-              
               />
-              <div id="emailHelp" className="form-text">
-                aqui un texto por una exclamación
-              </div>
+              <div className="invalid-feedback">{errores.csag}</div>
             </div>
             <div>
-              <label for="validationDefault02" className="form-label">
-                Telefono Celular
-              </label>
+              <label className="form-label">Telefono Celular</label>
               <input
-                type="text"
+                type="Number"
                 name="t_cem"
-                className="form-control"
-                id="validationBarriot02"
-                onChange={handleInputChange}
+                className={`form-control ${errores.t_cem ? "is-invalid" : valores.t_cem ? "is-valid" : ""
+                  }`}
+                onChange={(e) => {
+                  handleInputChange(e);
+                  validarCampo("t_cem", e.target.value);
+                }}
                 value={valores.t_cem}
-               
               />
-              <div id="emailHelp" className="form-text">
-                aqui un texto por una exclamación
-              </div>
+              <div className="invalid-feedback">{errores.t_cem}</div>
             </div>
             <div className="float-end">
-                <button className="btn btn-primary" onClick={siguientePaso}>
-                  siguiente
-                </button>
-              </div>
+              <button className="btn btn-primary" onClick={siguientePaso}>
+                siguiente
+              </button>
+            </div>
 
-              <div className="float-start ">
-                <button className="btn btn-primary"onClick={anteriorPaso}>
-                  volver
-                </button>
-              </div>
-            
+            <div className="float-start ">
+              <button className="btn btn-primary" onClick={anteriorPaso}>
+                volver
+              </button>
+            </div>
           </div>
         </form>
       </div>
@@ -77,5 +110,4 @@ function D_emple(props) {
   );
 }
 
-export default D_emple;
-
+export default DEmple;

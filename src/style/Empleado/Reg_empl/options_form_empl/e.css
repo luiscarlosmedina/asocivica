@@ -12,3 +12,12 @@
 
 
 
+input[type="text"] {
+    display: inline-block;
+    width: 100%;
+    height: 35px;
+    margin: 2px 0;
+    border: 1px solid #ccc;
+}
+
+

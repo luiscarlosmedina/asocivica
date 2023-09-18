@@ -10,19 +10,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
+    
 }
 
 .box-main2{
    width: 70%;
-   margin-top: 30px;
-   margin-bottom: 70px;
-}
+   margin-top: 1em;
+   margin-bottom: 2em;
 
+}
 
 .box-menu{  
     display: flex;
     font-weight: 550;
     color: #004884;
+    
 }
 .box-options{
     display: flex;
@@ -34,15 +37,24 @@
     margin-right: 10px;
   }
 
-
-
   
 .sub-menu{
     border: rgb(202, 206, 220) solid 3px;
      width: 10.2em;
      height: 5em;
-     margin-left: 1px;
+     margin-left: 4px;
      border-radius: 10px;
      font-size: 18px;
+     
  }
  
+h5{
+    color: #134074;
+}
+
+.m-b{
+    border: rgb(202, 206, 220) solid 3px;
+    margin-bottom: 6em;
+    margin-left: 50px;
+    margin-right: 40px;
+}

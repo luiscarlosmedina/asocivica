@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import "../../../../style/Empleado/Reg_empl/empleado_fr.css";
 import Inicio from "./inicio";
 import Botones from "./buttons";
-import A_emple from "./options_form_emple/a";
-import B_emple from "./options_form_emple/b";
-import C_emple from "./options_form_emple/c";
-import D_emple from "./options_form_emple/d";
-import E_emple from "./options_form_emple/e";
+import swal from 'sweetalert';
+import AEmple from "./options_form_emple/a";
+import BEmple from "./options_form_emple/b";
+import CEmple from "./options_form_emple/c";
+import DEmple from "./options_form_emple/d";
+import EEmple from "./options_form_emple/e";
 
 function Empleadofr() {
   const [pasos, setPasos] = useState({
@@ -39,11 +40,13 @@ function Empleadofr() {
     t_cem: "",
   });
 
+
   const siguientePaso = () => {
-    setPasos((prevPasos) => ({
-      paso: prevPasos.paso + 1,
-    }));
-  };
+      setPasos((prevPasos) => ({
+        paso: prevPasos.paso + 1,
+      })
+    );
+    };
 
   const anteriorPaso = () => {
     setPasos((prevPasos) => ({
@@ -55,9 +58,7 @@ function Empleadofr() {
     setPasos({
       paso: nuevoPaso,
     });
-    console.log(pasos.paso)
   };
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -70,38 +71,42 @@ function Empleadofr() {
   const almacenarDatos = () => {
     console.log(empleadoData);
   };
+
+
+
   let componenteActual;
 
   switch (pasos.paso) {
     case 0:
       componenteActual = (
-          <Inicio siguientePaso={siguientePaso} />
+        <Inicio siguientePaso={siguientePaso} />  
       );
       break;
-
+  
     case 1:
       componenteActual = (
         <div>
-          <div className="main-box">
+          <div className="m-b">
             <Botones onClick={ubicacionPaso}  />
-            <A_emple
+            <AEmple
               handleInputChange={handleInputChange}
               siguientePaso={siguientePaso}
               anteriorPaso={anteriorPaso}
               valores={empleadoData}
+              
             />
           </div>
         </div>
       );
-
       break;
     case 2:
       componenteActual = (
         <div>
-          <div className="main-box">
+          <div className="m-b">
             <Botones
-            onClick={ubicacionPaso}  />
-            <B_emple
+              onClick={ubicacionPaso}
+            />
+            <BEmple
               handleInputChange={handleInputChange}
               valores={empleadoData}
               siguientePaso={siguientePaso}
@@ -114,9 +119,9 @@ function Empleadofr() {
     case 3:
       componenteActual = (
         <div>
-          <div className="main-box">
+          <div className="m-b">
             <Botones onClick={ubicacionPaso}/>
-            <C_emple
+            <CEmple
               handleInputChange={handleInputChange}
               siguientePaso={siguientePaso}
               anteriorPaso={anteriorPaso}
@@ -129,9 +134,9 @@ function Empleadofr() {
     case 4:
       componenteActual = (
         <div>
-          <div className="main-box">
+          <div className="m-b">
             <Botones onClick={ubicacionPaso}/>
-            <D_emple
+            <DEmple
               handleInputChange={handleInputChange}
               siguientePaso={siguientePaso}
               anteriorPaso={anteriorPaso}
@@ -144,9 +149,9 @@ function Empleadofr() {
     case 5:
       componenteActual = (
         <div>
-          <div className="main-box">
+          <div className="m-b">
             <Botones onClick={ubicacionPaso}/>
-            <E_emple
+            <EEmple
               handleInputChange={handleInputChange}
               siguientePaso={siguientePaso}
               anteriorPaso={anteriorPaso}
@@ -157,12 +162,15 @@ function Empleadofr() {
         </div>
       );
       break;
-
     default:
       componenteActual = <div>error</div>;
   }
 
-  return <div>{componenteActual}</div>;
+  return (
+    <div>
+        {componenteActual}
+    </div>
+  );
 }
 
 export default Empleadofr;
