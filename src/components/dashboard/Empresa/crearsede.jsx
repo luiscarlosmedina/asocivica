@@ -42,7 +42,7 @@ export default function CrearSede({ id }) {
         }
         break;
       case 'N_En':
-        if (!nameRegex.test(value)) {
+        if (!nameRegex.test(value) || " ") {
           error = 'Ingrese un nombre válido sin caracteres especiales.';
         }
         break;
