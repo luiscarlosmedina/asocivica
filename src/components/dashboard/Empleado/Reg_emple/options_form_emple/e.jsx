@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../../../../style/Empleado/Reg_empl/options_form_empl/e.css";
+
 
 function EEmple(props) {
   const {
@@ -78,6 +78,8 @@ function EEmple(props) {
               />
               <div className="invalid-feedback">{errores.f_em}</div>
             </div>
+
+            <div className="espbots">
             <div className="float-end">
               <button
                 className="btn btn-primary"
@@ -95,6 +97,7 @@ function EEmple(props) {
                 volver
               </button>
             </div>
+          </div>
           </div>
         </form>
       </div>

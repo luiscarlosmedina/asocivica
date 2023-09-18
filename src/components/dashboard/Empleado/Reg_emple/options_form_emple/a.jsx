@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../../../../../style/Empleado/Reg_empl/options_form_empl/a.css";
 
 function AEmple(props) {
   const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
@@ -11,7 +10,6 @@ function AEmple(props) {
     setMostrarContraseña(!mostrarContraseña);
   };
 
-
   const validarCampo = (nombreCampo, valorCampo) => {
     const nuevosErrores = { ...errores };
 
@@ -19,7 +17,6 @@ function AEmple(props) {
       case "estado":
         if (valorCampo !== "0" && valorCampo !== "1") {
           nuevosErrores.estado = "Por favor, seleccione un estado válido";
-         
         } else {
           delete nuevosErrores.estado;
         }
@@ -81,11 +78,15 @@ function AEmple(props) {
         if (!valorCampo.trim()) {
           nuevosErrores.passw = "Por favor, este campo no puede estar vacío";
         } else if (valorCampo.length < 8) {
-          nuevosErrores.passw = "Una contraseña segura debe tener al menos 8 caracteres";
+          nuevosErrores.passw =
+            "Una contraseña segura debe tener al menos 8 caracteres";
         } else if (valorCampo.length > 20) {
-          nuevosErrores.passw = "La contraseña puede tener como máximo 20 caracteres";
+          nuevosErrores.passw =
+            "La contraseña puede tener como máximo 20 caracteres";
         } else if (
-          !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(valorCampo)
+          !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(
+            valorCampo
+          )
         ) {
           nuevosErrores.passw =
             "La contraseña debe incluir al menos una mayúscula, una minúscula, un número y un carácter especial";
@@ -93,7 +94,6 @@ function AEmple(props) {
           delete nuevosErrores.passw;
         }
         break;
-
 
       default:
         // No se realiza ninguna validación para otros campos
@@ -113,12 +113,13 @@ function AEmple(props) {
               <select
                 type="Number"
                 name="estado"
-                className={`form-control ${errores.estado
-                  ? "is-invalid"
-                  : valores.estado
+                className={`form-control ${
+                  errores.estado
+                    ? "is-invalid"
+                    : valores.estado
                     ? "is-valid"
                     : ""
-                  }`}
+                }`}
                 id="estado"
                 onChange={(e) => {
                   handleInputChange(e);
@@ -139,12 +140,13 @@ function AEmple(props) {
               <select
                 type="number"
                 name="id_rol"
-                className={`form-control ${errores.id_rol
-                  ? "is-invalid"
-                  : valores.id_rol
+                className={`form-control ${
+                  errores.id_rol
+                    ? "is-invalid"
+                    : valores.id_rol
                     ? "is-valid"
                     : ""
-                  }`}
+                }`}
                 id="id_rol"
                 onChange={(e) => {
                   handleInputChange(e);
@@ -166,12 +168,9 @@ function AEmple(props) {
               <input
                 type="text"
                 name="n_em"
-                className={`form-control ${errores.n_em
-                  ? "is-invalid"
-                  : valores.n_em
-                    ? "is-valid"
-                    : ""
-                  }`}
+                className={`form-control ${
+                  errores.n_em ? "is-invalid" : valores.n_em ? "is-valid" : ""
+                }`}
                 id="n_em"
                 onChange={(e) => {
                   handleInputChange(e);
@@ -187,12 +186,9 @@ function AEmple(props) {
               <input
                 type="text"
                 name="a_em"
-                className={`form-control ${errores.a_em
-                  ? "is-invalid"
-                  : valores.a_em
-                    ? "is-valid"
-                    : ""
-                  }`}
+                className={`form-control ${
+                  errores.a_em ? "is-invalid" : valores.a_em ? "is-valid" : ""
+                }`}
                 id="a_em"
                 onChange={(e) => {
                   handleInputChange(e);
@@ -202,7 +198,6 @@ function AEmple(props) {
               />
 
               <div className="invalid-feedback">{errores.a_em}</div>
-
             </div>
 
             <div className="mb-3">
@@ -210,12 +205,13 @@ function AEmple(props) {
               <input
                 type="email"
                 name="eml_em"
-                className={`form-control ${errores.eml_em
-                  ? "is-invalid"
-                  : valores.eml_em
+                className={`form-control ${
+                  errores.eml_em
+                    ? "is-invalid"
+                    : valores.eml_em
                     ? "is-valid"
                     : ""
-                  }`}
+                }`}
                 id="eml_em"
                 onChange={(e) => {
                   handleInputChange(e);
@@ -225,7 +221,6 @@ function AEmple(props) {
               />
 
               <div className="invalid-feedback">{errores.eml_em}</div>
-
             </div>
             <div className="mb-3">
               <label for="exampleInputPassword1" className="form-label">
@@ -235,12 +230,9 @@ function AEmple(props) {
                 type={mostrarContraseña ? "text" : "password"}
                 name="passw"
                 id="passw"
-                className={`form-control  type="text" ${errores.passw
-                  ? "is-invalid"
-                  : valores.passw
-                    ? "is-valid"
-                    : ""
-                  }`}
+                className={`form-control  type="text" ${
+                  errores.passw ? "is-invalid" : valores.passw ? "is-valid" : ""
+                }`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("passw", e.target.value);
@@ -258,17 +250,24 @@ function AEmple(props) {
                 id="mostrarContraseñaCheckbox"
                 onChange={VerContraseña}
               />
-              <label className="form-check-label" htmlFor="mostrarContraseñaCheckbox">
+              <label
+                className="form-check-label"
+                htmlFor="mostrarContraseñaCheckbox"
+              >
                 Mostrar Contraseña
               </label>
             </div>
 
-              <div className="esp_bots" >
-                <div className="float-end">
-                  <button className="btn btn-primary" onClick={() => {
-                  siguientePaso();
-                  
-                }}>Siguiente</button>
+            <div className="espbots">
+              <div className="float-end">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    siguientePaso();
+                  }}
+                >
+                  Siguiente
+                </button>
               </div>
 
               <div className="float-start ">
@@ -276,11 +275,8 @@ function AEmple(props) {
                   volver
                 </button>
               </div>
-          
-
+            </div>
           </div>
-        </div>
-            
         </form>
       </div>
     </section>
@@ -288,4 +284,3 @@ function AEmple(props) {
 }
 
 export default AEmple;
-

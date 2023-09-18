@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../../../../style/Empleado/Reg_empl/empleado_fr.css";
 import Inicio from "./inicio";
 import Botones from "./buttons";
-import swal from 'sweetalert';
+//import swal from 'sweetalert';
 import AEmple from "./options_form_emple/a";
 import BEmple from "./options_form_emple/b";
 import CEmple from "./options_form_emple/c";
@@ -163,7 +163,7 @@ function Empleadofr() {
       );
       break;
     default:
-      componenteActual = <div>error</div>;
+      componenteActual = <div>papi, mire la consola que  ya se creo el objeto de su formulario</div>;
   }
 
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../../../../style/Empleado/Reg_empl/options_form_empl/c.css";
+
 
 function CEmple(props) {
   const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
@@ -296,6 +296,8 @@ function CEmple(props) {
               </select>
               <div className="invalid-feedback">{errores.id_arl}</div>
             </div>
+
+            <div className="espbots">
             <div className="float-end">
               <button className="btn btn-primary" onClick={siguientePaso}>
                 siguiente
@@ -306,6 +308,7 @@ function CEmple(props) {
               <button className="btn btn-primary" onClick={anteriorPaso}>
                 volver
               </button>
+            </div>
             </div>
           </div>
         </form>

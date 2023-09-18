@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../../../../../style/Empleado/Reg_empl/options_form_empl/b.css";
 
 function BEmple(props) {
   const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
@@ -28,9 +27,11 @@ function BEmple(props) {
 
       case "documento":
         if (!valorCampo.trim()) {
-          nuevosErrores.documento = "Por favor, este campo no puede estar vacío";
+          nuevosErrores.documento =
+            "Por favor, este campo no puede estar vacío";
         } else if (valorCampo.length < 2 || valorCampo.length > 14) {
-          nuevosErrores.documento = "El campo debe tener entre 2 y 14 caracteres";
+          nuevosErrores.documento =
+            "El campo debe tener entre 2 y 14 caracteres";
         } else {
           delete nuevosErrores.documento;
         }
@@ -38,7 +39,8 @@ function BEmple(props) {
 
       case "barloc_em":
         if (!valorCampo.trim()) {
-          nuevosErrores.barloc_em = "Por favor, este campo no puede estar vacío";
+          nuevosErrores.barloc_em =
+            "Por favor, este campo no puede estar vacío";
         } else if (valorCampo.length < 2 || valorCampo.length > 50) {
           nuevosErrores.barloc_em =
             "El campo debe tener entre 2 y 50 caracteres";
@@ -52,8 +54,7 @@ function BEmple(props) {
         if (!valorCampo.trim()) {
           nuevosErrores.dir_em = "Por favor, este campo no puede estar vacío";
         } else if (valorCampo.length < 2 || valorCampo.length > 50) {
-          nuevosErrores.dir_em =
-            "El campo debe tener entre 2 y 50 caracteres";
+          nuevosErrores.dir_em = "El campo debe tener entre 2 y 50 caracteres";
         } else {
           delete nuevosErrores.dir_em;
         }
@@ -61,17 +62,15 @@ function BEmple(props) {
         break;
 
       case "tel_em":
-
         const telefonoRegex = /^[0-9]{7,15}$/;
 
         if (!telefonoRegex.test(valorCampo)) {
-          nuevosErrores.tel_em = "Por favor, ingrese un número de teléfono válido";
+          nuevosErrores.tel_em =
+            "Por favor, ingrese un número de teléfono válido";
         } else {
           delete nuevosErrores.tel_em;
         }
         break;
-
-
 
       case "id_rh":
         if (
@@ -84,13 +83,13 @@ function BEmple(props) {
           valorCampo !== "7" &&
           valorCampo !== "8"
         ) {
-          nuevosErrores.id_rh = "Por favor, seleccione un tipo de documento válido";
+          nuevosErrores.id_rh =
+            "Por favor, seleccione un tipo de documento válido";
         } else {
           delete nuevosErrores.id_rh;
         }
 
         break;
-
 
       default:
         // No se realiza ninguna validación para otros campos
@@ -109,12 +108,13 @@ function BEmple(props) {
               <select
                 type="Number"
                 name="id_doc"
-                className={`form-control ${errores.id_doc
+                className={`form-control ${
+                  errores.id_doc
                     ? "is-invalid"
                     : valores.id_doc
-                      ? "is-valid"
-                      : ""
-                  }`}
+                    ? "is-valid"
+                    : ""
+                }`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("id_doc", e.target.value);
@@ -136,12 +136,13 @@ function BEmple(props) {
               <input
                 type="Number"
                 name="documento"
-                className={`form-control ${errores.documento
+                className={`form-control ${
+                  errores.documento
                     ? "is-invalid"
                     : valores.documento
-                      ? "is-valid"
-                      : ""
-                  }`}
+                    ? "is-valid"
+                    : ""
+                }`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("documento", e.target.value);
@@ -155,12 +156,13 @@ function BEmple(props) {
               <input
                 type="text"
                 name="barloc_em"
-                className={`form-control ${errores.barloc_em
+                className={`form-control ${
+                  errores.barloc_em
                     ? "is-invalid"
                     : valores.barloc_em
-                      ? "is-valid"
-                      : ""
-                  }`}
+                    ? "is-valid"
+                    : ""
+                }`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("barloc_em", e.target.value);
@@ -174,12 +176,13 @@ function BEmple(props) {
               <input
                 type="text"
                 name="dir_em"
-                className={`form-control ${errores.dir_em
+                className={`form-control ${
+                  errores.dir_em
                     ? "is-invalid"
                     : valores.dir_em
-                      ? "is-valid"
-                      : ""
-                  }`}
+                    ? "is-valid"
+                    : ""
+                }`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("dir_em", e.target.value);
@@ -193,12 +196,13 @@ function BEmple(props) {
               <input
                 type="Number"
                 name="tel_em"
-                className={`form-control ${errores.tel_em
+                className={`form-control ${
+                  errores.tel_em
                     ? "is-invalid"
                     : valores.tel_em
-                      ? "is-valid"
-                      : ""
-                  }`}
+                    ? "is-valid"
+                    : ""
+                }`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("tel_em", e.target.value);
@@ -212,8 +216,9 @@ function BEmple(props) {
               <select
                 type="Number"
                 name="id_rh"
-                className={`form-control ${errores.id_rh ? "is-invalid" : valores.id_rh ? "is-valid" : ""
-                  }`}
+                className={`form-control ${
+                  errores.id_rh ? "is-invalid" : valores.id_rh ? "is-valid" : ""
+                }`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("id_rh", e.target.value);
@@ -232,18 +237,19 @@ function BEmple(props) {
               </select>
               <div className="invalid-feedback">{errores.id_rh}</div>
 
-            </div>
+              <div className="espbots">
+                <div className="float-end">
+                  <button className="btn btn-primary" onClick={siguientePaso}>
+                    siguiente
+                  </button>
+                </div>
 
-            <div className="float-end">
-              <button className="btn btn-primary" onClick={siguientePaso}>
-                siguiente
-              </button>
-            </div>
-
-            <div className="float-start ">
-              <button className="btn btn-primary" onClick={anteriorPaso}>
-                volver
-              </button>
+                <div className="float-start ">
+                  <button className="btn btn-primary" onClick={anteriorPaso}>
+                    volver
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </form>

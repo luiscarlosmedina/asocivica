@@ -1,7 +1,9 @@
 import React from "react";
 
+
 function Inicio(props) {
     const {siguientePaso} = props;
+    
 
   return (
     <div  >

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../../../../style/Empleado/Reg_empl/options_form_empl/d.css";
+
 function DEmple(props) {
   const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
 
@@ -92,6 +92,8 @@ function DEmple(props) {
               />
               <div className="invalid-feedback">{errores.t_cem}</div>
             </div>
+
+            <div className="espbots">
             <div className="float-end">
               <button className="btn btn-primary" onClick={siguientePaso}>
                 siguiente
@@ -102,6 +104,7 @@ function DEmple(props) {
               <button className="btn btn-primary" onClick={anteriorPaso}>
                 volver
               </button>
+            </div>
             </div>
           </div>
         </form>
