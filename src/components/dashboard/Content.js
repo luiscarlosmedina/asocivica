@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import "../../style/content.css";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
-import Empresafr from "./Empresa/Empresafr";
+import Empleadofr from "./Empleado/Reg_emple/Empleadofr";
 import EmpresaVer from "./Empresa/empresaVer";
 import EmpresaVerDetalle from "./Empresa/empresaVerDetalle";
+import Empresafr from "./Empresa/Empresafr";
 //import Empleadofr_ps from './Empleado/Empleadofr_ps'
-import Empleadofr from "./Empleado/Empleadofr";
 import NovedadForm from "./Novedades/NovedadForm";
 import VerDetalleNovedad from "./Novedades/VerDetalleNovedades";
 import VerNovedades from "./Novedades/VerNovedades";
 import Reportes from "./Reportes/Reportes";
-import EmpleadominVer from "./Empleado/content_empl";
+import EmpleadominVer from "./Empleado/Mos_emple/content_empl";
 
 function Content() {
     const [dataUpdated, setDataUpdated] = useState(false);
