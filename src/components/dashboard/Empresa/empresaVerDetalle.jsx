@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Sede from './sede';
-import Editar_e from './editarempresa'
+import EditarE from './editarempresa'
 
 export default function EmpresaVerDetalle() {
   const [loading, setLoading] = useState(true);
@@ -65,7 +65,7 @@ export default function EmpresaVerDetalle() {
                 data-bs-backdrop="static"
               >
                 <div className="modal-dialog">
-                  <Editar_e id={id} />
+                  <EditarE id={id} onUpdate={fetchData} />
                 </div>
               </div>
               {/*fin de modal editar empresa*/}

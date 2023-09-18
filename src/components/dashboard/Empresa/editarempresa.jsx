@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import swal from 'sweetalert';
 
-export default function Editar_e({ id }) {
+export default function EditarE({ id, onUpdate }) {
     const [errors, setErrors] = useState({});
+    const [close, setClose] = useState(" ");
     const [empresa, setEmpresa] = useState({
         id_e: "",
         Nit_E: "",
@@ -28,15 +29,15 @@ export default function Editar_e({ id }) {
 
     const validateField = (fieldName, value) => {
         const regexPatterns = {
-            Nit_E: /^\d{8}-\d{1}$/, // Validación para el campo Nit_E con - después del 8 número
-            Nom_E: /^.{1,100}$/, // Validación para el campo Nom_E (máximo 100 caracteres)
-            Eml_E: /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, // Validación para el campo Eml_E (correo electrónico)
-            Nom_Rl: /^[A-Za-z\s]+$/, // Solo texto
-            CC_Rl: /^(?:[A-Za-z0-9]+|[0-9]{6,10})$/, // Formato para número cc colombiana o pasaporte
-            telefonoGeneral: /^\d{7,10}$/, // 7 a 10 números 
-            Val_E: /^(?:[1-9]\d{0,6}|10000000)$/, // Máximo de 10,000,000
-            COD_SE: /^\d{1,4}$/, // Máximo 4 dígitos 
-            COD_AE: /^\d{1,4}$/ // Máximo 4 dígitos 
+            Nit_E: /^\d{8}-\d{1}$/,
+            Nom_E: /^.{1,100}$/,
+            Eml_E: /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
+            Nom_Rl: /^[A-Za-z\s]+$/,
+            CC_Rl: /^(?:[A-Za-z0-9]+|[0-9]{6,10})$/,
+            telefonoGeneral: /^\d{7,10}$/,
+            Val_E: /^(?:[1-9]\d{0,6}|10000000)$/,
+            COD_SE: /^\d{1,4}$/,
+            COD_AE: /^\d{1,4}$/
         };
 
         const errorsCopy = { ...errors };
@@ -57,18 +58,17 @@ export default function Editar_e({ id }) {
         fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempresa&id=${id}`)
             .then(response => response.json())
             .then(data => {
-                setEmpresa(data.contenido[0]); // Actualiza el estado del empleado con los datos obtenidos
+                setEmpresa(data.contenido[0]);
             })
             .catch(error => {
                 console.error('Error:', error);
             });
-    }, []); // Se ejecuta solo al montar el componente
+    }, [id]);
 
     const handleBlur = (e) => {
         const { name, value } = e.target;
         validateField(name, value);
     };
-
     const handleUpdateEmpresa = () => {
         if (Object.keys(errors).length === 0) {
             const datosActualizados = {
@@ -98,11 +98,9 @@ export default function Editar_e({ id }) {
                 .then(response => response.json())
                 .then(responseData => {
                     if (responseData) {
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 1200);
                         swal("¡Buen trabajo!", 'Actualización exitosa', "success");
-                        // Manejar la respuesta del servidor
+                        onUpdate();
+                        setClose("modal");
                     }
                 })
                 .catch(error => {
@@ -122,7 +120,7 @@ export default function Editar_e({ id }) {
     return (
         <div className="modal-content">
             <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">
+                <h5 className="modal-title" id="editarempresa">
                     Editar empresa
                 </h5>
                 <button
@@ -276,7 +274,7 @@ export default function Editar_e({ id }) {
                     >
                         Cancelar
                     </button>
-                    <button type="button" className="btn btn-primary" onClick={handleUpdateEmpresa}>
+                    <button type="button" className="btn btn-primary" data-bs-dismiss={close} onClick={handleUpdateEmpresa}>
                         Guardar
                     </button>
                 </div>
