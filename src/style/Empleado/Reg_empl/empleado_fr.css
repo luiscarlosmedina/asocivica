@@ -104,7 +104,6 @@ input[type="text"] {
 .swal-overlay--show-modal {
     opacity: 20;
     pointer-events: auto;
-    background-color: #002f5d;
 }
 
 

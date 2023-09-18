@@ -1,5 +1,5 @@
 import React from "react";
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
 
 function Fin(props) {
