@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import "../../../../style/Empleado/Reg_empl/empleado_fr.css";
 import Inicio from "./inicio";
 import Botones from "./buttons";
-//import swal from 'sweetalert';
+import swal from 'sweetalert';
 import AEmple from "./options_form_emple/a";
 import BEmple from "./options_form_emple/b";
 import CEmple from "./options_form_emple/c";
 import DEmple from "./options_form_emple/d";
 import EEmple from "./options_form_emple/e";
+import { useNavigate } from 'react-router-dom'; 
+import Fin from "./fin";
 
 function Empleadofr() {
   const [pasos, setPasos] = useState({
     paso: 0,
   });
-
+  const navigate = useNavigate(); 
   const [empleadoData, setEmpleados] = useState({
     id_doc: "",
     documento: "",
@@ -78,8 +80,10 @@ function Empleadofr() {
 
   switch (pasos.paso) {
     case 0:
-      componenteActual = (
-        <Inicio siguientePaso={siguientePaso} />  
+      componenteActual = (<div className="m-b">
+        <Inicio siguientePaso={siguientePaso} />    
+        </div>
+
       );
       break;
   
@@ -163,7 +167,10 @@ function Empleadofr() {
       );
       break;
     default:
-      componenteActual = <div>papi, mire la consola que  ya se creo el objeto de su formulario</div>;
+      componenteActual = ( <Fin
+        anteriorPaso={anteriorPaso}
+        />);
+      
   }
 
   return (

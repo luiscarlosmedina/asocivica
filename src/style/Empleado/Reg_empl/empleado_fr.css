@@ -42,7 +42,6 @@
     border: rgb(202, 206, 220) solid 3px;
      width: 10.2em;
      height: 5em;
-     margin-left: 4px;
      border-radius: 10px;
      font-size: 18px;
      
@@ -55,6 +54,8 @@ h5{
 .m-b{
     background-color: #002f5d;
     margin-right: 1em;
+    border-radius: 1em;
+    margin-left: -1em;
    
 }
 
@@ -82,17 +83,68 @@ input[type="text"] {
    
 }
 
-.btn{
+.btnf{
     background-color: #002f5d;
     border: 1px solid #002f5d;  
 }
 
-.btn:hover {
+.btnf:hover {
     background-color: #fa8131;
     border: 1px solid #fa8131;
   }
 
 .espbots{
     margin-top: 3em;
-    
+
 }
+
+
+
+
+.swal-overlay--show-modal {
+    opacity: 20;
+    pointer-events: auto;
+    background-color: #002f5d;
+}
+
+
+.btnred{
+    background-color: #df4740;
+
+}
+
+ 
+.btngreen{
+ background-color: #198754;
+
+}
+
+
+.sep1{
+    margin-top: 40px;
+    background-color: rgb(202, 206, 220);
+    width: 40px;
+    height: 6px;
+}
+
+.sep2{
+    margin-top: 40px;
+    background-color: rgb(202, 206, 220);
+    width: 40px;
+    height: 6px;
+}
+
+.sep3{
+    margin-top: 40px;
+    background-color: rgb(202, 206, 220);
+    width: 40px;
+    height: 6px;
+}
+.sep4{
+    margin-top: 40px;
+    background-color: rgb(202, 206, 220);
+    width: 40px;
+    height: 6px;
+}
+
+

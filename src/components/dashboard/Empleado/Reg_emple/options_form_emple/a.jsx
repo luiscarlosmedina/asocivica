@@ -1,7 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom'; // Cambiar a useNavigate
+
 
 function AEmple(props) {
   const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
+
+  const navigate = useNavigate();
+
 
   const [errores, setErrores] = useState({});
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
@@ -71,6 +76,7 @@ function AEmple(props) {
           nuevosErrores.eml_em = "Ingrese una dirección de correo válida";
         } else {
           delete nuevosErrores.eml_em;
+
         }
         break;
 
@@ -261,7 +267,7 @@ function AEmple(props) {
             <div className="espbots">
               <div className="float-end">
                 <button
-                  className="btn btn-primary"
+                  className="btnf btn btn-primary"
                   onClick={() => {
                     siguientePaso();
                   }}
@@ -271,9 +277,14 @@ function AEmple(props) {
               </div>
 
               <div className="float-start ">
-                <button className="btn btn-primary" onClick={anteriorPaso}>
-                  volver
-                </button>
+              <button
+                className="btnf btn btn-primary"
+                onClick={() => {
+                  navigate("/inicio"); // Utiliza navigate dentro de una función de flecha
+                }}
+              >
+                volver
+              </button>
               </div>
             </div>
           </div>

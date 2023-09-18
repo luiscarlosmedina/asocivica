@@ -239,13 +239,13 @@ function BEmple(props) {
 
               <div className="espbots">
                 <div className="float-end">
-                  <button className="btn btn-primary" onClick={siguientePaso}>
+                  <button className="btnf btn btn-primary" onClick={siguientePaso}>
                     siguiente
                   </button>
                 </div>
 
                 <div className="float-start ">
-                  <button className="btn btn-primary" onClick={anteriorPaso}>
+                  <button className="btnf btn btn-primary" onClick={anteriorPaso}>
                     volver
                   </button>
                 </div>
