@@ -39,22 +39,74 @@ function Empresafr({ onDataUpdate }) {
 
     const [errors, setErrors] = useState({});
 
+    //validar sede
+    const validateSedeField = (sedeIndex, fieldName, value) => {
+        const regexPatterns = {
+            Dic_S: /^[A-Za-z0-9\s#áéíóúÁÉÍÓÚñÑ,.-]{5,}$/, //direcciones colombianas
+            Sec_V: /^\d+$/, // Puedes ajustar el patrón según sea necesario
+        };
+
+
+        const errorsCopy = { ...errors };
+
+        if (fieldName in regexPatterns) {
+            const regex = regexPatterns[fieldName];
+            if (!regex.test(value)) {
+                errorsCopy[`sede_${sedeIndex}_${fieldName}`] = `El campo no es válido`;
+            } else {
+                delete errorsCopy[`sede_${sedeIndex}_${fieldName}`];
+            }
+        }
+
+        setErrors(errorsCopy);
+    };
+
+    //valida encargados
+    const validateEncargadoField = (sedeIndex, encargadoIndex, fieldName, value) => {
+        const regexPatterns = {
+            N_En: /^[A-Za-z\s]+$/,
+            tel1: /^\d{7,10}$/,
+            tel2: /^\d{7,10}$/,
+            tel3: /^\d{7,10}$/,
+        };
+
+        const errorsCopy = { ...errors };
+
+        if (fieldName in regexPatterns) {
+            const regex = regexPatterns[fieldName];
+            if (!regex.test(value)) {
+                errorsCopy[`encargado_${sedeIndex}_${encargadoIndex}_${fieldName}`] = `El campo no es válido`;
+            } else {
+                delete errorsCopy[`encargado_${sedeIndex}_${encargadoIndex}_${fieldName}`];
+            }
+        }
+
+        setErrors(errorsCopy);
+    };
+    //pendiente de cambios en empresa
     const handleChange = (e) => {
         const { name, value } = e.target;
         setEmpresa({ ...empresa, [name]: value });
     };
-
-    const handleSedeChange = (index, field, value) => {
+    //pendiente de cambios en sede
+    const handleSedeChange = (sedeIndex, field, value) => {
         const updatedSedes = [...empresa.sedes];
-        updatedSedes[index][field] = value;
+        updatedSedes[sedeIndex][field] = value;
         setEmpresa({ ...empresa, sedes: updatedSedes });
+
+        validateSedeField(sedeIndex, field, value);
     };
 
+    //pendiente de cambios encargados
     const handleEncargadoChange = (sedeIndex, encargadoIndex, field, value) => {
         const updatedSedes = [...empresa.sedes];
         updatedSedes[sedeIndex].encargados[encargadoIndex][field] = value;
         setEmpresa({ ...empresa, sedes: updatedSedes });
+
+        validateEncargadoField(sedeIndex, encargadoIndex, field, value);
     };
+
+    //valida campos de empresa
     const validateField = (fieldName, value) => {
         const regexPatterns = {
             Nit_E: /^\d{8}-\d{1}$/, // Validacion para el campo Nit_E con - despues del 8 numero
@@ -62,15 +114,10 @@ function Empresafr({ onDataUpdate }) {
             Eml_E: /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, // Validacion para el campo Eml_E (correo electrónico)
             Nom_Rl: /^[A-Za-z\s]+$/, //solo texto
             CC_Rl: /^(?:[A-Za-z0-9]+|[0-9]{6,10})$/, //formato para numero cc colombiana o pasaporte
-            telefonoGeneral:/^\d{7,10}$/, // 7 a 10 numeros 
+            telefonoGeneral: /^\d{7,10}$/, // 7 a 10 numeros 
             Val_E: /^(?:[1-9]\d{0,6}|10000000)$/, //maximo de 10 000 000
             COD_SE: /^\d{1,4}$/, //maximo 4 digitos 
             COD_AE: /^\d{1,4}$/, //maximo 4 digitos 
-            Dic_S: /^[A-Za-z0-9\s#áéíóúÁÉÍÓÚñÑ,.-]{5,}$/, //direcciones colombianas
-            N_En: /^[A-Za-z\s]+$/,
-            tel1: /^\d{7,10}$/,
-            tel2: /^\d{7,10}$/,
-            tel3: /^\d{7,10}$/,
         };
 
         const errorsCopy = { ...errors };
@@ -87,11 +134,28 @@ function Empresafr({ onDataUpdate }) {
         setErrors(errorsCopy);
     };
 
+    //esta atento a cambio entre inputs
     const handleBlur = (e) => {
         const { name, value } = e.target;
         validateField(name, value);
     };
 
+    //eliminar un bloque de sede
+    const handleRemoveSede = (sedeIndex) => {
+        const updatedSedes = [...empresa.sedes];
+        updatedSedes.splice(sedeIndex, 1); // Elimina la sede en la posición sedeIndex
+        setEmpresa({ ...empresa, sedes: updatedSedes });
+    };
+
+    //eliminar un bloque de encargados
+    const handleRemoveEncargado = (sedeIndex, encargadoIndex) => {
+        const updatedSedes = [...empresa.sedes];
+        updatedSedes[sedeIndex].encargados.splice(encargadoIndex, 1); // Elimina el encargado en la posición encargadoIndex
+        setEmpresa({ ...empresa, sedes: updatedSedes });
+    };
+
+
+    //validacion, envio de datos y respuesta del formulario
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -100,14 +164,14 @@ function Empresafr({ onDataUpdate }) {
             swal("Error", "Debes ingresar al menos una sede", "error");
             return;
         }
-    
+
         // Verificar que todos los campos de las sedes estén completos
         for (const sede of empresa.sedes) {
             if (!sede.Dic_S || !sede.Sec_V) {
                 swal("Error", "Todos los campos de las sedes deben estar completos", "error");
                 return;
             }
-    
+
             for (const encargado of sede.encargados) {
                 if (!encargado.N_En || !encargado.tel1) {
                     swal("Error", "Todos los campos de los encargados deben estar completos", "error");
@@ -115,7 +179,7 @@ function Empresafr({ onDataUpdate }) {
                 }
             }
         }
-        
+
         // Si existen errores no haga el post
         if (Object.keys(errors).length > 0) {
             swal("Error", "Por favor, corrige los errores antes de enviar el formulario", "error");
@@ -149,12 +213,12 @@ function Empresafr({ onDataUpdate }) {
         })
             .then((response) => response.json())
             .then((responseData) => {
-                if (responseData.error === false){
+                if (responseData.error === false) {
                     swal("Buen trabajo!", `Creacion exitosa ${responseData.message}`, "success");
                 } else {
                     swal("Error!", `Creacion exitosa ${responseData.message}`, "error");
                 }
-                
+
                 console.log("Respuesta de la API:", responseData);
             })
             .catch((error) => {
@@ -196,11 +260,14 @@ function Empresafr({ onDataUpdate }) {
 
         onDataUpdate();
     };
+
+    //agrega array de sede a empresa
     const handleAddSede = () => {
         const updatedSedes = [...empresa.sedes, { Dic_S: "", Sec_V: "", encargados: [{ N_En: "", tel1: "", tel2: "", tel3: "", Est_en: "0" }] }];
         setEmpresa({ ...empresa, sedes: updatedSedes });
     };
 
+    //agrega encargados a sede
     const handleAddEncargado = (sedeIndex) => {
         const updatedSedes = [...empresa.sedes];
         updatedSedes[sedeIndex].encargados.push({ N_En: "", tel1: "", tel2: "", tel3: "", Est_en: "0" });
@@ -229,7 +296,7 @@ function Empresafr({ onDataUpdate }) {
                                 name="Nit_E"
                                 value={empresa.Nit_E}
                                 onChange={handleChange}
-                                onBlur={handleBlur} 
+                                onBlur={handleBlur}
                             />
                             <div className="invalid-feedback">{getError("Nit_E")} debe contener - mas el caracter verificador</div>
                         </div>
@@ -244,7 +311,7 @@ function Empresafr({ onDataUpdate }) {
                                 className="form-select"
                                 value={empresa.Est_E}
                                 onChange={handleChange}
-                                onBlur={handleBlur} 
+                                onBlur={handleBlur}
                             >
                                 <option value="0" selected>Activo</option>
                                 <option value="1">En estudio</option>
@@ -264,7 +331,7 @@ function Empresafr({ onDataUpdate }) {
                             name="Nom_E"
                             value={empresa.Nom_E}
                             onChange={handleChange}
-                            onBlur={handleBlur} 
+                            onBlur={handleBlur}
                         />
                         <div className="invalid-feedback">{getError("Nom_E")}</div>
                     </div>
@@ -294,7 +361,7 @@ function Empresafr({ onDataUpdate }) {
                             name="Nom_Rl"
                             value={empresa.Nom_Rl}
                             onChange={handleChange}
-                            onBlur={handleBlur} 
+                            onBlur={handleBlur}
 
                         />
                         <div className="invalid-feedback">{getError("Nom_Rl")} ingresa solo texto</div>
@@ -313,7 +380,7 @@ function Empresafr({ onDataUpdate }) {
                                 <option value="3">PS</option>
                             </select>
                             <input type="text" placeholder="Numero documento" name="CC_Rl" value={empresa.CC_Rl} onChange={handleChange}
-                            onBlur={handleBlur}  className={`form-control ${getError("CC_Rl") && "is-invalid"}`} aria-label="Text input with segmented dropdown button" />
+                                onBlur={handleBlur} className={`form-control ${getError("CC_Rl") && "is-invalid"}`} aria-label="Text input with segmented dropdown button" />
                             <div className="invalid-feedback">Ingresa numero de documento valido</div>
                         </div>
                     </div>
@@ -329,7 +396,7 @@ function Empresafr({ onDataUpdate }) {
                             name="telefonoGeneral"
                             value={empresa.telefonoGeneral}
                             onChange={handleChange}
-                            onBlur={handleBlur} 
+                            onBlur={handleBlur}
 
                         />
                         <div className="invalid-feedback">telefono invalido minimo 7 numeros</div>
@@ -344,7 +411,7 @@ function Empresafr({ onDataUpdate }) {
                             name="Val_E"
                             value={empresa.Val_E}
                             onChange={handleChange}
-                            onBlur={handleBlur} 
+                            onBlur={handleBlur}
 
                         />
                         <div className="invalid-feedback">Solo numero sin separacion de miles ni decimales</div>
@@ -361,7 +428,7 @@ function Empresafr({ onDataUpdate }) {
                             name="COD_SE"
                             value={empresa.COD_SE}
                             onChange={handleChange}
-                            onBlur={handleBlur} 
+                            onBlur={handleBlur}
 
                         />
                         <div className="invalid-feedback">Maximo 4 numeros</div>
@@ -376,7 +443,7 @@ function Empresafr({ onDataUpdate }) {
                             name="COD_AE"
                             value={empresa.COD_AE}
                             onChange={handleChange}
-                            onBlur={handleBlur} 
+                            onBlur={handleBlur}
 
                         />
                         <div className="invalid-feedback">maximo 4 numeros</div>
@@ -388,6 +455,13 @@ function Empresafr({ onDataUpdate }) {
                     <h4>Sedes</h4>
                     {empresa.sedes.map((sede, index) => (
                         <div key={index} className="border p-3 mb-3">
+                            {index !== 0 ? <button
+                                type="button"
+                                className="btn "
+                                onClick={() => handleRemoveSede(index)} // Esta función debe eliminarse
+                            >
+                                <i className="bi bi-x text-danger"></i>
+                            </button> : ""}
                             <div className="row">
                                 <div className="col-md-8">
                                     <label htmlFor={`Dic_S_${index}`}>Dirección Sede</label>
@@ -395,11 +469,11 @@ function Empresafr({ onDataUpdate }) {
                                         type="text"
                                         id={`Dic_S_${index}`}
                                         placeholder='Cl. 17 #22-26, Los Mártires, Bogotá'
-                                        className={`form-control ${getError("Dic_S") && "is-invalid"}`}
+                                        className={`form-control ${getError(`sede_${index}_Dic_S`) && "is-invalid"}`}
                                         name={`Dic_S_${index}`}
                                         value={sede.Dic_S}
                                         onChange={(e) => handleSedeChange(index, "Dic_S", e.target.value)}
-                                        onBlur={handleBlur} 
+                                        onBlur={handleBlur}
                                     />
                                     <div className="invalid-feedback">Ingrese una direccion valida</div>
                                 </div>
@@ -410,9 +484,9 @@ function Empresafr({ onDataUpdate }) {
                                         name={`Sec_V_${index}`}
                                         className="form-select"
                                         value={sede.Sec_V}
-                                        onChange={(e) => handleSedeChange(index, "Sec_V", e.target.value)} 
+                                        onChange={(e) => handleSedeChange(index, "Sec_V", e.target.value)}
                                         onBlur={handleBlur}
-                                    >                
+                                    >
                                         <option value="1" selected>1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -428,48 +502,65 @@ function Empresafr({ onDataUpdate }) {
                                         <input
                                             type="text"
                                             id={`N_En_${index}_${encargadoIndex}`}
-                                            className="form-control"
+                                            placeholder='Camilo Torres'
+                                            className={`form-control ${getError(`encargado_${index}_${encargadoIndex}_N_En`) && "is-invalid"}`}
                                             name={`N_En_${index}_${encargadoIndex}`}
                                             value={encargado.N_En}
                                             onChange={(e) => handleEncargadoChange(index, encargadoIndex, "N_En", e.target.value)}
-                                            onBlur={handleBlur} 
+                                            onBlur={handleBlur}
                                         />
+                                        <div className="invalid-feedback">Ingrese un nombre valido</div>
                                     </div>
-                                    <div className="col-md-3">
+                                    <div className="col-md-2">
                                         <label htmlFor={`tel1_${index}_${encargadoIndex}`}>Teléfono 1</label>
                                         <input
                                             type="text"
                                             id={`tel1_${index}_${encargadoIndex}`}
-                                            className="form-control"
+                                            placeholder='1234567'
+                                            className={`form-control ${getError(`encargado_${index}_${encargadoIndex}_tel1`) && "is-invalid"}`}
                                             name={`tel1_${index}_${encargadoIndex}`}
                                             value={encargado.tel1}
                                             onChange={(e) => handleEncargadoChange(index, encargadoIndex, "tel1", e.target.value)}
-                                            onBlur={handleBlur} 
+                                            onBlur={handleBlur}
                                         />
+                                        <div className="invalid-feedback">Ingrese un numero valido</div>
                                     </div>
-                                    <div className="col-md-3">
+                                    <div className="col-md-2">
                                         <label htmlFor={`tel2_${index}_${encargadoIndex}`}>Teléfono 2</label>
                                         <input
                                             type="text"
                                             id={`tel2_${index}_${encargadoIndex}`}
-                                            className="form-control"
+                                            placeholder='3109998877'
+                                            className={`form-control ${getError(`encargado_${index}_${encargadoIndex}_tel2`) && "is-invalid"}`}
                                             name={`tel2_${index}_${encargadoIndex}`}
                                             value={encargado.tel2}
                                             onChange={(e) => handleEncargadoChange(index, encargadoIndex, "tel2", e.target.value)}
-                                            onBlur={handleBlur} 
+                                            onBlur={handleBlur}
                                         />
+                                        <div className="invalid-feedback">Ingrese un numero valido</div>
                                     </div>
-                                    <div className="col-md-3">
+                                    <div className="col-md-2">
                                         <label htmlFor={`tel3_${index}_${encargadoIndex}`}>Teléfono 3</label>
                                         <input
                                             type="text"
                                             id={`tel3_${index}_${encargadoIndex}`}
-                                            className="form-control"
+                                            placeholder='3109998877'
+                                            className={`form-control ${getError(`encargado_${index}_${encargadoIndex}_tel3`) && "is-invalid"}`}
                                             name={`tel3_${index}_${encargadoIndex}`}
                                             value={encargado.tel3}
                                             onChange={(e) => handleEncargadoChange(index, encargadoIndex, "tel3", e.target.value)}
-                                            onBlur={handleBlur} 
+                                            onBlur={handleBlur}
                                         />
+                                        <div className="invalid-feedback">Ingrese un numero valido</div>
+                                    </div>
+                                    <div className="col-md-1">
+                                        {encargadoIndex !== 0 ? <button
+                                            type="button"
+                                            className="btn "
+                                            onClick={() => handleRemoveEncargado(index)} // Esta función debe eliminarse
+                                        >
+                                            <i className="bi bi-x text-danger"></i>
+                                        </button> : ""}
                                     </div>
                                 </div>
                             ))}
