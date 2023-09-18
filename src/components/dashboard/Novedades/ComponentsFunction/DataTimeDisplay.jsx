@@ -26,7 +26,7 @@ const DateTimeDisplay = () => {
     return date.toLocaleString(undefined, options);
   };
 
-  return <p>Fecha y Hora: {formatDateTime(dateTime)}</p>;
+  return <>{formatDateTime(dateTime)}</>;
 };
 
 export default DateTimeDisplay;

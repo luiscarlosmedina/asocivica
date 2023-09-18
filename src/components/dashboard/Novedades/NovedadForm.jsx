@@ -1,276 +1,308 @@
-import React from "react";
-//import { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import DateTimeDisplay from "./ComponentsFunction/DataTimeDisplay";
 
 export default function NovedadForm() {
-  const fecha = () => {
-    let fecha = new Date();
-    let mes = parseInt(fecha.getMonth() + 1);
-    let hoy =
-      fecha.getFullYear() +
-      "-" +
-      mes +
-      "-" +
-      fecha.getDate() +
-      " " +
-      fecha.getHours() +
-      ":" +
-      fecha.getMinutes();
-    return hoy;
+  {
+    /*para traer el select de tipo novedad*/
+  }
+  const [tpnovedad, setTpnovedad] = useState([]);
+
+  useEffect(() => {
+    fetchDataTpnoedad();
+  }, []);
+
+  const fetchDataTpnoedad = () => {
+    fetch(
+      "http://localhost/api_proyecto.github.io/api.php?apicall=readtpnovedad"
+    )
+      .then((response) => response.json())
+      .then((tpnovedad) => {
+        setTpnovedad(tpnovedad.contenido);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-  // const [show, setShow] = useState(false);
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
+
+  {
+    /*para traer el select de sedes*/
+  }
+  const [empresa, setEmpresa] = useState([]);
+  const [sede, setSede] = useState([]);
+  const [selectedEmpresa, setSelectedEmpresa] = useState("");
+  const [selectedSede, setSelectedSede] = useState("");
+  const [showSelects, setShowSelects] = useState(false);
+  const [direccion, setDireccion] = useState("");
+  const [placeholderD, setPlaceholderD] = useState("");
+
+  useEffect(() => {
+    fetchDataEmpresa();
+    fetchDataSede();
+  }, []);
+
+  const fetchDataEmpresa = () => {
+    fetch(
+      "http://localhost/api_proyecto.github.io/api.php?apicall=readnovedadempresa"
+    )
+      .then((response) => response.json())
+      .then((empresa) => {
+        setEmpresa(empresa.contenido);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const fetchDataSede = (id_e) => {
+    fetch(
+      `http://localhost/api_proyecto.github.io/api.php?apicall=readnovedadsede&id=${id_e}`
+    )
+      .then((response) => response.json())
+      .then((sede) => {
+        setSede(sede.contenido);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    // Llama a fetchDataSede con el ID de la empresa seleccionada
+    if (selectedEmpresa) {
+      fetchDataSede(selectedEmpresa);
+    } else {
+      setSede([]);
+    }
+  }, [selectedEmpresa]);
+
+  const handleCheckboxChange = () => {
+    setShowSelects(!showSelects);
+    if (!showSelects) {
+      setDireccion("");
+    }
+    if (!showSelects) {
+      setPlaceholderD("ya no es necesario llenar este campo");
+    } else {
+      setPlaceholderD("");
+    }
+  };
+
+  {
+    /*para traer el select de empleado*/
+  }
+  const [empleado, setEmpleado] = useState([]);
+
+  useEffect(() => {
+    fetchDataEmpleado();
+  }, []);
+
+  const fetchDataEmpleado = () => {
+    fetch(
+      "http://localhost/api_proyecto.github.io/api.php?apicall=readnovedadempleado"
+    )
+      .then((response) => response.json())
+      .then((empleado) => {
+        setEmpleado(empleado.contenido);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
 
   return (
-    <div class="container">
-      <div className="MainContent">
-        <section className="contenido">
-          <h3>REGISTRAR NOVEDAD</h3>
-          <form>
-            <div className="row">
-              <div className="col" id="reloj">
-                <label>Fecha y hora:</label>
-                <p>{fecha()}</p>
-              </div>
-              <div className="col">
-                <label>ID-Radioperador:</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="validationDefault02"
-                  placeholder="568923"
-                  disabled
-                />
-              </div>
-            </div>
-
-            <form className="row g-3">
-              <div className="col-md-6">
-                <label for="validationDefault03" className="form-label">
-                  ID-Motorizado:
+    <>
+      <div className="shadow-lg p-0 mb-5 bg-body-tertiary rounded">
+        <div className="m-1 border-bottom border-primary border-3 row justify-content-between">
+          <div className="col-6">
+            <p className="text-primary h1 ms-2 mt-4">Registrar Novedad</p>
+          </div>
+          <div
+            class="col-4 alert alert-primary mb-1 mt-2 me-2"
+            style={{ width: 18 + "rem" }}
+          >
+            <DateTimeDisplay />
+          </div>
+        </div>
+        <form class="row g-2 needs-validation justify-content-between" noValidate>
+          <div className="col ms-4 ps-3">
+            <label for="select1" class="form-label">
+              Eliga el tipo de noveddad
+            </label>
+            <select class="form-select" id="select1" required>
+              <option selected disabled value="">
+                Selecione...
+              </option>
+              {tpnovedad.map((item) => (
+                <option key={item.T_Nov} value={item.T_Nov}>
+                  {item.Tipo_Novedad}
+                </option>
+              ))}
+            </select>
+            <div class="valid-feedback">Correcto</div>
+            <div class="invalid-feedback">Por favor seleccione un elemento</div>
+          </div>
+          <div class="col">
+            <label for="direccion" class="form-label">
+              Dirección:
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="direccion"
+              value={direccion}
+              placeholder={placeholderD}
+              onChange={(e) => setDireccion(e.target.value)}
+              disabled={showSelects}
+              required
+            />
+            <div class="valid-feedback">Correcto</div>
+            <div class="invalid-feedback">Llene campo direccion</div>
+          </div>
+          <div className="form-check ms-5 ps-3">
+            <label>
+              <input
+                className="form-check-input p-2 border border-dark"
+                type="checkbox"
+                checked={showSelects}
+                onChange={handleCheckboxChange}
+              />{" "}
+              Seleccione si la Novedad ocurrio en una sede registrada
+            </label>
+          </div>
+          {showSelects && (
+            <div className="row g-2 justify-content-between">
+              <div className="col ms-4 ps-3">
+                <label for="selectempresa" className="form-label">
+                  Seleccione una empresa:
                 </label>
                 <select
+                  value={selectedEmpresa}
+                  onChange={(e) => setSelectedEmpresa(e.target.value)}
                   className="form-select"
-                  id="validationDefault04"
+                  id="selectempresa"
                   required
                 >
                   <option selected disabled value="">
-                    852369
+                    Seleccionar empresa
                   </option>
-                  <option>425637</option>
-                  <option>895623</option>
-                  <option>215487</option>
+                  {empresa.map((item) => (
+                    <option key={item.id_e} value={item.id_e}>
+                      {item.Nom_E}
+                    </option>
+                  ))}
                 </select>
-              </div>
-              <div className="col-md-3">
-                <label for="validationDefault04" className="form-label">
-                  Tipo de novedad:
-                </label>
-                <select
-                  className="form-select"
-                  id="validationDefault04"
-                  required
-                >
-                  <option selected>Seleccionar tipo</option>
-                  <option>ASALTO</option>
-                  <option>HURTO</option>
-                  <option>ACCIDENTE</option>
-                  <option>AMENAZA</option>
-                </select>
-              </div>
-              <div className="col-md-3">
-                <label for="validationDefault05" className="form-label">
-                  ¿Otro tipo de novedad?
-                </label>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#tpnov"
-                  data-bs-whatever="@mdo"
-                >
-                  Nuevo tipo
-                </button>
-              </div>
-              <div
-                className="modal fade"
-                id="tpnov"
-                tabindex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-              >
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <h5 className="modal-title" id="exampleModalLabel">
-                        Nuevo tipo de novedad
-                      </h5>
-                      <button
-                        type="button"
-                        className="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                    <div className="modal-body">
-                      <form>
-                        <div className="mb-3">
-                          <label
-                            for="recipient-name"
-                            className="col-form-label"
-                          >
-                            Tipo de novedad
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="recipient-name"
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label for="message-text" className="col-form-label">
-                            Descripcion tipo de novedad
-                          </label>
-                          <textarea
-                            className="form-control"
-                            id="message-text"
-                          ></textarea>
-                        </div>
-                      </form>
-                    </div>
-                    <div className="modal-footer">
-                      <button
-                        type="button"
-                        className="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                      >
-                        Cancelar
-                      </button>
-                      <button type="button" className="btn btn-primary">
-                        Guardar
-                      </button>
-                    </div>
-                  </div>
+                <div class="valid-feedback">Correcto</div>
+                <div class="invalid-feedback">
+                  Por favor seleccione un elemento
                 </div>
               </div>
-            </form>
-            <div className="row">
-              <div className="col">
-                <label>Empresa:</label>
-                <select
-                  className="form-select"
-                  aria-label="Default select example"
-                  required
-                >
-                  <option selected>Seleccionar empresa</option>
-                  <option>FERRETEROS SAS</option>
-                  <option>PALOQUEMAO</option>
-                  <option>PUNTO SAN JUAN</option>
-                </select>
-              </div>
-
-              <div className="col">
-                <label for="validationDefault05" className="form-label">
-                  ¿No esta registrada?
-                </label>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#direccion"
-                  data-bs-whatever="@mdo"
-                >
-                  Agregar direccion
-                </button>
-              </div>
-            </div>
-            <div className="con">
-              <div
-                class="modal fade"
-                id="direccion"
-                tabindex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-              >
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">
-                        Nueva direccion
-                      </h5>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                    <div class="modal-body">
-                      <form>
-                        <div class="mb-3">
-                          <label for="recipient-name" class="col-form-label">
-                            Ingresa direccion
-                          </label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="recipient-name"
-                          />
-                        </div>
-                        <div class="mb-3">{/* colocar api mapa */}</div>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                      >
-                        Cancelar
-                      </button>
-                      <button type="button" class="btn btn-primary">
-                        Agregar
-                      </button>
-                    </div>
+              {selectedEmpresa && (
+                <div className="col ms-4 p-3">
+                  <label for="selectsede" className="form-label row">
+                    Seleccione una sede:
+                  </label>
+                  <select
+                    className="row justify-content-between form-select"
+                    id="selectsede"
+                    value={selectedSede}
+                    onChange={(e) => setSelectedSede(e.target.value)}
+                    required
+                  >
+                    <option selected disabled value="">
+                      Seleccionar sede
+                    </option>
+                    {sede.map((item) => (
+                      <option key={item.ID_S} value={item.ID_S}>
+                        {item.Dic_S}
+                      </option>
+                    ))}
+                  </select>
+                  <div class="valid-feedback">Correcto</div>
+                  <div class="invalid-feedback">
+                    Por favor seleccione un elemento
                   </div>
                 </div>
-              </div>
+              )}
             </div>
-            
-            <div>
-            <div className="form-group">
-            <form>
-              <label for="comment">Descripcion de la novedad:</label>
-              <textarea
-                className="form-control"
-                rows="5"
-                id="comment"
-                placeholder="Describe lo ocurrido..."
-                required
-              ></textarea>
-
-              <div className="mb-3">
-                <label for="formFile" className="form-label">
-                  Evidencia de la novedad:
-                </label>
-                <input className="form-control" type="file" id="formFile" />
-              </div>
-
-              <div className="d-grid gap-2 col-6 mx-auto">
-                <button className="btn btn-primary" type="submit">
-                  Enviar registro
-                </button>
-
-              </div>
-            </form>
-            </div>
-            </div>
-            
-
-            
-          </form>
-        </section>
+          )}
+          <div class=" mt-3">
+            <label for="descripcion" class="form-label ms-5">
+              Describe el acontecimiento
+            </label>
+            <textarea
+              style={{ width: 90 + "%" }}
+              class="form-control m-auto"
+              id="descripcion"
+              rows="3"
+              required
+            ></textarea>
+            <div class="valid-feedback ms-5">Correcto</div>
+            <div class="invalid-feedback ms-5">agrege una descripcion</div>
+          </div>
+          <div className="row g-2 justify-content-between">
+          <div class="col-4 ms-5">
+            <label for="link" class="form-label">
+              agrega la url de la carpeta evidencia en drive
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="link"
+              required
+            />
+            <div class="invalid-feedback">pon la url de la carpeta de evidecia</div>
+          </div>
+          <div className="col ms-4 ps-3">
+            <label for="selectempleado" class="form-label">
+              Eliga el tipo de noveddad
+            </label>
+            <select class="form-select" id="selectempleado" required>
+              <option selected disabled value="">
+                Selecione...
+              </option>
+              {empleado.map((item) => (
+                <option key={item.id_em} value={item.id_em}>
+                  {item.Nombre_Completo_Empleado}
+                </option>
+              ))}
+            </select>
+            <div class="valid-feedback">Correcto</div>
+            <div class="invalid-feedback">Por favor seleccione un elemento</div>
+          </div>
+          </div>
+          <button class="btn btn-primary" type="submit">
+            Submit form
+          </button>
+        </form>
       </div>
-    </div>
+
+      <script>
+        {
+          // Example starter JavaScript for disabling form submissions if there are invalid fields
+          (() => {
+            "use strict";
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll(".needs-validation");
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach((form) => {
+              form.addEventListener(
+                "submit",
+                (event) => {
+                  if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                  }
+
+                  form.classList.add("was-validated");
+                },
+                false
+              );
+            });
+          })()
+        }
+      </script>
+    </>
   );
 }

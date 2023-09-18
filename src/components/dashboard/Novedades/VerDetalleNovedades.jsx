@@ -97,7 +97,7 @@ export default function VerDetalleNovedad() {
                 </figure>
               </div>
               <div className="col-6 mt-3">
-                {novedad.Descripcion_Novedad}
+                <p className="fs-5">{novedad.Descripcion_Novedad}</p>
               </div>
             </div>
             <div><p><a class="link-opacity-100-hover fs-3" href={novedad.Adjunto_Evidencia}>Evidencia: {novedad.Adjunto_Evidencia}</a></p></div> 
