@@ -73,6 +73,12 @@ export default function NovedadForm() {
     }
   }, [selectedEmpresa]);
 
+  const handleEmpresaChange = (e) => {
+    const newValue = e.target.value;
+    setSelectedEmpresa(newValue);
+    setSelectedSede(""); // Reiniciar el valor de la sede cuando cambia la empresa
+  };
+
   {
     /*para traer el select de empleado*/
   }
@@ -157,10 +163,12 @@ export default function NovedadForm() {
 
     if (isChecked) {
       // Si el checkbox está activo:
-      setDic_Nov(""); // Cambiar el valor de Dic_Nov a null
+      setDic_Nov("");
+      setID_S(null); // Cambiar el valor de Dic_Nov a null
     } else {
       // Si el checkbox está inactivo:
-      setDic_Nov(null); // Restaurar el valor de Dic_Nov a ""
+      setDic_Nov(null);
+      setID_S(selectedSede) // Restaurar el valor de Dic_Nov a ""
     }
 
     setShowSelects(!showSelects); // Mostrar/ocultar los selects
@@ -304,21 +312,24 @@ export default function NovedadForm() {
                     id="selectsede"
                     value={selectedSede}
                     onChange={(e) => {
-                      setSelectedSede(e.target.value);
-                      handleInputsChange("ID_S", e.target.value);
+                      setSelectedSede(e.target.value); // Actualiza el valor en el objeto novedad
                     }}
                     required
                   >
-                    <option selected disabled value="">
+                    <option selected value="">
                       Seleccionar sede
                     </option>
-                    {sede
-                      .filter((item) => item.id_e === Number(selectedEmpresa)) // Filtrar las sedes por la empresa seleccionada
-                      .map((item) => (
-                        <option key={item.ID_S} value={item.ID_S}>
-                          {item.Dic_S}
-                        </option>
-                      ))}
+                    {sede.map((item) => (
+                      <option
+                        key={item.ID_S}
+                        value={item.ID_S}
+                        onChange={(e) =>
+                          handleInputsChange("ID_S", e.target.value)
+                        }
+                      >
+                        {item.Dic_S}
+                      </option>
+                    ))}
                   </select>
                   <div class="valid-feedback">Correcto</div>
                   <div class="invalid-feedback">
