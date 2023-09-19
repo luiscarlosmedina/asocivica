@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import DateTimeDisplay from "./ComponentsFunction/DataTimeDisplay";
 import { useParams, useNavigate } from "react-router-dom";
 
-export default function NovedadForm() {
+export default function NovedadForm({onDataUpdate}) {
   const back = useNavigate();
   {
     /*para traer el select de tipo novedad*/
@@ -110,50 +110,52 @@ export default function NovedadForm() {
   const [id_evi, setId_evi] = useState(null);
   const [id_em, setId_em] = useState(null);
   const [ID_S, setID_S] = useState(null);
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  };
-
-  const novedad = {
-    T_Nov,
-    Dic_Nov,
-    Des_Nov,
-    id_evi,
-    id_em,
-    ID_S,
-  };
-  console.log(novedad);
-
-  fetch(
-    "http://localhost/api_proyecto.github.io/api.php?apicall=createnovedad",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(novedad),
-    }
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.error) {
-        setMessage("Error al crear la novedad");
-      } else {
-        setMessage("novedad creada correctamente");
-        setT_Nov("");
-        setDic_Nov("");
-        setDes_Nov("");
-        setId_em("");
-        setId_em("");
-        setID_S("");
+    const novedad = {
+      T_Nov,
+      Dic_Nov,
+      Des_Nov,
+      id_evi,
+      id_em,
+      ID_S,
+    };
+    console.log(novedad);
+  
+    fetch(
+      "http://localhost/api_proyecto.github.io/api.php?apicall=createnovedad",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(novedad),
       }
-    })
-    .catch((error) => {
-      setMessage("Error en la solicitud");
-      console.log(error);
-    });
+    )
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          setMessage("Error al crear la novedad");
+        } else {
+          setMessage("novedad creada correctamente");
+          setT_Nov("");
+          setDic_Nov("");
+          setDes_Nov("");
+          setId_em("");
+          setId_em("");
+          setID_S("");
+          setMessage("");
+          onDataUpdate();
+        }
+      })
+      .catch(error => {
+        setMessage("Error en la solicitud");
+        console.log(error);
+      });
+  };
+
 
   const [showSelects, setShowSelects] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -202,7 +204,6 @@ export default function NovedadForm() {
         break;
     }
   };
-  console.log(selectedSede);
 
   return (
     <>
@@ -313,6 +314,7 @@ export default function NovedadForm() {
                     value={selectedSede}
                     onChange={(e) => {
                       setSelectedSede(e.target.value); // Actualiza el valor en el objeto novedad
+                      handleInputsChange("ID_S", e.target.value);
                     }}
                     required
                   >
@@ -323,9 +325,6 @@ export default function NovedadForm() {
                       <option
                         key={item.ID_S}
                         value={item.ID_S}
-                        onChange={(e) =>
-                          handleInputsChange("ID_S", e.target.value)
-                        }
                       >
                         {item.Dic_S}
                       </option>
@@ -347,6 +346,8 @@ export default function NovedadForm() {
               style={{ width: 90 + "%" }}
               class="form-control m-auto"
               id="descripcion"
+              value={Des_Nov}
+              onChange={(e) => handleInputsChange("Des_Nov", e.target.value)}
               rows="3"
               required
             ></textarea>
@@ -358,7 +359,7 @@ export default function NovedadForm() {
               <label for="link" class="form-label">
                 agrega la url de la carpeta evidencia en drive
               </label>
-              <input type="text" class="form-control" id="link" required />
+              <input type="text" class="form-control" id="link" required value={id_evi} onChange={(e) => handleInputsChange("id_evi", e.target.value)}/>
               <div class="invalid-feedback">
                 pon la url de la carpeta de evidecia
               </div>
@@ -367,7 +368,7 @@ export default function NovedadForm() {
               <label for="selectempleado" class="form-label">
                 Eliga el tipo de noveddad
               </label>
-              <select class="form-select" id="selectempleado" required>
+              <select class="form-select" id="selectempleado" value={id_em} onChange={(e) => handleInputsChange("id_em", e.target.value)} required>
                 <option selected disabled value="">
                   Selecione...
                 </option>
@@ -396,6 +397,7 @@ export default function NovedadForm() {
             </button>
           </div>
         </form>
+        {message && <p>{message}</p>}
       </div>
 
       <script>
