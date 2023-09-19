@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import DateTimeDisplay from "./ComponentsFunction/DataTimeDisplay";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function NovedadForm() {
+  const back = useNavigate();
   {
     /*para traer el select de tipo novedad*/
   }
@@ -31,9 +33,6 @@ export default function NovedadForm() {
   const [sede, setSede] = useState([]);
   const [selectedEmpresa, setSelectedEmpresa] = useState("");
   const [selectedSede, setSelectedSede] = useState("");
-  const [showSelects, setShowSelects] = useState(false);
-  const [direccion, setDireccion] = useState("");
-  const [placeholderD, setPlaceholderD] = useState("");
 
   useEffect(() => {
     fetchDataEmpresa();
@@ -74,18 +73,6 @@ export default function NovedadForm() {
     }
   }, [selectedEmpresa]);
 
-  const handleCheckboxChange = () => {
-    setShowSelects(!showSelects);
-    if (!showSelects) {
-      setDireccion("");
-    }
-    if (!showSelects) {
-      setPlaceholderD("ya no es necesario llenar este campo");
-    } else {
-      setPlaceholderD("");
-    }
-  };
-
   {
     /*para traer el select de empleado*/
   }
@@ -108,6 +95,106 @@ export default function NovedadForm() {
       });
   };
 
+  {
+    /*funcion para enviar a api*/
+  }
+  const [T_Nov, setT_Nov] = useState(null);
+  const [Dic_Nov, setDic_Nov] = useState(null);
+  const [Des_Nov, setDes_Nov] = useState(null);
+  const [id_evi, setId_evi] = useState(null);
+  const [id_em, setId_em] = useState(null);
+  const [ID_S, setID_S] = useState(null);
+  const [message, setMessage] = useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const novedad = {
+    T_Nov,
+    Dic_Nov,
+    Des_Nov,
+    id_evi,
+    id_em,
+    ID_S,
+  };
+  console.log(novedad);
+
+  fetch(
+    "http://localhost/api_proyecto.github.io/api.php?apicall=createnovedad",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(novedad),
+    }
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.error) {
+        setMessage("Error al crear la novedad");
+      } else {
+        setMessage("novedad creada correctamente");
+        setT_Nov("");
+        setDic_Nov("");
+        setDes_Nov("");
+        setId_em("");
+        setId_em("");
+        setID_S("");
+      }
+    })
+    .catch((error) => {
+      setMessage("Error en la solicitud");
+      console.log(error);
+    });
+
+  const [showSelects, setShowSelects] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked); // Cambiar estado del checkbox
+
+    if (isChecked) {
+      // Si el checkbox está activo:
+      setDic_Nov(""); // Cambiar el valor de Dic_Nov a null
+    } else {
+      // Si el checkbox está inactivo:
+      setDic_Nov(null); // Restaurar el valor de Dic_Nov a ""
+    }
+
+    setShowSelects(!showSelects); // Mostrar/ocultar los selects
+  };
+
+  const handleInputChange2 = (e) => {
+    const { value } = e.target;
+    setDic_Nov(value);
+  };
+
+  const handleInputsChange = (nombreCampo, value) => {
+    switch (nombreCampo) {
+      case "T_Nov":
+        setT_Nov(value);
+        break;
+      case "Dic_Nov":
+        setDic_Nov(value);
+      case "Des_Nov":
+        setDes_Nov(value);
+        break;
+      case "id_evi":
+        setId_evi(value);
+        break;
+      case "id_em":
+        setId_em(value);
+        break;
+      case "ID_S":
+        setID_S(value);
+        break;
+      default:
+        break;
+    }
+  };
+  console.log(selectedSede);
 
   return (
     <>
@@ -123,12 +210,22 @@ export default function NovedadForm() {
             <DateTimeDisplay />
           </div>
         </div>
-        <form class="row g-2 needs-validation justify-content-between" noValidate>
+        <form
+          onSubmit={handleSubmit}
+          class="row g-2 needs-validation justify-content-between"
+          noValidate
+        >
           <div className="col ms-4 ps-3">
-            <label for="select1" class="form-label">
+            <label for="T_Nov" class="form-label">
               Eliga el tipo de noveddad
             </label>
-            <select class="form-select" id="select1" required>
+            <select
+              class="form-select"
+              id="T_Nov"
+              value={T_Nov || ""}
+              onChange={(e) => handleInputsChange("T_Nov", e.target.value)}
+              required
+            >
               <option selected disabled value="">
                 Selecione...
               </option>
@@ -142,17 +239,18 @@ export default function NovedadForm() {
             <div class="invalid-feedback">Por favor seleccione un elemento</div>
           </div>
           <div class="col">
-            <label for="direccion" class="form-label">
+            <label for="Dic_Nov" class="form-label">
               Dirección:
             </label>
             <input
               type="text"
               class="form-control"
-              id="direccion"
-              value={direccion}
-              placeholder={placeholderD}
-              onChange={(e) => setDireccion(e.target.value)}
-              disabled={showSelects}
+              id="Dic_Nov"
+              name="Dic_Nov"
+              value={Dic_Nov}
+              onChange={handleInputChange2}
+              placeholder={isChecked ? "Campo no necesario" : ""}
+              disabled={isChecked}
               required
             />
             <div class="valid-feedback">Correcto</div>
@@ -163,7 +261,7 @@ export default function NovedadForm() {
               <input
                 className="form-check-input p-2 border border-dark"
                 type="checkbox"
-                checked={showSelects}
+                checked={isChecked}
                 onChange={handleCheckboxChange}
               />{" "}
               Seleccione si la Novedad ocurrio en una sede registrada
@@ -205,17 +303,22 @@ export default function NovedadForm() {
                     className="row justify-content-between form-select"
                     id="selectsede"
                     value={selectedSede}
-                    onChange={(e) => setSelectedSede(e.target.value)}
+                    onChange={(e) => {
+                      setSelectedSede(e.target.value);
+                      handleInputsChange("ID_S", e.target.value);
+                    }}
                     required
                   >
                     <option selected disabled value="">
                       Seleccionar sede
                     </option>
-                    {sede.map((item) => (
-                      <option key={item.ID_S} value={item.ID_S}>
-                        {item.Dic_S}
-                      </option>
-                    ))}
+                    {sede
+                      .filter((item) => item.id_e === Number(selectedEmpresa)) // Filtrar las sedes por la empresa seleccionada
+                      .map((item) => (
+                        <option key={item.ID_S} value={item.ID_S}>
+                          {item.Dic_S}
+                        </option>
+                      ))}
                   </select>
                   <div class="valid-feedback">Correcto</div>
                   <div class="invalid-feedback">
@@ -240,39 +343,47 @@ export default function NovedadForm() {
             <div class="invalid-feedback ms-5">agrege una descripcion</div>
           </div>
           <div className="row g-2 justify-content-between">
-          <div class="col-4 ms-5">
-            <label for="link" class="form-label">
-              agrega la url de la carpeta evidencia en drive
-            </label>
-            <input
-              type="text"
-              class="form-control"
-              id="link"
-              required
-            />
-            <div class="invalid-feedback">pon la url de la carpeta de evidecia</div>
-          </div>
-          <div className="col ms-4 ps-3">
-            <label for="selectempleado" class="form-label">
-              Eliga el tipo de noveddad
-            </label>
-            <select class="form-select" id="selectempleado" required>
-              <option selected disabled value="">
-                Selecione...
-              </option>
-              {empleado.map((item) => (
-                <option key={item.id_em} value={item.id_em}>
-                  {item.Nombre_Completo_Empleado}
+            <div class="col-4 ms-5">
+              <label for="link" class="form-label">
+                agrega la url de la carpeta evidencia en drive
+              </label>
+              <input type="text" class="form-control" id="link" required />
+              <div class="invalid-feedback">
+                pon la url de la carpeta de evidecia
+              </div>
+            </div>
+            <div className="col ms-4 ps-3">
+              <label for="selectempleado" class="form-label">
+                Eliga el tipo de noveddad
+              </label>
+              <select class="form-select" id="selectempleado" required>
+                <option selected disabled value="">
+                  Selecione...
                 </option>
-              ))}
-            </select>
-            <div class="valid-feedback">Correcto</div>
-            <div class="invalid-feedback">Por favor seleccione un elemento</div>
+                {empleado.map((item) => (
+                  <option key={item.id_em} value={item.id_em}>
+                    {item.Nombre_Completo_Empleado}
+                  </option>
+                ))}
+              </select>
+              <div class="valid-feedback">Correcto</div>
+              <div class="invalid-feedback">
+                Por favor seleccione un elemento
+              </div>
+            </div>
           </div>
+          <div className="d-grid gap-2 d-md-flex justify-content-end">
+            <button
+              type="button"
+              class="btn btn-secondary me-md-2 mb-4"
+              onClick={() => back("/*")}
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary mb-4 me-4">
+              Agregar
+            </button>
           </div>
-          <button class="btn btn-primary" type="submit">
-            Submit form
-          </button>
         </form>
       </div>
 
