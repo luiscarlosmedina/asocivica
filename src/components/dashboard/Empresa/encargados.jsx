@@ -26,7 +26,7 @@ export default function Encargados({ id }) {
   const [errors, setErrors] = useState({}); // Estado para almacenar errores
 
   const fetchData = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readTelSede&id=${id}`)
+    fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readTelSede&id=${id}`)
       .then((response) => response.json())
       .then((data) => {
         // Filtrar encargados activos (Est_en === "0")
@@ -57,7 +57,7 @@ export default function Encargados({ id }) {
 
   const saveEnc = async (ID_En, updatedEncargado) => {
     try {
-      const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateencargado`, {
+      const response = await fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=updateencargado`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ export default function Encargados({ id }) {
     };
 
     try {
-      const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=deleteencargado`, {
+      const response = await fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=deleteencargado`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ export default function Encargados({ id }) {
     }
 
     try {
-      const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=createencargado`, {
+      const response = await fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=createencargado`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

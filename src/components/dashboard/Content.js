@@ -30,7 +30,7 @@ function Content() {
                 <Route path='consultar-novedades' element={<VerNovedades dataUpdated={dataUpdated} />} />
                 <Route path='consultar-novedades/:novedadID' element={<VerDetalleNovedad />} />
                 <Route path='registrar-reportes' element={<Reportes/>} />
-                <Route path='consultar-min-empleado' element={<EmpleadominVer dataUpdated={dataUpdated}/>} />
+                <Route path='consultar-empleados' element={<EmpleadominVer dataUpdated={dataUpdated}/>} />
             </Routes>
         </div>
     )

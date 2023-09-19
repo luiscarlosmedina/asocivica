@@ -13,7 +13,7 @@ export default function VerNovedades({ dataUpdated }) {
 
   const fetchData = () => {
     fetch(
-      `http://localhost/api_proyecto.github.io/api.php?apicall=readnovedad&id`
+      `https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readnovedad&id`
     )
       .then((response) => response.json())
       .then((data) => {

@@ -25,7 +25,7 @@ export default function VerDetalleNovedad() {
 
   const fetchData = () => {
     fetch(
-      `http://localhost/api_proyecto.github.io/api.php?apicall=readnovedad&id=${novedadID}`
+      `https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readnovedad&id=${novedadID}`
     )
       .then((response) => response.json())
       .then((data) => {

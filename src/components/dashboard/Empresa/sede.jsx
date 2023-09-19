@@ -36,7 +36,7 @@ export default function Sede({ id }) {
 
   // Función para cargar datos
   const fetchData = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readsede&id=${id}`)
+    fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readsede&id=${id}`)
       .then((response) => response.json())
       .then((data) => {
         setData(data.contenido);
@@ -95,7 +95,7 @@ export default function Sede({ id }) {
       const editedRow = data.find((row) => row.ID_S === id);
       editedRow[field] = newValue;
   
-      fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updatesede`, {
+      fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=updatesede`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -164,7 +164,7 @@ export default function Sede({ id }) {
       est_sed: estado,
     };
 
-    return fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateestsd`, {
+    return fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=updateestsd`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

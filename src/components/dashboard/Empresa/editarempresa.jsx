@@ -55,7 +55,7 @@ export default function EditarE({ id, onUpdate }) {
     };
 
     useEffect(() => {
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempresa&id=${id}`)
+        fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readempresa&id=${id}`)
             .then(response => response.json())
             .then(data => {
                 setEmpresa(data.contenido[0]);
@@ -88,7 +88,7 @@ export default function EditarE({ id, onUpdate }) {
                 'COD_AE': empresa.COD_AE
             };
 
-            fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateempresa`, {
+            fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=updateempresa`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
