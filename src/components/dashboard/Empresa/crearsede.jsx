@@ -104,7 +104,7 @@ export default function CrearSede({ id }) {
       Est_en: '0',
     };
 
-    fetch('http://localhost/api_proyecto.github.io/api.php?apicall=createsede', {
+    fetch('https://20.106.206.47/api_proyecto.github.io/api.php?apicall=createsede', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -30,7 +30,7 @@ export default function EmpresaVer({ dataUpdated }) {
   }, []);
 
   const fetchData = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempresa&id`)
+    fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readempresa&id`)
       .then((response) => response.json())
       .then((data) => {
         setData(data.contenido);

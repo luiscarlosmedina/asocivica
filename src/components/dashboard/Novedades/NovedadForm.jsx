@@ -15,7 +15,7 @@ export default function NovedadForm({onDataUpdate}) {
 
   const fetchDataTpnoedad = () => {
     fetch(
-      "http://localhost/api_proyecto.github.io/api.php?apicall=readtpnovedad"
+      "https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readtpnovedad"
     )
       .then((response) => response.json())
       .then((tpnovedad) => {
@@ -41,7 +41,7 @@ export default function NovedadForm({onDataUpdate}) {
 
   const fetchDataEmpresa = () => {
     fetch(
-      "http://localhost/api_proyecto.github.io/api.php?apicall=readnovedadempresa"
+      "https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readnovedadempresa"
     )
       .then((response) => response.json())
       .then((empresa) => {
@@ -54,7 +54,7 @@ export default function NovedadForm({onDataUpdate}) {
 
   const fetchDataSede = (id_e) => {
     fetch(
-      `http://localhost/api_proyecto.github.io/api.php?apicall=readnovedadsede&id=${id_e}`
+      `https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readnovedadsede&id=${id_e}`
     )
       .then((response) => response.json())
       .then((sede) => {
@@ -90,7 +90,7 @@ export default function NovedadForm({onDataUpdate}) {
 
   const fetchDataEmpleado = () => {
     fetch(
-      "http://localhost/api_proyecto.github.io/api.php?apicall=readnovedadempleado"
+      "https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readnovedadempleado"
     )
       .then((response) => response.json())
       .then((empleado) => {
@@ -125,7 +125,7 @@ export default function NovedadForm({onDataUpdate}) {
     console.log(novedad);
   
     fetch(
-      "http://localhost/api_proyecto.github.io/api.php?apicall=createnovedad",
+      "https://20.106.206.47/api_proyecto.github.io/api.php?apicall=createnovedad",
       {
         method: "POST",
         headers: {

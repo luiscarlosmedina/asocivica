@@ -6,7 +6,7 @@ const Vercompany = () => {
     const [Empresalist, setEmpresalist] = useState([])
 
     const getEmpresas = () => {
-        axios.get("http://localhost:3001/empresa", {}).then((response) => {
+        axios.get("https://20.106.206.47:3001/empresa", {}).then((response) => {
             setEmpresalist(response.data);
         })
     }
