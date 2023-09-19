@@ -1,5 +1,5 @@
 :root {
-    --azul: #134074;
+    --azul: #002a55;
     --naranja: #fa8131;
     --blanco: #fff;
     --fuente: 'Quicksand', sans-serif;
@@ -18,14 +18,20 @@
 
 .col {
     padding: 18px;
+   
 }
 
 .op {
-    padding: 15px 0;
-    text-decoration: none;
+    border-radius: 15px;
 }
 
 .op:hover {
     background-color: var(--naranja);
     border-radius: 15px;
-}
+} 
+  /* Cambiar el color de fondo a naranja */
+  .nav-item.dropdown:hover .nav-link,
+  .nav-item.dropdown .active .nav-link {
+    background-color: var(--naranja);
+  }
+  

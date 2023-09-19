@@ -1,5 +1,5 @@
 :root{
-    --azul:#134074;
+    --azul:#002a55;
     --naranja:#fa8131;
     --blanco:#fff;
 }
@@ -10,6 +10,10 @@
     padding: 0 25px;
 }
 
+.ctbanner{
+    margin: auto;
+    width: 80%;
+}
 ::-webkit-scrollbar {
     width: 10px;
 }
