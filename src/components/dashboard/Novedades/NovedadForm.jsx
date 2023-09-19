@@ -168,7 +168,7 @@ export default function NovedadForm() {
     } else {
       // Si el checkbox está inactivo:
       setDic_Nov(null);
-      setID_S(setSelectedSede) // Restaurar el valor de Dic_Nov a ""
+      setID_S(selectedSede) // Restaurar el valor de Dic_Nov a ""
     }
 
     setShowSelects(!showSelects); // Mostrar/ocultar los selects
