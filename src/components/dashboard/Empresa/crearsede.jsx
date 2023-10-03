@@ -16,7 +16,7 @@ export default function CrearSede({ id }) {
 
   const colombianAddressRegex = /^[A-Za-z0-9\s#áéíóúÁÉÍÓÚñÑ,.-]{5,}$/;
   const phoneRegex = /^\d{7,10}$/;
-  const nameRegex = /^[A-Za-z\s]*$/;
+  const nameRegex = /^[A-Za-z\s]+$/;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,7 +32,7 @@ export default function CrearSede({ id }) {
 
     switch (name) {
       case 'Dic_S':
-        if (!colombianAddressRegex.test(value)) {
+        if (!colombianAddressRegex.test(value) || value.trim() === "") {
           error = 'Ingrese una dirección válida.';
         }
         break;
@@ -42,14 +42,14 @@ export default function CrearSede({ id }) {
         }
         break;
       case 'N_En':
-        if (!nameRegex.test(value) || " ") {
+        if (!nameRegex.test(value) || value.trim() === "") {
           error = 'Ingrese un nombre válido sin caracteres especiales.';
         }
         break;
       case 'tel1':
       case 'tel2':
       case 'tel3':
-        if (!phoneRegex.test(value)) {
+        if (!phoneRegex.test(value) || value.trim() === "") {
           error = 'Ingrese un número de teléfono válido en el formato (123) 456-7890.';
         }
         break;
