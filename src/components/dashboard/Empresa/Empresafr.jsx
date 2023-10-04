@@ -196,12 +196,13 @@ function Empresafr({ onDataUpdate }) {
             telefonoGeneral: empresa.telefonoGeneral,
             Val_E: empresa.Val_E,
             Est_E: empresa.Est_E,
-            Fh_Afi: empresa.Fh_Afi,
-            fechaFinalizacion: empresa.fechaFinalizacion,
+            Fh_Afi: hoy,
+            fechaFinalizacion: hoy,
             COD_SE: empresa.COD_SE,
             COD_AE: empresa.COD_AE,
             sedes: empresa.sedes,
         };
+        console.log(data);
 
         // Realizar la solicitud POST
         fetch("http://localhost/api_proyecto.github.io/api.php?apicall=createempresa", {
