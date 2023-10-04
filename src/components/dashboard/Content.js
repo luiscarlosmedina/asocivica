@@ -3,6 +3,7 @@ import "../../style/content.css";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Empleadofr from "./Empleado/Reg_emple/Empleadofr";
+import EmpleadoVer from "./Empleado/empleadoVer";
 import EmpresaVer from "./Empresa/empresaVer";
 import EmpresaVerDetalle from "./Empresa/empresaVerDetalle";
 import Empresafr from "./Empresa/Empresafr";
@@ -11,7 +12,6 @@ import NovedadForm from "./Novedades/NovedadForm";
 import VerDetalleNovedad from "./Novedades/VerDetalleNovedades";
 import VerNovedades from "./Novedades/VerNovedades";
 import Reportes from "./Reportes/Reportes";
-import EmpleadominVer from "./Empleado/Mos_emple/content_empl";
 
 function Content() {
     const [dataUpdated, setDataUpdated] = useState(false);
@@ -26,11 +26,11 @@ function Content() {
                 <Route path='consultar-empresas' element={<EmpresaVer dataUpdated={dataUpdated} />} />
                 <Route path='consultar-empresas/:id' element={< EmpresaVerDetalle />} />
                 <Route path='registrar-empleado' element={<Empleadofr/>} />
+                <Route path='consultar-empleados' element={<EmpleadoVer dataUpdated={dataUpdated}/>} />
                 <Route path='registrar-novedades' element={<NovedadForm onDataUpdate={handleDataUpdate}/>} />
                 <Route path='consultar-novedades' element={<VerNovedades dataUpdated={dataUpdated} />} />
                 <Route path='consultar-novedades/:novedadID' element={<VerDetalleNovedad />} />
                 <Route path='registrar-reportes' element={<Reportes/>} />
-                <Route path='consultar-min-empleado' element={<EmpleadominVer dataUpdated={dataUpdated}/>} />
             </Routes>
         </div>
     )
