@@ -65,19 +65,12 @@ export default function NovedadForm({onDataUpdate}) {
       });
   };
   useEffect(() => {
-    // Llama a fetchDataSede con el ID de la empresa seleccionada
     if (selectedEmpresa) {
       fetchDataSede(selectedEmpresa);
     } else {
       setSede([]);
     }
   }, [selectedEmpresa]);
-
-  const handleEmpresaChange = (e) => {
-    const newValue = e.target.value;
-    setSelectedEmpresa(newValue);
-    setSelectedSede(""); // Reiniciar el valor de la sede cuando cambia la empresa
-  };
 
   {
     /*para traer el select de empleado*/
@@ -161,19 +154,16 @@ export default function NovedadForm({onDataUpdate}) {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked); // Cambiar estado del checkbox
-
+    setIsChecked(!isChecked);
     if (isChecked) {
-      // Si el checkbox está activo:
       setDic_Nov("");
-      setID_S(null); // Cambiar el valor de Dic_Nov a null
+      setID_S(null);
     } else {
-      // Si el checkbox está inactivo:
       setDic_Nov(null);
-      setID_S(selectedSede) // Restaurar el valor de Dic_Nov a ""
+      setID_S(selectedSede)
     }
 
-    setShowSelects(!showSelects); // Mostrar/ocultar los selects
+    setShowSelects(!showSelects); 
   };
 
   const handleInputChange2 = (e) => {
