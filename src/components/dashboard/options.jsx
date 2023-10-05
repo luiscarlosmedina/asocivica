@@ -51,7 +51,7 @@ const Options = () => {
           <i className="bi bi-table"></i> <span className='ms-2'>Gestion de empleados</span>
         </a>
         <ul className="dropdown-menu">
-          <li><NavLink to="/consultar-min-empleado" className="dropdown-item">Ver empleados</NavLink></li>
+          <li><NavLink to="/consultar-empleados" className="dropdown-item">Ver empleados</NavLink></li>
           <li><NavLink to="/registrar-empleado" className="dropdown-item">Agregar empleado</NavLink></li>
         </ul>
       </li>

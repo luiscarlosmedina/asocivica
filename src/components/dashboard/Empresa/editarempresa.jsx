@@ -44,7 +44,7 @@ export default function EditarE({ id, onUpdate }) {
 
         if (fieldName in regexPatterns) {
             const regex = regexPatterns[fieldName];
-            if (!regex.test(value) || value.trim() === "") {
+            if (!regex.test(value) || value.trim() === " ") {
                 errorsCopy[fieldName] = `El campo no es válido`;
             } else {
                 delete errorsCopy[fieldName];
@@ -135,7 +135,7 @@ export default function EditarE({ id, onUpdate }) {
                     <div className='input-group'>
                         <div className="mb-3">
                             <label htmlFor="Est_E" className="col-form-label">Estado</label>
-                            <select name="Est_E" className="form-select" value={empresa.Est_E} onChange={handleInputChange}>
+                            <select name="Est_E" className="form-select w-auto" value={empresa.Est_E} onChange={handleInputChange}>
                                 <option value="0">Activo</option>
                                 <option value="1">En estudio</option>
                                 <option value="2">Inactivo</option>
@@ -149,7 +149,7 @@ export default function EditarE({ id, onUpdate }) {
                             <label htmlFor="Nom_E" className="col-form-label">Nombre empresa</label>
                             <input
                                 type="text"
-                                className={`form-control ${getError("Nom_E") && "is-invalid"}`}
+                                className={`form-control w-auto ${getError("Nom_E") && "is-invalid"}`}
                                 placeholder="Empresa S.A.S"
                                 name="Nom_E"
                                 value={empresa.Nom_E}
@@ -163,7 +163,7 @@ export default function EditarE({ id, onUpdate }) {
                             <label htmlFor="telefonoGeneral" className="col-form-label">Teléfono</label>
                             <input
                                 type="number"
-                                className={`form-control ${getError("telefonoGeneral") && "is-invalid"}`}
+                                className={`form-control w-auto ${getError("telefonoGeneral") && "is-invalid"}`}
                                 placeholder="2222222"
                                 name="telefonoGeneral"
                                 value={empresa.telefonoGeneral}
@@ -176,7 +176,7 @@ export default function EditarE({ id, onUpdate }) {
                             <label htmlFor="COD_SE" className="col-form-label">Sector económico</label>
                             <input
                                 type="text"
-                                className={`form-control ${getError("COD_SE") && "is-invalid"}`}
+                                className={`form-control w-auto ${getError("COD_SE") && "is-invalid"}`}
                                 placeholder="Sector económico"
                                 name="COD_SE"
                                 value={empresa.COD_SE}
@@ -189,7 +189,7 @@ export default function EditarE({ id, onUpdate }) {
                             <label htmlFor="Nom_Rl" className="col-form-label">Representante legal</label>
                             <input
                                 type="text"
-                                className={`form-control ${getError("Nom_Rl") && "is-invalid"}`}
+                                className={`form-control w-auto ${getError("Nom_Rl") && "is-invalid"}`}
                                 placeholder="Representante legal"
                                 name="Nom_Rl"
                                 value={empresa.Nom_Rl}
@@ -201,10 +201,10 @@ export default function EditarE({ id, onUpdate }) {
                     </div>
                     <div className='input-group'>
                         <div className="mb-3">
-                            <label htmlFor="Nit_E" className="col-form-label">NIT</label>
+                            <label htmlFor="Nit_E" className="col-form-label">NIT empresa</label>
                             <input
                                 type="text"
-                                className={`form-control ${getError("Nit_E") && "is-invalid"}`}
+                                className={`form-control w-auto ${getError("Nit_E") && "is-invalid"}`}
                                 placeholder="NIT"
                                 name="Nit_E"
                                 value={empresa.Nit_E}
@@ -217,7 +217,7 @@ export default function EditarE({ id, onUpdate }) {
                             <label htmlFor="Eml_E" className="col-form-label">Correo</label>
                             <input
                                 type="text"
-                                className={`form-control ${getError("Eml_E") && "is-invalid"}`}
+                                className={`form-control w-auto ${getError("Eml_E") && "is-invalid"}`}
                                 placeholder="Correo"
                                 name="Eml_E"
                                 value={empresa.Eml_E}
@@ -243,7 +243,7 @@ export default function EditarE({ id, onUpdate }) {
                             <label htmlFor="COD_AE" className="col-form-label">Actividad económica</label>
                             <input
                                 type="text"
-                                className={`form-control ${getError("COD_AE") && "is-invalid"}`}
+                                className={`form-control w-auto ${getError("COD_AE") && "is-invalid"}`}
                                 placeholder="Actividad económica"
                                 name="COD_AE"
                                 value={empresa.COD_AE}
