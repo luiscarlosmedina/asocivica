@@ -101,12 +101,10 @@ export default function ContactoEmergencia({ id }) {
         }
 
         // Validar números de teléfono
-        if (!validatePhone(newContEmg.tel1) || !validatePhone(newContEmg.tel2) || !validatePhone(newContEmg.tel3)) {
+        if (!validatePhone(newContEmg.tel1)) {
             // Mostrar errores
             setErrors({
                 tel1: !validatePhone(newContEmg.tel1) ? "Teléfono 1 no es válido" : "",
-                tel2: !validatePhone(newContEmg.tel2) ? "Teléfono 2 no es válido" : "",
-                tel3: !validatePhone(newContEmg.tel3) ? "Teléfono 3 no es válido" : "",
             });
             return;
         }

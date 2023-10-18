@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import swal from 'sweetalert';
 
-function Empresafr({ onDataUpdate }) {
+function Empresafr({nit}) {
     const fecha = new Date()
     const hoy = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate()
 
@@ -109,7 +109,7 @@ function Empresafr({ onDataUpdate }) {
     //valida campos de empresa
     const validateField = (fieldName, value) => {
         const regexPatterns = {
-            Nit_E: /^\d{8}-\d{1}$/, // Validacion para el campo Nit_E con - despues del 8 numero
+            Nit_E: /^\d{9}-\d{1}$/, // Validacion para el campo Nit_E con - despues del 8 numero
             Nom_E: /^.{1,100}$/, // Validacion para el campo Nom_E (máximo 100 caracteres)
             Eml_E: /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, // Validacion para el campo Eml_E (correo electrónico)
             Nom_Rl: /^[A-Za-z\s]+$/, //solo texto
@@ -187,7 +187,7 @@ function Empresafr({ onDataUpdate }) {
         }
         // Crear un objeto para enviar los datos
         const data = {
-            Nit_E: empresa.Nit_E,
+            Nit_E: nit,
             Nom_E: empresa.Nom_E,
             Eml_E: empresa.Eml_E,
             Nom_Rl: empresa.Nom_Rl,
@@ -259,7 +259,7 @@ function Empresafr({ onDataUpdate }) {
             ]
         });
 
-        onDataUpdate();
+    
     };
 
     //agrega array de sede a empresa
@@ -292,12 +292,13 @@ function Empresafr({ onDataUpdate }) {
                             <input
                                 type="text"
                                 id="nit"
-                                placeholder='12345678-9'
+                                placeholder='123456789-0'
                                 className={`form-control ${getError("Nit_E") && "is-invalid"}`}
                                 name="Nit_E"
-                                value={empresa.Nit_E}
+                                value={nit}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
+                                disabled
                             />
                             <div className="invalid-feedback">{getError("Nit_E")} debe contener - mas el caracter verificador</div>
                         </div>

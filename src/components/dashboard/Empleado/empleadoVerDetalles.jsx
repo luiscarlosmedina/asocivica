@@ -65,7 +65,7 @@ export default function EmpleadoVerDetalles() {
 
             )}
             <div>
-                <ContactoEmergencia id={id} />
+                {/* <ContactoEmergencia id={id} /> */}
             </div>
         </div>
     )

@@ -7,7 +7,7 @@ import EmpleadoVer from "./Empleado/empleadoVer";
 import EmpleadoVerDetalles from "./Empleado/empleadoVerDetalles";
 import EmpresaVer from "./Empresa/empresaVer";
 import EmpresaVerDetalle from "./Empresa/empresaVerDetalle";
-import Empresafr from "./Empresa/Empresafr";
+import Verificaempresa from "./Empresa/verificaempresa";
 //import Empleadofr_ps from './Empleado/Empleadofr_ps'
 import NovedadForm from "./Novedades/NovedadForm";
 import VerDetalleNovedad from "./Novedades/VerDetalleNovedades";
@@ -23,7 +23,7 @@ function Content() {
         <div className='contenido'>
             <Routes>
                 <Route path='*' element={<Home />} />
-                <Route path='registrar-empresa' element={<Empresafr onDataUpdate={handleDataUpdate} />}/>
+                <Route path='registrar-empresa' element={<Verificaempresa />}/>
                 <Route path='consultar-empresas' element={<EmpresaVer dataUpdated={dataUpdated} />} />
                 <Route path='consultar-empresas/:id' element={< EmpresaVerDetalle />} />
                 <Route path='registrar-empleado' element={<Empleadofr/>} />
