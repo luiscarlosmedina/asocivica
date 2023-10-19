@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "../../../../style/Empleado/Reg_empl/empleado_fr.css";
-import Inicio from "./inicio";
 import Botones from "./buttons";
-import swal from 'sweetalert';
 import AEmple from "./options_form_emple/a";
 import BEmple from "./options_form_emple/b";
 import CEmple from "./options_form_emple/c";
@@ -10,11 +8,14 @@ import DEmple from "./options_form_emple/d";
 import EEmple from "./options_form_emple/e";
 import { useNavigate } from 'react-router-dom'; 
 import Fin from "./fin";
+import Textemple from "./textemple";
 
 function Empleadofr() {
   const [pasos, setPasos] = useState({
     paso: 0,
   });
+
+
   const navigate = useNavigate(); 
   const [empleadoData, setEmpleados] = useState({
     id_doc: "",
@@ -56,11 +57,16 @@ function Empleadofr() {
     }));
   };
 
-  const ubicacionPaso = (nuevoPaso) => {
-    setPasos({
-      paso: nuevoPaso,
-    });
-  };
+  //-----------------------------------------------------------------------------------------------------
+   //Esta funcion de encarga de cancelar el envio del formulario devolviendolo al componente final
+    const ultimovolver = () => {
+      setPasos((prevPasos) => ({
+        paso: prevPasos.paso - 2,
+      }));
+    };
+  //-----------------------------------------------------------------------------------------------------
+
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -75,23 +81,15 @@ function Empleadofr() {
   };
 
 
-
   let componenteActual;
 
   switch (pasos.paso) {
-    case 0:
-      componenteActual = (<div className="m-b">
-        <Inicio siguientePaso={siguientePaso} />    
-        </div>
 
-      );
-      break;
-  
-    case 1:
+    case 0:
       componenteActual = (
-        <div>
-          <div className="m-b">
-            <Botones onClick={ubicacionPaso}  />
+        <div className="m-b">
+            <Textemple/>
+            <Botones/>
             <AEmple
               handleInputChange={handleInputChange}
               siguientePaso={siguientePaso}
@@ -99,17 +97,14 @@ function Empleadofr() {
               valores={empleadoData}
               
             />
-          </div>
-        </div>
+          </div>  
       );
       break;
-    case 2:
+    case 1:
       componenteActual = (
-        <div>
-          <div className="m-b">
-            <Botones
-              onClick={ubicacionPaso}
-            />
+        <div className="m-b">
+          <div className="m-c">
+            <Botones/>
             <BEmple
               handleInputChange={handleInputChange}
               valores={empleadoData}
@@ -120,11 +115,11 @@ function Empleadofr() {
         </div>
       );
       break;
-    case 3:
+    case 2:
       componenteActual = (
-        <div>
-          <div className="m-b">
-            <Botones onClick={ubicacionPaso}/>
+        <div className="m-b"> 
+          <div className="m-c">
+            <Botones/>
             <CEmple
               handleInputChange={handleInputChange}
               siguientePaso={siguientePaso}
@@ -135,11 +130,11 @@ function Empleadofr() {
         </div>
       );
       break;
-    case 4:
+    case 3:
       componenteActual = (
-        <div>
-          <div className="m-b">
-            <Botones onClick={ubicacionPaso}/>
+        <div className="m-b">
+          <div className="m-c">
+            <Botones/>
             <DEmple
               handleInputChange={handleInputChange}
               siguientePaso={siguientePaso}
@@ -150,17 +145,16 @@ function Empleadofr() {
         </div>
       );
       break;
-    case 5:
+    case 6:
       componenteActual = (
-        <div>
-          <div className="m-b">
-            <Botones onClick={ubicacionPaso}/>
+        <div className="m-b">
+          <div className="m-c">
+            <Botones/>
             <EEmple
               handleInputChange={handleInputChange}
               siguientePaso={siguientePaso}
               anteriorPaso={anteriorPaso}
-              valores={empleadoData}
-              almacenarDatos={almacenarDatos}
+             
             />
           </div>
         </div>
@@ -168,7 +162,9 @@ function Empleadofr() {
       break;
     default:
       componenteActual = ( <Fin
-        anteriorPaso={anteriorPaso}
+        ultimovolver={ultimovolver}
+        valores={empleadoData}
+        almacenarDatos={almacenarDatos}
         />);
       
   }

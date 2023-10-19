@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom'; // Cambiar a useNavigate
 
 
 function AEmple(props) {
-  const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
-
+  const { handleInputChange, valores, siguientePaso, } = props;
   const navigate = useNavigate();
 
 
@@ -17,6 +16,7 @@ function AEmple(props) {
 
   const validarCampo = (nombreCampo, valorCampo) => {
     const nuevosErrores = { ...errores };
+
 
     switch (nombreCampo) {
       case "estado":
@@ -283,7 +283,7 @@ function AEmple(props) {
                   navigate("/inicio"); // Utiliza navigate dentro de una función de flecha
                 }}
               >
-                volver
+                cancelar
               </button>
               </div>
             </div>
