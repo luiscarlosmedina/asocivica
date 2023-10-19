@@ -10,8 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    
+
 }
 .figure1{
     margin-left: 40px;
@@ -21,6 +20,9 @@
    margin-top: 12px;
    margin-bottom: 2em;
 
+}
+.bi-person-fill-check{
+    font-size: 3em;
 }
 
 .box-menu{  
@@ -40,12 +42,12 @@
 
   
 .sub-menu{
-    border: rgb(202, 206, 220) solid 3px;
      width: 10.2em;
      height: 5em;
-     border-radius: 5px;
      font-size: 18px;
-     
+     display: flex;
+     justify-content: center;
+     align-items: center;
  }
  
 h5{
@@ -75,7 +77,7 @@ input[type="text"] {
 }
 
 .secundary-box .container{
-    background-color: rgb(227, 231, 235);
+    background-color: rgb(255, 255, 255);
     width: 80%;
     height: 41em;
    
@@ -96,33 +98,45 @@ input[type="text"] {
 
 }
 
+.ip{
+    font-size: 16px;
+}
 
-
-.sep1{
+.l_a{
     margin-top: 40px;
-    background-color: rgb(202, 206, 220);
+    background-color: rgb(0, 8, 37);
     width: 40px;
     height: 6px;
 }
 
-.sep2{
+.l_b{
     margin-top: 40px;
-    background-color: rgb(202, 206, 220);
+    background-color: rgb(0, 8, 37);
     width: 40px;
     height: 6px;
 }
 
-.sep3{
+.l_c{
     margin-top: 40px;
-    background-color: rgb(202, 206, 220);
+    background-color: rgb(0, 8, 37);
     width: 40px;
     height: 6px;
 }
-.sep4{
+
+.l_d{
     margin-top: 40px;
-    background-color: rgb(202, 206, 220);
+    background-color: rgb(0, 8, 37);
     width: 40px;
     height: 6px;
 }
+
+.l_e{
+    margin-top: 40px;
+    background-color: rgb(0, 8, 37);
+    width: 40px;
+    height: 6px;
+}
+
+
 
 
