@@ -3,7 +3,7 @@ import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
 
 function Fin(props) {
-    const { ultimovolver } = props;
+    const { ultimovolver, almacenarDatos } = props;
     const navigate = useNavigate(); 
     const MySwal = swal
     MySwal({
@@ -20,6 +20,7 @@ function Fin(props) {
                     
                 });
                 navigate("/inicio");
+                almacenarDatos();
             } else {
                 
                 swal("Revisa la informacion y luego guarda");

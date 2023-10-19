@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 function EEmple(props) {
   const {
-    handleInputChange, valores, almacenarDatos, siguientePaso, anteriorPaso } = props;
+    handleInputChange, valores, siguientePaso, anteriorPaso } = props;
 
   const [errores, setErrores] = useState({});
 
@@ -85,7 +85,6 @@ function EEmple(props) {
                 className="btnf btn btn-primary"
                 onClick={() => {
                   siguientePaso();
-                  almacenarDatos();
                 }}
               >
                 validar

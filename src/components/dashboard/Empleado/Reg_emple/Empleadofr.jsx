@@ -6,7 +6,6 @@ import BEmple from "./options_form_emple/b";
 import CEmple from "./options_form_emple/c";
 import DEmple from "./options_form_emple/d";
 import EEmple from "./options_form_emple/e";
-import { useNavigate } from 'react-router-dom'; 
 import Fin from "./fin";
 import Textemple from "./textemple";
 
@@ -15,8 +14,6 @@ function Empleadofr() {
     paso: 0,
   });
 
-
-  const navigate = useNavigate(); 
   const [empleadoData, setEmpleados] = useState({
     id_doc: "",
     documento: "",
@@ -66,8 +63,6 @@ function Empleadofr() {
     };
   //-----------------------------------------------------------------------------------------------------
 
-
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEmpleados((prevData) => ({
@@ -103,7 +98,7 @@ function Empleadofr() {
     case 1:
       componenteActual = (
         <div className="m-b">
-          <div className="m-c">
+           <Textemple/>
             <Botones/>
             <BEmple
               handleInputChange={handleInputChange}
@@ -112,13 +107,12 @@ function Empleadofr() {
               anteriorPaso={anteriorPaso}
             />
           </div>
-        </div>
       );
       break;
     case 2:
       componenteActual = (
         <div className="m-b"> 
-          <div className="m-c">
+           <Textemple/>
             <Botones/>
             <CEmple
               handleInputChange={handleInputChange}
@@ -127,13 +121,12 @@ function Empleadofr() {
               valores={empleadoData}
             />
           </div>
-        </div>
       );
       break;
     case 3:
       componenteActual = (
         <div className="m-b">
-          <div className="m-c">
+            <Textemple/>
             <Botones/>
             <DEmple
               handleInputChange={handleInputChange}
@@ -142,29 +135,28 @@ function Empleadofr() {
               valores={empleadoData}
             />
           </div>
-        </div>
       );
       break;
-    case 6:
+    case 4:
       componenteActual = (
         <div className="m-b">
-          <div className="m-c">
+            <Textemple/>
             <Botones/>
             <EEmple
               handleInputChange={handleInputChange}
               siguientePaso={siguientePaso}
               anteriorPaso={anteriorPaso}
+              valores={empleadoData}
              
             />
           </div>
-        </div>
       );
       break;
     default:
       componenteActual = ( <Fin
         ultimovolver={ultimovolver}
-        valores={empleadoData}
         almacenarDatos={almacenarDatos}
+        valores={empleadoData}
         />);
       
   }
