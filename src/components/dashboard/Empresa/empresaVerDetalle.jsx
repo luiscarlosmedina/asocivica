@@ -5,7 +5,7 @@ import EditarE from './editarempresa'
 
 export default function EmpresaVerDetalle() {
   const [loading, setLoading] = useState(true);
-  const { id } = useParams();
+  const { empresaid } = useParams();
   const back = useNavigate();
   const [empresa, setEmpresa] = useState({
     id_e: "",
@@ -29,7 +29,7 @@ export default function EmpresaVerDetalle() {
   }, []);
 
   const fetchData = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempresa&id=${id}`)
+    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempresa&id=${empresaid}`)
       .then((response) => response.json())
       .then((data) => {
         setEmpresa(data.contenido[0]);
@@ -65,7 +65,7 @@ export default function EmpresaVerDetalle() {
                 data-bs-backdrop="static"
               >
                 <div className="modal-dialog">
-                  <EditarE id={id} onUpdate={fetchData} />
+                  <EditarE id={empresaid} onUpdate={fetchData} />
                 </div>
               </div>
               {/*fin de modal editar empresa*/}
@@ -132,7 +132,7 @@ export default function EmpresaVerDetalle() {
               </div>
             </div>
         )}
-      <Sede id={id} />
+      <Sede id={empresaid} />
     </div>
   );
 }

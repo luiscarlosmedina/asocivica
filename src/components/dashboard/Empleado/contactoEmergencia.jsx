@@ -14,9 +14,9 @@ import {
 export default function ContactoEmergencia({ id }) {
     const [data, setData] = useState([]);
     const [newContEmg, setNewContEmg] = useState({
-        id_em: id,
         N_CoE: "",
         Csag: "",
+        id_em: id,
         T_CEm: "",
     });
     const [showInsertForm, setShowInsertForm] = useState(false);
@@ -24,10 +24,10 @@ export default function ContactoEmergencia({ id }) {
     const [errors, setErrors] = useState({}); // Estado para almacenar errores
 
     const fetchData = () => {
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readTelSede&id=${id}`)
+        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readcontemg&id=${id}`)
             .then((response) => response.json())
             .then((data) => {
-                setData(data);
+                setData(data.contenido);
             })
             .catch((error) => {
                 console.log(error);
@@ -36,14 +36,14 @@ export default function ContactoEmergencia({ id }) {
 
     // Función para validar números de teléfono
     const validatePhone = (phone) => {
-        const phoneRegex = /^\d{7,10}$/;
+        const phoneRegex = /^\d{10}$/;
         return phoneRegex.test(phone);
     };
 
-    const handleInputChange = (e, ID_En, fieldName) => {
+    const handleInputChange = (e, ID_CEm, fieldName) => {
         const { value } = e.target;
         const newData = data.map((item) => {
-            if (item.ID_En === ID_En) {
+            if (item.ID_CEm === ID_CEm) {
                 return { ...item, [fieldName]: value };
             }
             return item;
@@ -51,9 +51,9 @@ export default function ContactoEmergencia({ id }) {
         setData(newData);
     };
 
-    const saveEnc = async (ID_En, updatedEncargado) => {
+    const saveEnc = async (ID_CEm, updatedEncargado) => {
         try {
-            const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateencargado`, {
+            const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updatecontemg`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -67,11 +67,11 @@ export default function ContactoEmergencia({ id }) {
                 // Desactivar el modo de edición
                 setEditMode({
                     ...editMode,
-                    [ID_En]: false,
+                    [ID_CEm]: false,
                 });
 
                 // Quitar mensaje de error si existe
-                setErrors({ ...errors, [`N_En_${ID_En}`]: "", [`tel1_${ID_En}`]: "", [`tel2_${ID_En}`]: "", [`tel3_${ID_En}`]: "" });
+                setErrors({ ...errors, [`N_En_${ID_CEm}`]: "", [`tel1_${ID_CEm}`]: "", [`tel2_${ID_CEm}`]: "", [`tel3_${ID_CEm}`]: "" });
             }
         } catch (error) {
             console.error("Error:", error);
@@ -91,26 +91,26 @@ export default function ContactoEmergencia({ id }) {
         setErrors({});
 
         // Validación básica antes de enviar datos al servidor
-        if (!newContEmg.N_En || !newContEmg.tel1) {
+        if (!newContEmg.N_CoE || !newContEmg.T_CEm) {
             // Mostrar errores
             setErrors({
-                N_En: !newContEmg.N_En ? "Nombre encargado es requerido" : "",
-                tel1: !newContEmg.tel1 ? "Teléfono 1 es requerido" : "",
+                N_CoE: !newContEmg.N_CoE ? "Nombre encargado es requerido" : "",
+                T_CEm: !newContEmg.T_CEm ? "Teléfono es requerido" : "",
             });
             return;
         }
 
         // Validar números de teléfono
-        if (!validatePhone(newContEmg.tel1)) {
+        if (!validatePhone(newContEmg.T_CEm)) {
             // Mostrar errores
             setErrors({
-                tel1: !validatePhone(newContEmg.tel1) ? "Teléfono 1 no es válido" : "",
+                T_CEm: !validatePhone(newContEmg.T_CEm) ? "Teléfono no es válido" : "",
             });
             return;
         }
 
         try {
-            const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=createencargado`, {
+            const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=createcontemg`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -123,11 +123,10 @@ export default function ContactoEmergencia({ id }) {
                 fetchData();
                 // Restablecer los campos del formulario después de la inserción
                 setNewContEmg({
-                    ID_S: id,
-                    N_En: "",
-                    tel1: "",
-                    tel2: "",
-                    tel3: "",
+                    N_CoE: "",
+                    Csag: "",
+                    id_em: id,
+                    T_CEm: "",
                 });
                 setShowInsertForm(false);
             }
@@ -152,7 +151,7 @@ export default function ContactoEmergencia({ id }) {
                         color="primary"
                         onClick={() => setShowInsertForm(!showInsertForm)}
                     >
-                        {showInsertForm ? "Cancelar" : "Agregar encargado"}
+                        {showInsertForm ? "Cancelar" : "Agregar contacto"}
                     </Button>
                 </div>
             </div>
@@ -164,89 +163,62 @@ export default function ContactoEmergencia({ id }) {
                             <TableRow>
                                 <TableCell>
                                     <TextField
-                                        name="N_En"
-                                        label="Nombre encargado"
+                                        name="N_CoE"
+                                        label="Nombre contacto"
                                         variant="outlined"
                                         size="small"
-                                        value={newContEmg.N_En}
-                                        onChange={(e) => setNewContEmg({ ...newContEmg, N_En: e.target.value })}
+                                        value={newContEmg.N_CoE}
+                                        onChange={(e) => setNewContEmg({ ...newContEmg, N_CoE: e.target.value })}
                                         onBlur={() => {
-                                            if (!newContEmg.N_En) {
+                                            if (!newContEmg.N_CoE) {
                                                 // Establecer error
-                                                setErrors({ ...errors, N_En: "Nombre encargado es requerido" });
+                                                setErrors({ ...errors, N_CoE: "Nombre de contacto es requerido" });
                                             } else {
                                                 // Quitar mensaje de error si se cumple la validación
-                                                setErrors({ ...errors, N_En: "" });
+                                                setErrors({ ...errors, N_CoE: "" });
                                             }
                                         }}
-                                        error={Boolean(errors.N_En)}
-                                        helperText={errors.N_En}
+                                        error={Boolean(errors.N_CoE)}
+                                        helperText={errors.N_CoE}
                                     />
                                 </TableCell>
                                 <TableCell>
                                     <TextField
-                                        name="tel1"
-                                        label="Telefono 1"
+                                        name="Csag"
+                                        label="Parentesco"
                                         variant="outlined"
                                         size="small"
-                                        value={newContEmg.tel1}
-                                        onChange={(e) => setNewContEmg({ ...newContEmg, tel1: e.target.value })}
+                                        value={newContEmg.Csag}
+                                        onChange={(e) => setNewContEmg({ ...newContEmg, Csag: e.target.value })}
                                         onBlur={() => {
-                                            if (!newContEmg.tel1) {
+                                            if (!newContEmg.Csag) {
                                                 // Establecer error
-                                                setErrors({ ...errors, tel1: "Teléfono 1 es requerido" });
-                                            } else if (!validatePhone(newContEmg.tel1)) {
-                                                // Establecer error si el teléfono no es válido
-                                                setErrors({ ...errors, tel1: "Teléfono 1 no es válido" });
-                                            } else {
-                                                // Quitar mensaje de error si se cumple la validación
-                                                setErrors({ ...errors, tel1: "" });
+                                                setErrors({ ...errors, Csag: "Campo es requerido" });
                                             }
                                         }}
-                                        error={Boolean(errors.tel1)}
-                                        helperText={errors.tel1}
+                                        error={Boolean(errors.Csag)}
+                                        helperText={errors.Csag}
                                     />
                                 </TableCell>
                                 <TableCell>
                                     <TextField
-                                        name="tel2"
-                                        label="Telefono 2"
+                                        name="T_CEm"
+                                        label="Telefono"
                                         variant="outlined"
                                         size="small"
-                                        value={newContEmg.tel2}
-                                        onChange={(e) => setNewContEmg({ ...newContEmg, tel2: e.target.value })}
+                                        value={newContEmg.T_CEm}
+                                        onChange={(e) => setNewContEmg({ ...newContEmg, T_CEm: e.target.value })}
                                         onBlur={() => {
-                                            if (newContEmg.tel2 && !validatePhone(newContEmg.tel2)) {
+                                            if (newContEmg.T_CEm && !validatePhone(newContEmg.T_CEm)) {
                                                 // Establecer error si el teléfono no es válido
-                                                setErrors({ ...errors, tel2: "Teléfono 2 no es válido" });
+                                                setErrors({ ...errors, T_CEm: "Teléfono no es válido" });
                                             } else {
                                                 // Quitar mensaje de error si se cumple la validación
-                                                setErrors({ ...errors, tel2: "" });
+                                                setErrors({ ...errors, T_CEm: "" });
                                             }
                                         }}
-                                        error={Boolean(errors.tel2)}
-                                        helperText={errors.tel2}
-                                    />
-                                </TableCell>
-                                <TableCell>
-                                    <TextField
-                                        name="tel3"
-                                        label="Telefono 3"
-                                        variant="outlined"
-                                        size="small"
-                                        value={newContEmg.tel3}
-                                        onChange={(e) => setNewContEmg({ ...newContEmg, tel3: e.target.value })}
-                                        onBlur={() => {
-                                            if (newContEmg.tel3 && !validatePhone(newContEmg.tel3)) {
-                                                // Establecer error si el teléfono no es válido
-                                                setErrors({ ...errors, tel3: "Teléfono 3 no es válido" });
-                                            } else {
-                                                // Quitar mensaje de error si se cumple la validación
-                                                setErrors({ ...errors, tel3: "" });
-                                            }
-                                        }}
-                                        error={Boolean(errors.tel3)}
-                                        helperText={errors.tel3}
+                                        error={Boolean(errors.T_CEm)}
+                                        helperText={errors.T_CEm}
                                     />
                                 </TableCell>
                                 <TableCell>
@@ -264,151 +236,133 @@ export default function ContactoEmergencia({ id }) {
                 </TableContainer>
             )}
 
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Nombre</TableCell>
-                            <TableCell>Parentesco</TableCell>
-                            <TableCell>Telefono</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {data.map((item) => (
-                            <TableRow key={item.ID_En}>
-                                <TableCell>
-                                    {editMode[item.ID_En] ? (
-                                        <TextField
-                                            name="N_En"
-                                            label="Nombre encargado"
-                                            variant="outlined"
-                                            size="small"
-                                            value={item.N_En}
-                                            onChange={(e) => handleInputChange(e, item.ID_En, "N_En")}
-                                            onBlur={() => {
-                                                if (!item.N_En) {
-                                                    // Establecer error
-                                                    setErrors({ ...errors, [`N_En_${item.ID_En}`]: "Nombre encargado es requerido" });
-                                                } else {
-                                                    // Quitar mensaje de error si se cumple la validación
-                                                    setErrors({ ...errors, [`N_En_${item.ID_En}`]: "" });
-                                                }
-                                            }}
-                                            error={Boolean(errors[`N_En_${item.ID_En}`])}
-                                            helperText={errors[`N_En_${item.ID_En}`]}
-                                        />
-                                    ) : (
-                                        item.N_En
-                                    )}
-                                </TableCell>
-                                <TableCell>
-                                    {editMode[item.ID_En] ? (
-                                        <TextField
-                                            name="tel1"
-                                            label="Telefono 1"
-                                            variant="outlined"
-                                            size="small"
-                                            value={item.tel1}
-                                            onChange={(e) => handleInputChange(e, item.ID_En, "tel1")}
-                                            onBlur={() => {
-                                                if (!item.tel1) {
-                                                    // Establecer error
-                                                    setErrors({ ...errors, [`tel1_${item.ID_En}`]: "Teléfono 1 es requerido" });
-                                                } else if (!validatePhone(item.tel1)) {
-                                                    // Establecer error si el teléfono no es válido
-                                                    setErrors({ ...errors, [`tel1_${item.ID_En}`]: "Teléfono 1 no es válido" });
-                                                } else {
-                                                    // Quitar mensaje de error si se cumple la validación
-                                                    setErrors({ ...errors, [`tel1_${item.ID_En}`]: "" });
-                                                }
-                                            }}
-                                            error={Boolean(errors[`tel1_${item.ID_En}`])}
-                                            helperText={errors[`tel1_${item.ID_En}`]}
-                                        />
-                                    ) : (
-                                        item.tel1
-                                    )}
-                                </TableCell>
-                                <TableCell>
-                                    {editMode[item.ID_En] ? (
-                                        <TextField
-                                            name="tel2"
-                                            label="Telefono 2"
-                                            variant="outlined"
-                                            size="small"
-                                            value={item.tel2}
-                                            onChange={(e) => handleInputChange(e, item.ID_En, "tel2")}
-                                            onBlur={() => {
-                                                if (item.tel2 && !validatePhone(item.tel2)) {
-                                                    // Establecer error si el teléfono no es válido
-                                                    setErrors({ ...errors, [`tel2_${item.ID_En}`]: "Teléfono 2 no es válido" });
-                                                } else {
-                                                    // Quitar mensaje de error si se cumple la validación
-                                                    setErrors({ ...errors, [`tel2_${item.ID_En}`]: "" });
-                                                }
-                                            }}
-                                            error={Boolean(errors[`tel2_${item.ID_En}`])}
-                                            helperText={errors[`tel2_${item.ID_En}`]}
-                                        />
-                                    ) : (
-                                        item.tel2
-                                    )}
-                                </TableCell>
-                                <TableCell>
-                                    {editMode[item.ID_En] ? (
-                                        <TextField
-                                            name="tel3"
-                                            label="Telefono 3"
-                                            variant="outlined"
-                                            size="small"
-                                            value={item.tel3}
-                                            onChange={(e) => handleInputChange(e, item.ID_En, "tel3")}
-                                            onBlur={() => {
-                                                if (item.tel3 && !validatePhone(item.tel3)) {
-                                                    // Establecer error si el teléfono no es válido
-                                                    setErrors({ ...errors, [`tel3_${item.ID_En}`]: "Teléfono 3 no es válido" });
-                                                } else {
-                                                    // Quitar mensaje de error si se cumple la validación
-                                                    setErrors({ ...errors, [`tel3_${item.ID_En}`]: "" });
-                                                }
-                                            }}
-                                            error={Boolean(errors[`tel3_${item.ID_En}`])}
-                                            helperText={errors[`tel3_${item.ID_En}`]}
-                                        />
-                                    ) : (
-                                        item.tel3
-                                    )}
-                                </TableCell>
-                                <TableCell>
-                                    {editMode[item.ID_En] ? (
+
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Nombre</TableCell>
+                        <TableCell>Parentesco</TableCell>
+                        <TableCell>Telefono</TableCell>
+                        <TableCell>Editar</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {data.map((item) => (
+                        <TableRow key={item.ID_CEm}>
+                            <TableCell>
+                                {editMode[item.ID_CEm] ? (
+                                    <TextField
+                                        name="N_CoE"
+                                        label="Nombre encargado"
+                                        variant="outlined"
+                                        size="small"
+                                        value={item.N_CoE}
+                                        onChange={(e) => handleInputChange(e, item.ID_CEm, "N_CoE")}
+                                        onBlur={() => {
+                                            if (!item.N_CoE) {
+                                                // Establecer error
+                                                setErrors({ ...errors, [`N_CoE_${item.ID_CEm}`]: "Nombre encargado es requerido" });
+                                            } else {
+                                                // Quitar mensaje de error si se cumple la validación
+                                                setErrors({ ...errors, [`N_CoE_${item.ID_CEm}`]: "" });
+                                            }
+                                        }}
+                                        error={Boolean(errors[`N_CoE_${item.ID_CEm}`])}
+                                        helperText={errors[`N_CoE_${item.ID_CEm}`]}
+                                    />
+                                ) : (
+                                    item.N_CoE
+                                )}
+                            </TableCell>
+                            <TableCell>
+                                {editMode[item.ID_CEm] ? (
+                                    <TextField
+                                        name="Csag"
+                                        label="parentesco"
+                                        variant="outlined"
+                                        size="small"
+                                        value={item.Csag}
+                                        onChange={(e) => handleInputChange(e, item.ID_CEm, "Csag")}
+                                        onBlur={() => {
+                                            if (!item.Csag) {
+                                                // Establecer error
+                                                setErrors({ ...errors, [`Csag_${item.ID_CEm}`]: "Campo es requerido" });
+                                            } else {
+                                                // Quitar mensaje de error si se cumple la validación
+                                                setErrors({ ...errors, [`Csag_${item.ID_CEm}`]: "" });
+                                            }
+                                        }}
+                                        error={Boolean(errors[`Csag_${item.ID_CEm}`])}
+                                        helperText={errors[`Csag_${item.ID_CEm}`]}
+                                    />
+                                ) : (
+                                    item.Csag
+                                )}
+                            </TableCell>
+                            <TableCell>
+                                {editMode[item.ID_CEm] ? (
+                                    <TextField
+                                        name="T_CEm"
+                                        label="Telefono"
+                                        variant="outlined"
+                                        size="small"
+                                        value={item.T_CEm}
+                                        onChange={(e) => handleInputChange(e, item.ID_CEm, "T_CEm")}
+                                        onBlur={() => {
+                                            if (item.T_CEm && !validatePhone(item.T_CEm)) {
+                                                // Establecer error si el teléfono no es válido
+                                                setErrors({ ...errors, [`T_CEm_${item.ID_CEm}`]: "Teléfono no es válido" });
+                                            } else {
+                                                // Quitar mensaje de error si se cumple la validación
+                                                setErrors({ ...errors, [`T_CEm_${item.ID_CEm}`]: "" });
+                                            }
+                                        }}
+                                        error={Boolean(errors[`T_CEm_${item.ID_CEm}`])}
+                                        helperText={errors[`T_CEm_${item.ID_CEm}`]}
+                                    />
+                                ) : (
+                                    item.T_CEm
+                                )}
+                            </TableCell>
+                            <TableCell>
+                                {editMode[item.ID_CEm] ? (
+                                    <>
                                         <Button
+                                            variant="contained"
                                             color="primary"
-                                            onClick={() => saveEnc(item.ID_En, {
-                                                ID_En: item.ID_En,
-                                                N_En: item.N_En,
-                                                tel1: item.tel1,
-                                                tel2: item.tel2,
-                                                tel3: item.tel3,
+                                            onClick={() => saveEnc(item.ID_CEm, {
+                                                N_CoE: item.N_CoE,
+                                                Csag: item.Csag,
+                                                T_CEm: item.T_CEm,
+                                                ID_CEm: item.ID_CEm,
                                             })}
                                         >
                                             Guardar
                                         </Button>
-                                    ) : (
-                                        <>
-                                            <Button
-                                                color="primary"
-                                                onClick={() => editeContEmg(item.ID_CEm)}
-                                            >
-                                                Editar
-                                            </Button>
-                                        </>
-                                    )}
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                                        <Button
+                                            color="primary"
+                                            onClick={() => !setEditMode(item.ID_CEm)}
+                                        >
+                                            Cancelar
+                                        </Button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Button
+                                            variant="contained"
+                                            color="info"
+                                            onClick={() => editeContEmg(item.ID_CEm)}
+                                        >
+                                            Editar
+                                        </Button>
+                                    </>
+                                )}
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+
         </div>
     );
 }

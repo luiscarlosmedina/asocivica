@@ -25,10 +25,10 @@ function Content() {
                 <Route path='*' element={<Home />} />
                 <Route path='registrar-empresa' element={<Verificaempresa />}/>
                 <Route path='consultar-empresas' element={<EmpresaVer dataUpdated={dataUpdated} />} />
-                <Route path='consultar-empresas/:id' element={< EmpresaVerDetalle />} />
+                <Route path='consultar-empresas/:empresaid' element={< EmpresaVerDetalle />} />
                 <Route path='registrar-empleado' element={<Empleadofr/>} />
                 <Route path='consultar-empleados' element={<EmpleadoVer dataUpdated={dataUpdated}/>} />
-                <Route path='consultar-empleados/:id' element={<EmpleadoVerDetalles />} />
+                <Route path='consultar-empleados/:empleadoid' element={<EmpleadoVerDetalles />} />
                 <Route path='registrar-novedades' element={<NovedadForm onDataUpdate={handleDataUpdate}/>} />
                 <Route path='consultar-novedades' element={<VerNovedades dataUpdated={dataUpdated} />} />
                 <Route path='consultar-novedades/:novedadID' element={<VerDetalleNovedad />} />

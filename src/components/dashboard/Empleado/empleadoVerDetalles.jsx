@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ContactoEmergencia from './contactoEmergencia';
 
 export default function EmpleadoVerDetalles() {
-    const { id } = useParams();
+    const { empleadoid } = useParams();
     const back = useNavigate();
     const loading = false;
     const usersPhoto = require.context("../../../assets/empleados", true)
@@ -65,7 +65,7 @@ export default function EmpleadoVerDetalles() {
 
             )}
             <div>
-                {/* <ContactoEmergencia id={id} /> */}
+                <ContactoEmergencia id={empleadoid} />
             </div>
         </div>
     )

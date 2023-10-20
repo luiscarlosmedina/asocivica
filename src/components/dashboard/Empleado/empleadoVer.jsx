@@ -34,6 +34,7 @@ export default function EmpleadoVer({ dataUpdated }) {
       .then((response) => response.json())
       .then((data) => {
         setData(data.contenido);
+        console.log(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -53,9 +54,9 @@ export default function EmpleadoVer({ dataUpdated }) {
   
     // Verificar si el estado cumple con alguna de las condiciones en filterStates
     const matchesFilter =
-      (filterStates.active && item.estado === "0") ||
-      (filterStates.disabled && item.estado === "1") ||
-      (filterStates.inactive && item.estado === "2");
+      (filterStates.active && item.estado === "1") ||
+      (filterStates.disabled && item.estado === "2") ||
+      (filterStates.inactive && item.estado === "3");
   
     // Retornar true si ambas condiciones se cumplen
     return containsSearchTerm && matchesFilter;
@@ -142,14 +143,14 @@ export default function EmpleadoVer({ dataUpdated }) {
                   <TableCell>{item.eml_em}</TableCell>
                   <TableCell>{item.tel_em}</TableCell>
                   <TableCell>
-                    {item.estado === "0"
+                    {item.estado === "1"
                       ? "Activo"
-                      : item.estado === "1"
+                      : item.estado === "2"
                       ? "Incapacitado"
                       : "Inactivo"}
                   </TableCell>
                   <TableCell>
-                    <Link to={item.id_em}>
+                    <Link to={`/consultar-empleados/${(item.id_em)}`}>
                       <Button variant="contained" color="primary">
                         Ver mas
                       </Button>

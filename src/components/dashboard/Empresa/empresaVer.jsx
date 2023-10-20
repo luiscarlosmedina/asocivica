@@ -140,7 +140,7 @@ export default function EmpresaVer({ dataUpdated }) {
                       : "Inactivo"}
                   </TableCell>
                   <TableCell>
-                    <Link to={item.id_e}>
+                    <Link to={`/consultar-empresas/${(item.id_e)}`}>
                       <Button variant="contained" color="primary">
                         Ver mas
                       </Button>
