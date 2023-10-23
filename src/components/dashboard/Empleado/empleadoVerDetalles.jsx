@@ -1,18 +1,65 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import ContactoEmergencia from './contactoEmergencia';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+} from "@mui/material";
 
 export default function EmpleadoVerDetalles() {
     const { empleadoid } = useParams();
     const back = useNavigate();
-    const loading = false;
+    const [loading, setLoading] = useState(true);
+    const [empleado, setEmpleado] = useState({
+        id_em: "",
+        documento: "",
+        n_em: "",
+        a_em: "",
+        eml_em: "",
+        f_em: "",
+        dir_em: "",
+        lic_emp: "",
+        lib_em: "",
+        tel_em: "",
+        contrato: "",
+        barloc_em: "",
+        id_doc: "",
+        id_pens: "",
+        id_eps: "",
+        id_arl: "",
+        id_ces: "",
+        id_rh: "",
+        estado: ""
+    });
     const usersPhoto = require.context("../../../assets/empleados", true)
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = () => {
+        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempleado&id=${empleadoid}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setEmpleado(data.contenido[0]);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    };
     return (
         <div>
             {loading ? (
                 <p>Cargando...</p>
             ) : (
-                <div>
+                <div key={empleado.id_em} >
                     <div className='d-flex justify-content-between align-items-center'>
                         <div>
                             <h3>Datos Basicos</h3>
@@ -26,46 +73,79 @@ export default function EmpleadoVerDetalles() {
                     <div className="row">
                         <div className="card border border-0 col-md-2">
                             <img src={usersPhoto('./pablo.jpg')} className="card-img-top" alt="Image by rawpixel.com on Freepik" />
-                            <div className="card-body">
-                                <p className="card-text">estado {/*item.tel_em*/}</p>
-                                <p className="card-text">rol {/*item.id_rol*/}</p>
-                                <p className="card-text">rh {/*item.id_rh*/}</p>
-                            </div>
                         </div>
                         <div className='col-10'>
                             <div className='row'>
-                                <div className='col-md-11'>
-                                    <div className='d-flex col justify-content-between align-items-center text-bs-gray fs-5 fw-semibold p-0 m-0'>
-                                        <p>nombre y apellido {/*item.n_em + " " + item.a_em*/}</p>
-                                        <p>tipo y num doc {/*item.id_doc + " " + item.documento*/}</p>
-                                    </div>
-                                    <hr className='p-0 m-0' />
+                                <div className='col-md-4 m-auto'>
+                                    <p><i className="bi bi-person-fill text-primary"></i> {empleado.n_em + " " + empleado.a_em}</p>
+                                    <p><i className="bi bi-envelope-fill text-primary"></i> {empleado.eml_em}</p>
+                                    <p><i className="bi bi-buildings-fill text-primary"></i> {empleado.dir_em + " " + empleado.barloc_em}</p>
+                                    <p><i className="bi bi-telephone-fill text-primary"></i> {empleado.tel_em}</p>
                                 </div>
-                            </div>
-                            <div className='row my-3'>
-                                <div className='col-md-6 '>
-                                    <p>correo</p>
-                                    <p>direccion y barrio</p>
-                                    <p>telefono</p>
-                                    <p>contrato</p>
-                                    <p>licencia de conduccion</p>
+                                <div className='col-md-4 m-auto'>
+                                    <p>{empleado.N_TDoc + " " + empleado.documento}</p>
+                                    <p>Libreta militar: {empleado.lib_em}</p>
+                                    <p>Licencia de conduccion:{empleado.lic_emp}</p>
+                                    <p>Estado: {empleado.estado}</p>  
                                 </div>
-                                <div className='col-md-6 '>
-                                    <p>libreta militar</p>
-                                    <p>pension</p>
-                                    <p>cesantias</p>
-                                    <p>eps</p>
-                                    <p>arl</p>
-                                </div>
+
                             </div>
                         </div>
+                    </div>
+                    <div className='row my-5'>
+                        <div className='d-flex justify-content-between align-items-center'>
+                            <div>
+                                <h3>Parafiscales</h3>
+                            </div>
+                            <div>
 
+                            </div>
+                        </div>
+                        <hr />
+                        <TableContainer component={Paper}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Pension</TableCell>
+                                        <TableCell>Censantias</TableCell>
+                                        <TableCell>EPS</TableCell>
+                                        <TableCell>ARL</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell>
+
+                                            {empleado.N_pens}
+
+                                        </TableCell>
+                                        <TableCell>
+
+                                            {empleado.N_ces}
+
+                                        </TableCell>
+                                        <TableCell>
+
+                                            {empleado.N_eps}
+
+                                        </TableCell>
+                                        <TableCell>
+
+                                            {empleado.N_arl}
+
+                                        </TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     </div>
                 </div>
-
             )}
             <div>
                 <ContactoEmergencia id={empleadoid} />
+            </div>
+            <div className='my-2'>
+                <a href={empleado.contrato} target="_blank" rel="noreferrer">Contrato {empleado.n_em}</a>
             </div>
         </div>
     )

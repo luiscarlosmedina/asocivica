@@ -236,133 +236,133 @@ export default function ContactoEmergencia({ id }) {
                 </TableContainer>
             )}
 
-
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Nombre</TableCell>
-                        <TableCell>Parentesco</TableCell>
-                        <TableCell>Telefono</TableCell>
-                        <TableCell>Editar</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data.map((item) => (
-                        <TableRow key={item.ID_CEm}>
-                            <TableCell>
-                                {editMode[item.ID_CEm] ? (
-                                    <TextField
-                                        name="N_CoE"
-                                        label="Nombre encargado"
-                                        variant="outlined"
-                                        size="small"
-                                        value={item.N_CoE}
-                                        onChange={(e) => handleInputChange(e, item.ID_CEm, "N_CoE")}
-                                        onBlur={() => {
-                                            if (!item.N_CoE) {
-                                                // Establecer error
-                                                setErrors({ ...errors, [`N_CoE_${item.ID_CEm}`]: "Nombre encargado es requerido" });
-                                            } else {
-                                                // Quitar mensaje de error si se cumple la validación
-                                                setErrors({ ...errors, [`N_CoE_${item.ID_CEm}`]: "" });
-                                            }
-                                        }}
-                                        error={Boolean(errors[`N_CoE_${item.ID_CEm}`])}
-                                        helperText={errors[`N_CoE_${item.ID_CEm}`]}
-                                    />
-                                ) : (
-                                    item.N_CoE
-                                )}
-                            </TableCell>
-                            <TableCell>
-                                {editMode[item.ID_CEm] ? (
-                                    <TextField
-                                        name="Csag"
-                                        label="parentesco"
-                                        variant="outlined"
-                                        size="small"
-                                        value={item.Csag}
-                                        onChange={(e) => handleInputChange(e, item.ID_CEm, "Csag")}
-                                        onBlur={() => {
-                                            if (!item.Csag) {
-                                                // Establecer error
-                                                setErrors({ ...errors, [`Csag_${item.ID_CEm}`]: "Campo es requerido" });
-                                            } else {
-                                                // Quitar mensaje de error si se cumple la validación
-                                                setErrors({ ...errors, [`Csag_${item.ID_CEm}`]: "" });
-                                            }
-                                        }}
-                                        error={Boolean(errors[`Csag_${item.ID_CEm}`])}
-                                        helperText={errors[`Csag_${item.ID_CEm}`]}
-                                    />
-                                ) : (
-                                    item.Csag
-                                )}
-                            </TableCell>
-                            <TableCell>
-                                {editMode[item.ID_CEm] ? (
-                                    <TextField
-                                        name="T_CEm"
-                                        label="Telefono"
-                                        variant="outlined"
-                                        size="small"
-                                        value={item.T_CEm}
-                                        onChange={(e) => handleInputChange(e, item.ID_CEm, "T_CEm")}
-                                        onBlur={() => {
-                                            if (item.T_CEm && !validatePhone(item.T_CEm)) {
-                                                // Establecer error si el teléfono no es válido
-                                                setErrors({ ...errors, [`T_CEm_${item.ID_CEm}`]: "Teléfono no es válido" });
-                                            } else {
-                                                // Quitar mensaje de error si se cumple la validación
-                                                setErrors({ ...errors, [`T_CEm_${item.ID_CEm}`]: "" });
-                                            }
-                                        }}
-                                        error={Boolean(errors[`T_CEm_${item.ID_CEm}`])}
-                                        helperText={errors[`T_CEm_${item.ID_CEm}`]}
-                                    />
-                                ) : (
-                                    item.T_CEm
-                                )}
-                            </TableCell>
-                            <TableCell>
-                                {editMode[item.ID_CEm] ? (
-                                    <>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={() => saveEnc(item.ID_CEm, {
-                                                N_CoE: item.N_CoE,
-                                                Csag: item.Csag,
-                                                T_CEm: item.T_CEm,
-                                                ID_CEm: item.ID_CEm,
-                                            })}
-                                        >
-                                            Guardar
-                                        </Button>
-                                        <Button
-                                            color="primary"
-                                            onClick={() => !setEditMode(item.ID_CEm)}
-                                        >
-                                            Cancelar
-                                        </Button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Button
-                                            variant="contained"
-                                            color="info"
-                                            onClick={() => editeContEmg(item.ID_CEm)}
-                                        >
-                                            Editar
-                                        </Button>
-                                    </>
-                                )}
-                            </TableCell>
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Nombre</TableCell>
+                            <TableCell>Parentesco</TableCell>
+                            <TableCell>Telefono</TableCell>
+                            <TableCell>Editar</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-
+                    </TableHead>
+                    <TableBody>
+                        {data.map((item) => (
+                            <TableRow key={item.ID_CEm}>
+                                <TableCell>
+                                    {editMode[item.ID_CEm] ? (
+                                        <TextField
+                                            name="N_CoE"
+                                            label="Nombre encargado"
+                                            variant="outlined"
+                                            size="small"
+                                            value={item.N_CoE}
+                                            onChange={(e) => handleInputChange(e, item.ID_CEm, "N_CoE")}
+                                            onBlur={() => {
+                                                if (!item.N_CoE) {
+                                                    // Establecer error
+                                                    setErrors({ ...errors, [`N_CoE_${item.ID_CEm}`]: "Nombre encargado es requerido" });
+                                                } else {
+                                                    // Quitar mensaje de error si se cumple la validación
+                                                    setErrors({ ...errors, [`N_CoE_${item.ID_CEm}`]: "" });
+                                                }
+                                            }}
+                                            error={Boolean(errors[`N_CoE_${item.ID_CEm}`])}
+                                            helperText={errors[`N_CoE_${item.ID_CEm}`]}
+                                        />
+                                    ) : (
+                                        item.N_CoE
+                                    )}
+                                </TableCell>
+                                <TableCell>
+                                    {editMode[item.ID_CEm] ? (
+                                        <TextField
+                                            name="Csag"
+                                            label="parentesco"
+                                            variant="outlined"
+                                            size="small"
+                                            value={item.Csag}
+                                            onChange={(e) => handleInputChange(e, item.ID_CEm, "Csag")}
+                                            onBlur={() => {
+                                                if (!item.Csag) {
+                                                    // Establecer error
+                                                    setErrors({ ...errors, [`Csag_${item.ID_CEm}`]: "Campo es requerido" });
+                                                } else {
+                                                    // Quitar mensaje de error si se cumple la validación
+                                                    setErrors({ ...errors, [`Csag_${item.ID_CEm}`]: "" });
+                                                }
+                                            }}
+                                            error={Boolean(errors[`Csag_${item.ID_CEm}`])}
+                                            helperText={errors[`Csag_${item.ID_CEm}`]}
+                                        />
+                                    ) : (
+                                        item.Csag
+                                    )}
+                                </TableCell>
+                                <TableCell>
+                                    {editMode[item.ID_CEm] ? (
+                                        <TextField
+                                            name="T_CEm"
+                                            label="Telefono"
+                                            variant="outlined"
+                                            size="small"
+                                            value={item.T_CEm}
+                                            onChange={(e) => handleInputChange(e, item.ID_CEm, "T_CEm")}
+                                            onBlur={() => {
+                                                if (item.T_CEm && !validatePhone(item.T_CEm)) {
+                                                    // Establecer error si el teléfono no es válido
+                                                    setErrors({ ...errors, [`T_CEm_${item.ID_CEm}`]: "Teléfono no es válido" });
+                                                } else {
+                                                    // Quitar mensaje de error si se cumple la validación
+                                                    setErrors({ ...errors, [`T_CEm_${item.ID_CEm}`]: "" });
+                                                }
+                                            }}
+                                            error={Boolean(errors[`T_CEm_${item.ID_CEm}`])}
+                                            helperText={errors[`T_CEm_${item.ID_CEm}`]}
+                                        />
+                                    ) : (
+                                        item.T_CEm
+                                    )}
+                                </TableCell>
+                                <TableCell>
+                                    {editMode[item.ID_CEm] ? (
+                                        <>
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={() => saveEnc(item.ID_CEm, {
+                                                    N_CoE: item.N_CoE,
+                                                    Csag: item.Csag,
+                                                    T_CEm: item.T_CEm,
+                                                    ID_CEm: item.ID_CEm,
+                                                })}
+                                            >
+                                                Guardar
+                                            </Button>
+                                            <Button
+                                                color="primary"
+                                                onClick={() => !setEditMode(item.ID_CEm)}
+                                            >
+                                                Cancelar
+                                            </Button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Button
+                                                variant="contained"
+                                                color="info"
+                                                onClick={() => editeContEmg(item.ID_CEm)}
+                                            >
+                                                Editar
+                                            </Button>
+                                        </>
+                                    )}
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </div>
     );
 }
