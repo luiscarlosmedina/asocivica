@@ -201,7 +201,7 @@ export default function Sede({ id }) {
         </div>
       </div>
       <hr className='pb-3' />
-      <div className="container mt-4">
+      <div className="container my-3">
         <TableContainer component={Paper}>
           <Table>
             <TableHead>

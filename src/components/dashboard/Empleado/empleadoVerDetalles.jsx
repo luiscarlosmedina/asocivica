@@ -73,6 +73,7 @@ export default function EmpleadoVerDetalles() {
                     <div className="row">
                         <div className="card border border-0 col-md-2">
                             <img src={usersPhoto('./pablo.jpg')} className="card-img-top" alt="Image by rawpixel.com on Freepik" />
+                            <a href={empleado.contrato} target="_blank" rel="noreferrer">Contrato {empleado.n_em}</a>
                         </div>
                         <div className='col-10'>
                             <div className='row'>
@@ -83,10 +84,11 @@ export default function EmpleadoVerDetalles() {
                                     <p><i className="bi bi-telephone-fill text-primary"></i> {empleado.tel_em}</p>
                                 </div>
                                 <div className='col-md-4 m-auto'>
-                                    <p>{empleado.N_TDoc + " " + empleado.documento}</p>
-                                    <p>Libreta militar: {empleado.lib_em}</p>
-                                    <p>Licencia de conduccion:{empleado.lic_emp}</p>
-                                    <p>Estado: {empleado.estado}</p>  
+                                    <p><span className="text-primary">{empleado.N_TDoc}</span> {empleado.documento}</p>
+                                    <p><span className="text-primary">Libreta militar: </span> {empleado.lib_em}</p>
+                                    <p><span className="text-primary">Licencia de conduccion: </span>{empleado.lic_emp}</p>
+                                    <p><span className="text-primary">Estado: </span> {empleado.estado}</p>  
+                                    <p><span className="text-primary">RH: </span> {empleado.T_RH}</p>  
                                 </div>
 
                             </div>
@@ -143,9 +145,6 @@ export default function EmpleadoVerDetalles() {
             )}
             <div>
                 <ContactoEmergencia id={empleadoid} />
-            </div>
-            <div className='my-2'>
-                <a href={empleado.contrato} target="_blank" rel="noreferrer">Contrato {empleado.n_em}</a>
             </div>
         </div>
     )

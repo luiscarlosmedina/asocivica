@@ -140,7 +140,7 @@ export default function ContactoEmergencia({ id }) {
     }, []);
 
     return (
-        <div>
+        <div className="my-3">
             <div className='d-flex justify-content-between align-items-center'>
                 <div>
                     <h3>Contactos de emergencia</h3>
