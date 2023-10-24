@@ -10,6 +10,20 @@ function AEmple(props) {
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
   const [pasar, setPasar] = useState();
 
+  const cancelar = () => {
+    swal({
+      title: "¿Estás seguro?",
+      text: "Si cancelas, perderás los cambios no guardados.",
+      icon: "warning",
+      buttons: ["Cancelar", "Sí, salir"],
+      dangerMode: true,
+    })
+    .then((willCancel) => {
+      if (willCancel) {
+        navigate("/inicio");
+      }
+    });
+  };
 
   const validarYAvanzar = () => {
 
@@ -133,8 +147,7 @@ function AEmple(props) {
             setPasar(false);
         } else {
           delete nuevosErrores.passw;
-          setPasar(true);
-          console.log("1")
+          
         }
         break;
 
@@ -314,7 +327,7 @@ function AEmple(props) {
               <button
                 className="btnf btn btn-primary"
                 onClick={() => {
-                  navigate("/inicio"); 
+                  cancelar(); 
                 }}
               >
                 cancelar
