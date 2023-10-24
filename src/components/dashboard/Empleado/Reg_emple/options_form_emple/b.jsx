@@ -101,7 +101,7 @@ function BEmple(props) {
   return (
     <section className="secundary-box">
       <div className="container">
-        <form className="box-main">
+        <div className="box-main">
           <div className="box-main2">
             <div>
               <label className="form-label">Tipo de Documento</label>
@@ -252,7 +252,7 @@ function BEmple(props) {
               </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </section>
   );

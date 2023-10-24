@@ -1,14 +1,30 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom'; // Cambiar a useNavigate
+import swal from 'sweetalert';
+import { useNavigate } from 'react-router-dom'; 
 
 
 function AEmple(props) {
   const { handleInputChange, valores, siguientePaso, } = props;
   const navigate = useNavigate();
-
-
   const [errores, setErrores] = useState({});
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
+  const [pasar, setPasar] = useState();
+
+
+  const validarYAvanzar = () => {
+
+    const hayErrores = Object.keys(errores).length > 0;
+
+    if (!hayErrores && pasar) {
+      siguientePaso();
+    } else {
+      swal({
+        title: "Oops...",
+        text: "Hay errores en el formulario. Por favor, revisa y completa los campos.",
+        icon: "error",
+      });
+    } 
+  };
 
   const VerContraseña = () => {
     setMostrarContraseña(!mostrarContraseña);
@@ -17,13 +33,14 @@ function AEmple(props) {
   const validarCampo = (nombreCampo, valorCampo) => {
     const nuevosErrores = { ...errores };
 
-
     switch (nombreCampo) {
       case "estado":
         if (valorCampo !== "0" && valorCampo !== "1") {
           nuevosErrores.estado = "Por favor, seleccione un estado válido";
+          setPasar(false);
         } else {
           delete nuevosErrores.estado;
+        
         }
         break;
 
@@ -35,8 +52,10 @@ function AEmple(props) {
           valorCampo !== "4"
         ) {
           nuevosErrores.id_rol = "Por favor, seleccione un rol válido";
+          setPasar(false);
         } else {
           delete nuevosErrores.id_rol;
+        
         }
 
         break;
@@ -44,38 +63,50 @@ function AEmple(props) {
       case "n_em":
         if (!valorCampo.trim()) {
           nuevosErrores.n_em = "Por favor, este campo no puede estar vacío";
+          setPasar(false);
         } else if (valorCampo.length < 2 || valorCampo.length > 20) {
           nuevosErrores.n_em = "El campo debe tener entre 2 y 19 caracteres";
+          setPasar(false);
         } else if (!/^[A-Za-z\s]+$/.test(valorCampo)) {
           nuevosErrores.n_em = "Ingrese solo letras y espacios en blanco";
+          setPasar(false);
         } else {
           delete nuevosErrores.n_em;
+          
         }
         break;
 
       case "a_em":
         if (!valorCampo.trim()) {
           nuevosErrores.a_em = "Por favor, este campo no puede estar vacío";
+          setPasar(false);
         } else if (valorCampo.length < 2 || valorCampo.length > 20) {
           nuevosErrores.a_em = "El campo debe tener entre 2 y 19 caracteres";
+          setPasar(false);
         } else if (!/^[A-Za-z\s]+$/.test(valorCampo)) {
           nuevosErrores.a_em = "Ingrese solo letras y espacios en blanco";
+          setPasar(false);
         } else {
           delete nuevosErrores.a_em;
+        
         }
         break;
 
       case "eml_em":
         if (!valorCampo.trim()) {
           nuevosErrores.eml_em = "Por favor, este campo no puede estar vacío";
+          setPasar(false);
         } else if (valorCampo.length < 5 || valorCampo.length > 40) {
           nuevosErrores.eml_em = "El campo debe tener entre 5 y 40 caracteres";
+          setPasar(false);
         } else if (
           !/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(valorCampo)
         ) {
           nuevosErrores.eml_em = "Ingrese una dirección de correo válida";
+          setPasar(false);
         } else {
           delete nuevosErrores.eml_em;
+        
 
         }
         break;
@@ -83,12 +114,15 @@ function AEmple(props) {
       case "passw":
         if (!valorCampo.trim()) {
           nuevosErrores.passw = "Por favor, este campo no puede estar vacío";
+          setPasar(false);
         } else if (valorCampo.length < 8) {
           nuevosErrores.passw =
             "Una contraseña segura debe tener al menos 8 caracteres";
+            setPasar(false);
         } else if (valorCampo.length > 20) {
           nuevosErrores.passw =
             "La contraseña puede tener como máximo 20 caracteres";
+            setPasar(false);
         } else if (
           !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(
             valorCampo
@@ -96,13 +130,15 @@ function AEmple(props) {
         ) {
           nuevosErrores.passw =
             "La contraseña debe incluir al menos una mayúscula, una minúscula, un número y un carácter especial";
+            setPasar(false);
         } else {
           delete nuevosErrores.passw;
+          setPasar(true);
+          console.log("1")
         }
         break;
 
       default:
-        // No se realiza ninguna validación para otros campos
         break;
     }
 
@@ -112,9 +148,9 @@ function AEmple(props) {
   return (
     <section className="secundary-box">
       <div className="container">
-        <form className="box-main">
+        <div className="box-main">
           <div className="box-main2">
-            <div>
+            <div >
               <label className="form-label">Estado</label>
               <select
                 type="Number"
@@ -139,8 +175,8 @@ function AEmple(props) {
               </select>
               <div className="invalid-feedback">{errores.estado}</div>
             </div>
-            <div>
-              <label for="validationDefault02" className="form-label">
+            <div >
+              <label  className="form-label">
                 Rol
               </label>
               <select
@@ -229,7 +265,7 @@ function AEmple(props) {
               <div className="invalid-feedback">{errores.eml_em}</div>
             </div>
             <div className="mb-3">
-              <label for="exampleInputPassword1" className="form-label">
+              <label className="form-label">
                 Contraseña
               </label>
               <input
@@ -268,9 +304,7 @@ function AEmple(props) {
               <div className="float-end">
                 <button
                   className="btnf btn btn-primary"
-                  onClick={() => {
-                    siguientePaso();
-                  }}
+                  onClick={validarYAvanzar}
                 >
                   Siguiente
                 </button>
@@ -280,7 +314,7 @@ function AEmple(props) {
               <button
                 className="btnf btn btn-primary"
                 onClick={() => {
-                  navigate("/inicio"); // Utiliza navigate dentro de una función de flecha
+                  navigate("/inicio"); 
                 }}
               >
                 cancelar
@@ -288,7 +322,7 @@ function AEmple(props) {
               </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </section>
   );
