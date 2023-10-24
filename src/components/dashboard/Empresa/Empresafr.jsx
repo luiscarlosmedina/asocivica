@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import swal from 'sweetalert';
 
-function Empresafr({nit}) {
+function Empresafr({ nit }) {
     const fecha = new Date()
     const hoy = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate()
 
@@ -259,7 +259,7 @@ function Empresafr({nit}) {
             ]
         });
 
-    
+
     };
 
     //agrega array de sede a empresa
@@ -279,9 +279,12 @@ function Empresafr({nit}) {
     };
 
     return (
-        <div className="mb-4 pt-4">
-            <h3 className='p-0'>Registro de Empresa</h3>
-            <form onSubmit={handleSubmit}>
+        <div><div className="mb-1 border-bottom border-primary border-3 row justify-content-between" >
+            <div className="col-0">
+                <p className="text-primary h2">Registrar Empresa</p>
+            </div>
+        </div>
+            <form onSubmit={handleSubmit} className='my-3'>
                 {/* Campos para la Empresa */}
                 <div className="row">
                     <div className="col-md-6">

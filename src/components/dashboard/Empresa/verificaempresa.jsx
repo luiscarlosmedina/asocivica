@@ -37,9 +37,12 @@ export default function Verificaempresa() {
     return (
         <>
             {formulario === false ?
-                <div className="mb-4 pt-4">
-                    <h3 className='p-0'>Registro de Empresa</h3>
-                    <form className="mb-3" onSubmit={handleSubmit}>
+                <div><div className="mb-1 border-bottom border-primary border-3 row justify-content-between" >
+                    <div className="col-0">
+                        <p className="text-primary h2">Registrar Empresa</p>
+                    </div>
+                </div>
+                    <form className="my-3" onSubmit={handleSubmit}>
                         <label htmlFor="nit" className="form-label">
                             Ingrese Nit
                         </label>

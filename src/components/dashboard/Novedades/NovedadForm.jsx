@@ -200,7 +200,7 @@ export default function NovedadForm({onDataUpdate}) {
       <div className="shadow-lg p-0 mb-5 bg-body-tertiary rounded">
         <div className="m-1 border-bottom border-primary border-3 row justify-content-between">
           <div className="col-6">
-            <p className="text-primary h1 ms-2 mt-4">Registrar Novedad</p>
+            <p className="text-primary h2 ms-2 mt-4">Registrar Novedad</p>
           </div>
           <div
             class="col-4 alert alert-primary mb-1 mt-2 me-2"
