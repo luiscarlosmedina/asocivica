@@ -1,5 +1,4 @@
 .primary-box{
-    height: 11em;
     width: 100%;
     display: flex;
     align-items: center;
@@ -16,20 +15,28 @@
     margin-left: 40px;
 }
 .box-main2{
-   width: 70%;
-   margin-top: 12px;
+   width: 70.7%;
+   margin-top: 20px;
    margin-bottom: 2em;
 
 }
 .bi-person-vcard-fill, .bi-person-vcard, .bi-person-video, .bi-person-workspace,.bi-archive{
-    color: #134074;
-    font-size: 3em;
+    color: #a0a0a0;
+    font-size: 60px;
 }
 
+
+invalid-feedback {
+    width: 100%;
+    margin-top: .25rem;
+    font-size: .875em;
+    color: var(--bs-form-invalid-color);
+
+}
 .box-menu{  
     display: flex;
     font-weight: 550;
-    
+    text-align: center;
     
 }
 .box-options{
@@ -51,7 +58,7 @@
      align-items: center;
  }
  
-h5{
+h6{
     color: #134074;
 }
 
@@ -103,41 +110,32 @@ input[type="text"] {
     font-size: 16px;
 }
 
-.l_a{
+
+.divider-horizontal1,
+.divider-horizontal2,
+.divider-horizontal3,
+.divider-horizontal4 {
     margin-top: 50px;
-    background-color: rgb(0, 8, 37);
-    width: 200px ;
-    height: 6px;
+    background-color:  #a0a0a0;
+    width: 160px;
+    height: 4px;
+    margin-bottom: px;
 }
 
-.l_b{
-    margin-top: 50px;
-    background-color: rgb(0, 8, 37);
-    width: 40px;
-    height: 6px;
+.divider-horizontal {
+    background-color: #002f5d;
+    width: 1em;
+    height: 1em;
 }
 
-.l_c{
-    margin-top: 50px;
-    background-color: rgb(0, 8, 37);
-    width: 40px;
-    height: 6px;
+.bi   .pa_info_sup{
+    margin-top: 0;
+    margin-bottom: 1rem;
+     font-size: 13.3px;
 }
 
-.l_d{
-    margin-top: 50px;
-    background-color: rgb(0, 8, 37);
-    width: 40px;
-    height: 6px;
+.segun .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-
-.l_e{
-    margin-top: 50px;
-    background-color: rgb(0, 8, 37);
-    width: 200px;
-    height: 6px;
-}
-
-
-
-

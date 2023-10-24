@@ -12,48 +12,21 @@ function Botones() {
           <cite title="Título fuente">Por favor, complete este formulario con la información necesaria para agregar internamente a un nuevo miembro al sistema.</cite>
         </figcaption>
       </figure>
-      <div className="box-main">
+
+      <div className="segun container">
         <header className="primary-box">
           <div className="box-menu">
-            <div className="sep1">
-              <div className=" sub-menu">
-              <i class="bi bi-person-vcard"></i>
-              </div>
-              <p className="ip">información Personal </p>
-            </div>
-            <div className="l_a"></div>
-            <div className="sep2">
-              <div className="sub-menu">
-             
-              <i class="bi bi-person-vcard-fill"></i>
-              </div>
-              <p className="ip">información basica 1</p>
-              
-            </div>
-            <div className="l_b"></div>
-            <div className="sep3">
-              <div className="sub-menu">
-                <i class="bi bi-person-video"></i>
-              </div>
-              <p className="ip">información basica 2</p>
-            </div>
-            <div className="l_c"></div>
-            <div className="sep4">
-              <div className=" sub-menu">
-              <i class="bi bi-person-workspace"></i>
-              </div>
-              <p className="ip">contactos emergencia</p>
-            </div>
-            <div className="l_d"></div>
-            <div className="sep5">
-              <div className="sub-menu">
-                <i class="bi bi-archive"></i>
-              </div>
-              <p className="ip">Contrato</p>
-            </div>
+            <i className="bi bi-person-vcard"><p className="pa_info_sup">Info personal</p> </i>
+             <div className="divider-horizontal1"></div>
+            <i className="bi bi-person-vcard-fill"><p className="pa_info_sup">Info basica 1</p></i>
+             <div className="divider-horizontal2"></div>
+            <i className="bi bi-person-video"><p className="pa_info_sup">Info basica 2</p></i>
+             <div className="divider-horizontal3"></div>
+            <i className="bi bi-person-workspace"><p className="pa_info_sup"> Emergencia</p></i>
+             <div className="divider-horizontal4"></div>
+            <i className="bi bi-archive"><p className="pa_info_sup">contrato </p></i>
           </div>
         </header>
-        
       </div>
     </div>
   );
