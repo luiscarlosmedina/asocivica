@@ -41,15 +41,24 @@ export default function EmpresaVer({ dataUpdated }) {
         setLoading(false);
       });
   };
+  const searchTermLower = searchTerm.toLowerCase();
 
-  const filteredData = data.filter(
-    (item) =>
-      (item.Nom_E.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.Nit_E.toLowerCase().includes(searchTerm.toLowerCase())) &&
+  // Filtrar el arreglo data
+  const filteredData = data.filter((item) => {
+    // Verificar si searchTermLower está en n_em o documento
+    const containsSearchTerm =
+      item.Nom_E.toLowerCase().includes(searchTermLower) ||
+      item.Nit_E.toLowerCase().includes(searchTermLower);
+  
+    // Verificar si el estado cumple con alguna de las condiciones en filterStates
+    const matchesFilter =
       (filterStates.active && item.Est_E === "0") ||
       (filterStates.inStudy && item.Est_E === "1") ||
-      (filterStates.inactive && item.Est_E === "2")
-  );
+      (filterStates.inactive && item.Est_E === "2");
+  
+    // Retornar true si ambas condiciones se cumplen
+    return containsSearchTerm && matchesFilter;
+  });
 
   const handleFilterChange = (event) => {
     const { name, checked } = event.target;
@@ -102,7 +111,7 @@ export default function EmpresaVer({ dataUpdated }) {
           label="Inactivo"
         />
       </div>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} className="my-3">
         <Table>
           <TableHead>
             <TableRow>
@@ -136,7 +145,7 @@ export default function EmpresaVer({ dataUpdated }) {
                     {item.Est_E === "0"
                       ? "Activo"
                       : item.Est_E === "1"
-                      ? "En estudio"
+                      ? "En Estudio"
                       : "Inactivo"}
                   </TableCell>
                   <TableCell>

@@ -21,7 +21,6 @@ export default function EmpleadoVer({ dataUpdated }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStates, setFilterStates] = useState({
     active: true,
-    disabled: false,
     inactive: false,
   });
 
@@ -54,9 +53,8 @@ export default function EmpleadoVer({ dataUpdated }) {
   
     // Verificar si el estado cumple con alguna de las condiciones en filterStates
     const matchesFilter =
-      (filterStates.active && item.estado === "1") ||
-      (filterStates.disabled && item.estado === "2") ||
-      (filterStates.inactive && item.estado === "3");
+      (filterStates.active && item.estado === "0") ||
+      (filterStates.inactive && item.estado === "1");
   
     // Retornar true si ambas condiciones se cumplen
     return containsSearchTerm && matchesFilter;
@@ -96,16 +94,6 @@ export default function EmpleadoVer({ dataUpdated }) {
         <FormControlLabel
           control={
             <Checkbox
-              checked={filterStates.disabled}
-              onChange={handleFilterChange}
-              name="disabled"
-            />
-          }
-          label="Incapacitado"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
               checked={filterStates.inactive}
               onChange={handleFilterChange}
               name="inactive"
@@ -114,7 +102,7 @@ export default function EmpleadoVer({ dataUpdated }) {
           label="Inactivo"
         />
       </div>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} className="my-3">
         <Table>
           <TableHead>
             <TableRow>
@@ -143,10 +131,8 @@ export default function EmpleadoVer({ dataUpdated }) {
                   <TableCell>{item.eml_em}</TableCell>
                   <TableCell>{item.tel_em}</TableCell>
                   <TableCell>
-                    {item.estado === "1"
+                    {item.estado === "0"
                       ? "Activo"
-                      : item.estado === "2"
-                      ? "Incapacitado"
                       : "Inactivo"}
                   </TableCell>
                   <TableCell>

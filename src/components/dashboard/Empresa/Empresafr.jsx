@@ -1,10 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import swal from 'sweetalert';
 
-function Empresafr({ nit }) {
+function Empresafr({ nit, est }) {
     const fecha = new Date()
     const hoy = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate()
+    const [doc, setDoc] = useState([])
 
+    //llamar los tipos de documentos
+    const fetchDataDoc = () => {
+        fetch(
+            `http://localhost/api_proyecto.github.io/api.php?apicall=readtdoc&id`
+        )
+            .then((response) => response.json())
+            .then((doc) => {
+                setDoc(doc.contenido);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    useEffect(() => {
+        fetchDataDoc();
+    }, []);
     //definir la estructura del json que se envia a la api
     const [empresa, setEmpresa] = useState({
         Nit_E: "",
@@ -15,7 +33,7 @@ function Empresafr({ nit }) {
         CC_Rl: "",
         telefonoGeneral: "",
         Val_E: "",
-        Est_E: "0",
+        Est_E: "",
         Fh_Afi: hoy,
         fechaFinalizacion: hoy,
         COD_SE: "",
@@ -195,7 +213,7 @@ function Empresafr({ nit }) {
             CC_Rl: empresa.CC_Rl,
             telefonoGeneral: empresa.telefonoGeneral,
             Val_E: empresa.Val_E,
-            Est_E: empresa.Est_E,
+            Est_E: est,
             Fh_Afi: hoy,
             fechaFinalizacion: hoy,
             COD_SE: empresa.COD_SE,
@@ -314,9 +332,10 @@ function Empresafr({ nit }) {
                             <select
                                 name="Est_E"
                                 className="form-select"
-                                value={empresa.Est_E}
+                                value={est}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
+                                disabled
                             >
                                 <option value="0" selected>Activo</option>
                                 <option value="1">En estudio</option>
@@ -378,11 +397,16 @@ function Empresafr({ nit }) {
                         >
                             Documento representante
                         </label>
-                        <div className="input-group mb-3">
+                        <div className="input-group mb-2">
                             <select name="ID_Doc" value={empresa.ID_Doc} onChange={handleChange}>
-                                <option value="1">TI</option>
-                                <option value="2" selected>CC</option>
-                                <option value="3">PS</option>
+                                <option selected disabled value="">
+                                    
+                                </option>
+                                {doc.map((item) => (
+                                    <option key={item.ID_Doc} value={item.ID_Doc}>
+                                        {item.N_TDoc}
+                                    </option>
+                                ))}
                             </select>
                             <input type="text" placeholder="Numero documento" name="CC_Rl" value={empresa.CC_Rl} onChange={handleChange}
                                 onBlur={handleBlur} className={`form-control ${getError("CC_Rl") && "is-invalid"}`} aria-label="Text input with segmented dropdown button" />
@@ -492,7 +516,8 @@ function Empresafr({ nit }) {
                                         onChange={(e) => handleSedeChange(index, "Sec_V", e.target.value)}
                                         onBlur={handleBlur}
                                     >
-                                        <option value="1" selected>1</option>
+                                        <option value="" selected>Seleccione un sector</option>
+                                        <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>

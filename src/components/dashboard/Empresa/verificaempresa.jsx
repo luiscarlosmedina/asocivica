@@ -1,13 +1,15 @@
-import React from 'react'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Empresafr from './Empresafr'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Empresafr from './Empresafr';
+import Empresarapidofr from './empresarapidofr';
 
 export default function Verificaempresa() {
-    const [nit, setNit] = useState("")
+    const [nit, setNit] = useState('');
+    const [est_E, setEst_E] = useState('');
     const [nitValido, setNitValido] = useState(true); // Inicialmente asumimos que el NIT es válido
     const [formulario, setFormulario] = useState(false);
-    const navega = useNavigate()
+    const [tpform, setTpform] = useState("0");
+    const navega = useNavigate();
 
     const fetchData = async (nit) => {
         try {
@@ -33,16 +35,22 @@ export default function Verificaempresa() {
                 const contenido = await fetchData(nit);
                 if (contenido === null || contenido.length === 0) {
                     setFormulario(true);
+                    if (est_E === "0"){
+                        setTpform("1")
+                    }else{
+                        setTpform("2")
+                    }
+                    
                 } else {
-                    const valor = contenido[0]
-                    return navega(`/consultar-empresas/${(valor.id_e)}`)
+                    const valor = contenido[0];
+                    return navega(`/consultar-empresas/${valor.id_e}`);
                 }
             } catch (error) {
                 // Manejar el error de la solicitud fetch
                 console.error(error);
             }
         } else {
-            console.log("Ingrese un NIT válido");
+            console.log('Ingrese un NIT válido');
         }
     };
 
@@ -58,36 +66,69 @@ export default function Verificaempresa() {
         setNitValido(esNitValido);
     };
 
+    const handleEstadoChange = (e) => {
+        const nuevoEstado = e.target.value;
+        setEst_E(nuevoEstado); // Mostrar el formulario según el estado seleccionado
+    };
+
     return (
         <>
-            {formulario === false ?
-                <div><div className="mb-1 border-bottom border-primary border-3 row justify-content-between" >
-                    <div className="col-0">
-                        <p className="text-primary h2">Registrar Empresa</p>
+            {formulario === false ? (
+                <div>
+                    <div className="mb-1 border-bottom border-primary border-3 row justify-content-between">
+                        <div className="col-0">
+                            <p className="text-primary h2">Registrar Empresa</p>
+                        </div>
                     </div>
-                </div>
                     <form className="my-3" onSubmit={handleSubmit}>
-                        <label htmlFor="nit" className="form-label">
-                            Ingrese Nit
-                        </label>
-                        <input
-                            type="text"
-                            id="nit"
-                            placeholder='123456789-0'
-                            className={`form-control ${nitValido === false && "is-invalid"}`}
-                            onChange={handleChange}
-                            name="Nit_E"
-                            value={nit}
-                            required
-                        />
-                        {nitValido === false && <div className="invalid-feedback"> debe contener - mas el caracter verificador</div>}
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="mb-3">
+                                    <label htmlFor="nit" className="form-label">
+                                        Ingrese Nit
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="nit"
+                                        placeholder='123456789-0'
+                                        className={`form-control ${nitValido === false && "is-invalid"}`}
+                                        onChange={handleChange}
+                                        name="Nit_E"
+                                        value={nit}
+                                        required
+                                    />
+                                    {nitValido === false && <div className="invalid-feedback">Debe contener - más el carácter verificador</div>}
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="mb-3">
+                                    <label htmlFor="Est_E" className="form-label">
+                                        Estado
+                                    </label>
+                                    <select
+                                        name="Est_E"
+                                        className="form-select"
+                                        value={est_E}
+                                        onChange={handleEstadoChange}
+                                        required
+                                    >
+                                        <option value="">Seleccione un estado</option>
+                                        <option value="0">Activo</option>
+                                        <option value="1">En estudio</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <button type="submit" className="btn btn-primary">
                             Verificar Empresa
                         </button>
                     </form>
                 </div>
-                : <Empresafr nit={nit} />
-            }
+            ) : tpform === "1" ? (
+                <Empresafr nit={nit} est={est_E} />
+            ) : (
+                <Empresarapidofr nit={nit} est={est_E} />
+            )}
         </>
-    )
+    );
 }
