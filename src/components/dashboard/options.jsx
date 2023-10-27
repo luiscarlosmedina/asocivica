@@ -18,7 +18,7 @@ const Options = () => {
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <i className="bi bi-journal-bookmark"></i> <span className='ms-2'>Gestion de empresas</span>
+          <i className="bi bi-journal-bookmark"></i> <span className='ms-2'>Gestión de empresas</span>
         </a>
         <ul className="dropdown-menu">
           <li><NavLink to="/consultar-empresas" className="dropdown-item">Ver empresas</NavLink></li>
@@ -33,7 +33,7 @@ const Options = () => {
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <i className="bi bi-pencil-square"></i> <span className='ms-2'>Gestion de novedades</span>
+          <i className="bi bi-pencil-square"></i> <span className='ms-2'>Gestión de novedades</span>
         </a>
         <ul className="dropdown-menu">
           <li><NavLink to="/consultar-novedades" className="dropdown-item">Ver Novedades</NavLink></li>
@@ -48,7 +48,7 @@ const Options = () => {
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <i className="bi bi-table"></i> <span className='ms-2'>Gestion de empleados</span>
+          <i className="bi bi-table"></i> <span className='ms-2'>Gestión de empleados</span>
         </a>
         <ul className="dropdown-menu">
           <li><NavLink to="/consultar-empleados" className="dropdown-item">Ver empleados</NavLink></li>
@@ -63,11 +63,11 @@ const Options = () => {
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <i className="bi bi-bar-chart"></i> <span className='ms-2'>Gestion de reportes</span>
+          <i className="bi bi-bar-chart"></i> <span className='ms-2'>Gestión de reportes</span>
         </a>
         <ul className="dropdown-menu">
-          <li><a className="dropdown-item" href="#">Ver reportes</a></li>
-          <li><NavLink to="/registrar-reportes" className="dropdown-item">Agregar reportes</NavLink></li>
+          <li><NavLink to="/reporte-operaciones" className="dropdown-item">Operación</NavLink></li>
+          <li><NavLink to="/reporte-clientes" className="dropdown-item">Cliente</NavLink></li>
         </ul>
       </li>
     </ul>

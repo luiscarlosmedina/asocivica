@@ -12,7 +12,8 @@ import Verificaempresa from "./Empresa/verificaempresa";
 import NovedadForm from "./Novedades/NovedadForm";
 import VerDetalleNovedad from "./Novedades/VerDetalleNovedades";
 import VerNovedades from "./Novedades/VerNovedades";
-import Reportes from "./Reportes/Reportes";
+import Repnov from "./Reportes/repnov";
+import Repemp from "./Reportes/repemp";
 
 function Content() {
     const [dataUpdated, setDataUpdated] = useState(false);
@@ -32,7 +33,8 @@ function Content() {
                 <Route path='registrar-novedades' element={<NovedadForm onDataUpdate={handleDataUpdate}/>} />
                 <Route path='consultar-novedades' element={<VerNovedades dataUpdated={dataUpdated} />} />
                 <Route path='consultar-novedades/:novedadID' element={<VerDetalleNovedad />} />
-                <Route path='registrar-reportes' element={<Reportes/>} />
+                <Route path='reporte-operaciones' element={<Repnov/>} />
+                <Route path='reporte-clientes' element={<Repemp/>} />
             </Routes>
         </div>
     )
