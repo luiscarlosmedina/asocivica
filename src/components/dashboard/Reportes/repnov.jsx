@@ -2,6 +2,7 @@ import React from 'react'
 import Conteonov from './graphic/conteonov';
 import Conteosectornov from './graphic/conteosectornov';
 import Conteonovdia from './graphic/conteonovdia';
+import Conteonovhora from './graphic/conteonovhora';
 export default function Repnov() {
     return (
         <div className="my-3">
@@ -24,6 +25,7 @@ export default function Repnov() {
                 </div>
                 <div className='row'>
                     <Conteonovdia />
+                    <Conteonovhora />
                 </div>
             </div>
         </div>
