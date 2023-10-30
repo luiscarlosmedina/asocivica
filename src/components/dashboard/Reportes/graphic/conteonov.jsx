@@ -1,15 +1,31 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Legend, Tooltip, Cell, ResponsiveContainer } from 'recharts';
 import ColorGenerator from '../Components/colorGenerate';
 
-export default function Conteonov() {
-    const [data, setData] = useState([])
+export default function Conteonov({ startDate, endDate, tipoNovedad }) {
+    const [data, setData] = useState([]);
+
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [startDate, endDate, tipoNovedad]);
 
     const fetchData = () => {
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=repnov`)
+        // Construye la URL con los parámetros de fecha
+        let apiUrl = `http://localhost/api_proyecto.github.io/api.php?apicall=repnov`;
+
+        // Agrega el tipo de novedad si se proporciona
+        if (startDate) {
+            apiUrl += `&startdate=${startDate}`;
+        }
+        if (endDate) {
+            apiUrl += `&enddate=${endDate}`;
+        }
+        // Agrega el tipo de novedad si se proporciona
+        if (tipoNovedad) {
+            apiUrl += `&tipoNovedad=${tipoNovedad}`;
+        }
+
+        fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
                 setData(data);
@@ -18,8 +34,10 @@ export default function Conteonov() {
                 console.log(error);
             });
     };
+
     const count = data.length; // Puedes ajustar la cantidad de colores que deseas
     const COLORS = ColorGenerator({ count });
+
     return (
         <div className='border border-1 col-md-6'>
             <p>Novedades ocurridas</p>
@@ -42,8 +60,7 @@ export default function Conteonov() {
                     <Tooltip />
                     <Legend />
                 </PieChart>
-
             </ResponsiveContainer>
         </div>
-    )
+    );
 }
