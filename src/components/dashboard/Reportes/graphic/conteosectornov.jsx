@@ -2,14 +2,28 @@ import React, { useState, useEffect } from 'react'
 import { PieChart, Pie, Legend, Tooltip, Cell, ResponsiveContainer } from 'recharts';
 import ColorGenerator from '../Components/colorGenerate';
 
-export default function Conteosectornov() {
+export default function Conteosectornov({ startDate, endDate, tipoNovedad }) {
     const [data, setData] = useState([])
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [startDate, endDate, tipoNovedad]);
 
     const fetchData = () => {
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=repnovsector`)
+        // Construye la URL con los parámetros de fecha
+        let apiUrl = `http://localhost/api_proyecto.github.io/api.php?apicall=repnovsector`;
+
+        // Agrega el tipo de novedad si se proporciona
+        if (startDate) {
+            apiUrl += `&startdate=${startDate}`;
+        }
+        if (endDate) {
+            apiUrl += `&enddate=${endDate}`;
+        }
+        // Agrega el tipo de novedad si se proporciona
+        if (tipoNovedad) {
+            apiUrl += `&tipoNovedad=${tipoNovedad}`;
+        }
+        fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
                 setData(data);

@@ -90,7 +90,7 @@ export default function Repnov() {
             <div className='container max-width'>
                 <div className='row h-50'>
                     <Conteonov startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad} />
-                    <Conteosectornov />
+                    <Conteosectornov startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad}/>
                 </div>
                 <div className='row'>
                     <Conteonovdia />
