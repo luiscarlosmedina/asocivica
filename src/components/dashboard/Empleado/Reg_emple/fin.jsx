@@ -19,7 +19,7 @@ function Fin(props) {
                     icon: "success",
                     
                 });
-                navigate("/inicio");
+                navigate("asocivica/registrar-empleado");
                 almacenarDatos();
             } else {
                 

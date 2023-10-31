@@ -8,7 +8,8 @@ function AEmple(props) {
   const navigate = useNavigate();
   const [errores, setErrores] = useState({});
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
-  const [pasar, setPasar] = useState();
+
+
 
   const cancelar = () => {
     swal({
@@ -25,7 +26,6 @@ function AEmple(props) {
     });
   };
 
- 
   const VerContraseña = () => {
     setMostrarContraseña(!mostrarContraseña);
   };
@@ -35,9 +35,8 @@ function AEmple(props) {
 
     switch (nombreCampo) {
       case "estado":
-        if (valorCampo !== "0" && valorCampo !== "1") {
+        if (valorCampo !== "0" ) {
           nuevosErrores.estado = "Por favor, seleccione un estado válido";
-          setPasar(false);
         } else {
           delete nuevosErrores.estado;
         
@@ -52,7 +51,6 @@ function AEmple(props) {
           valorCampo !== "4"
         ) {
           nuevosErrores.id_rol = "Por favor, seleccione un rol válido";
-          setPasar(false);
         } else {
           delete nuevosErrores.id_rol;
         
@@ -63,13 +61,10 @@ function AEmple(props) {
       case "n_em":
         if (!valorCampo.trim()) {
           nuevosErrores.n_em = "Por favor, este campo no puede estar vacío";
-          setPasar(false);
         } else if (valorCampo.length < 2 || valorCampo.length > 20) {
           nuevosErrores.n_em = "El campo debe tener entre 2 y 19 caracteres";
-          setPasar(false);
         } else if (!/^[A-Za-z\s]+$/.test(valorCampo)) {
           nuevosErrores.n_em = "Ingrese solo letras y espacios en blanco";
-          setPasar(false);
         } else {
           delete nuevosErrores.n_em;
           
@@ -79,13 +74,10 @@ function AEmple(props) {
       case "a_em":
         if (!valorCampo.trim()) {
           nuevosErrores.a_em = "Por favor, este campo no puede estar vacío";
-          setPasar(false);
         } else if (valorCampo.length < 2 || valorCampo.length > 20) {
           nuevosErrores.a_em = "El campo debe tener entre 2 y 19 caracteres";
-          setPasar(false);
         } else if (!/^[A-Za-z\s]+$/.test(valorCampo)) {
           nuevosErrores.a_em = "Ingrese solo letras y espacios en blanco";
-          setPasar(false);
         } else {
           delete nuevosErrores.a_em;
         
@@ -95,15 +87,12 @@ function AEmple(props) {
       case "eml_em":
         if (!valorCampo.trim()) {
           nuevosErrores.eml_em = "Por favor, este campo no puede estar vacío";
-          setPasar(false);
         } else if (valorCampo.length < 5 || valorCampo.length > 40) {
           nuevosErrores.eml_em = "El campo debe tener entre 5 y 40 caracteres";
-          setPasar(false);
         } else if (
           !/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(valorCampo)
         ) {
           nuevosErrores.eml_em = "Ingrese una dirección de correo válida";
-          setPasar(false);
         } else {
           delete nuevosErrores.eml_em;
         
@@ -114,15 +103,12 @@ function AEmple(props) {
       case "passw":
         if (!valorCampo.trim()) {
           nuevosErrores.passw = "Por favor, este campo no puede estar vacío";
-          setPasar(false);
         } else if (valorCampo.length < 8) {
           nuevosErrores.passw =
             "Una contraseña segura debe tener al menos 8 caracteres";
-            setPasar(false);
         } else if (valorCampo.length > 20) {
           nuevosErrores.passw =
             "La contraseña puede tener como máximo 20 caracteres";
-            setPasar(false);
         } else if (
           !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(
             valorCampo
@@ -130,7 +116,6 @@ function AEmple(props) {
         ) {
           nuevosErrores.passw =
             "La contraseña debe incluir al menos una mayúscula, una minúscula, un número y un carácter especial";
-            setPasar(false);
         } else {
           delete nuevosErrores.passw;
           
@@ -170,7 +155,6 @@ function AEmple(props) {
               >
                 <option value="">Seleccione un estado</option>
                 <option value="0">Activo</option>
-                <option value="1">Desactivo</option>
               </select>
               <div className="invalid-feedback">{errores.estado}</div>
             </div>
