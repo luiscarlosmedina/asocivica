@@ -1,14 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-export default function Conteonovdia() {
+export default function Conteonovdia({ startDate, endDate, tipoNovedad }) {
     const [data, setData] = useState([])
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [startDate, endDate, tipoNovedad]);
 
     const fetchData = () => {
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=repnovdia`)
+        let apiUrl = `http://localhost/api_proyecto.github.io/api.php?apicall=repnovdia`;
+
+        // Agrega el tipo de novedad si se proporciona
+        if (startDate) {
+            apiUrl += `&startdate=${startDate}`;
+        }
+        if (endDate) {
+            apiUrl += `&enddate=${endDate}`;
+        }
+        // Agrega el tipo de novedad si se proporciona
+        if (tipoNovedad) {
+            apiUrl += `&tipoNovedad=${tipoNovedad}`;
+        }
+        fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
                 setData(data);

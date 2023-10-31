@@ -93,7 +93,7 @@ export default function Repnov() {
                     <Conteosectornov startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad}/>
                 </div>
                 <div className='row'>
-                    <Conteonovdia />
+                    <Conteonovdia startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad}/>
                     <Conteonovhora />
                 </div>
             </div>
