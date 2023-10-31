@@ -32,12 +32,12 @@ function Empleadofr() {
     id_arl: "",
     id_ces: "",
     id_rh: "",
-    id_rol: "",
     estado: "",
-    passw: "",
     n_coe: "",
     csag: "",
     t_cem: "",
+    passw: "",
+    id_rol: "",
   });
 
 
@@ -73,8 +73,21 @@ function Empleadofr() {
 
   const almacenarDatos = () => {
     console.log(empleadoData);
+  
+    fetch('http://localhost/api_proyecto.github.io/api.php?apicall=createempleado', {
+      method: 'POST', // Puedes ajustar el método según sea necesario
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(empleadoData),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Respuesta del servidor:', data);
+      // Puedes manejar la respuesta del servidor aquí
+    })
+    .catch(error => console.error('Error al enviar datos:', error));
   };
-
 
   let componenteActual;
 

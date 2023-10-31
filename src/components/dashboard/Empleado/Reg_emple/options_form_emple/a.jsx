@@ -25,21 +25,7 @@ function AEmple(props) {
     });
   };
 
-  const validarYAvanzar = () => {
-
-    const hayErrores = Object.keys(errores).length > 0;
-
-    if (!hayErrores && pasar) {
-      siguientePaso();
-    } else {
-      swal({
-        title: "Oops...",
-        text: "Hay errores en el formulario. Por favor, revisa y completa los campos.",
-        icon: "error",
-      });
-    } 
-  };
-
+ 
   const VerContraseña = () => {
     setMostrarContraseña(!mostrarContraseña);
   };
@@ -317,7 +303,7 @@ function AEmple(props) {
               <div className="float-end">
                 <button
                   className="btnf btn btn-primary"
-                  onClick={validarYAvanzar}
+                 onClick={siguientePaso}
                 >
                   Siguiente
                 </button>
