@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import swal from 'sweetalert';
 
-function Empresarapidofr({ nit, est }) {
+function Empresarapidofr({ nit, est, resetForm}) {
     const fecha = new Date();
     const hoy = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate();
 
@@ -99,6 +99,7 @@ function Empresarapidofr({ nit, est }) {
             .then((responseData) => {
                 if (responseData.error === false) {
                     swal("Buen trabajo!", `Creación exitosa: ${responseData.message}`, "success");
+                    resetForm();
                 } else {
                     swal("Error!", `Error: ${responseData.message}`, "error");
                 }

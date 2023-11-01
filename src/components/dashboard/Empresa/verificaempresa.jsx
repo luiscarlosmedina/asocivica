@@ -26,6 +26,13 @@ export default function Verificaempresa() {
             throw error;
         }
     };
+    const resetForm = () => {
+        setNit('');
+        setEst_E('');
+        setNitValido(true);
+        setFormulario(false);
+        setTpform("0");
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -125,9 +132,9 @@ export default function Verificaempresa() {
                     </form>
                 </div>
             ) : tpform === "1" ? (
-                <Empresafr nit={nit} est={est_E} />
+                <Empresafr nit={nit} est={est_E} resetForm={resetForm}/>
             ) : (
-                <Empresarapidofr nit={nit} est={est_E} />
+                <Empresarapidofr nit={nit} est={est_E} resetForm={resetForm}/>
             )}
         </>
     );
