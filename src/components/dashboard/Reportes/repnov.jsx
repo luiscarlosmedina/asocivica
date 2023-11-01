@@ -94,7 +94,7 @@ export default function Repnov() {
                 </div>
                 <div className='row'>
                     <Conteonovdia startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad}/>
-                    <Conteonovhora />
+                    <Conteonovhora startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad}/>
                 </div>
             </div>
         </div>

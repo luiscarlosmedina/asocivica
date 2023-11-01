@@ -1,14 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-export default function Conteonovhora() {
+export default function Conteonovhora({ startDate, endDate, tipoNovedad }) {
     const [data, setData] = useState([])
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [startDate, endDate, tipoNovedad]);
 
     const fetchData = () => {
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=repnovhora`)
+        let apiUrl = `http://localhost/api_proyecto.github.io/api.php?apicall=repnovhora`;
+
+        // Agrega el tipo de novedad si se proporciona
+        if (startDate) {
+            apiUrl += `&startdate=${startDate}`;
+        }
+        if (endDate) {
+            apiUrl += `&enddate=${endDate}`;
+        }
+        // Agrega el tipo de novedad si se proporciona
+        if (tipoNovedad) {
+            apiUrl += `&tipoNovedad=${tipoNovedad}`;
+        }
+        fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
                 setData(data);
@@ -22,7 +35,7 @@ export default function Conteonovhora() {
             <p>Novedades por hora</p>
             <div>
                 <ResponsiveContainer width="100%" height={300}>
-                    <LineChart data={data}
+                    <AreaChart data={data}
                         margin={{
                             top: 5,
                             right: 30,
@@ -34,8 +47,8 @@ export default function Conteonovhora() {
                         <YAxis />
                         <Tooltip />
                         <Legend />
-                        <Line dataKey="novedades" type="monotone" fill="#B0CCFF" />
-                    </LineChart>
+                        <Area dataKey="novedades" type="monotone" fill="#B0CCFF" stroke="#8884d8"/>
+                    </AreaChart>
                 </ResponsiveContainer>
             </div>
         </div>
