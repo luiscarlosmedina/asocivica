@@ -1,24 +1,24 @@
 import React from 'react';
-import "../../style/options.css"
+import '../../style/options.css'; // Importa tus estilos personalizados si es necesario
 import { NavLink } from 'react-router-dom';
 
 const Options = () => {
   return (
-    <ul className="navbar-nav d-flex justify-content-end flex-grow-1 pe-4" id='menu'>
-      <li className="nav-item dropdown">
-        <NavLink exact to="/" className="nav-link op text-white" activeclass="active">
-          <i className="bi bi-house"></i> Inicio
+    <ul className="navbar-nav vh-100 d-flex flex-column" id='menu'>
+      <li className="nav-item op">
+        <NavLink exact to="/" className="nav-link text-white small text-center">
+          <i className="bi bi-house fs-3 d-block text-center"></i><span className='small text-center'>Inicio</span>
         </NavLink>
       </li>
       <li className="nav-item dropdown">
         <a
-          className="nav-link op dropdown-toggle text-white"
+          className="nav-link dropdown-toggle text-white small text-center"
           href="#"
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <i className="bi bi-journal-bookmark"></i> <span className='ms-2'>Gestión de empresas</span>
+          <i className="bi bi-journal-bookmark fs-3 d-block text-center"></i><span className='small text-center'>Empresas</span>
         </a>
         <ul className="dropdown-menu">
           <li><NavLink to="/consultar-empresas" className="dropdown-item">Ver empresas</NavLink></li>
@@ -27,13 +27,13 @@ const Options = () => {
       </li>
       <li className="nav-item dropdown">
         <a
-          className="nav-link op dropdown-toggle text-white"
+          className="nav-link dropdown-toggle text-white small text-center"
           href="#"
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <i className="bi bi-pencil-square"></i> <span className='ms-2'>Gestión de novedades</span>
+          <i className="bi bi-pencil-square fs-3 d-block text-center"></i><span className='small text-center'>Novedades</span>
         </a>
         <ul className="dropdown-menu">
           <li><NavLink to="/consultar-novedades" className="dropdown-item">Ver Novedades</NavLink></li>
@@ -42,13 +42,13 @@ const Options = () => {
       </li>
       <li className="nav-item dropdown">
         <a
-          className="nav-link op dropdown-toggle text-white"
+          className="nav-link dropdown-toggle text-white small text-center"
           href="#"
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <i className="bi bi-table"></i> <span className='ms-2'>Gestión de empleados</span>
+          <i className="bi bi-table fs-3 d-block text-center"></i><span className='small text-center'>Empleados</span>
         </a>
         <ul className="dropdown-menu">
           <li><NavLink to="/consultar-empleados" className="dropdown-item">Ver empleados</NavLink></li>
@@ -57,13 +57,13 @@ const Options = () => {
       </li>
       <li className="nav-item dropdown">
         <a
-          className="nav-link op dropdown-toggle text-white"
+          className="nav-link dropdown-toggle text-white small text-center"
           href="#"
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <i className="bi bi-bar-chart"></i> <span className='ms-2'>Gestión de reportes</span>
+          <i className="bi bi-bar-chart fs-3 d-block text-center"></i><span className='small text-center'>Reportes</span> 
         </a>
         <ul className="dropdown-menu">
           <li><NavLink to="/reporte-operaciones" className="dropdown-item">Operación</NavLink></li>

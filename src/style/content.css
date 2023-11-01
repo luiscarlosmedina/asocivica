@@ -3,12 +3,11 @@
     --naranja:#fa8131;
     --blanco:#fff;
 }
-.contenido{
-    height: 100%;
-    width: 100%;
-    overflow: auto;
-    padding: 0 25px;
-}
+.contenido {
+    height: calc(100vh - 60px); /* 60px es la altura de la barra superior */
+    overflow-y: auto;
+    padding: 20px; /* Agrega relleno según sea necesario */
+  }
 
 .ctbanner{
     margin: auto;

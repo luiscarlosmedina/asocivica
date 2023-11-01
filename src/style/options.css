@@ -21,13 +21,8 @@
    
 }
 
-.op {
-    border-radius: 15px;
-}
-
 .op:hover {
     background-color: var(--naranja);
-    border-radius: 15px;
 } 
   /* Cambiar el color de fondo a naranja */
   .nav-item.dropdown:hover .nav-link,
