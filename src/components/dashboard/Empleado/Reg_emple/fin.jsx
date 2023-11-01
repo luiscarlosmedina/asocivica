@@ -1,10 +1,9 @@
 import React from "react";
 import swal from 'sweetalert';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function Fin(props) {
-    const { ultimovolver, almacenarDatos } = props;
-    const navigate = useNavigate(); 
+    const { ultimovolver, valores} = props;
     const MySwal = swal
     MySwal({
         title: "¿Estás seguro de guardar?",
@@ -15,14 +14,40 @@ function Fin(props) {
     })
         .then((willDelete) => {
             if (willDelete) {
-                swal("Poof! Su informacion fue guardada con exito", {
-                    icon: "success",
-                    
-                });
-                navigate("asocivica/registrar-empleado");
-                almacenarDatos();
+                //-----------------------------------------------------------------------------------------------------
+                //Esta funcion de encarga recoger los datos de la variable empleado data y usar el metodo FETCH para subir los datos a una BD por medio de uuna api
+                    console.log(valores);
+
+                    fetch('http://localhost/api_proyecto.github.io/api.php?apicall=createempleado', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(valores),
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`Error de red: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Respuesta del servidor:', data);
+                            // Puedes manejar la respuesta del servidor aquí
+                            // Podrías notificar al usuario sobre el éxito, por ejemplo, mediante un mensaje de alerta
+                            swal("Poof! Su informacion fue guardada con exito", {
+                                icon: "success",
+
+                            });
+                        }).catch(error => {
+                            console.error('Error al enviar datos:', error);
+                            // Podrías notificar al usuario sobre el error, por ejemplo, mediante un mensaje de alerta
+                            swal("¡Error!", "Hubo un problema al enviar los datos. Inténtalo de nuevo.", "error");
+                            
+                        });
+            
             } else {
-                
+
                 swal("Revisa la informacion y luego guarda");
                 ultimovolver()
             }

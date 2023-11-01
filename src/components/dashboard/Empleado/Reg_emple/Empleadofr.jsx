@@ -8,7 +8,7 @@ import DEmple from "./options_form_emple/d";
 import EEmple from "./options_form_emple/e";
 import Fin from "./fin";
 import Textemple from "./textemple";
-import swal from "sweetalert";
+
 
 function Empleadofr() {
 
@@ -78,36 +78,7 @@ function Empleadofr() {
       }));
     };
 
-  //-----------------------------------------------------------------------------------------------------
-   //Esta funcion de encarga recoger los datos de la variable empleado data y usar el metodo FETCH para subir los datos a una BD por medio de uuna api
-   const almacenarDatos = () => {
-    console.log(empleadoData);
   
-    fetch('http://localhost/api_proyecto.github.io/api.php?apicall=createempleado', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(empleadoData),
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Error de red: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Respuesta del servidor:', data);
-      // Puedes manejar la respuesta del servidor aquí
-      // Podrías notificar al usuario sobre el éxito, por ejemplo, mediante un mensaje de alerta
-      swal("¡Éxito!", "Datos almacenados correctamente", "success");
-    })
-    .catch(error => {
-      console.error('Error al enviar datos:', error);
-      // Podrías notificar al usuario sobre el error, por ejemplo, mediante un mensaje de alerta
-      swal("¡Error!", "Hubo un problema al enviar los datos. Inténtalo de nuevo.", "error");
-    });
-  };
 
 //-----------------------------------------------------------------------------------------------------
    //Iniciacion de componente 
@@ -146,6 +117,8 @@ function Empleadofr() {
       break;
     case 2:
       componenteActual = (
+
+
         <div className="m-b"> 
            <Textemple/>
             <Botones/>
@@ -190,7 +163,6 @@ function Empleadofr() {
     default:
       componenteActual = ( <Fin
         ultimovolver={ultimovolver}
-        almacenarDatos={almacenarDatos}
         valores={empleadoData}
         />);
       
