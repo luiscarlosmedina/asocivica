@@ -1,38 +1,38 @@
 import React, { useState } from "react";
 import Logo from "../../img/logosf.png";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../autenticate";
 import "../../style/signIn/formSignIn.css";
 
 export default function SignIn() {
-  const [user, setUser] = useState("")
-  const [password, setPassword] = useState("")
-  const navegate = useNavigate()
+  const { login } = useAuth();
+  const [doc, setDoc] = useState("");
+  const [password, setPassword] = useState("");
+  const [docError, setDocError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({"passw":password, "documento":user}),
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        if (responseData.error === false) {
-          setUser("")
-          setPassword("")
-          navegate("/inicio")
-          console.log("bien");
-        } else {
-          console.log("mal");
-        }
 
-        console.log("Respuesta de la API:", responseData);
-      })
-      .catch((error) => {
-        console.error("Error al enviar la solicitud:", error);
-      });
+    // Validación de documento
+    if (!/^\d+$/.test(doc)) {
+      setDocError("El documento debe contener solo números.");
+      return;
+    } else {
+      setDocError("");
+    }
 
+    // Validación de contraseña
+    if (!/^[a-zA-Z0-9!@#$%^&*+=._-]{8,}$/.test(password)) {
+      setPasswordError("La contraseña no cumple con los requisitos de seguridad.");
+      return;
+    } else {
+      setPasswordError("");
+    }
+
+    // Si ambas validaciones pasan, puedes proceder a realizar el inicio de sesión.
+    login(doc, password);
+    setDoc("");
+    setPassword("");
   }
 
   return (
@@ -52,9 +52,10 @@ export default function SignIn() {
               placeholder="Documento"
               type="number"
               name="ID_Em"
-              value={user}
-              onChange={(e) => setUser(e.target.value)}
+              value={doc}
+              onChange={(e) => setDoc(e.target.value)}
             />
+            <p className="error-message">{docError}</p>
           </div>
           <div className="input">
             <label>Contraseña:</label>
@@ -65,12 +66,13 @@ export default function SignIn() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <p className="error-message text-white">{passwordError}</p>
           </div>
           <div className="password-olvidada">
-            <a href="#">¿Olvidaste tu contraseña?</a>
+            {/* <a href="#">¿Olvidaste tu contraseña?</a> */}
           </div>
           <div className="input">
-            <input type="submit" value="Ingresar"/>
+            <input type="submit" value="Ingresar" />
           </div>
         </div>
       </form>
