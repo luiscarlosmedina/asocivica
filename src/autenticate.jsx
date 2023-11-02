@@ -2,10 +2,12 @@ import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext({
     user:false,
+    error: null,
 });
 
 export function AuthProvider({ children }) {
     const [user, setUsuario] = useState(false);
+    const [error, setError] = useState(null)
 
     const login = async (doc, password) => {
         try {
@@ -22,13 +24,13 @@ export function AuthProvider({ children }) {
                 if (responseData.error === false) {
                     setUsuario(true);
                 } else {
-                    console.log("Error en el inicio de sesión");
+                    setError("Credenciales invalidas, intente nuevamente");
                 }
             } else {
-                console.log("Error en la solicitud");
+                setError("Error en la solicitud, Intentalo mas tarde");
             }
         } catch (error) {
-            console.error("Error al enviar la solicitud:", error);
+            setError("Error al enviar la solicitud:", error);
         }
     };
 
@@ -38,7 +40,7 @@ export function AuthProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout}}>
+        <AuthContext.Provider value={{ user, login, logout, error}}>
             {children}
         </AuthContext.Provider>
     );
