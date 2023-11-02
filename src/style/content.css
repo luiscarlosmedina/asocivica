@@ -6,7 +6,7 @@
 .contenido {
     height: calc(100vh - 60px); /* 60px es la altura de la barra superior */
     overflow-y: auto;
-    padding: 20px; /* Agrega relleno según sea necesario */
+    padding: 0 20px; /* Agrega relleno según sea necesario */
   }
 
 .ctbanner{
