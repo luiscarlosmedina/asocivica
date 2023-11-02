@@ -6,7 +6,7 @@ const Options = () => {
   return (
     <ul className="navbar-nav vh-100 d-flex flex-column" id='menu'>
       <li className="nav-item">
-        <NavLink exact to="/" className="nav-link text-white small text-center op">
+        <NavLink to="/inicio" className="nav-link text-white small text-center op">
           <i className="bi bi-house fs-3 d-block text-center"></i><span className='small text-center'>Inicio</span>
         </NavLink>
       </li>

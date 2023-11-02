@@ -2,12 +2,12 @@ import "./style/app.css";
 import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";
 import SignIn from "./components/signIn/SignIn";
-import { useAuth } from "./autenticate";
+import { AuthProvider, useAuth } from "./autenticate";
 
 function App() {
   const { user } = useAuth();
   return (
-    <>
+    <AuthProvider>
       <div className="wrapper">
         <HashRouter>
           <Routes>
@@ -16,7 +16,7 @@ function App() {
           </Routes>
         </HashRouter>
       </div>
-    </>
+    </AuthProvider>
   );
 }
 
