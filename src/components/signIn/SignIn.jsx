@@ -59,7 +59,7 @@ export default function SignIn() {
           <div className="input">
             <label>Usuario:</label>
             <input
-              placeholder="Documento solo numeros"
+              placeholder="123456789"
               type="number"
               name="ID_Em"
               value={doc}
@@ -73,6 +73,7 @@ export default function SignIn() {
               type="password"
               name="password"
               value={password}
+              autoComplete="new-password"
               onChange={(e) => setPassword(e.target.value)}
             />
             <div className="bg-white my-2">

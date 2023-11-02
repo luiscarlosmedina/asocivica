@@ -16,7 +16,7 @@ export default function CrearSede({ id }) {
 
   const colombianAddressRegex = /^[A-Za-z0-9\s#áéíóúÁÉÍÓÚñÑ,.-]{5,}$/;
   const phoneRegex = /^\d{7,10}$/;
-  const nameRegex = /^[A-Za-z\s]+$/;
+  const nameRegex = /^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+$/;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -117,9 +117,6 @@ export default function CrearSede({ id }) {
           swal('Ocurrió un error!', 'Error al crear sede', 'error');
         } else {
           setSedeData(initialSedeData);
-          setTimeout(function () {
-            window.location.reload();
-          }, 1200);
           swal('¡Buen trabajo!', 'Sede creada correctamente', 'success');
         }
       })

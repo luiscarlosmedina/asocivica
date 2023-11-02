@@ -82,7 +82,7 @@ function Empresafr({ nit, est, resetForm}) {
     //valida encargados
     const validateEncargadoField = (sedeIndex, encargadoIndex, fieldName, value) => {
         const regexPatterns = {
-            N_En: /^[A-Za-z\s]+$/,
+            N_En: /^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+$/,
             tel1: /^\d{7,10}$/,
             tel2: /^\d{7,10}$/,
             tel3: /^\d{7,10}$/,
@@ -130,7 +130,7 @@ function Empresafr({ nit, est, resetForm}) {
             Nit_E: /^\d{9}-\d{1}$/, // Validacion para el campo Nit_E con - despues del 8 numero
             Nom_E: /^.{1,100}$/, // Validacion para el campo Nom_E (máximo 100 caracteres)
             Eml_E: /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, // Validacion para el campo Eml_E (correo electrónico)
-            Nom_Rl: /^[A-Za-z\s]+$/, //solo texto
+            Nom_Rl: /^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+$/, //solo texto
             CC_Rl: /^(?:[A-Za-z0-9]+|[0-9]{6,10})$/, //formato para numero cc colombiana o pasaporte
             telefonoGeneral: /^\d{7,10}$/, // 7 a 10 numeros 
             Val_E: /^(?:[1-9]\d{0,6}|10000000)$/, //maximo de 10 000 000
@@ -401,7 +401,7 @@ function Empresafr({ nit, est, resetForm}) {
                         <div className="input-group mb-2">
                             <select name="ID_Doc" value={empresa.ID_Doc} onChange={handleChange}>
                                 <option selected disabled value="">
-                                    
+                                    Tipo de documento
                                 </option>
                                 {doc.map((item) => (
                                     <option key={item.ID_Doc} value={item.ID_Doc}>
