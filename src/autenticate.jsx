@@ -1,10 +1,9 @@
 import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext({
-    user:false,
+    user: false,
     error: null,
 });
-
 export function AuthProvider({ children }) {
     const [user, setUsuario] = useState(false);
     const [error, setError] = useState(null)
@@ -18,7 +17,6 @@ export function AuthProvider({ children }) {
                 },
                 body: JSON.stringify({ "passw": password, "documento": doc }),
             });
-
             if (response.ok) {
                 const responseData = await response.json();
                 if (responseData.error === false) {
@@ -27,15 +25,15 @@ export function AuthProvider({ children }) {
                     setError("Credenciales invalidas, intente nuevamente");
                 }
             } else {
-                setError("Error en la solicitud, Intentalo mas tarde");
+                setError("Hubo un error, Intentalo mas tarde");
             }
         } catch (error) {
-            setError("Error al enviar la solicitud:", error);
+            setError("Hubo un error, Intentalo mas tarde");
         }
     };
 
     const logout = () => {
-        // Realiza la lógica de cierre de sesión aquí y actualiza el estado del usuario.
+        // Realiza la lógica de cierre de sesión actualizando el estado del usuario.
         setUsuario(false);
     };
 
