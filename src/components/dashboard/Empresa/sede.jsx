@@ -17,8 +17,6 @@ import {
   Select,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
-import CrearSede from './crearsede';
 import Encargados from './encargados';
 
 export default function Sede({ id }) {
@@ -28,6 +26,12 @@ export default function Sede({ id }) {
   const [editing, setEditing] = useState({});
   const [expandedSede, setExpandedSede] = useState(null);
   const [errors, setErrors] = useState({});
+  const [showInsertForm, setShowInsertForm] = useState(false);
+  const [nuevaSede, setNuevaSede] = useState({
+    Dic_S: '',
+    Sec_V: '1', // Valor por defecto, puedes cambiarlo según tus necesidades
+    id_e: id,
+  });
 
   // Efecto para cargar datos
   useEffect(() => {
@@ -81,7 +85,7 @@ export default function Sede({ id }) {
   const handleSaveToAPI = (id, field, newValue) => {
     // Realiza la validación aquí antes de enviar los datos a la API
     let isValid = true;
-  
+
     if (field === 'Dic_S' && !isColombianAddressValid(newValue)) {
       // Si el campo es 'Dic_S' y la dirección no es válida, establece isValid en falso
       isValid = false;
@@ -89,12 +93,12 @@ export default function Sede({ id }) {
     } else {
       setErrors({ ...errors, [id]: '' });
     }
-  
+
     if (isValid) {
       // Si todos los campos son válidos, procede a enviar los datos a la API
       const editedRow = data.find((row) => row.ID_S === id);
       editedRow[field] = newValue;
-  
+
       fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updatesede`, {
         method: 'POST',
         headers: {
@@ -116,7 +120,7 @@ export default function Sede({ id }) {
         });
     }
   };
-  
+
 
   // Función para expandir o colapsar una sede
   const handleExpandSede = (id) => {
@@ -183,6 +187,49 @@ export default function Sede({ id }) {
         }
       });
   };
+  // Función para manejar el cambio en los campos del formulario para agregar sede
+  const handleFieldChange = (e) => {
+    setNuevaSede({
+      ...nuevaSede,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Función para manejar el envío del formulario para agregar sede
+  const handleInsertSubmit = (e) => {
+    e.preventDefault();
+    // Realiza la validación de la dirección aquí antes de enviar los datos a la API
+    if (!isColombianAddressValid(nuevaSede.Dic_S)) {
+      setErrors({ ...errors, 'nuevaSede': 'La dirección ingresada no es válida para Colombia.' });
+      return;
+    }
+
+    // Envía los datos al servidor
+    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=createsede`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(nuevaSede),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        if (responseData) {
+          setNuevaSede({
+            Dic_S: '',
+            Sec_V: '1', // Restablece los valores predeterminados
+            id_e: id,
+          });
+          setShowInsertForm(false)
+          fetchData();
+        } else {
+          console.error('Error al agregar la sede');
+        }
+      })
+      .catch((error) => {
+        console.error('Error al agregar la sede:', error);
+      });
+  };
 
   return (
     <div>
@@ -191,17 +238,61 @@ export default function Sede({ id }) {
           <h3>Sedes y encargados</h3>
         </div>
         <div>
-          <Button variant="outlined" color="primary" data-bs-toggle="modal" data-bs-target="#sede">
-            Agregar sede
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => setShowInsertForm(!showInsertForm)}>
+            {showInsertForm ? "Cancelar" : "Agregar sede"}
           </Button>
-        </div>
-        {/* Modal */}
-        <div className="modal fade" id="sede" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <CrearSede id={id} />
         </div>
       </div>
       <hr className='pb-3' />
       <div className="container my-3">
+        {showInsertForm && (
+          <TableContainer component={Paper}>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    <TextField
+                      label="Dirección"
+                      fullWidth
+                      required
+                      name="Dic_S"
+                      value={nuevaSede.Dic_S}
+                      onChange={handleFieldChange}
+                    />
+                    {errors['nuevaSede'] && <div className="text-danger">{errors['nuevaSede']}</div>}
+                  </TableCell>
+                  <TableCell>
+                    <TextField
+                      label="Sector de Vigilancia"
+                      select
+                      fullWidth
+                      name="Sec_V"
+                      value={nuevaSede.Sec_V}
+                      onChange={handleFieldChange}
+                    >
+                      <MenuItem value="1">Sector 1</MenuItem>
+                      <MenuItem value="2">Sector 2</MenuItem>
+                      <MenuItem value="3">Sector 3</MenuItem>
+                      <MenuItem value="4">Sector 4</MenuItem>
+                    </TextField>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={handleInsertSubmit}
+                    >
+                      Agregar
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
