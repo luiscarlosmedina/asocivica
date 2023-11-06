@@ -4,6 +4,25 @@ import swal from 'sweetalert';
 export default function EditarE({ id, onUpdate }) {
     const [errors, setErrors] = useState({});
     const [close, setClose] = useState(" ");
+    const [doc, setDoc] = useState([])
+
+    //llamar los tipos de documentos
+    const fetchDataDoc = () => {
+        fetch(
+            `http://localhost/api_proyecto.github.io/api.php?apicall=readtdoc&id`
+        )
+            .then((response) => response.json())
+            .then((doc) => {
+                setDoc(doc.contenido);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    useEffect(() => {
+        fetchDataDoc();
+    }, []);
     const [empresa, setEmpresa] = useState({
         id_e: "",
         Nit_E: "",
@@ -29,7 +48,7 @@ export default function EditarE({ id, onUpdate }) {
 
     const validateField = (fieldName, value) => {
         const regexPatterns = {
-            Nit_E: /^\d{8}-\d{1}$/,
+            Nit_E: /^\d{9}-\d{1}$/,
             Nom_E: /^.{1,100}$/,
             Eml_E: /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
             Nom_Rl: /^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+$/,
@@ -87,6 +106,7 @@ export default function EditarE({ id, onUpdate }) {
                 'COD_SE': empresa.COD_SE,
                 'COD_AE': empresa.COD_AE
             };
+            console.log(datosActualizados);
 
             fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateempresa`, {
                 method: 'POST',
@@ -255,14 +275,19 @@ export default function EditarE({ id, onUpdate }) {
                         <div className='mb-3'>
                             <label htmlFor="ID_DOC" className="col-form-label">Documento representante</label>
                             <div className="input-group mb-3">
-                                <select name="ID_Doc" value={empresa.ID_Doc} onChange={handleInputChange}>
-                                    <option value="1">TI</option>
-                                    <option value="2">CC</option>
-                                    <option value="3">PS</option>
+                                <select name="ID_Doc" value={empresa.ID_Doc} className="form-select w-auto" onChange={handleInputChange}>
+                                    <option selected disabled value="">
+                                        Tipo de documento
+                                    </option>
+                                    {doc.map((item) => (
+                                        <option key={item.ID_Doc} value={item.ID_Doc}>
+                                            {item.N_TDoc}
+                                        </option>
+                                    ))}
                                 </select>
-                                <input type="number" placeholder="Número de documento" name="CC_Rl" value={empresa.CC_Rl} onChange={handleInputChange} onBlur={handleBlur} className={`form-control ${getError("CC_Rl") && "is-invalid"}`} aria-label="Text input with segmented dropdown button" />
-                                <div className="invalid-feedback">Ingrese un número de documento válido</div>
                             </div>
+                            <input type="number" placeholder="Número de documento" name="CC_Rl" value={empresa.CC_Rl} onChange={handleInputChange} onBlur={handleBlur} className={`form-control ${getError("CC_Rl") && "is-invalid"}`} aria-label="Text input with segmented dropdown button" />
+                            <div className="invalid-feedback">Ingrese un número de documento válido</div>
                         </div>
                     </div>
                 </form>

@@ -39,7 +39,7 @@ export default function Conteonov({ startDate, endDate, tipoNovedad }) {
             <p>Novedades ocurridas</p>
             <Treemap
                 width={600}
-                height={400}
+                height={300}
                 data={data}
                 nameKey="name"
                 dataKey="value"
