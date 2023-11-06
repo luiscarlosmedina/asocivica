@@ -40,7 +40,7 @@ export default function Encargados({ id }) {
 
   // Función para validar números de teléfono
   const validatePhone = (phone) => {
-    const phoneRegex = /^\d{7,10}$/;
+    const phoneRegex = /^\d{10}$/;
     return phoneRegex.test(phone);
   };
 

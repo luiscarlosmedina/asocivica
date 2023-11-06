@@ -62,7 +62,7 @@ function BEmple(props) {
         break;
 
       case "tel_em":
-        const telefonoRegex = /^[0-9]{7,15}$/;
+        const telefonoRegex = /^[0-9]{10}$/;
 
         if (!telefonoRegex.test(valorCampo)) {
           nuevosErrores.tel_em =

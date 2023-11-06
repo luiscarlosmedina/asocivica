@@ -53,7 +53,7 @@ export default function EditarE({ id, onUpdate }) {
             Eml_E: /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
             Nom_Rl: /^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+$/,
             CC_Rl: /^(?:[A-Za-z0-9]+|[0-9]{6,10})$/,
-            telefonoGeneral: /^\d{7,10}$/,
+            telefonoGeneral: /^\d{10}$/,
             Val_E: /^(?:[1-9]\d{0,6}|10000000)$/,
             COD_SE: /^\d{1,4}$/,
             COD_AE: /^\d{1,4}$/
