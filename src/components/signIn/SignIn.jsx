@@ -7,6 +7,7 @@ export default function SignIn() {
   const { login, error } = useAuth();
   const [doc, setDoc] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [Error, setError] = useState("");
 
   const handleLogin = async (e) => {
@@ -70,17 +71,28 @@ export default function SignIn() {
             <label htmlFor="pass">Contraseña:</label>
             <input
               placeholder="Contraseña"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               name="password"
               id="pass"
               value={password}
               autoComplete="new-password"
               onChange={(e) => setPassword(e.target.value)}
+              className="form-control"
             />
-            <div className="bg-white my-2">
-              <p className="error-message text-red m-auto px-1">{Error}</p>
-              <p className="error-message text-red m-auto px-1">{error}</p>
+            <div className="input-group-append">
+              <div className="text-white d-flex align-items-center">
+                <input
+                  type="checkbox"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{ margin: '0', padding: '0', width: '20px', height: '20px',}}
+                />
+                <span className="ml-3">Mostrar contraseña</span>
+              </div>
             </div>
+          </div>
+          <div className="bg-white my-2">
+            <p className="error-message text-red m-auto px-1">{Error}</p>
+            <p className="error-message text-red m-auto px-1">{error}</p>
           </div>
           <div className="password-olvidada">
             {/* <a href="#">¿Olvidaste tu contraseña?</a> */}
