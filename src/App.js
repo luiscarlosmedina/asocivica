@@ -2,21 +2,19 @@ import "./style/app.css";
 import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";
 import SignIn from "./components/signIn/SignIn";
-import { AuthProvider, useAuth } from "./autenticate";
+import { useAuth } from "./autenticate";
 
 function App() {
   const { user } = useAuth();
   return (
-    <AuthProvider>
-      <div className="wrapper">
-        <HashRouter>
-          <Routes>
-            <Route path="/*" element={user ? <Dashboard /> : <Navigate to="/login" />} />
-            <Route path="/login" element={user ? <Navigate to="/*" /> : <SignIn />} />
-          </Routes>
-        </HashRouter>
-      </div>
-    </AuthProvider>
+    <div className="wrapper">
+      <HashRouter>
+        <Routes>
+          <Route path="/*" element={user ? <Dashboard /> : <Navigate to="/login" />} />
+          <Route path="/login" element={user ? <Navigate to="/*" /> : <SignIn />} />
+        </Routes>
+      </HashRouter>
+    </div>
   );
 }
 

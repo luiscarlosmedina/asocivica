@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PieChart, Pie, Legend, Tooltip, Cell, ResponsiveContainer } from 'recharts';
-import ColorGenerator from '../Components/colorGenerate';
+import { Tooltip, Treemap } from 'recharts';
 
 export default function Conteonov({ startDate, endDate, tipoNovedad }) {
     const [data, setData] = useState([]);
@@ -35,32 +34,30 @@ export default function Conteonov({ startDate, endDate, tipoNovedad }) {
             });
     };
 
-    const count = data.length; // Puedes ajustar la cantidad de colores que deseas
-    const COLORS = ColorGenerator({ count });
-
     return (
         <div className='border border-1 col-md-6'>
             <p>Novedades ocurridas</p>
-            <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                    <Pie
-                        data={data}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        label
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
-                    >
-                        {data.map((item, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                    </Pie>
-                    <Tooltip />
-                    <Legend />
-                </PieChart>
-            </ResponsiveContainer>
+            <Treemap
+                width={600}
+                height={300}
+                data={data}
+                nameKey="name"
+                dataKey="value"
+            >
+                <Tooltip
+                    content={({ payload }) => {
+                        if (payload[0]) {
+                            const { name, value } = payload[0].payload;
+                            return (
+                                <div className="custom-tooltip text-black bg-white border border-1 py-1 px-3">
+                                    <p>{name} : {value}</p>
+                                </div>
+                            );
+                        }
+                        return null;
+                    }}
+                />
+            </Treemap>
         </div>
     );
 }

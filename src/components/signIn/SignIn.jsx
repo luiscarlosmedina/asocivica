@@ -34,8 +34,7 @@ export default function SignIn() {
       setError("");
     }
     // Si ambas validaciones pasan, puedes proceder a realizar el inicio de sesión.
-    login(doc, password);
-
+    await login(doc, password);
     //configura errores del api
     if (error) {
       setError(error);
@@ -57,21 +56,23 @@ export default function SignIn() {
             <img src={Logo} alt="logo-asocivica" />
           </div>
           <div className="input">
-            <label>Usuario:</label>
+            <label htmlFor="use">Usuario:</label>
             <input
               placeholder="123456789"
               type="number"
-              name="ID_Em"
+              name="doumento"
+              id="use"
               value={doc}
               onChange={(e) => setDoc(e.target.value)}
             />
           </div>
           <div className="input">
-            <label>Contraseña:</label>
+            <label htmlFor="pass">Contraseña:</label>
             <input
               placeholder="Contraseña"
               type="password"
               name="password"
+              id="pass"
               value={password}
               autoComplete="new-password"
               onChange={(e) => setPassword(e.target.value)}

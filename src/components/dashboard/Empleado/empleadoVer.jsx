@@ -33,7 +33,6 @@ export default function EmpleadoVer({ dataUpdated }) {
       .then((response) => response.json())
       .then((data) => {
         setData(data.contenido);
-        console.log(data);
         setLoading(false);
       })
       .catch((error) => {

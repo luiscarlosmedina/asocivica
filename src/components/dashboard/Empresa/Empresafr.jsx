@@ -83,9 +83,9 @@ function Empresafr({ nit, est, resetForm}) {
     const validateEncargadoField = (sedeIndex, encargadoIndex, fieldName, value) => {
         const regexPatterns = {
             N_En: /^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+$/,
-            tel1: /^\d{7,10}$/,
-            tel2: /^\d{7,10}$/,
-            tel3: /^\d{7,10}$/,
+            tel1: /^\d{10}$/,
+            tel2: /^\d{10}$/,
+            tel3: /^\d{10}$/,
         };
 
         const errorsCopy = { ...errors };
@@ -132,7 +132,7 @@ function Empresafr({ nit, est, resetForm}) {
             Eml_E: /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, // Validacion para el campo Eml_E (correo electrónico)
             Nom_Rl: /^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+$/, //solo texto
             CC_Rl: /^(?:[A-Za-z0-9]+|[0-9]{6,10})$/, //formato para numero cc colombiana o pasaporte
-            telefonoGeneral: /^\d{7,10}$/, // 7 a 10 numeros 
+            telefonoGeneral: /^\d{10}$/, // 7 a 10 numeros 
             Val_E: /^(?:[1-9]\d{0,6}|10000000)$/, //maximo de 10 000 000
             COD_SE: /^\d{1,4}$/, //maximo 4 digitos 
             COD_AE: /^\d{1,4}$/, //maximo 4 digitos 
@@ -282,17 +282,17 @@ function Empresafr({ nit, est, resetForm}) {
     };
 
     //agrega array de sede a empresa
-    const handleAddSede = () => {
-        const updatedSedes = [...empresa.sedes, { Dic_S: "", Sec_V: "", encargados: [{ N_En: "", tel1: "", tel2: "", tel3: "", Est_en: "0" }] }];
-        setEmpresa({ ...empresa, sedes: updatedSedes });
-    };
+    // const handleAddSede = () => {
+    //     const updatedSedes = [...empresa.sedes, { Dic_S: "", Sec_V: "", encargados: [{ N_En: "", tel1: "", tel2: "", tel3: "", Est_en: "0" }] }];
+    //     setEmpresa({ ...empresa, sedes: updatedSedes });
+    // };
 
-    //agrega encargados a sede
-    const handleAddEncargado = (sedeIndex) => {
-        const updatedSedes = [...empresa.sedes];
-        updatedSedes[sedeIndex].encargados.push({ N_En: "", tel1: "", tel2: "", tel3: "", Est_en: "0" });
-        setEmpresa({ ...empresa, sedes: updatedSedes });
-    };
+    // //agrega encargados a sede
+    // const handleAddEncargado = (sedeIndex) => {
+    //     const updatedSedes = [...empresa.sedes];
+    //     updatedSedes[sedeIndex].encargados.push({ N_En: "", tel1: "", tel2: "", tel3: "", Est_en: "0" });
+    //     setEmpresa({ ...empresa, sedes: updatedSedes });
+    // };
     const getError = (fieldName) => {
         return errors[fieldName] || "";
     };
@@ -595,14 +595,14 @@ function Empresafr({ nit, est, resetForm}) {
                                     </div>
                                 </div>
                             ))}
-                            <button type="button" className="btn btn-link text-warning" onClick={() => handleAddEncargado(index)}>
+                            {/* <button type="button" className="btn btn-link text-warning" onClick={() => handleAddEncargado(index)}>
                                 Agregar Encargado
-                            </button>
+                            </button> */}
                         </div>
                     ))}
-                    <button type="button" className="btn btn-link text-warning" onClick={handleAddSede}>
+                    {/* <button type="button" className="btn btn-link text-warning" onClick={handleAddSede}>
                         Agregar Sede
-                    </button>
+                    </button> */}
                 </div>
                 <div className='d-grid gap-2'>
                     <button type="submit" className="btn btn-primary">
