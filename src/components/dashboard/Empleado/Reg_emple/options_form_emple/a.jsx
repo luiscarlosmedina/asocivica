@@ -26,6 +26,7 @@ function AEmple(props) {
     });
   };
 
+  
   const VerContraseña = () => {
     setMostrarContraseña(!mostrarContraseña);
   };
@@ -95,8 +96,7 @@ function AEmple(props) {
           nuevosErrores.eml_em = "Ingrese una dirección de correo válida";
         } else {
           delete nuevosErrores.eml_em;
-        
-
+      
         }
         break;
 

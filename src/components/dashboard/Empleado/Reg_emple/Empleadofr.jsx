@@ -17,6 +17,7 @@ function Empleadofr() {
     const [pasos, setPasos] = useState({
       paso: 0,
     });
+  
 
    //-----------------------------------------------------------------------------------------------------
    //Variable de estado para almacenar el objeto del formulario Empleado
@@ -80,6 +81,8 @@ function Empleadofr() {
 
   
 
+  
+
 //-----------------------------------------------------------------------------------------------------
    //Iniciacion de componente 
   let componenteActual;
@@ -90,7 +93,8 @@ function Empleadofr() {
       componenteActual = (
         <div className="m-b">
             <Textemple/>
-            <Botones/>
+            <Botones
+              pasoicon={pasos.paso}/>
             <AEmple
               handleInputChange={handleInputChange}
               siguientePaso={siguientePaso}
@@ -105,7 +109,8 @@ function Empleadofr() {
       componenteActual = (
         <div className="m-b">
            <Textemple/>
-            <Botones/>
+            <Botones
+             pasoicon={pasos.paso}/>
             <BEmple
               handleInputChange={handleInputChange}
               valores={empleadoData}
@@ -121,7 +126,8 @@ function Empleadofr() {
 
         <div className="m-b"> 
            <Textemple/>
-            <Botones/>
+            <Botones
+            pasoicon={pasos.paso}/>
             <CEmple
               handleInputChange={handleInputChange}
               siguientePaso={siguientePaso}
@@ -135,7 +141,8 @@ function Empleadofr() {
       componenteActual = (
         <div className="m-b">
             <Textemple/>
-            <Botones/>
+            <Botones
+            pasoicon={pasos.paso}/>
             <DEmple
               handleInputChange={handleInputChange}
               siguientePaso={siguientePaso}
@@ -149,7 +156,8 @@ function Empleadofr() {
       componenteActual = (
         <div className="m-b">
             <Textemple/>
-            <Botones/>
+            <Botones
+            pasoicon={pasos.paso}/>
             <EEmple
               handleInputChange={handleInputChange}
               siguientePaso={siguientePaso}
