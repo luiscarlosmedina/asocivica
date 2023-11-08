@@ -1,3 +1,13 @@
+/* Estilos por defecto para el elemento .uno */
 .uno {
     background-color: var(--azul);
-}
+  }
+  
+  /* Media query para dispositivos con un ancho máximo de 767px (dispositivos móviles) */
+  @media (max-width: 767px) {
+    .uno {
+      overflow-y: auto; /* Agrega una barra de desplazamiento vertical automáticamente */
+      max-height: 100vh; /* Establece la altura máxima al 80% del alto de la pantalla */
+    }
+  }
+  
