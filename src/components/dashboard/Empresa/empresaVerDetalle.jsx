@@ -86,8 +86,8 @@ export default function EmpresaVerDetalle() {
           </div>
           {/*fin de modal editar empresa*/}
           <hr className='pb-3' />
-          <div className='d-flex justify-content-around my-4'>
-            <div>
+          <div className=' row'>
+            <div className='col-md-4 m-auto'>
               <div className="input-group mb-2 align-items-center">
                 <span className="input-group-text bg-transparent" id="inputGroup-sizing-default"><i className="bi bi-buildings-fill text-primary"></i></span>
                 <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.Nom_E} />
@@ -109,7 +109,7 @@ export default function EmpresaVerDetalle() {
                 <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.Nom_Rl !== "" ? empresa.Nom_Rl : "No registra"} />
               </div>
             </div>
-            <div>
+            <div className='col-md-4 m-auto'>
               <div className="input-group mb-2 align-items-center">
                 <span className="input-group-text text-primary bg-transparent" id="inputGroup-sizing-default">NIT</span>
                 <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.Nit_E !== "" ? empresa.Nit_E : "No registra"} />
