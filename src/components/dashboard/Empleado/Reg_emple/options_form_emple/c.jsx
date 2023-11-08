@@ -124,7 +124,7 @@ function CEmple(props) {
   return (
     <section className="secundary-box">
       <div className="container">
-        <form className="box-main">
+        <div className="box-main">
           <div className="box-main2">
             <div>
               <label className="form-label">Tipo de libreta militar</label>
@@ -311,7 +311,7 @@ function CEmple(props) {
             </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </section>
   );

@@ -39,7 +39,7 @@ function Empleadofr() {
       id_arl: "",
       id_ces: "",
       id_rh: "",
-      estado: "",
+      estado: "0",
       n_coe: "",
       csag: "",
       t_cem: "",
@@ -79,9 +79,6 @@ function Empleadofr() {
       }));
     };
 
-  
-
-  
 
 //-----------------------------------------------------------------------------------------------------
    //Iniciacion de componente 

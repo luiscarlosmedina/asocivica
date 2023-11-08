@@ -35,14 +35,7 @@ function AEmple(props) {
     const nuevosErrores = { ...errores };
 
     switch (nombreCampo) {
-      case "estado":
-        if (valorCampo !== "0" ) {
-          nuevosErrores.estado = "Por favor, seleccione un estado válido";
-        } else {
-          delete nuevosErrores.estado;
-        
-        }
-        break;
+     
 
       case "id_rol":
         if (
@@ -134,60 +127,11 @@ function AEmple(props) {
       <div className="container">
         <div className="box-main">
           <div className="box-main2">
-            <div >
-              <label className="form-label">Estado</label>
-              <select
-                type="Number"
-                name="estado"
-                className={`form-control ${
-                  errores.estado
-                    ? "is-invalid"
-                    : valores.estado
-                    ? "is-valid"
-                    : ""
-                }`}
-                id="estado"
-                onChange={(e) => {
-                  handleInputChange(e);
-                  validarCampo("estado", e.target.value);
-                }}
-                value={valores.estado}
-              >
-                <option value="">Seleccione un estado</option>
-                <option value="0">Activo</option>
-              </select>
-              <div className="invalid-feedback">{errores.estado}</div>
-            </div>
-            <div >
-              <label  className="form-label">
-                Rol
-              </label>
-              <select
-                type="number"
-                name="id_rol"
-                className={`form-control ${
-                  errores.id_rol
-                    ? "is-invalid"
-                    : valores.id_rol
-                    ? "is-valid"
-                    : ""
-                }`}
-                id="id_rol"
-                onChange={(e) => {
-                  handleInputChange(e);
-                  validarCampo("id_rol", e.target.value);
-                }}
-                value={valores.id_rol}
-              >
-                <option value="">seleccione un Rol</option>
-                <option value="1">Administrador</option>
-                <option value="2">Radio operador</option>
-                <option value="3">Motorizado</option>
-                <option value="4">Empresa</option>
-              </select>
+            
+        
 
-              <div className="invalid-feedback">{errores.id_rol}</div>
-            </div>
+          
+          
             <div>
               <label className="form-label">Nombres</label>
               <input
@@ -224,6 +168,58 @@ function AEmple(props) {
 
               <div className="invalid-feedback">{errores.a_em}</div>
             </div>
+            
+            <div>
+              <label className="form-label">Tipo de Documento</label>
+              <select
+                type="Number"
+                name="id_doc"
+                className={`form-control ${
+                  errores.id_doc
+                    ? "is-invalid"
+                    : valores.id_doc
+                    ? "is-valid"
+                    : ""
+                }`}
+                onChange={(e) => {
+                  handleInputChange(e);
+                  validarCampo("id_doc", e.target.value);
+                }}
+                value={valores.id_doc}
+              >
+                <option value="">seleccione un tipo de documento </option>
+                <option value="1">Tarjeta de Identidad</option>
+                <option value="2">Cédula de Ciudadanía</option>
+                <option value="3">Tarjeta de Extranjería</option>
+                <option value="4">Cédula de Extranjería</option>
+                <option value="5">Pasaporte</option>
+                <option value="6">Nit</option>
+              </select>
+              <div className="invalid-feedback">{errores.id_doc}</div>
+            </div>
+            <div>
+              <label className="form-label">Numero de Documento</label>
+              <input
+                type="Number"
+                name="documento"
+                className={`form-control ${
+                  errores.documento
+                    ? "is-invalid"
+                    : valores.documento
+                    ? "is-valid"
+                    : ""
+                }`}
+                onChange={(e) => {
+                  handleInputChange(e);
+                  validarCampo("documento", e.target.value);
+                }}
+                value={valores.documento}
+              />
+              <div className="invalid-feedback">{errores.documento}</div>
+            </div>
+
+
+
 
             <div className="mb-3">
               <label className="form-label">Correo electronico</label>
@@ -247,6 +243,7 @@ function AEmple(props) {
 
               <div className="invalid-feedback">{errores.eml_em}</div>
             </div>
+            
             <div className="mb-3">
               <label className="form-label">
                 Contraseña

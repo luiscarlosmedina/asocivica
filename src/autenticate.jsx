@@ -5,7 +5,7 @@ const AuthContext = createContext({
     error: null,
 });
 export function AuthProvider({ children }) {
-    const [user, setUsuario] = useState(false);
+    const [user, setUsuario] = useState(true);
     const [error, setError] = useState(null)
 
     const login = async (doc, password) => {
