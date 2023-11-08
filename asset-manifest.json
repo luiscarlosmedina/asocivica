@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/asocivica/static/css/main.a5a71f8a.css",
-    "main.js": "/asocivica/static/js/main.9a5ac084.js",
+    "main.js": "/asocivica/static/js/main.b587a3e8.js",
     "static/js/787.f3c98735.chunk.js": "/asocivica/static/js/787.f3c98735.chunk.js",
     "static/media/bner2.png": "/asocivica/static/media/bner2.82ac4d350bf25bb4b191.png",
     "static/media/user.jpg": "/asocivica/static/media/user.8c6cc66d5821565caf21.jpg",
@@ -12,11 +12,11 @@
     "static/media/bner1.jpg": "/asocivica/static/media/bner1.286b44efed26fe4be720.jpg",
     "index.html": "/asocivica/index.html",
     "main.a5a71f8a.css.map": "/asocivica/static/css/main.a5a71f8a.css.map",
-    "main.9a5ac084.js.map": "/asocivica/static/js/main.9a5ac084.js.map",
+    "main.b587a3e8.js.map": "/asocivica/static/js/main.b587a3e8.js.map",
     "787.f3c98735.chunk.js.map": "/asocivica/static/js/787.f3c98735.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a5a71f8a.css",
-    "static/js/main.9a5ac084.js"
+    "static/js/main.b587a3e8.js"
   ]
 }
