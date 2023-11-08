@@ -33,15 +33,12 @@ function Fin(props) {
                         })
                         .then(data => {
                             console.log('Respuesta del servidor:', data);
-                            // Puedes manejar la respuesta del servidor aquí
-                            // Podrías notificar al usuario sobre el éxito, por ejemplo, mediante un mensaje de alerta
                             swal("Poof! Su informacion fue guardada con exito", {
                                 icon: "success",
 
                             });
                         }).catch(error => {
                             console.error('Error al enviar datos:', error);
-                            // Podrías notificar al usuario sobre el error, por ejemplo, mediante un mensaje de alerta
                             swal("¡Error!", "Hubo un problema al enviar los datos. Inténtalo de nuevo.", "error");
                             
                         });
@@ -55,7 +52,6 @@ function Fin(props) {
 
     return (
         <div>
-            {/* Contenido adicional de la página */}
         </div>
     );
 }

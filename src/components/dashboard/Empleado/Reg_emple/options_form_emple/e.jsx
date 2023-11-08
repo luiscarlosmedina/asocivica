@@ -25,12 +25,10 @@ function EEmple(props) {
         } else {
           delete nuevosErrores.f_em;
         }
-
         break;
-      
 
       default:
-        // No se realiza ninguna validación para otros campos
+
         break;
     }
 
@@ -39,14 +37,14 @@ function EEmple(props) {
   return (
     <section className="secundary-box">
       <div className="container">
-        <form className="box-main">
+        <div className="box-main">
           <div className="box-main2">
             <div>
               <label for="validationDefault02" className="form-label">
-                Link Tipo de contrato
+                Contrato
               </label>
               <input
-                type="text"
+                type="file"
                 name="contrato"
                 className={`form-control ${
                   errores.contrato ? "is-invalid" : valores.contrato ? "is-valid" : ""
@@ -61,15 +59,14 @@ function EEmple(props) {
             </div>
             <div>
               <label for="validationDefault02" className="form-label">
-                Link Foto
+                Foto
               </label>
               <input
-                type="text"
+                type="file"
                 name="f_em"
                 className={`form-control ${
                   errores.f_em ? "is-invalid" : valores.f_em ? "is-valid" : ""
                 }`}
-                //aria-label="file example"
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("f_em", e.target.value);
@@ -99,7 +96,7 @@ function EEmple(props) {
             </div>
           </div>
           </div>
-        </form>
+        </div>
       </div>
     </section>
   );

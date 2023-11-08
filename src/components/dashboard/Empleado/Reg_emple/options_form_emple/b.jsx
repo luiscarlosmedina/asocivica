@@ -9,6 +9,8 @@ function BEmple(props) {
     const nuevosErrores = { ...errores };
 
     switch (nombreCampo) {
+
+
       case "id_doc":
         if (
           valorCampo !== "1" &&
@@ -103,54 +105,40 @@ function BEmple(props) {
       <div className="container">
         <div className="box-main">
           <div className="box-main2">
-            <div>
-              <label className="form-label">Tipo de Documento</label>
+          <div >
+              <label  className="form-label">
+                Rol
+              </label>
               <select
-                type="Number"
-                name="id_doc"
+                type="number"
+                name="id_rol"
                 className={`form-control ${
-                  errores.id_doc
+                  errores.id_rol
                     ? "is-invalid"
-                    : valores.id_doc
+                    : valores.id_rol
                     ? "is-valid"
                     : ""
                 }`}
+                id="id_rol"
                 onChange={(e) => {
                   handleInputChange(e);
-                  validarCampo("id_doc", e.target.value);
+                  validarCampo("id_rol", e.target.value);
                 }}
-                value={valores.id_doc}
+                value={valores.id_rol}
               >
-                <option value="">seleccione un tipo de documento </option>
-                <option value="1">Tarjeta de Identidad</option>
-                <option value="2">Cédula de Ciudadanía</option>
-                <option value="3">Tarjeta de Extranjería</option>
-                <option value="4">Cédula de Extranjería</option>
-                <option value="5">Pasaporte</option>
-                <option value="6">Nit</option>
+                <option value="">seleccione un Rol</option>
+                <option value="1">Administrador</option>
+                <option value="2">Radio operador</option>
+                <option value="3">Motorizado</option>
+                <option value="4">Empresa</option>
               </select>
-              <div className="invalid-feedback">{errores.id_doc}</div>
+
+              <div className="invalid-feedback">{errores.id_rol}</div>
             </div>
-            <div>
-              <label className="form-label">Numero de Documento</label>
-              <input
-                type="Number"
-                name="documento"
-                className={`form-control ${
-                  errores.documento
-                    ? "is-invalid"
-                    : valores.documento
-                    ? "is-valid"
-                    : ""
-                }`}
-                onChange={(e) => {
-                  handleInputChange(e);
-                  validarCampo("documento", e.target.value);
-                }}
-                value={valores.documento}
-              />
-              <div className="invalid-feedback">{errores.documento}</div>
-            </div>
+
+
+
+
             <div>
               <label className="form-label">Barrio y localidad</label>
               <input
@@ -212,7 +200,7 @@ function BEmple(props) {
               <div className="invalid-feedback">{errores.tel_em}</div>
             </div>
             <div className="">
-              <label className="form-label">rh</label>
+              <label className="form-label">Grupo sanguineo</label>
               <select
                 type="Number"
                 name="id_rh"

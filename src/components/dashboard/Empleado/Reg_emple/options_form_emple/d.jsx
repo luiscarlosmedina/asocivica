@@ -45,7 +45,7 @@ function DEmple(props) {
   return (
     <section className="secundary-box">
       <div className="container">
-        <form className="box-main">
+        <div className="box-main">
           <div className="box-main2">
             <div className="box1">
               <label className="form-label">Nombre</label>
@@ -107,7 +107,7 @@ function DEmple(props) {
             </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </section>
   );
