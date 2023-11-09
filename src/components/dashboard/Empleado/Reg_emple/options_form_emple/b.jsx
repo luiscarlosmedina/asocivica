@@ -10,34 +10,14 @@ function BEmple(props) {
 
     switch (nombreCampo) {
 
-
-      case "id_doc":
-        if (
-          valorCampo !== "1" &&
-          valorCampo !== "2" &&
-          valorCampo !== "3" &&
-          valorCampo !== "4" &&
-          valorCampo !== "5" &&
-          valorCampo !== "6"
-        ) {
-          nuevosErrores.id_doc =
-            "Por favor, seleccione un tipo de documento válido";
+      case "estado":
+        if (valorCampo !== "0" ) {
+          nuevosErrores.estado = "Por favor, seleccione un estado válido";
         } else {
-          delete nuevosErrores.id_doc;
+          delete nuevosErrores.estado;
         }
         break;
-
-      case "documento":
-        if (!valorCampo.trim()) {
-          nuevosErrores.documento =
-            "Por favor, este campo no puede estar vacío";
-        } else if (valorCampo.length < 2 || valorCampo.length > 14) {
-          nuevosErrores.documento =
-            "El campo debe tener entre 2 y 14 caracteres";
-        } else {
-          delete nuevosErrores.documento;
-        }
-        break;
+      
 
       case "barloc_em":
         if (!valorCampo.trim()) {
@@ -105,6 +85,36 @@ function BEmple(props) {
       <div className="container">
         <div className="box-main">
           <div className="box-main2">
+
+          <div>
+              <label className="form-label">Estado</label>
+              <select
+                type="Number"
+                name="estado"
+                className={`form-control ${
+                  errores.estado
+                    ? "is-invalid"
+                    : valores.estado
+                    ? "is-valid"
+                    : ""
+                }`}
+                id="estado"
+                onChange={(e) => {
+                  handleInputChange(e);
+                  validarCampo("estado", e.target.value);
+                }}
+                value={valores.estado}
+              >
+                <option value="0">Activo</option>
+              </select>
+              <div className="invalid-feedback">{errores.estado}</div>
+            </div>
+
+
+
+
+
+
           <div >
               <label  className="form-label">
                 Rol

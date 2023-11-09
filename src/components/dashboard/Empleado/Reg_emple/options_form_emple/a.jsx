@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import swal from 'sweetalert';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 
 function AEmple(props) {
@@ -10,6 +10,17 @@ function AEmple(props) {
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
 
 
+  const validar_Exis = () => {
+    const elementosDocumento = document.getElementsByName("documento");
+  
+    if (elementosDocumento.length > 0) {
+      const id_emple = elementosDocumento[0].value;
+      console.log(id_emple);
+      // Resto de tu lógica aquí
+    } else {
+      console.error("No se encontró ningún elemento con el nombre 'documento'");
+    }
+  };
 
   const cancelar = () => {
     swal({
@@ -19,14 +30,14 @@ function AEmple(props) {
       buttons: ["Cancelar", "Sí, salir"],
       dangerMode: true,
     })
-    .then((willCancel) => {
-      if (willCancel) {
-        navigate("/inicio");
-      }
-    });
+      .then((willCancel) => {
+        if (willCancel) {
+          navigate("/inicio");
+        }
+      });
   };
 
-  
+
   const VerContraseña = () => {
     setMostrarContraseña(!mostrarContraseña);
   };
@@ -35,7 +46,35 @@ function AEmple(props) {
     const nuevosErrores = { ...errores };
 
     switch (nombreCampo) {
-     
+
+      case "documento":
+        if (!valorCampo.trim()) {
+          nuevosErrores.documento =
+            "Por favor, este campo no puede estar vacío";
+        } else if (valorCampo.length < 2 || valorCampo.length > 14) {
+          nuevosErrores.documento =
+            "El campo debe tener entre 2 y 14 caracteres";
+        } else {
+          delete nuevosErrores.documento;
+        }
+        break;
+
+      case "id_doc":
+
+        if (
+          valorCampo !== "1" &&
+          valorCampo !== "2" &&
+          valorCampo !== "3" &&
+          valorCampo !== "4" &&
+          valorCampo !== "5" &&
+          valorCampo !== "6"
+        ) {
+          nuevosErrores.id_doc =
+            "Por favor, seleccione un tipo de documento válido";
+        } else {
+          delete nuevosErrores.id_doc;
+        }
+        break;
 
       case "id_rol":
         if (
@@ -47,9 +86,8 @@ function AEmple(props) {
           nuevosErrores.id_rol = "Por favor, seleccione un rol válido";
         } else {
           delete nuevosErrores.id_rol;
-        
-        }
 
+        }
         break;
 
       case "n_em":
@@ -61,7 +99,7 @@ function AEmple(props) {
           nuevosErrores.n_em = "Ingrese solo letras y espacios en blanco";
         } else {
           delete nuevosErrores.n_em;
-          
+
         }
         break;
 
@@ -74,7 +112,7 @@ function AEmple(props) {
           nuevosErrores.a_em = "Ingrese solo letras y espacios en blanco";
         } else {
           delete nuevosErrores.a_em;
-        
+
         }
         break;
 
@@ -89,7 +127,7 @@ function AEmple(props) {
           nuevosErrores.eml_em = "Ingrese una dirección de correo válida";
         } else {
           delete nuevosErrores.eml_em;
-      
+
         }
         break;
 
@@ -111,7 +149,7 @@ function AEmple(props) {
             "La contraseña debe incluir al menos una mayúscula, una minúscula, un número y un carácter especial";
         } else {
           delete nuevosErrores.passw;
-          
+
         }
         break;
 
@@ -127,60 +165,41 @@ function AEmple(props) {
       <div className="container">
         <div className="box-main">
           <div className="box-main2">
-            
-        
 
-          
-          
+
+
             <div>
-              <label className="form-label">Nombres</label>
+              <label className="form-label">Numero de Documento</label>
               <input
-                type="text"
-                name="n_em"
-                className={`form-control ${
-                  errores.n_em ? "is-invalid" : valores.n_em ? "is-valid" : ""
-                }`}
-                id="n_em"
+                type="Number"
+                name="documento"
+                className={`form-control ${errores.documento
+                    ? "is-invalid"
+                    : valores.documento
+                      ? "is-valid"
+                      : ""
+                  }`}
                 onChange={(e) => {
                   handleInputChange(e);
-                  validarCampo("n_em", e.target.value);
+                  validarCampo("documento", e.target.value);
                 }}
-                value={valores.n_em}
+                value={valores.documento}
               />
-
-              <div className="invalid-feedback">{errores.n_em}</div>
+              <div className="invalid-feedback">{errores.documento}</div>
             </div>
-            <div>
-              <label className="form-label">Apellidos</label>
-              <input
-                type="text"
-                name="a_em"
-                className={`form-control ${
-                  errores.a_em ? "is-invalid" : valores.a_em ? "is-valid" : ""
-                }`}
-                id="a_em"
-                onChange={(e) => {
-                  handleInputChange(e);
-                  validarCampo("a_em", e.target.value);
-                }}
-                value={valores.a_em}
-              />
 
-              <div className="invalid-feedback">{errores.a_em}</div>
-            </div>
-            
+
             <div>
               <label className="form-label">Tipo de Documento</label>
               <select
                 type="Number"
                 name="id_doc"
-                className={`form-control ${
-                  errores.id_doc
+                className={`form-control ${errores.id_doc
                     ? "is-invalid"
                     : valores.id_doc
-                    ? "is-valid"
-                    : ""
-                }`}
+                      ? "is-valid"
+                      : ""
+                  }`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("id_doc", e.target.value);
@@ -197,26 +216,43 @@ function AEmple(props) {
               </select>
               <div className="invalid-feedback">{errores.id_doc}</div>
             </div>
+
             <div>
-              <label className="form-label">Numero de Documento</label>
+              <label className="form-label">Nombres</label>
               <input
-                type="Number"
-                name="documento"
-                className={`form-control ${
-                  errores.documento
-                    ? "is-invalid"
-                    : valores.documento
-                    ? "is-valid"
-                    : ""
-                }`}
+                type="text"
+                name="n_em"
+                className={`form-control ${errores.n_em ? "is-invalid" : valores.n_em ? "is-valid" : ""
+                  }`}
+                id="n_em"
                 onChange={(e) => {
                   handleInputChange(e);
-                  validarCampo("documento", e.target.value);
+                  validarCampo("n_em", e.target.value);
                 }}
-                value={valores.documento}
+                value={valores.n_em}
               />
-              <div className="invalid-feedback">{errores.documento}</div>
+
+              <div className="invalid-feedback">{errores.n_em}</div>
             </div>
+            <div>
+              <label className="form-label">Apellidos</label>
+              <input
+                type="text"
+                name="a_em"
+                className={`form-control ${errores.a_em ? "is-invalid" : valores.a_em ? "is-valid" : ""
+                  }`}
+                id="a_em"
+                onChange={(e) => {
+                  handleInputChange(e);
+                  validarCampo("a_em", e.target.value);
+                }}
+                value={valores.a_em}
+              />
+
+              <div className="invalid-feedback">{errores.a_em}</div>
+            </div>
+
+
 
 
 
@@ -226,13 +262,12 @@ function AEmple(props) {
               <input
                 type="email"
                 name="eml_em"
-                className={`form-control ${
-                  errores.eml_em
+                className={`form-control ${errores.eml_em
                     ? "is-invalid"
                     : valores.eml_em
-                    ? "is-valid"
-                    : ""
-                }`}
+                      ? "is-valid"
+                      : ""
+                  }`}
                 id="eml_em"
                 onChange={(e) => {
                   handleInputChange(e);
@@ -243,7 +278,7 @@ function AEmple(props) {
 
               <div className="invalid-feedback">{errores.eml_em}</div>
             </div>
-            
+
             <div className="mb-3">
               <label className="form-label">
                 Contraseña
@@ -252,9 +287,8 @@ function AEmple(props) {
                 type={mostrarContraseña ? "text" : "password"}
                 name="passw"
                 id="passw"
-                className={`form-control  type="text" ${
-                  errores.passw ? "is-invalid" : valores.passw ? "is-valid" : ""
-                }`}
+                className={`form-control  type="text" ${errores.passw ? "is-invalid" : valores.passw ? "is-valid" : ""
+                  }`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("passw", e.target.value);
@@ -284,21 +318,20 @@ function AEmple(props) {
               <div className="float-end">
                 <button
                   className="btnf btn btn-primary"
-                 onClick={siguientePaso}
+                  onClick={() => {siguientePaso(); validar_Exis();}}
                 >
                   Siguiente
                 </button>
               </div>
 
               <div className="float-start ">
-              <button
-                className="btnf btn btn-primary"
-                onClick={() => {
-                  cancelar(); 
-                }}
-              >
-                cancelar
-              </button>
+                <button
+                  className="btnf btn btn-primary"
+                  onClick={() => {cancelar();}}
+                  
+                >
+                  cancelar
+                </button>
               </div>
             </div>
           </div>
