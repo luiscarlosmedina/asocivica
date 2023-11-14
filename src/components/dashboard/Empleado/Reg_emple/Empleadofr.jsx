@@ -13,6 +13,8 @@ import Validador from "./options_form_emple/validadorempleado";
 
 function Empleadofr() {
 
+
+
   //-----------------------------------------------------------------------------------------------------
    //Variable de estado para almacenar los pasos del Formulario multi-progeso
     const [pasos, setPasos] = useState({

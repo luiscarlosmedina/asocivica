@@ -160,5 +160,6 @@ input[type="text"] {
 
 .blockquote .title_validacion{
     margin-bottom: 2rem;
+    margin-top: 1rem;
     font-size: 1.25rem;
 }
