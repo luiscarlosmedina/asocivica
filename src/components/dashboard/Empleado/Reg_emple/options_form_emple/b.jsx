@@ -10,15 +10,19 @@ function BEmple(props) {
 
     switch (nombreCampo) {
 
-      case "estado":
-        if (valorCampo !== "0" ) {
-          nuevosErrores.estado = "Por favor, seleccione un estado válido";
+      case "id_rol":
+        if (
+          valorCampo !== "1" &&
+          valorCampo !== "2" &&
+          valorCampo !== "3" &&
+          valorCampo !== "4"
+        ) {
+          nuevosErrores.id_rol = "Por favor, seleccione un rol válido";
         } else {
-          delete nuevosErrores.estado;
+          delete nuevosErrores.id_rol;
+
         }
         break;
-      
-
       case "barloc_em":
         if (!valorCampo.trim()) {
           nuevosErrores.barloc_em =
@@ -85,36 +89,6 @@ function BEmple(props) {
       <div className="container">
         <div className="box-main">
           <div className="box-main2">
-
-          <div>
-              <label className="form-label">Estado</label>
-              <select
-                type="Number"
-                name="estado"
-                className={`form-control ${
-                  errores.estado
-                    ? "is-invalid"
-                    : valores.estado
-                    ? "is-valid"
-                    : ""
-                }`}
-                id="estado"
-                onChange={(e) => {
-                  handleInputChange(e);
-                  validarCampo("estado", e.target.value);
-                }}
-                value={valores.estado}
-              >
-                <option value="0">Activo</option>
-              </select>
-              <div className="invalid-feedback">{errores.estado}</div>
-            </div>
-
-
-
-
-
-
           <div >
               <label  className="form-label">
                 Rol
@@ -145,9 +119,6 @@ function BEmple(props) {
 
               <div className="invalid-feedback">{errores.id_rol}</div>
             </div>
-
-
-
 
             <div>
               <label className="form-label">Barrio y localidad</label>

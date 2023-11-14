@@ -44,7 +44,7 @@ function EEmple(props) {
                 Contrato
               </label>
               <input
-                type="file"
+                type="text"
                 name="contrato"
                 className={`form-control ${
                   errores.contrato ? "is-invalid" : valores.contrato ? "is-valid" : ""
@@ -62,7 +62,7 @@ function EEmple(props) {
                 Foto
               </label>
               <input
-                type="file"
+                type="text"
                 name="f_em"
                 className={`form-control ${
                   errores.f_em ? "is-invalid" : valores.f_em ? "is-valid" : ""
@@ -103,3 +103,4 @@ function EEmple(props) {
 }
 
 export default EEmple;
+

@@ -149,11 +149,16 @@ input[type="text"] {
     margin-top: 0;
     margin-bottom: 1rem;
     font-size: 15px;
-}
+}   
 
 .segun .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
+}
+
+.blockquote .title_validacion{
+    margin-bottom: 2rem;
+    font-size: 1.25rem;
 }

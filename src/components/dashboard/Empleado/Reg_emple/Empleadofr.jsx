@@ -6,8 +6,9 @@ import BEmple from "./options_form_emple/b";
 import CEmple from "./options_form_emple/c";
 import DEmple from "./options_form_emple/d";
 import EEmple from "./options_form_emple/e";
-import Fin from "./fin";
-import Textemple from "./textemple";
+import Fin from "./options_form_emple/fin";
+import Validador from "./options_form_emple/validadorempleado";
+
 
 
 function Empleadofr() {
@@ -18,7 +19,6 @@ function Empleadofr() {
       paso: 0,
     });
   
-
    //-----------------------------------------------------------------------------------------------------
    //Variable de estado para almacenar el objeto del formulario Empleado
     const [empleadoData, setEmpleados] = useState({
@@ -79,7 +79,6 @@ function Empleadofr() {
       }));
     };
 
-
 //-----------------------------------------------------------------------------------------------------
    //Iniciacion de componente 
   let componenteActual;
@@ -89,7 +88,23 @@ function Empleadofr() {
     case 0:
       componenteActual = (
         <div className="m-b">
-            <Textemple/>
+            <Botones
+              pasoicon={pasos.paso}/>
+            <Validador
+              handleInputChange={handleInputChange}
+              siguientePaso={siguientePaso}
+              anteriorPaso={anteriorPaso}
+              valores={empleadoData}
+              
+            />
+          </div>  
+      );
+      break;
+
+
+    case 1:
+      componenteActual = (
+        <div className="m-b">
             <Botones
               pasoicon={pasos.paso}/>
             <AEmple
@@ -102,10 +117,9 @@ function Empleadofr() {
           </div>  
       );
       break;
-    case 1:
+    case 2:
       componenteActual = (
         <div className="m-b">
-           <Textemple/>
             <Botones
              pasoicon={pasos.paso}/>
             <BEmple
@@ -117,12 +131,10 @@ function Empleadofr() {
           </div>
       );
       break;
-    case 2:
+    case 3:
       componenteActual = (
 
-
         <div className="m-b"> 
-           <Textemple/>
             <Botones
             pasoicon={pasos.paso}/>
             <CEmple
@@ -134,10 +146,9 @@ function Empleadofr() {
           </div>
       );
       break;
-    case 3:
+    case 4:
       componenteActual = (
         <div className="m-b">
-            <Textemple/>
             <Botones
             pasoicon={pasos.paso}/>
             <DEmple
@@ -149,10 +160,9 @@ function Empleadofr() {
           </div>
       );
       break;
-    case 4:
+    case 5:
       componenteActual = (
         <div className="m-b">
-            <Textemple/>
             <Botones
             pasoicon={pasos.paso}/>
             <EEmple

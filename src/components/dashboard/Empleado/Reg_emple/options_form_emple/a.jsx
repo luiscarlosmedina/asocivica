@@ -10,9 +10,9 @@ function AEmple(props) {
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
 
 
-  const validar_Exis = () => {
+  /*const validar_Exis = () => {
     const elementosDocumento = document.getElementsByName("documento");
-  
+
     if (elementosDocumento.length > 0) {
       const id_emple = elementosDocumento[0].value;
       console.log(id_emple);
@@ -20,7 +20,7 @@ function AEmple(props) {
     } else {
       console.error("No se encontró ningún elemento con el nombre 'documento'");
     }
-  };
+  };*/
 
   const cancelar = () => {
     swal({
@@ -42,6 +42,25 @@ function AEmple(props) {
     setMostrarContraseña(!mostrarContraseña);
   };
 
+  const validarcampos = () => {
+    let campos = ["documento", "id_doc", "n_em", "a_em", "eml_em", "passw" ];
+    let documentosValidos = true;
+  
+    campos.forEach((campo) => {
+
+      if (documentosValidos) {
+        documentosValidos = validarCampo(campo, valores[campo]);
+      }
+    });
+
+    if (documentosValidos) {
+      siguientePaso();
+    }
+
+  
+    return documentosValidos;
+  };
+
   const validarCampo = (nombreCampo, valorCampo) => {
     const nuevosErrores = { ...errores };
 
@@ -53,7 +72,7 @@ function AEmple(props) {
             "Por favor, este campo no puede estar vacío";
         } else if (valorCampo.length < 2 || valorCampo.length > 14) {
           nuevosErrores.documento =
-            "El campo debe tener entre 2 y 14 caracteres";
+            "El campo debe tener entre 2 y 14 caracteres"
         } else {
           delete nuevosErrores.documento;
         }
@@ -73,20 +92,6 @@ function AEmple(props) {
             "Por favor, seleccione un tipo de documento válido";
         } else {
           delete nuevosErrores.id_doc;
-        }
-        break;
-
-      case "id_rol":
-        if (
-          valorCampo !== "1" &&
-          valorCampo !== "2" &&
-          valorCampo !== "3" &&
-          valorCampo !== "4"
-        ) {
-          nuevosErrores.id_rol = "Por favor, seleccione un rol válido";
-        } else {
-          delete nuevosErrores.id_rol;
-
         }
         break;
 
@@ -131,33 +136,34 @@ function AEmple(props) {
         }
         break;
 
-      case "passw":
-        if (!valorCampo.trim()) {
-          nuevosErrores.passw = "Por favor, este campo no puede estar vacío";
-        } else if (valorCampo.length < 8) {
-          nuevosErrores.passw =
-            "Una contraseña segura debe tener al menos 8 caracteres";
-        } else if (valorCampo.length > 20) {
-          nuevosErrores.passw =
-            "La contraseña puede tener como máximo 20 caracteres";
-        } else if (
-          !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(
-            valorCampo
-          )
-        ) {
-          nuevosErrores.passw =
-            "La contraseña debe incluir al menos una mayúscula, una minúscula, un número y un carácter especial";
-        } else {
-          delete nuevosErrores.passw;
-
-        }
-        break;
+        case "passw":
+          if (!valorCampo.trim()) {
+            nuevosErrores.passw = "Por favor, este campo no puede estar vacío";
+          } else if (valorCampo.length < 8) {
+            nuevosErrores.passw = "Una contraseña segura debe tener al menos 8 caracteres";
+          } else if (valorCampo.length > 20) {
+            nuevosErrores.passw = "La contraseña puede tener como máximo 20 caracteres";
+          } else if (
+        
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(
+              valorCampo
+            )
+          ) {
+            nuevosErrores.passw =
+              "La contraseña debe incluir al menos una mayúscula, una minúscula, un número y un carácter especial";
+          } 
+          
+        else {
+            delete nuevosErrores.passw;
+          }
+          break;
 
       default:
         break;
     }
 
     setErrores(nuevosErrores);
+    return Object.keys(nuevosErrores).length === 0;
   };
 
   return (
@@ -171,7 +177,8 @@ function AEmple(props) {
             <div>
               <label className="form-label">Numero de Documento</label>
               <input
-                type="Number"
+                disabled
+                type="text"
                 name="documento"
                 className={`form-control ${errores.documento
                     ? "is-invalid"
@@ -192,8 +199,9 @@ function AEmple(props) {
             <div>
               <label className="form-label">Tipo de Documento</label>
               <select
-                type="Number"
-                name="id_doc"
+                disabled
+                type="text"
+                readOnly
                 className={`form-control ${errores.id_doc
                     ? "is-invalid"
                     : valores.id_doc
@@ -203,6 +211,7 @@ function AEmple(props) {
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("id_doc", e.target.value);
+
                 }}
                 value={valores.id_doc}
               >
@@ -253,15 +262,12 @@ function AEmple(props) {
             </div>
 
 
-
-
-
-
             <div className="mb-3">
               <label className="form-label">Correo electronico</label>
               <input
                 type="email"
                 name="eml_em"
+    
                 className={`form-control ${errores.eml_em
                     ? "is-invalid"
                     : valores.eml_em
@@ -318,7 +324,7 @@ function AEmple(props) {
               <div className="float-end">
                 <button
                   className="btnf btn btn-primary"
-                  onClick={() => {siguientePaso(); validar_Exis();}}
+                  onClick={() => {validarcampos();}}
                 >
                   Siguiente
                 </button>
