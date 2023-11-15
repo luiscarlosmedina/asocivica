@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import DateTimeDisplay from "./ComponentsFunction/DataTimeDisplay";
-import { useParams, useNavigate } from "react-router-dom";
 
-export default function NovedadForm({onDataUpdate}) {
-  const back = useNavigate();
-  {
-    /*para traer el select de tipo novedad*/
-  }
+export default function NovedadForm({ onDataUpdate }) {
+  //para traer el select de tipo novedad
   const [tpnovedad, setTpnovedad] = useState([]);
+  const [showSelects, setShowSelects] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     fetchDataTpnoedad();
@@ -26,9 +24,7 @@ export default function NovedadForm({onDataUpdate}) {
       });
   };
 
-  {
-    /*para traer el select de sedes*/
-  }
+  //para traer el select de sedes
   const [empresa, setEmpresa] = useState([]);
   const [sede, setSede] = useState([]);
   const [selectedEmpresa, setSelectedEmpresa] = useState("");
@@ -72,9 +68,7 @@ export default function NovedadForm({onDataUpdate}) {
     }
   }, [selectedEmpresa]);
 
-  {
-    /*para traer el select de empleado*/
-  }
+  //para traer el select de empleado*/
   const [empleado, setEmpleado] = useState([]);
 
   useEffect(() => {
@@ -94,9 +88,7 @@ export default function NovedadForm({onDataUpdate}) {
       });
   };
 
-  {
-    /*funcion para enviar a api*/
-  }
+  //funcion para enviar a api
   const [T_Nov, setT_Nov] = useState(null);
   const [Dic_Nov, setDic_Nov] = useState(null);
   const [Des_Nov, setDes_Nov] = useState(null);
@@ -116,7 +108,7 @@ export default function NovedadForm({onDataUpdate}) {
       ID_S,
     };
     console.log(novedad);
-  
+
     fetch(
       "http://localhost/api_proyecto.github.io/api.php?apicall=createnovedad",
       {
@@ -137,8 +129,11 @@ export default function NovedadForm({onDataUpdate}) {
           setDic_Nov("");
           setDes_Nov("");
           setId_em("");
-          setId_em("");
-          setID_S("");
+          setID_S(null);
+          setIsChecked(false);
+          setShowSelects(false);
+          setSelectedEmpresa("");
+          setSelectedSede("");
           setMessage("");
           onDataUpdate();
         }
@@ -149,9 +144,18 @@ export default function NovedadForm({onDataUpdate}) {
       });
   };
 
-
-  const [showSelects, setShowSelects] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
+  const handleCancelar = () => {
+    setT_Nov("");
+    setDic_Nov("");
+    setDes_Nov("");
+    setId_em("");
+    setID_S(null);
+    setIsChecked(false);
+    setShowSelects(false);
+    setSelectedEmpresa("");
+    setSelectedSede("");
+    setMessage("");
+  };
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -163,7 +167,7 @@ export default function NovedadForm({onDataUpdate}) {
       setID_S(selectedSede)
     }
 
-    setShowSelects(!showSelects); 
+    setShowSelects(!showSelects);
   };
 
   const handleInputChange2 = (e) => {
@@ -178,6 +182,7 @@ export default function NovedadForm({onDataUpdate}) {
         break;
       case "Dic_Nov":
         setDic_Nov(value);
+        break;
       case "Des_Nov":
         setDes_Nov(value);
         break;
@@ -197,13 +202,13 @@ export default function NovedadForm({onDataUpdate}) {
 
   return (
     <>
-      <div className="shadow-lg p-0 mb-5 bg-body-tertiary rounded">
+      <div className="shadow-lg p-0 mb-3 bg-body-tertiary rounded">
         <div className="m-1 border-bottom border-primary border-3 row justify-content-between">
           <div className="col-6">
             <p className="text-primary h2 ms-2 mt-4">Registrar Novedad</p>
           </div>
           <div
-            class="col-4 alert alert-primary mb-1 mt-2 me-2"
+            className="col-4 alert alert-primary mb-1 mt-2 me-2"
             style={{ width: 18 + "rem" }}
           >
             <DateTimeDisplay />
@@ -211,39 +216,111 @@ export default function NovedadForm({onDataUpdate}) {
         </div>
         <form
           onSubmit={handleSubmit}
-          class="row g-2 needs-validation justify-content-between"
+          className="needs-validation justify-content-between"
           noValidate
         >
-          <div className="col ms-4 ps-3">
-            <label for="T_Nov" class="form-label">
-              Eliga el tipo de noveddad
-            </label>
-            <select
-              class="form-select"
-              id="T_Nov"
-              value={T_Nov || ""}
-              onChange={(e) => handleInputsChange("T_Nov", e.target.value)}
-              required
-            >
-              <option selected disabled value="">
-                Selecione...
-              </option>
-              {tpnovedad.map((item) => (
-                <option key={item.T_Nov} value={item.T_Nov}>
-                  {item.Tipo_Novedad}
+          <div className="row m-auto">
+            <div className="col mx-4 p-2">
+              <label for="T_Nov" className="form-label">
+                Eliga el tipo de novedad
+              </label>
+              <div className="form-group d-flex align-items-center">
+                <select
+                  className="form-select me-2"
+                  id="T_Nov"
+                  value={T_Nov || ""}
+                  onChange={(e) => handleInputsChange("T_Nov", e.target.value)}
+                  required
+                >
+                  <option selected disabled value="">
+                    Selecione...
+                  </option>
+                  {tpnovedad.map((item) => (
+                    <option key={item.T_Nov} value={item.T_Nov}>
+                      {item.Tipo_Novedad}
+                    </option>
+                  ))}
+                </select>
+                <button type="button" className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addtpnovedad">
+                  <i class="bi bi-plus" style={{ fontSize: '1rem' }}></i>
+                </button>
+              </div>
+              <div class="modal fade" id="addtpnovedad" tabindex="-1" aria-labelledby="addtpnovedadLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="addtpnovedadLabel">Nuevo tipo de novedad</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div className="mb-3">
+                        <label htmlFor="tipoNovedad" className="form-label">Tipo de Novedad</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="tipoNovedad"
+                          // value={tipoNovedad}
+                          // onChange={(e) => setTipoNovedad(e.target.value)}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="descripcion" className="form-label">Descripción</label>
+                        <textarea
+                          className="form-control"
+                          id="descripcion"
+                          // value={descripcion}
+                          // onChange={(e) => setDescripcion(e.target.value)}
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      <button type="button" class="btn btn-primary">Guardar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="valid-feedback">Correcto</div>
+              <div className="invalid-feedback">Por favor seleccione un elemento</div>
+            </div>
+            <div className="col mx-4 p-2">
+              <label for="selectempleado" class="form-label">
+                Motorizado que reporto
+              </label>
+              <select class="form-select" id="selectempleado" value={id_em} onChange={(e) => handleInputsChange("id_em", e.target.value)} required>
+                <option selected disabled value="">
+                  Selecione...
                 </option>
-              ))}
-            </select>
-            <div class="valid-feedback">Correcto</div>
-            <div class="invalid-feedback">Por favor seleccione un elemento</div>
+                {empleado.map((item) => (
+                  <option key={item.id_em} value={item.id_em}>
+                    {item.Nombre_Completo_Empleado}
+                  </option>
+                ))}
+              </select>
+              <div class="valid-feedback">Correcto</div>
+              <div class="invalid-feedback">
+                Por favor seleccione un elemento
+              </div>
+            </div>
           </div>
-          <div class="col">
-            <label for="Dic_Nov" class="form-label">
+          <div className="form-check my-3 ms-5 ps-3">
+            <label>
+              <strong>Seleccione si la Novedad ocurrio en una sede registrada</strong>
+              <input
+                className="form-check-input p-2 border border-dark"
+                type="checkbox"
+                checked={isChecked}
+                onChange={handleCheckboxChange}
+              />{" "}
+            </label>
+          </div>
+          <div className="col mx-4 p-2">
+            <label for="Dic_Nov" className="form-label">
               Dirección:
             </label>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               id="Dic_Nov"
               name="Dic_Nov"
               value={Dic_Nov}
@@ -255,21 +332,10 @@ export default function NovedadForm({onDataUpdate}) {
             <div class="valid-feedback">Correcto</div>
             <div class="invalid-feedback">Llene campo direccion</div>
           </div>
-          <div className="form-check ms-5 ps-3">
-            <label>
-              <input
-                className="form-check-input p-2 border border-dark"
-                type="checkbox"
-                checked={isChecked}
-                onChange={handleCheckboxChange}
-              />{" "}
-              Seleccione si la Novedad ocurrio en una sede registrada
-            </label>
-          </div>
           {showSelects && (
-            <div className="row g-2 justify-content-between">
-              <div className="col ms-4 ps-3">
-                <label for="selectempresa" className="form-label">
+            <div className="row mx-4">
+              <div className="col ps-3">
+                <label htmlFor="selectempresa" className="form-label">
                   Seleccione una empresa:
                 </label>
                 <select
@@ -288,22 +354,22 @@ export default function NovedadForm({onDataUpdate}) {
                     </option>
                   ))}
                 </select>
-                <div class="valid-feedback">Correcto</div>
-                <div class="invalid-feedback">
+                <div className="valid-feedback">Correcto</div>
+                <div className="invalid-feedback">
                   Por favor seleccione un elemento
                 </div>
               </div>
               {selectedEmpresa && (
-                <div className="col ms-4 p-3">
-                  <label for="selectsede" className="form-label row">
+                <div className="col ps-3">
+                  <label htmlFor="selectsede" className="form-label row">
                     Seleccione una sede:
                   </label>
                   <select
-                    className="row justify-content-between form-select"
+                    className="form-select"
                     id="selectsede"
                     value={selectedSede}
                     onChange={(e) => {
-                      setSelectedSede(e.target.value); // Actualiza el valor en el objeto novedad
+                      setSelectedSede(e.target.value);
                       handleInputsChange("ID_S", e.target.value);
                     }}
                     required
@@ -312,29 +378,25 @@ export default function NovedadForm({onDataUpdate}) {
                       Seleccionar sede
                     </option>
                     {sede.map((item) => (
-                      <option
-                        key={item.ID_S}
-                        value={item.ID_S}
-                      >
+                      <option key={item.ID_S} value={item.ID_S}>
                         {item.Dic_S}
                       </option>
                     ))}
                   </select>
-                  <div class="valid-feedback">Correcto</div>
-                  <div class="invalid-feedback">
+                  <div className="valid-feedback">Correcto</div>
+                  <div className="invalid-feedback">
                     Por favor seleccione un elemento
                   </div>
                 </div>
               )}
             </div>
           )}
-          <div class=" mt-3">
-            <label for="descripcion" class="form-label ms-5">
+          <div className="mt-3 mx-4 p-2">
+            <label for="descripcion" className="form-label">
               Describe el acontecimiento
             </label>
             <textarea
-              style={{ width: 90 + "%" }}
-              class="form-control m-auto"
+              className="form-control m-auto"
               id="descripcion"
               value={Des_Nov}
               onChange={(e) => handleInputsChange("Des_Nov", e.target.value)}
@@ -344,33 +406,14 @@ export default function NovedadForm({onDataUpdate}) {
             <div class="valid-feedback ms-5">Correcto</div>
             <div class="invalid-feedback ms-5">agrege una descripcion</div>
           </div>
-          <div className="row g-2 justify-content-between">
-            <div class="col-4 ms-5">
+          <div className="row m-auto">
+            <div class="col-4 mx-4">
               <label for="link" class="form-label">
-                agrega la url de la carpeta evidencia en drive
+                Agrega la  evidencia
               </label>
-              <input type="text" class="form-control" id="link" required value={id_evi} onChange={(e) => handleInputsChange("id_evi", e.target.value)}/>
+              <input type="file" class="form-control" id="link" value={id_evi} onChange={(e) => handleInputsChange("id_evi", e.target.value)} />
               <div class="invalid-feedback">
                 pon la url de la carpeta de evidecia
-              </div>
-            </div>
-            <div className="col ms-4 ps-3">
-              <label for="selectempleado" class="form-label">
-                Eliga el tipo de noveddad
-              </label>
-              <select class="form-select" id="selectempleado" value={id_em} onChange={(e) => handleInputsChange("id_em", e.target.value)} required>
-                <option selected disabled value="">
-                  Selecione...
-                </option>
-                {empleado.map((item) => (
-                  <option key={item.id_em} value={item.id_em}>
-                    {item.Nombre_Completo_Empleado}
-                  </option>
-                ))}
-              </select>
-              <div class="valid-feedback">Correcto</div>
-              <div class="invalid-feedback">
-                Por favor seleccione un elemento
               </div>
             </div>
           </div>
@@ -378,45 +421,17 @@ export default function NovedadForm({onDataUpdate}) {
             <button
               type="button"
               class="btn btn-secondary me-md-2 mb-4"
-              onClick={() => back("/*")}
+              onClick={handleCancelar}
             >
               Cancelar
             </button>
             <button type="submit" class="btn btn-primary mb-4 me-4">
-              Agregar
+              Registrar novedad
             </button>
           </div>
         </form>
         {message && <p>{message}</p>}
       </div>
-
-      <script>
-        {
-          // Example starter JavaScript for disabling form submissions if there are invalid fields
-          (() => {
-            "use strict";
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            const forms = document.querySelectorAll(".needs-validation");
-
-            // Loop over them and prevent submission
-            Array.from(forms).forEach((form) => {
-              form.addEventListener(
-                "submit",
-                (event) => {
-                  if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                  }
-
-                  form.classList.add("was-validated");
-                },
-                false
-              );
-            });
-          })()
-        }
-      </script>
     </>
   );
 }
