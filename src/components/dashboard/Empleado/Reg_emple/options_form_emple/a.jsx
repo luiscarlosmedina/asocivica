@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import swal from 'sweetalert';
-import { useNavigate } from 'react-router-dom';
-
 
 function AEmple(props) {
   const { handleInputChange, valores, siguientePaso, } = props;
-  const navigate = useNavigate();
   const [errores, setErrores] = useState({});
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
-
-
 
   const cancelar = () => {
     swal({
@@ -21,7 +16,6 @@ function AEmple(props) {
     })
       .then((willCancel) => {
         if (willCancel) {
-          navigate("/inicio");
         }
       });
   };
@@ -45,11 +39,10 @@ function AEmple(props) {
       siguientePaso();
     }
 
-
     return documentosValidos;
   };
 
-  const validarCampo = (nombreCampo, valorCampo) => {
+const validarCampo = (nombreCampo, valorCampo) => {
     const nuevosErrores = { ...errores };
 
     switch (nombreCampo) {
@@ -304,6 +297,7 @@ function AEmple(props) {
               <div className="float-end">
                 <button
                   className="btnf btn btn-primary"
+                 
                   onClick={() => { validarcampos(); }}
                 >
                   Siguiente
@@ -313,6 +307,7 @@ function AEmple(props) {
               <div className="float-start ">
                 <button
                   className="btnf btn btn-primary"
+
                   onClick={() => { cancelar(); }}
 
                 >

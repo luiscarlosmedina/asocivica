@@ -11,14 +11,11 @@ import Validador from "./options_form_emple/validadorempleado";
 
 
 
-function Empleadofr() {
-
-
-
+export default function Empleadofr() {
   //-----------------------------------------------------------------------------------------------------
    //Variable de estado para almacenar los pasos del Formulario multi-progeso
     const [pasos, setPasos] = useState({
-      paso: 0,
+      paso: 1,
     });
   
    //-----------------------------------------------------------------------------------------------------
@@ -87,7 +84,7 @@ function Empleadofr() {
 
   switch (pasos.paso) {
 
-    case 0:
+    case 330:
       componenteActual = (
         <div className="m-b">
             <Botones
@@ -104,7 +101,7 @@ function Empleadofr() {
       break;
 
 
-    case 1:
+    case 0:
       componenteActual = (
         <div className="m-b">
             <Botones
@@ -119,7 +116,7 @@ function Empleadofr() {
           </div>  
       );
       break;
-    case 2:
+    case 1:
       componenteActual = (
         <div className="m-b">
             <Botones
@@ -133,7 +130,7 @@ function Empleadofr() {
           </div>
       );
       break;
-    case 3:
+    case 2:
       componenteActual = (
 
         <div className="m-b"> 
@@ -148,7 +145,7 @@ function Empleadofr() {
           </div>
       );
       break;
-    case 4:
+    case 3:
       componenteActual = (
         <div className="m-b">
             <Botones
@@ -162,7 +159,7 @@ function Empleadofr() {
           </div>
       );
       break;
-    case 5:
+    case 4:
       componenteActual = (
         <div className="m-b">
             <Botones
@@ -190,6 +187,4 @@ function Empleadofr() {
         {componenteActual}
     </div>
   );
-}
-
-export default Empleadofr;
+};

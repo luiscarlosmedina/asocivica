@@ -46,13 +46,15 @@ function Botones(props) {
         </div>
       
       <figure className="figure1">
-        <blockquote class="blockquote">
+        <blockquote className="blockquote">
           <p>¡Bienvenido al proceso de incorporación de nuevos empleados!</p>
         </blockquote>
-        <figcaption class="blockquote-footer">
+        <figcaption className="blockquote-footer">
           <cite title="Título fuente">Por favor, complete este formulario con la información necesaria para agregar internamente a un nuevo miembro al sistema.</cite>
         </figcaption>
       </figure>
+
+      <div data-testid="pasoElement">Test 1, contador siguiente paso es: {pasoicon}</div>
 
       <div className="segun container">
         <header className="primary-box">

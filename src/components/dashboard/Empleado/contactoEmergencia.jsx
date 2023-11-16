@@ -11,6 +11,11 @@ import {
     TextField,
 } from "@mui/material";
 
+export const validatePhone = (phone) => {
+    const phoneRegex = /^\d{10}$/;
+        return phoneRegex.test(phone);
+    };
+
 export default function ContactoEmergencia({ id }) {
     const [data, setData] = useState([]);
     const [newContEmg, setNewContEmg] = useState({
@@ -19,6 +24,7 @@ export default function ContactoEmergencia({ id }) {
         id_em: id,
         T_CEm: "",
     });
+    
     const [showInsertForm, setShowInsertForm] = useState(false);
     const [editMode, setEditMode] = useState({});
     const [errors, setErrors] = useState({}); // Estado para almacenar errores
@@ -34,11 +40,6 @@ export default function ContactoEmergencia({ id }) {
             });
     };
 
-    // Función para validar números de teléfono
-    const validatePhone = (phone) => {
-        const phoneRegex = /^\d{10}$/;
-        return phoneRegex.test(phone);
-    };
 
     const handleInputChange = (e, ID_CEm, fieldName) => {
         const { value } = e.target;
