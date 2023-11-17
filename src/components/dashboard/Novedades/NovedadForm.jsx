@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import swal from "sweetalert";
 import DateTimeDisplay from "./ComponentsFunction/DataTimeDisplay";
 
 export default function NovedadForm({ onDataUpdate }) {
@@ -107,7 +108,6 @@ export default function NovedadForm({ onDataUpdate }) {
       id_em,
       ID_S,
     };
-    console.log(novedad);
 
     fetch(
       "http://localhost/api_proyecto.github.io/api.php?apicall=createnovedad",
@@ -122,9 +122,9 @@ export default function NovedadForm({ onDataUpdate }) {
       .then(response => response.json())
       .then(data => {
         if (data.error) {
-          setMessage("Error al crear la novedad");
+          swal("Error!", "No se agrego la novedad, revise que todos los campos esten completos e intentelo nuevamente", "success");
         } else {
-          setMessage("novedad creada correctamente");
+          swal("Buen trabajo!", "creado con exito", "success");
           setT_Nov("");
           setDic_Nov("");
           setDes_Nov("");
@@ -139,8 +139,85 @@ export default function NovedadForm({ onDataUpdate }) {
         }
       })
       .catch(error => {
-        setMessage("Error en la solicitud");
-        console.log(error);
+        swal("Error!", "No se agrego la novedad, revise que todos los campos esten completos e intentelo nuevamente", "error");
+      });
+  };
+
+  const [tipoNovedad, setTipoNovedad] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+
+  const handleTipoNovedadChange = (e) => {
+    const textRegex = /^[A-Za-z\s]+$/;
+    const value = e.target.value;
+
+    if (value.trim() === "") {
+      setMessage("Campo obligatorio, no puede estar vacío");
+    } else if (!textRegex.test(value)) {
+      setMessage("Ingrese solo texto válido");
+    } else {
+      setMessage("");
+    }
+
+    setTipoNovedad(value);
+  };
+
+  const handleDescripcionChange = (e) => {
+    const textRegex = /^[A-Za-z\s]+$/;
+    const value = e.target.value;
+
+    if (value.trim() === "") {
+      setMessage("Campo obligatorio, no puede estar vacío");
+    } else if (!textRegex.test(value)) {
+      setMessage("Ingrese solo texto válido");
+    } else {
+      setMessage("");
+    }
+
+    setDescripcion(value);
+  };
+
+  const handleTPnovedad = (e) => {
+    e.preventDefault();
+    // Verifica los campos individuales
+    if (!tipoNovedad || !descripcion) {
+      swal("Error!", "Todos los campos deben estar completos", "error");
+      return;
+    }
+
+    // Verifica el mensaje global
+    if (message) {
+      swal("Error!", "Corrija los errores en el formulario", "error");
+      return;
+    }
+
+    const newNovedad = {
+      "Nombre_Tn": tipoNovedad,
+      "descrip_Tn": descripcion,
+    }
+
+    fetch(
+      "http://localhost/api_proyecto.github.io/api.php?apicall=createtpnovedad",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newNovedad),
+      }
+    )
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          swal("Error!", "Error al crear el tipo de novedad, intente de nuevo", "error");
+        } else {
+          swal("Buen trabajo!", "creado con exito", "success");
+          setTipoNovedad("");
+          setDescripcion("");
+          fetchDataTpnoedad();
+        }
+      })
+      .catch(error => {
+        swal("Error!", "Error al crear el tipo de novedad, intente de nuevo", "error");
       });
   };
 
@@ -245,6 +322,7 @@ export default function NovedadForm({ onDataUpdate }) {
                   <i class="bi bi-plus" style={{ fontSize: '1rem' }}></i>
                 </button>
               </div>
+              {/* modal agregar tipo de novedad -> migrar a un nuevo componente */}
               <div class="modal fade" id="addtpnovedad" tabindex="-1" aria-labelledby="addtpnovedadLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -257,29 +335,38 @@ export default function NovedadForm({ onDataUpdate }) {
                         <label htmlFor="tipoNovedad" className="form-label">Tipo de Novedad</label>
                         <input
                           type="text"
-                          className="form-control"
+                          className={`form-control ${message ? 'is-invalid' : ''}`}
                           id="tipoNovedad"
-                          // value={tipoNovedad}
-                          // onChange={(e) => setTipoNovedad(e.target.value)}
+                          value={tipoNovedad}
+                          onChange={handleTipoNovedadChange}
+                          required
                         />
+                        <div className="invalid-feedback">
+                          {message}
+                        </div>
                       </div>
                       <div className="mb-3">
                         <label htmlFor="descripcion" className="form-label">Descripción</label>
                         <textarea
-                          className="form-control"
+                          className={`form-control ${message ? 'is-invalid' : ''}`}
                           id="descripcion"
-                          // value={descripcion}
-                          // onChange={(e) => setDescripcion(e.target.value)}
+                          value={descripcion}
+                          onChange={handleDescripcionChange}
+                          required
                         ></textarea>
+                        <div className="invalid-feedback">
+                          {message}
+                        </div>
                       </div>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                      <button type="button" class="btn btn-primary">Guardar</button>
+                      <button type="button" class="btn btn-primary" onClick={handleTPnovedad}>Guardar</button>
                     </div>
                   </div>
                 </div>
               </div>
+              {/*fin modal agregar tipo de novedad */}
               <div className="valid-feedback">Correcto</div>
               <div className="invalid-feedback">Por favor seleccione un elemento</div>
             </div>

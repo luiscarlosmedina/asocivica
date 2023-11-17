@@ -220,7 +220,6 @@ function Empresafr({ nit, est, resetForm}) {
             COD_AE: empresa.COD_AE,
             sedes: empresa.sedes,
         };
-        console.log(data);
 
         // Realizar la solicitud POST
         fetch("http://localhost/api_proyecto.github.io/api.php?apicall=createempresa", {

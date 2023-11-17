@@ -85,7 +85,6 @@ function Empresarapidofr({ nit, est, resetForm}) {
             N_En: empresa.N_En,
             tel1: empresa.tel1,
         };
-        console.log(data);
 
         // Realizar la solicitud POST
         fetch("http://localhost/api_proyecto.github.io/api.php?apicall=createfastempresa", {
