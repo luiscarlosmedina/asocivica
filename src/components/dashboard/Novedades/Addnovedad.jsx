@@ -10,6 +10,7 @@ import {
     Button,
     TextField,
 } from "@mui/material";
+import swal from "sweetalert";
 
 
 export default function Addnovedad() {
@@ -115,6 +116,7 @@ export default function Addnovedad() {
                 setShowInsertForm(false);
             }
         } catch (error) {
+            swal("Error!","Tipo de novedad ya existe","error");
             console.error("Error:", error);
         }
     };
