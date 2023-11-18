@@ -208,7 +208,7 @@ export default function NovedadForm({ onDataUpdate }) {
       .then(response => response.json())
       .then(data => {
         if (data.error) {
-          swal("Error!", "Error al crear el tipo de novedad, intente de nuevo", "error");
+          swal("Error!", "La novedad ya existe", "error");
         } else {
           swal("Buen trabajo!", "creado con exito", "success");
           setTipoNovedad("");

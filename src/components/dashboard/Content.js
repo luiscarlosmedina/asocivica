@@ -9,6 +9,7 @@ import EmpresaVer from "./Empresa/empresaVer";
 import EmpresaVerDetalle from "./Empresa/empresaVerDetalle";
 import Verificaempresa from "./Empresa/verificaempresa";
 //import Empleadofr_ps from './Empleado/Empleadofr_ps'
+import Addnovedad from "./Novedades/Addnovedad";
 import NovedadForm from "./Novedades/NovedadForm";
 import VerDetalleNovedad from "./Novedades/VerDetalleNovedades";
 import VerNovedades from "./Novedades/VerNovedades";
@@ -31,6 +32,7 @@ function Content() {
                 <Route path='consultar-empleados' element={<EmpleadoVer dataUpdated={dataUpdated}/>} />
                 <Route path='consultar-empleados/:empleadoid' element={<EmpleadoVerDetalles />} />
                 <Route path='registrar-novedades' element={<NovedadForm onDataUpdate={handleDataUpdate}/>} />
+                <Route path='tipo-novedades' element={<Addnovedad/>} />
                 <Route path='consultar-novedades' element={<VerNovedades dataUpdated={dataUpdated} />} />
                 <Route path='consultar-novedades/:novedadID' element={<VerDetalleNovedad />} />
                 <Route path='reporte-operaciones' element={<Repnov/>} />

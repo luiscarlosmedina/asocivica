@@ -38,6 +38,7 @@ const Options = () => {
         <ul className="dropdown-menu">
           <li><NavLink to="/consultar-novedades" className="dropdown-item">Ver Novedades</NavLink></li>
           <li><NavLink to="/registrar-novedades" className="dropdown-item">Agregar Novedades</NavLink></li>
+          <li><NavLink to="/tipo-novedades" className="dropdown-item">tipo de Novedades</NavLink></li>
         </ul>
       </li>
       <li className="nav-item dropdown">
