@@ -1,9 +1,28 @@
 import React, { useState } from "react";
+import swal from 'sweetalert';
 
 function BEmple(props) {
   const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
-
   const [errores, setErrores] = useState({});
+
+  const validarcamposb = () => {
+    console.log("si")
+    let campos = ["id_rol", "barloc_em", "dir_em", "tel_em", "eml_em", "id_rh"];
+    let documentosValidos = true;
+    campos.forEach((campo) => {
+      if (documentosValidos) {
+        documentosValidos = validarCampo(campo, valores[campo]);
+      }
+    });
+
+    if (documentosValidos) {
+      siguientePaso();
+  } else{
+      swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
+  }
+
+    return documentosValidos;
+  };
 
   const validarCampo = (nombreCampo, valorCampo) => {
     const nuevosErrores = { ...errores };
@@ -20,9 +39,9 @@ function BEmple(props) {
           nuevosErrores.id_rol = "Por favor, seleccione un rol válido";
         } else {
           delete nuevosErrores.id_rol;
-
         }
         break;
+
       case "barloc_em":
         if (!valorCampo.trim()) {
           nuevosErrores.barloc_em =
@@ -33,7 +52,6 @@ function BEmple(props) {
         } else {
           delete nuevosErrores.barloc_em;
         }
-
         break;
 
       case "dir_em":
@@ -44,12 +62,10 @@ function BEmple(props) {
         } else {
           delete nuevosErrores.dir_em;
         }
-
         break;
 
       case "tel_em":
         const telefonoRegex = /^[0-9]{10}$/;
-
         if (!telefonoRegex.test(valorCampo)) {
           nuevosErrores.tel_em =
             "Por favor, ingrese un número de teléfono válido";
@@ -57,6 +73,7 @@ function BEmple(props) {
           delete nuevosErrores.tel_em;
         }
         break;
+  
 
       case "id_rh":
         if (
@@ -78,11 +95,11 @@ function BEmple(props) {
         break;
 
       default:
-        // No se realiza ninguna validación para otros campos
         break;
     }
 
     setErrores(nuevosErrores);
+    return Object.keys(nuevosErrores).length === 0;
   };
   return (
     <section className="secundary-box">
@@ -208,13 +225,13 @@ function BEmple(props) {
 
               <div className="espbots">
                 <div className="float-end">
-                  <button className="btnf btn btn-primary" onClick={siguientePaso}>
+                  <button className="btnfs btn btn-primary"  onClick={() => { validarcamposb(); }}>
                     siguiente
                   </button>
                 </div>
 
                 <div className="float-start ">
-                  <button className="btnf btn btn-primary" onClick={anteriorPaso}>
+                  <button className="btnfa btn btn-primary" onClick={() => { anteriorPaso(); }}>
                     volver
                   </button>
                 </div>

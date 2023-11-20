@@ -1,6 +1,6 @@
 import React from "react";
 import swal from 'sweetalert';
-import { Navigate, useNavigate } from 'react-router-dom';
+
 
 function Fin(props) {
     const { ultimovolver, valores} = props;
@@ -14,10 +14,7 @@ function Fin(props) {
     })
         .then((willDelete) => {
             if (willDelete) {
-                //-----------------------------------------------------------------------------------------------------
-                //Esta funcion de encarga recoger los datos de la variable empleado data y usar el metodo FETCH para subir los datos a una BD por medio de uuna api
                     console.log(valores);
-
                     fetch('http://localhost/api_proyecto.github.io/api.php?apicall=createempleado', {
                         method: 'POST',
                         headers: {
@@ -44,9 +41,7 @@ function Fin(props) {
                         });
             
             } else {
-
                 swal("Revisa la informacion y luego guarda");
-                ultimovolver()
             }
         });
 

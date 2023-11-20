@@ -1,50 +1,63 @@
 import React from "react";
 
 function Botones(props) {
+  const { pasoicon } = props;
 
- const{pasoicon} = props;
+  var line1, line2, line3, line4;
+  var iconClass1, iconClass2, iconClass3, iconClass4, iconClass5;
 
- let iconClass1;
-    if (pasoicon === 1) {
-      iconClass1 = "activo";
-    } else {
-      iconClass1 = "desactivo";
-    }
-  let iconClass2;
-    if (pasoicon === 2) {
-      iconClass2 = "activo";
-    } else {
-      iconClass2 = "desactivo";
-    }
+  switch (pasoicon) {
+    case 0:
+      iconClass1 = iconClass2 = iconClass3 = iconClass4 = iconClass5 = "desactivo";
+      line1 = line2 = line3 = line4 = "desactivo2";
+      break;  
+    case 1:
+      iconClass1 = "activo"
+      iconClass2 = iconClass3 = iconClass4 = iconClass5 = "desactivo";
+      line1 = line2 = line3 = line4 = "verde";
+      break;
+    case 2:
+      iconClass1 = "verde"
+      line1 ="verde2"
+      iconClass2 = "activo"
+      iconClass3 = iconClass4 = iconClass5 = "desactivo";
+      line2 = line3 = line4 = "desactivo2";
+      break;
+    case 3:
+        iconClass1 = iconClass2 = "verde"
+        line1 = line2 ="verde2"
+        iconClass3 = "activo"
+        iconClass4 = iconClass5 = "desactivo";
+        line3 = line4 = "desactivo2";
+      break;
+    case 4:
+        iconClass1 = iconClass2 = iconClass3 = "verde" 
+        line1 = line2 = line3 = "verde2" 
+        line4 = "desactivo";
+        iconClass4 = "activo"
+        iconClass5 = "desactivo";
+      break;
+    case 5:
+        iconClass1 = iconClass2 = iconClass3 = iconClass4 = "verde" 
+        iconClass5 = "activo";
+        line1 = line2 = line3 = line4 = "verde2";
 
-  let iconClass3;
-    if (pasoicon === 3) {
-      iconClass3 = "activo";
-    } else {
-      iconClass3 = "desactivo";
-    }
-  let iconClass4;
-    if (pasoicon === 4) {
-      iconClass4 = "activo";
-    } else {
-      iconClass4 = "desactivo";
-    }
-  
-  let iconClass5;
-    if (pasoicon === 5) {
-      iconClass5 = "activo";
-    } else {
-      iconClass5 = "desactivo";
-    }
+      break;
+
+    default:
+      break;
+  }
+
+
 
   return (
     <div>
-      <div className="m-1 border-bottom border-primary border-3 row justify-content-between" >
-          <div className="col-">
-            <p className="text-primary h2 mb-3 ms-3 mt-4">Registrar Empleado</p>
-          </div>
+      <div className="m-1 border-botom border-3 row justify-content-between" >
+        <div className="col-">
+          <p className="t h2 mb-3 ms-3 mt-4">Registrar Empleado</p>
         </div>
-      
+      </div>
+
       <figure className="figure1">
         <blockquote className="blockquote">
           <p>¡Bienvenido al proceso de incorporación de nuevos empleados!</p>
@@ -54,23 +67,22 @@ function Botones(props) {
         </figcaption>
       </figure>
 
-      <div data-testid="pasoElement">Test 1, contador siguiente paso es: {pasoicon}</div>
 
       <div className="segun container">
         <header className="primary-box">
           <div className="box-menu">
-          <i className={`bi bi-person-vcard icon ${iconClass1}`}>
+            <i className={`bi bi-person-vcard icon ${iconClass1}`}>
               <p className="pa_info_sup ">info personal</p> </i>
-             <div className="divider-horizontal1"></div>
+              <div className={`divider-horizontal1 ${line1} `}></div>
             <i className={`bi bi-person-vcard-fill icon ${iconClass2}`}>
               <p className="pa_info_sup">info basica 1</p></i>
-             <div className="divider-horizontal2"></div>
+              <div className={`divider-horizontal2 ${line2} `}></div>
             <i className={`bi bi-person-video icon ${iconClass3}`}>
               <p className="pa_info_sup">info basica 2</p></i>
-             <div className="divider-horizontal3"></div>
+              <div className={`divider-horizontal3 ${line3} `}></div>
             <i className={`bi bi-person-workspace icon ${iconClass4}`}>
               <p className="pa_info_sup">Emergencia</p></i>
-             <div className="divider-horizontal4"></div>
+              <div className={`divider-horizontal4 ${line4} `}></div>
             <i className={`bi bi-archive icon ${iconClass5}`}>
               <p className="pa_info_sup">Contrato</p></i>
           </div>

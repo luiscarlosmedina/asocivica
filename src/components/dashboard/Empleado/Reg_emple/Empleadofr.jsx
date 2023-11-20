@@ -15,7 +15,7 @@ export default function Empleadofr() {
   //-----------------------------------------------------------------------------------------------------
    //Variable de estado para almacenar los pasos del Formulario multi-progeso
     const [pasos, setPasos] = useState({
-      paso: 1,
+      paso: 0,
     });
   
    //-----------------------------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ export default function Empleadofr() {
 
   switch (pasos.paso) {
 
-    case 330:
+    case 0:
       componenteActual = (
         <div className="m-b">
             <Botones
@@ -101,7 +101,7 @@ export default function Empleadofr() {
       break;
 
 
-    case 0:
+    case 1:
       componenteActual = (
         <div className="m-b">
             <Botones
@@ -116,7 +116,7 @@ export default function Empleadofr() {
           </div>  
       );
       break;
-    case 1:
+    case 2:
       componenteActual = (
         <div className="m-b">
             <Botones
@@ -130,7 +130,7 @@ export default function Empleadofr() {
           </div>
       );
       break;
-    case 2:
+    case 3:
       componenteActual = (
 
         <div className="m-b"> 
@@ -145,7 +145,7 @@ export default function Empleadofr() {
           </div>
       );
       break;
-    case 3:
+    case 4:
       componenteActual = (
         <div className="m-b">
             <Botones
@@ -159,7 +159,7 @@ export default function Empleadofr() {
           </div>
       );
       break;
-    case 4:
+    case 5:
       componenteActual = (
         <div className="m-b">
             <Botones

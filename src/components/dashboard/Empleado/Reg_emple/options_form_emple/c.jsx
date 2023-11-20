@@ -1,9 +1,28 @@
 import React, { useState } from "react";
-
+import swal from 'sweetalert';
 
 function CEmple(props) {
   const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
   const [errores, setErrores] = useState({});
+
+  const validarcamposc = () => {
+    console.log("si")
+    let campos = ["lib_em", "lic_emp", "id_eps", "id_pens", "id_ces", "id_arl"];
+    let documentosValidos = true;
+    campos.forEach((campo) => {
+      if (documentosValidos) {
+        documentosValidos = validarCampo(campo, valores[campo]);
+      }
+    });
+
+    if (documentosValidos) {
+      siguientePaso();
+  } else{
+      swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
+  }
+    return documentosValidos;
+  };
+
 
   const validarCampo = (nombreCampo, valorCampo) => {
     const nuevosErrores = { ...errores };
@@ -24,12 +43,11 @@ function CEmple(props) {
         break;
 
       case "lic_emp":
-        if (valorCampo === "" && valorCampo === null) {
+        if (valorCampo === "" || valorCampo === null) {
           nuevosErrores.lic_emp = "Por favor, este campo no puede estar vacio";
         } else {
           delete nuevosErrores.lic_emp;
         }
-
         break;
 
       case "id_eps":
@@ -115,11 +133,12 @@ function CEmple(props) {
         break;
 
       default:
-        // No se realiza ninguna validación para otros campos
+
         break;
     }
 
     setErrores(nuevosErrores);
+    return Object.keys(nuevosErrores).length === 0;
   };
   return (
     <section className="secundary-box">
@@ -158,12 +177,9 @@ function CEmple(props) {
               <input
                 type="Text"
                 name="lic_emp"
-                className={`form-control ${errores.lic_emp
-                    ? "is-invalid"
-                    : valores.lic_emp
-                      ? "is-valid"
-                      : ""
-                  }`}
+                className={`form-control ${
+                  errores.lic_emp ? "is-invalid" : valores.lic_emp ? "is-valid" : ""
+                }`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("lic_emp", e.target.value);
@@ -299,13 +315,12 @@ function CEmple(props) {
 
             <div className="espbots">
             <div className="float-end">
-              <button className="btnf btn btn-primary" onClick={siguientePaso}>
+            <button className="btnfs btn btn-primary"  onClick={() => { validarcamposc(); }}>
                 siguiente
               </button>
             </div>
-              
             <div className="float-start ">
-              <button className=" btnf btn btn-primary" onClick={anteriorPaso}>
+            <button className="btnfa btn btn-primary" onClick={() => { anteriorPaso(); }}>
                 volver
               </button>
             </div>

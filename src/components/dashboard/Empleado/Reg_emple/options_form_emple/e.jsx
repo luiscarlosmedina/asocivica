@@ -1,11 +1,28 @@
 import React, { useState } from "react";
-
+import swal from 'sweetalert';
 
 function EEmple(props) {
-  const {
-    handleInputChange, valores, siguientePaso, anteriorPaso } = props;
-
+  const {handleInputChange, valores, siguientePaso, anteriorPaso } = props;
   const [errores, setErrores] = useState({});
+
+
+  const validarcampose = () => {
+    console.log("di")
+    let campos = ["n_coe", "csag", "t_cem"];
+    let documentosValidos = true;
+    campos.forEach((campo) => {
+      if (documentosValidos) {
+        documentosValidos = validarCampo(campo, valores[campo]);
+      }
+    });
+
+    if (documentosValidos) {
+      siguientePaso();
+  } else{
+      swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
+  }
+    return documentosValidos;
+  };
 
   const validarCampo = (nombreCampo, valorCampo) => {
     const nuevosErrores = { ...errores };
@@ -33,6 +50,7 @@ function EEmple(props) {
     }
 
     setErrores(nuevosErrores);
+    return Object.keys(nuevosErrores).length === 0;
   };
   return (
     <section className="secundary-box">
@@ -78,18 +96,13 @@ function EEmple(props) {
 
             <div className="espbots">
             <div className="float-end">
-              <button
-                className="btnf btn btn-primary"
-                onClick={() => {
-                  siguientePaso();
-                }}
-              >
+            <button className="btnfs btn btn-primary"  onClick={() => { validarcampose(); }}>
                 validar
               </button>
             </div>
 
             <div className="float-start ">
-              <button className="btnf btn btn-primary" onClick={anteriorPaso}>
+            <button className="btnfa btn btn-primary" onClick={() => { anteriorPaso(); }}>
                 
                 volver
               </button>

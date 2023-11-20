@@ -11,7 +11,7 @@ function AEmple(props) {
       title: "¿Estás seguro?",
       text: "Si cancelas, perderás los cambios no guardados.",
       icon: "warning",
-      buttons: ["Cancelar", "Sí, salir"],
+      buttons: ["Cancelar", "Si, salir"],
       dangerMode: true,
     })
       .then((willCancel) => {
@@ -24,12 +24,10 @@ function AEmple(props) {
     setMostrarContraseña(!mostrarContraseña);
   };
 
-  const validarcampos = () => {
+  const validarcamposa = () => {
     let campos = ["documento", "id_doc", "n_em", "a_em", "eml_em", "passw"];
     let documentosValidos = true;
-
     campos.forEach((campo) => {
-
       if (documentosValidos) {
         documentosValidos = validarCampo(campo, valores[campo]);
       }
@@ -37,12 +35,14 @@ function AEmple(props) {
 
     if (documentosValidos) {
       siguientePaso();
-    }
+  } else{
+      swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
+  }
 
     return documentosValidos;
   };
 
-const validarCampo = (nombreCampo, valorCampo) => {
+  const validarCampo = (nombreCampo, valorCampo) => {
     const nuevosErrores = { ...errores };
 
     switch (nombreCampo) {
@@ -98,7 +98,6 @@ const validarCampo = (nombreCampo, valorCampo) => {
           nuevosErrores.a_em = "Ingrese solo letras y espacios en blanco";
         } else {
           delete nuevosErrores.a_em;
-
         }
         break;
 
@@ -180,6 +179,7 @@ const validarCampo = (nombreCampo, valorCampo) => {
             <div>
               <label className="form-label">Tipo de Documento</label>
               <select
+               disabled
                 type="Number"
                 name="id_doc"
                 className={`form-control ${errores.id_doc
@@ -194,7 +194,13 @@ const validarCampo = (nombreCampo, valorCampo) => {
                 }}
                 value={valores.id_doc}
               >
-               
+                <option value="">seleccione un tipo de documento </option>
+                <option value="1">Tarjeta de Identidad</option>
+                <option value="2">Cédula de Ciudadanía</option>
+                <option value="3">Tarjeta de Extranjería</option>
+                <option value="4">Cédula de Extranjería</option>
+                <option value="5">Pasaporte</option>
+                <option value="6">Nit</option>
               </select>
               <div className="invalid-feedback">{errores.id_doc}</div>
             </div>
@@ -287,7 +293,7 @@ const validarCampo = (nombreCampo, valorCampo) => {
               />
               <label
                 className="form-check-label"
-                htmlFor="mostrarContraseñaCheckbox"
+                
               >
                 Mostrar Contraseña
               </label>
@@ -296,9 +302,8 @@ const validarCampo = (nombreCampo, valorCampo) => {
             <div className="espbots">
               <div className="float-end">
                 <button
-                  className="btnf btn btn-primary"
-                 
-                  onClick={() => { validarcampos(); }}
+                  className="btnfs btn btn-primary"
+                  onClick={() => { validarcamposa(); }}
                 >
                   Siguiente
                 </button>
@@ -306,10 +311,8 @@ const validarCampo = (nombreCampo, valorCampo) => {
 
               <div className="float-start ">
                 <button
-                  className="btnf btn btn-primary"
-
+                  className="btnfa btn btn-primary"
                   onClick={() => { cancelar(); }}
-
                 >
                   cancelar
                 </button>
