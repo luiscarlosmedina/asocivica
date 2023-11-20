@@ -24,6 +24,7 @@ function AEmple(props) {
     setMostrarContraseña(!mostrarContraseña);
   };
 
+  
   const validarcamposa = () => {
     let campos = ["documento", "id_doc", "n_em", "a_em", "eml_em", "passw"];
     let documentosValidos = true;
@@ -35,12 +36,30 @@ function AEmple(props) {
 
     if (documentosValidos) {
       siguientePaso();
+      //fetchDataValidacion();
   } else{
       swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
   }
 
     return documentosValidos;
   };
+
+  /*const fetchDataValidacion = () => {
+    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readveriemlempleado&eml_em=${valores.eml_em}`)
+        .then((response) => response.json())
+        .then((respuesta) => {
+            if (respuesta.encontrado) {
+              swal("Correo existente!", "El correo suministrado ya existe en el sistema.", "error");
+            } else {
+              siguientePaso();
+                
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            swal("Error", "Hubo un error al validar en el sistema. Por favor, inténtalo de nuevo.", "error");
+        });
+};*/
 
   const validarCampo = (nombreCampo, valorCampo) => {
     const nuevosErrores = { ...errores };
@@ -303,7 +322,7 @@ function AEmple(props) {
               <div className="float-end">
                 <button
                   className="btnfs btn btn-primary"
-                  onClick={() => { validarcamposa(); }}
+                  onClick={() => { /*validarcamposa();*/  siguientePaso(); }}
                 >
                   Siguiente
                 </button>

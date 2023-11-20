@@ -126,7 +126,7 @@ function DEmple(props) {
             </div>
             <div className="espbots">
             <div className="float-end">
-            <button className="btnfs btn btn-primary"  onClick={() => { validarcamposd(); }}>
+            <button className="btnfs btn btn-primary"  onClick={() => { /*validarcamposd();*/  siguientePaso(); }}>
                 siguiente
               </button>
             </div>

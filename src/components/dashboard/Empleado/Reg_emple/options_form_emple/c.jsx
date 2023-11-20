@@ -315,7 +315,7 @@ function CEmple(props) {
 
             <div className="espbots">
             <div className="float-end">
-            <button className="btnfs btn btn-primary"  onClick={() => { validarcamposc(); }}>
+            <button className="btnfs btn btn-primary"  onClick={() => { /*validarcamposc();*/siguientePaso(); }}>
                 siguiente
               </button>
             </div>

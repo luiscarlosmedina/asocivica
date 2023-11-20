@@ -17,29 +17,13 @@ function BEmple(props) {
 
     if (documentosValidos) {  
       console.log("si paso")
-      fetchDataValidacion();
+     siguientePaso();
   } else{
       swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
   }
     return documentosValidos;
   };
 
-  const fetchDataValidacion = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readveriemlempleado&eml_em=${valores.eml_em}`)
-        .then((response) => response.json())
-        .then((respuesta) => {
-            if (respuesta.encontrado) {
-              swal("Correo existente!", "El correo suministrado ya existe en el sistema.", "error");
-            } else {
-              siguientePaso();
-                
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-            swal("Error", "Hubo un error al validar en el sistema. Por favor, inténtalo de nuevo.", "error");
-        });
-};
 
 
   const validarCampo = (nombreCampo, valorCampo) => {
@@ -243,7 +227,7 @@ function BEmple(props) {
 
               <div className="espbots">
                 <div className="float-end">
-                  <button className="btnfs btn btn-primary"  onClick={() => { validarcamposb(); }}>
+                  <button className="btnfs btn btn-primary"  onClick={() => { /*validarcamposb();*/  siguientePaso(); }}>
                     siguiente
                   </button>
                 </div>

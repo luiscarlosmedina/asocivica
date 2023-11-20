@@ -6,33 +6,6 @@ export default function Validador(props) {
     const { handleInputChange, valores, siguientePaso } = props;
     const [errores, setErrores] = useState({});
 
-    /*const [tpdocumento, setTpdocumento] = useState([]);
-
-    useEffect(() => {
-        fetchDataTpdocumento();
-      }, []);
-    
-      const fetchDataTpdocumento = () => {
-        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtpdocumento")
-          .then((response) => response.json())
-          .then((tpdocumento) => {
-            setTpdocumento(tpdocumento.contenido);
-            console.log(tpdocumento.contenido)
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
-        --------------------------------------------------------------------
-                    props.handleInputChange({
-                        target: {
-                            name: "id_doc",
-                            value: valorCampo,
-                        },
-                    });
-                    console.log("Valor actualizado en empleadoData:", valorCampo);
-       --------------------------------------------------------------------*/
-
 
     const validarcampos = () => {
         let campos = ["documento", "id_doc"];
@@ -44,7 +17,8 @@ export default function Validador(props) {
         });
 
         if (documentosValidos) {
-            fetchDataValidacion();
+            siguientePaso();
+            //fetchDataValidacion();
         } else {
             swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
         }
@@ -58,7 +32,7 @@ export default function Validador(props) {
                 if (respuesta.encontrado) {
                     swal("¡Empleado existente!", "El empleado ya existe en el sistema.", "error");
                 } else {
-                    siguientePaso();
+                    //siguientePaso();
                 }
             })
             .catch((error) => {
@@ -170,7 +144,7 @@ export default function Validador(props) {
                             <div className="float-end">
                                 <button
                                     className="btnfs btn btn-primary"
-                                    onClick={() => { validarcampos(); }}
+                                    onClick={() => { /*validarcampos();*/ siguientePaso(); }}
                                 >
                                     Validar en el sistema
                                 </button>
