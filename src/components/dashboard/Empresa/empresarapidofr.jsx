@@ -234,7 +234,7 @@ function Empresarapidofr({ nit, est, resetForm}) {
                         <div className="invalid-feedback">Máximo 4 dígitos</div>
                     </div>
                 </div>
-                <div>
+                <div className='my-3'>
                     <div className="row">
                         <div className="col-md-8">
                             <label htmlFor={`Dic_S`}>Dirección Sede</label>
@@ -259,6 +259,7 @@ function Empresarapidofr({ nit, est, resetForm}) {
                                 value={empresa.Sec_V}
                                 onChange={handleChange}
                             >
+                                <option value="" disabled>Seleccione un sector</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -300,6 +301,9 @@ function Empresarapidofr({ nit, est, resetForm}) {
                 <div className='d-grid gap-2'>
                     <button type="submit" className="btn btn-primary">
                         Registrar Empresa
+                    </button>
+                    <button type="submit" className="btn btn-secondary" onClick={resetForm}>
+                        Cancelar
                     </button>
                 </div>
             </form>

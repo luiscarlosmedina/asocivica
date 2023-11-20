@@ -607,6 +607,9 @@ function Empresafr({ nit, est, resetForm}) {
                     <button type="submit" className="btn btn-primary">
                         Registrar Empresa
                     </button>
+                    <button type="submit" className="btn btn-secondary" onClick={resetForm}>
+                        Cancelar
+                    </button>
                 </div>
             </form>
         </div>
