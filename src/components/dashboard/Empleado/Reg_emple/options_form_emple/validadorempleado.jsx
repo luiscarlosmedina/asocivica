@@ -58,7 +58,6 @@ export default function Validador(props) {
                 if (respuesta.encontrado) {
                     swal("¡Empleado existente!", "El empleado ya existe en el sistema.", "error");
                 } else {
-                    // Si no se encuentra al empleado, puedes continuar al siguiente paso
                     siguientePaso();
                 }
             })
