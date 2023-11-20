@@ -252,6 +252,7 @@ export default function NovedadForm({ onDataUpdate }) {
     setDic_Nov(value);
   };
 
+  const [caracteresRestantes, setCaracteresRestantes] = useState(255);
   const handleInputsChange = (nombreCampo, value) => {
     switch (nombreCampo) {
       case "T_Nov":
@@ -262,6 +263,9 @@ export default function NovedadForm({ onDataUpdate }) {
         break;
       case "Des_Nov":
         setDes_Nov(value);
+        const caracteresUsados = value.length;
+        const restantes = 255 - caracteresUsados;
+        setCaracteresRestantes(restantes);
         break;
       case "id_evi":
         setId_evi(value);
@@ -479,7 +483,7 @@ export default function NovedadForm({ onDataUpdate }) {
             </div>
           )}
           <div className="mt-3 mx-4 p-2">
-            <label for="descripcion" className="form-label">
+            <label htmlFor="descripcion" className="form-label">
               Describe el acontecimiento
             </label>
             <textarea
@@ -488,10 +492,14 @@ export default function NovedadForm({ onDataUpdate }) {
               value={Des_Nov}
               onChange={(e) => handleInputsChange("Des_Nov", e.target.value)}
               rows="3"
+              maxLength="255" // Limita el número de caracteres
               required
             ></textarea>
-            <div class="valid-feedback ms-5">Correcto</div>
-            <div class="invalid-feedback ms-5">agrege una descripcion</div>
+            <div className="valid-feedback ms-5">Correcto</div>
+            <div className="invalid-feedback ms-5">Agrega una descripción</div>
+            <div className="ms-1 text-muted">
+              Caracteres restantes: {caracteresRestantes}
+            </div>
           </div>
           <div className="row m-auto">
             <div class="col-4 mx-4">
