@@ -67,23 +67,18 @@ export default function VerDetalleNovedad() {
                     <div class="row">
                       <div class="col-12">
                         <blockquote class="blockquote">
-                          <h1>{novedad.Tipo_Novedad}</h1>
+                          <h3>{novedad.Tipo_Novedad}</h3>
+                          <em class="p-0 m-0">Creada: <FormateadorFecha fechaDada={novedad.Fecha_Novedad} />  <TiempoTranscurrido fechaDada={novedad.Fecha_Novedad} /></em>
                         </blockquote>
-                        <figcaption class="blockquote-footer">
-                          <em class="fs-5">Descripción de novedad: {novedad.Descripcion_Tipo}</em>
-                        </figcaption>
                         <figcaption class="blockquote-footer">
                           <em class="fs-5 pt-0 mt-0">Dirección: {novedad.Direccion}</em>
                         </figcaption>
+                        <figcaption class="blockquote-footer">
+                          <em class="fs-5">Descripción de novedad: {novedad.Descripcion_Novedad}</em>
+                        </figcaption>
                       </div>
                       <div class="col-12">
-                        <blockquote class="blockquote p-0 m-0">
-                          <h1 class="p-0 m-0">Creada: <TiempoTranscurrido fechaDada={novedad.Fecha_Novedad} /></h1>
-                        </blockquote>
-                        <figcaption class="blockquote-footer p-0 m-0">
-                          <em class="fs-5 pt-0 mt-0">Fecha de creación: <FormateadorFecha fechaDada={novedad.Fecha_Novedad} /></em>
-                        </figcaption>
-                        <p class="fs-5 pt-0 mt-0 text-capitalize fw-lighter">by: {novedad.Nombre_Completo_Empleado}</p>
+                        <p class="fs-5 pt-0 mt-0 text-capitalize fw-lighter"> Motorizado: {novedad.Nombre_Completo_Empleado}</p>
                       </div>
                     </div>
                   </div>

@@ -155,7 +155,7 @@ export default function VerNovedades({ dataUpdated }) {
                           type="button"
                           className="btn btn-primary"
                         >
-                          Ver mas
+                          VER MAS
                         </button>
                       </Link>
                     </div>

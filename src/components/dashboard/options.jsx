@@ -13,7 +13,7 @@ const Options = () => {
       <li className="nav-item dropdown">
         <a
           className="nav-link dropdown-toggle text-white small text-center"
-          href="#"
+          href="empresas"
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -28,7 +28,7 @@ const Options = () => {
       <li className="nav-item dropdown">
         <a
           className="nav-link dropdown-toggle text-white small text-center"
-          href="#"
+          href="novedades"
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -38,13 +38,13 @@ const Options = () => {
         <ul className="dropdown-menu">
           <li><NavLink to="/consultar-novedades" className="dropdown-item">Ver Novedades</NavLink></li>
           <li><NavLink to="/registrar-novedades" className="dropdown-item">Agregar Novedades</NavLink></li>
-          <li><NavLink to="/tipo-novedades" className="dropdown-item">tipo de Novedades</NavLink></li>
+          <li><NavLink to="/tipo-novedades" className="dropdown-item">Tipo de Novedades</NavLink></li>
         </ul>
       </li>
       <li className="nav-item dropdown">
         <a
           className="nav-link dropdown-toggle text-white small text-center"
-          href="#"
+          href="empleados"
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -59,7 +59,7 @@ const Options = () => {
       <li className="nav-item dropdown">
         <a
           className="nav-link dropdown-toggle text-white small text-center"
-          href="#"
+          href="reportes"
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
