@@ -6,7 +6,7 @@ function BEmple(props) {
   const [errores, setErrores] = useState({});
 
   const validarcamposb = () => {
-    console.log("si")
+    //console.log("prueba si pasa")
     let campos = ["id_rol", "barloc_em", "dir_em", "tel_em", "eml_em", "id_rh"];
     let documentosValidos = true;
     campos.forEach((campo) => {
@@ -15,16 +15,14 @@ function BEmple(props) {
       }
     });
 
-    if (documentosValidos) {  
-      console.log("si paso")
-     siguientePaso();
-  } else{
+    if (documentosValidos) {
+    //console.log("prueba si pasa")
+      siguientePaso();
+    } else {
       swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
-  }
+    }
     return documentosValidos;
   };
-
-
 
   const validarCampo = (nombreCampo, valorCampo) => {
     const nuevosErrores = { ...errores };
@@ -35,8 +33,7 @@ function BEmple(props) {
         if (
           valorCampo !== "1" &&
           valorCampo !== "2" &&
-          valorCampo !== "3" &&
-          valorCampo !== "4"
+          valorCampo !== "3" 
         ) {
           nuevosErrores.id_rol = "Por favor, seleccione un rol válido";
         } else {
@@ -75,7 +72,7 @@ function BEmple(props) {
           delete nuevosErrores.tel_em;
         }
         break;
-  
+
 
       case "id_rh":
         if (
@@ -108,20 +105,19 @@ function BEmple(props) {
       <div className="container">
         <div className="box-main">
           <div className="box-main2">
-          <div >
-              <label  className="form-label">
+            <div >
+              <label className="form-label">
                 Rol
               </label>
               <select
                 type="number"
                 name="id_rol"
-                className={`form-control ${
-                  errores.id_rol
+                className={`form-control ${errores.id_rol
                     ? "is-invalid"
                     : valores.id_rol
-                    ? "is-valid"
-                    : ""
-                }`}
+                      ? "is-valid"
+                      : ""
+                  }`}
                 id="id_rol"
                 onChange={(e) => {
                   handleInputChange(e);
@@ -133,7 +129,6 @@ function BEmple(props) {
                 <option value="1">Administrador</option>
                 <option value="2">Radio operador</option>
                 <option value="3">Motorizado</option>
-                <option value="4">Empresa</option>
               </select>
 
               <div className="invalid-feedback">{errores.id_rol}</div>
@@ -144,13 +139,12 @@ function BEmple(props) {
               <input
                 type="text"
                 name="barloc_em"
-                className={`form-control ${
-                  errores.barloc_em
+                className={`form-control ${errores.barloc_em
                     ? "is-invalid"
                     : valores.barloc_em
-                    ? "is-valid"
-                    : ""
-                }`}
+                      ? "is-valid"
+                      : ""
+                  }`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("barloc_em", e.target.value);
@@ -164,13 +158,12 @@ function BEmple(props) {
               <input
                 type="text"
                 name="dir_em"
-                className={`form-control ${
-                  errores.dir_em
+                className={`form-control ${errores.dir_em
                     ? "is-invalid"
                     : valores.dir_em
-                    ? "is-valid"
-                    : ""
-                }`}
+                      ? "is-valid"
+                      : ""
+                  }`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("dir_em", e.target.value);
@@ -184,13 +177,12 @@ function BEmple(props) {
               <input
                 type="Number"
                 name="tel_em"
-                className={`form-control ${
-                  errores.tel_em
+                className={`form-control ${errores.tel_em
                     ? "is-invalid"
                     : valores.tel_em
-                    ? "is-valid"
-                    : ""
-                }`}
+                      ? "is-valid"
+                      : ""
+                  }`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("tel_em", e.target.value);
@@ -204,9 +196,8 @@ function BEmple(props) {
               <select
                 type="Number"
                 name="id_rh"
-                className={`form-control ${
-                  errores.id_rh ? "is-invalid" : valores.id_rh ? "is-valid" : ""
-                }`}
+                className={`form-control ${errores.id_rh ? "is-invalid" : valores.id_rh ? "is-valid" : ""
+                  }`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("id_rh", e.target.value);
@@ -227,7 +218,7 @@ function BEmple(props) {
 
               <div className="espbots">
                 <div className="float-end">
-                  <button className="btnfs btn btn-primary"  onClick={() => { /*validarcamposb();*/  siguientePaso(); }}>
+                  <button className="btnfs btn btn-primary" onClick={() => { validarcamposb();  /*siguientePaso(); */ }}>
                     siguiente
                   </button>
                 </div>

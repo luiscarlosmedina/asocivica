@@ -17,8 +17,8 @@ export default function Validador(props) {
         });
 
         if (documentosValidos) {
-            siguientePaso();
-            //fetchDataValidacion();
+            //siguientePaso();
+            fetchDataValidacion();
         } else {
             swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
         }
@@ -32,7 +32,7 @@ export default function Validador(props) {
                 if (respuesta.encontrado) {
                     swal("¡Empleado existente!", "El empleado ya existe en el sistema.", "error");
                 } else {
-                    //siguientePaso();
+                    siguientePaso();
                 }
             })
             .catch((error) => {
@@ -137,14 +137,14 @@ export default function Validador(props) {
                             </p>
                         </blockquote>
                         <figcaption class="blockquote-footer">
-                            <cite title="Título fuente">"Antes de agregar un nuevo empleado al sistema, ten en cuenta validar cuidadosamente la información del usuariopara garantizar la precisión y autenticidad de los datos contribuye a mantener la integridad y seguridad de nuestro entorno laboral digital."</cite>
+                            <cite title="Título fuente">"Antes de agregar un nuevo empleado al sistema, ten en cuenta validar cuidadosamente la información del usuario para garantizar la precisión y autenticidad de los datos. Contribuye a mantener la integridad y seguridad de nuestro entorno laboral digital."</cite>
                         </figcaption>
 
                         <div className="espbots">
                             <div className="float-end">
                                 <button
                                     className="btnfs btn btn-primary"
-                                    onClick={() => { /*validarcampos();*/ siguientePaso(); }}
+                                    onClick={() => { validarcampos(); /*siguientePaso();*/ }}
                                 >
                                     Validar en el sistema
                                 </button>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import swal from 'sweetalert';
 
 function AEmple(props) {
-  const { handleInputChange, valores, siguientePaso, } = props;
+  const { handleInputChange, valores, siguientePaso, resetearPasos, resetEmpleadoData } = props;
   const [errores, setErrores] = useState({});
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
 
@@ -16,6 +16,10 @@ function AEmple(props) {
     })
       .then((willCancel) => {
         if (willCancel) {
+          resetearPasos();
+          resetEmpleadoData();
+        } else {
+          swal("¡Un error le pasa a cualquiera!", "Sigue con el registro..", "success");
         }
       });
   };
@@ -24,7 +28,7 @@ function AEmple(props) {
     setMostrarContraseña(!mostrarContraseña);
   };
 
-  
+
   const validarcamposa = () => {
     let campos = ["documento", "id_doc", "n_em", "a_em", "eml_em", "passw"];
     let documentosValidos = true;
@@ -35,31 +39,30 @@ function AEmple(props) {
     });
 
     if (documentosValidos) {
-      siguientePaso();
-      //fetchDataValidacion();
-  } else{
+      //siguientePaso();
+      fetchDataValidacion();
+    } else {
       swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
-  }
+    }
 
     return documentosValidos;
   };
 
-  /*const fetchDataValidacion = () => {
+  const fetchDataValidacion = () => {
     fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readveriemlempleado&eml_em=${valores.eml_em}`)
-        .then((response) => response.json())
-        .then((respuesta) => {
-            if (respuesta.encontrado) {
-              swal("Correo existente!", "El correo suministrado ya existe en el sistema.", "error");
-            } else {
-              siguientePaso();
-                
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-            swal("Error", "Hubo un error al validar en el sistema. Por favor, inténtalo de nuevo.", "error");
-        });
-};*/
+      .then((response) => response.json())
+      .then((respuesta) => {
+        if (respuesta.encontrado) {
+          swal("Correo existente!", "El correo suministrado ya existe en el sistema.", "error");
+        } else {
+          siguientePaso();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        swal("Error", "Hubo un error al validar en el sistema. Por favor, inténtalo de nuevo.", "error");
+      });
+  };
 
   const validarCampo = (nombreCampo, valorCampo) => {
     const nuevosErrores = { ...errores };
@@ -135,27 +138,25 @@ function AEmple(props) {
         }
         break;
 
-      case "passw":
-        if (!valorCampo.trim()) {
-          nuevosErrores.passw = "Por favor, este campo no puede estar vacío";
-        } else if (valorCampo.length < 8) {
-          nuevosErrores.passw = "Una contraseña segura debe tener al menos 8 caracteres";
-        } else if (valorCampo.length > 20) {
-          nuevosErrores.passw = "La contraseña puede tener como máximo 20 caracteres";
-        } else if (
-
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(
-            valorCampo
-          )
-        ) {
-          nuevosErrores.passw =
-            "La contraseña debe incluir al menos una mayúscula, una minúscula, un número y un carácter especial";
-        }
-
-        else {
-          delete nuevosErrores.passw;
-        }
-        break;
+        case "passw":
+          if (!valorCampo.trim()) {
+            nuevosErrores.passw = "Por favor, este campo no puede estar vacío";
+          } else if (valorCampo.length < 8) {
+            nuevosErrores.passw = "Una contraseña segura debe tener al menos 8 caracteres";
+          } else if (valorCampo.length > 20) {
+            nuevosErrores.passw = "La contraseña puede tener como máximo 20 caracteres";
+          } else if (
+            !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(
+              valorCampo
+            )
+          ) {
+            nuevosErrores.passw =
+              "La contraseña debe incluir al menos una mayúscula, una minúscula, un número y un carácter especial";
+          } else {
+            delete nuevosErrores.passw;
+          }
+          break;
+        
 
       default:
         break;
@@ -198,7 +199,7 @@ function AEmple(props) {
             <div>
               <label className="form-label">Tipo de Documento</label>
               <select
-               disabled
+                disabled
                 type="Number"
                 name="id_doc"
                 className={`form-control ${errores.id_doc
@@ -312,7 +313,7 @@ function AEmple(props) {
               />
               <label
                 className="form-check-label"
-                
+
               >
                 Mostrar Contraseña
               </label>
@@ -322,7 +323,7 @@ function AEmple(props) {
               <div className="float-end">
                 <button
                   className="btnfs btn btn-primary"
-                  onClick={() => { /*validarcamposa();*/  siguientePaso(); }}
+                  onClick={() => { validarcamposa();  /*siguientePaso();*/ }}
                 >
                   Siguiente
                 </button>

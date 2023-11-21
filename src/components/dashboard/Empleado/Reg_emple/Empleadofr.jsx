@@ -17,7 +17,14 @@ export default function Empleadofr() {
     const [pasos, setPasos] = useState({
       paso: 0,
     });
-  
+
+    //-----------------------------------------------------------------------------------------------------
+   //Variable de funcion para dejar el paso en 1 
+   const resetearPasos = () => {
+    setPasos({
+      paso: 0,
+    });
+  };
    //-----------------------------------------------------------------------------------------------------
    //Variable de estado para almacenar el objeto del formulario Empleado
     const [empleadoData, setEmpleados] = useState({
@@ -45,6 +52,37 @@ export default function Empleadofr() {
       passw: "",
       id_rol: "",
     });
+
+   //-----------------------------------------------------------------------------------------------------
+   //Variable de funcion para limpiar el objeto del formulario Empleado
+
+    const resetEmpleadoData = () => {
+      setEmpleados({
+        id_doc: "",
+        documento: "",
+        n_em: "",
+        a_em: "",
+        eml_em: "",
+        dir_em: "",
+        lic_emp: "",
+        lib_em: "",
+        tel_em: "",
+        f_em: "",
+        contrato: "",
+        barloc_em: "",
+        id_pens: "",
+        id_eps: "",
+        id_arl: "",
+        id_ces: "",
+        id_rh: "",
+        estado: "0",
+        n_coe: "",
+        csag: "",
+        t_cem: "",
+        passw: "",
+        id_rol: "",
+      });
+    };
 
   //-----------------------------------------------------------------------------------------------------
    //Esta funcion se encarga de usar el metodo setpasos para actualizar el valor de pasos y sumar para avanzar
@@ -111,6 +149,8 @@ export default function Empleadofr() {
               siguientePaso={siguientePaso}
               anteriorPaso={anteriorPaso}
               valores={empleadoData}
+              resetEmpleadoData = {resetEmpleadoData}
+              resetearPasos= {resetearPasos}
               
             />
           </div>  
@@ -178,6 +218,9 @@ export default function Empleadofr() {
       componenteActual = ( <Fin
         ultimovolver={ultimovolver}
         valores={empleadoData}
+        anteriorPaso={anteriorPaso}
+        resetEmpleadoData = {resetEmpleadoData}
+        resetearPasos= {resetearPasos}
         />);
       
   }

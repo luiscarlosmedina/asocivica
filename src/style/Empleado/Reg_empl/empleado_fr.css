@@ -137,7 +137,9 @@ input[type="text"] {
     box-shadow: 1px 2px 4px rgba(135, 71, 25, 0.462)
 }
 
-
+.t{
+    color: #134074;
+}
 
 .espbots {
     margin-top: 3em;
@@ -185,14 +187,14 @@ input[type="text"] {
     font-size: 1.25rem;
 }
 
-.verde {
-    color: #007d43;
+.azul {
+    color: #134074;
     font-size: 61px;
     text-shadow: 2px 2px 4px rgb(0 185 99 / 12%);
   }
 
-.verde2 {
-    background-color: #007d43;
+.azul2 {
+    background-color: #134074;
     box-shadow: 2px 1px 1px 1px rgb(0 185 99 / 14%);
   }
 
@@ -205,16 +207,21 @@ input[type="text"] {
 }
 
 .activo {
-    color: #134074;
-    text-shadow: 0px 2px 4px rgb(0 108 232 / 29%);
+    color:#e66001;
+    text-shadow: 0px 2px 4px #ffffff;
     font-size: 61px;
 }
 
-.t{
-    color: #134074;
-
-}
-.border-botom{
+.borsupd{
     margin: 1px;
-    border-bottom: 3px solid #a0a0a0;
+    border-bottom: 3px solid #134074;
 }
+
+.borsupa{
+    margin: 1px;
+    border-bottom: 3px solid #ff7d1f;
+}
+
+
+
+

@@ -6,7 +6,7 @@ function CEmple(props) {
   const [errores, setErrores] = useState({});
 
   const validarcamposc = () => {
-    console.log("si")
+    //console.log("prueba si pasa")
     let campos = ["lib_em", "lic_emp", "id_eps", "id_pens", "id_ces", "id_arl"];
     let documentosValidos = true;
     campos.forEach((campo) => {
@@ -17,9 +17,9 @@ function CEmple(props) {
 
     if (documentosValidos) {
       siguientePaso();
-  } else{
+    } else {
       swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
-  }
+    }
     return documentosValidos;
   };
 
@@ -95,16 +95,16 @@ function CEmple(props) {
 
       case "id_ces":
         if (valorCampo !== "1" &&
-        valorCampo !== "2" &&
-        valorCampo !== "3" &&
-        valorCampo !== "4" &&
-        valorCampo !== "5" &&
-        valorCampo !== "6" &&
-        valorCampo !== "7" &&
-        valorCampo !== "8" &&
-        valorCampo !== "7" &&
-        valorCampo !== "9" &&
-        valorCampo !== "10") {
+          valorCampo !== "2" &&
+          valorCampo !== "3" &&
+          valorCampo !== "4" &&
+          valorCampo !== "5" &&
+          valorCampo !== "6" &&
+          valorCampo !== "7" &&
+          valorCampo !== "8" &&
+          valorCampo !== "7" &&
+          valorCampo !== "9" &&
+          valorCampo !== "10") {
           nuevosErrores.id_ces =
             "Por favor, este el campo no puede estar vacio";
         } else {
@@ -122,7 +122,7 @@ function CEmple(props) {
           valorCampo !== "5" &&
           valorCampo !== "6" &&
           valorCampo !== "7" &&
-          valorCampo !== "8" 
+          valorCampo !== "8"
         ) {
           nuevosErrores.id_arl =
             "Por favor, seleccione un tipo de documento válido";
@@ -151,10 +151,10 @@ function CEmple(props) {
                 type="Text"
                 name="lib_em"
                 className={`form-control ${errores.lib_em
-                    ? "is-invalid"
-                    : valores.lib_em
-                      ? "is-valid"
-                      : ""
+                  ? "is-invalid"
+                  : valores.lib_em
+                    ? "is-valid"
+                    : ""
                   }`}
                 onChange={(e) => {
                   handleInputChange(e);
@@ -177,9 +177,8 @@ function CEmple(props) {
               <input
                 type="Text"
                 name="lic_emp"
-                className={`form-control ${
-                  errores.lic_emp ? "is-invalid" : valores.lic_emp ? "is-valid" : ""
-                }`}
+                className={`form-control ${errores.lic_emp ? "is-invalid" : valores.lic_emp ? "is-valid" : ""
+                  }`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("lic_emp", e.target.value);
@@ -194,10 +193,10 @@ function CEmple(props) {
                 type="Text"
                 name="id_eps"
                 className={`form-control ${errores.id_eps
-                    ? "is-invalid"
-                    : valores.id_eps
-                      ? "is-valid"
-                      : ""
+                  ? "is-invalid"
+                  : valores.id_eps
+                    ? "is-valid"
+                    : ""
                   }`}
                 onChange={(e) => {
                   handleInputChange(e);
@@ -226,10 +225,10 @@ function CEmple(props) {
                 type="Number"
                 name="id_pens"
                 className={`form-control ${errores.id_pens
-                    ? "is-invalid"
-                    : valores.id_pens
-                      ? "is-valid"
-                      : ""
+                  ? "is-invalid"
+                  : valores.id_pens
+                    ? "is-valid"
+                    : ""
                   }`}
                 onChange={(e) => {
                   handleInputChange(e);
@@ -258,10 +257,10 @@ function CEmple(props) {
                 type="Number"
                 name="id_ces"
                 className={`form-control ${errores.id_ces
-                    ? "is-invalid"
-                    : valores.id_ces
-                      ? "is-valid"
-                      : ""
+                  ? "is-invalid"
+                  : valores.id_ces
+                    ? "is-valid"
+                    : ""
                   }`}
                 onChange={(e) => {
                   handleInputChange(e);
@@ -289,10 +288,10 @@ function CEmple(props) {
                 type="Number"
                 name="id_arl"
                 className={`form-control ${errores.id_arl
-                    ? "is-invalid"
-                    : valores.id_arl
-                      ? "is-valid"
-                      : ""
+                  ? "is-invalid"
+                  : valores.id_arl
+                    ? "is-valid"
+                    : ""
                   }`}
                 onChange={(e) => {
                   handleInputChange(e);
@@ -314,16 +313,16 @@ function CEmple(props) {
             </div>
 
             <div className="espbots">
-            <div className="float-end">
-            <button className="btnfs btn btn-primary"  onClick={() => { /*validarcamposc();*/siguientePaso(); }}>
-                siguiente
-              </button>
-            </div>
-            <div className="float-start ">
-            <button className="btnfa btn btn-primary" onClick={() => { anteriorPaso(); }}>
-                volver
-              </button>
-            </div>
+              <div className="float-end">
+                <button className="btnfs btn btn-primary" onClick={() => { validarcamposc();  /*siguientePaso();*/ }}>
+                  siguiente
+                </button>
+              </div>
+              <div className="float-start ">
+                <button className="btnfa btn btn-primary" onClick={() => { anteriorPaso(); }}>
+                  volver
+                </button>
+              </div>
             </div>
           </div>
         </div>

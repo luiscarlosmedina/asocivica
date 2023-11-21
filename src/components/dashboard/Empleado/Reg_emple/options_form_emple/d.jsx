@@ -7,7 +7,7 @@ function DEmple(props) {
   const [errores, setErrores] = useState({});
 
   const validarcamposd = () => {
-    console.log("di")
+    //console.log("prueba si pasa")
     let campos = ["n_coe", "csag", "t_cem"];
     let documentosValidos = true;
     campos.forEach((campo) => {
@@ -126,7 +126,7 @@ function DEmple(props) {
             </div>
             <div className="espbots">
             <div className="float-end">
-            <button className="btnfs btn btn-primary"  onClick={() => { /*validarcamposd();*/  siguientePaso(); }}>
+            <button className="btnfs btn btn-primary"  onClick={() => { validarcamposd();  /*siguientePaso();*/ }}>
                 siguiente
               </button>
             </div>

@@ -2,9 +2,12 @@ import React from "react";
 import swal from 'sweetalert';
 
 
+
 function Fin(props) {
-    const { ultimovolver, valores} = props;
+
+    const { valores, anteriorPaso, resetEmpleadoData, resetearPasos} = props;
     const MySwal = swal
+
     MySwal({
         title: "¿Estás seguro de guardar?",
         text: "Si finalizas, no podrás revisar la información ingresada.",
@@ -32,16 +35,21 @@ function Fin(props) {
                             console.log('Respuesta del servidor:', data);
                             swal("Poof! Su informacion fue guardada con exito", {
                                 icon: "success",
-
                             });
+                            resetEmpleadoData();
+                            resetearPasos();    
+                            
+
                         }).catch(error => {
                             console.error('Error al enviar datos:', error);
                             swal("¡Error!", "Hubo un problema al enviar los datos. Inténtalo de nuevo.", "error");
+                            anteriorPaso();
                             
                         });
             
             } else {
                 swal("Revisa la informacion y luego guarda");
+                anteriorPaso();
             }
         });
 
