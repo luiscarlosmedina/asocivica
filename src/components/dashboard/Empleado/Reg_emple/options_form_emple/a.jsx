@@ -171,9 +171,6 @@ function AEmple(props) {
       <div className="container">
         <div className="box-main">
           <div className="box-main2">
-
-
-
             <div>
               <label className="form-label">Numero de Documento</label>
               <input
@@ -261,7 +258,7 @@ function AEmple(props) {
             </div>
 
 
-            <div className="mb-3">
+            <div className="">
               <label className="form-label">Correo electronico</label>
               <input
                 type="email"
@@ -284,8 +281,8 @@ function AEmple(props) {
               <div className="invalid-feedback">{errores.eml_em}</div>
             </div>
 
-            <div className="mb-3">
-              <label className="form-label">
+            <div >
+              <label className=" form-label">
                 Contraseña
               </label>
               <input
@@ -304,7 +301,7 @@ function AEmple(props) {
               <div className="invalid-feedback">{errores.passw}</div>
             </div>
 
-            <div className="mb-3 form-check">
+            <div className="mt-3 form-check">
               <input
                 type="checkbox"
                 className="form-check-input"

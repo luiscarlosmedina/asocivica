@@ -78,13 +78,6 @@ h6 {
     margin-left: -1em;
 }
 
-input[type="text"] {
-    display: inline-block;
-    width: 100%;
-
-    margin: 2px 0;
-    border: 1px solid #ccc;
-}
 
 .secundary-box {
     height: 52em;
@@ -106,6 +99,7 @@ input[type="text"] {
     font-size: 17px;
     font-weight: 500;
     box-shadow: 1px 2px 4px #002f5d78;
+    margin-right: 1em;
      
 }
 
@@ -127,6 +121,7 @@ input[type="text"] {
     box-shadow: 1px 2px 4px #002f5d78;
      
 }
+
 
 .btnfa:hover {
     color: #dd5c00;

@@ -62,14 +62,14 @@ export default function EmpleadoVerDetalles() {
                 <div key={empleado.id_em} >
                     <div className='d-flex justify-content-between align-items-center'>
                         <div>
-                            <h3>Datos Basicos</h3>
+                        <p className="t h3 mb-1 mt-4">Datos Basicos</p>
                         </div>
                         <div>
-                            <button type="button" className="btn btn-link" onClick={() => back('/consultar-empleados')}>Salir</button>
-                            <button type="button" className="btn btn-link" data-bs-toggle="modal" data-bs-target="#editarempresa" data-bs-whatever="@mdo"> Editar </button>
+                            <button type="button" className="btnfa btn btn-primary " onClick={() => back('/consultar-empleados')}>Salir</button>
+                            <button type="button" className="btnfs btn btn-primary " > Editar </button>
                         </div>
                     </div>
-                    <hr />
+                    <div className={`mb-3 mt-3 borsupd border-3 `}></div>
                     <div className="row">
                         <div className="card border border-0 col-md-2">
                             <img src={usersPhoto('./pablo.jpg')} className="card-img-top" alt="Image by rawpixel.com on Freepik" />
@@ -94,16 +94,15 @@ export default function EmpleadoVerDetalles() {
                             </div>
                         </div>
                     </div>
-                    <div className='row my-5'>
+                    <div className='row my-3'>
                         <div className='d-flex justify-content-between align-items-center'>
                             <div>
-                                <h3>Parafiscales</h3>
+                            <p className="t h3 mb-0 ">Parafiscales</p>
+                            <div className={`mb-3 mt-3 borsupd border-3 `}></div>  
                             </div>
-                            <div>
-
-                            </div>
+                            
                         </div>
-                        <hr />
+
                         <TableContainer component={Paper}>
                             <Table>
                                 <TableHead>

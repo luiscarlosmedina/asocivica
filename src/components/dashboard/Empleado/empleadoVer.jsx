@@ -70,15 +70,15 @@ export default function EmpleadoVer({ dataUpdated }) {
 
   return (
     <div className="consultar-container">
-      <h3>Empleados</h3>
+      <p className="t h2 mb-4  mt-4">Empleados registrados en el sistema</p>
       <TextField
         label="Buscar por nombre o documento"
         variant="outlined"
         fullWidth
-        margin="normal"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
+      
       <div>
         <FormControlLabel
           control={
@@ -101,11 +101,12 @@ export default function EmpleadoVer({ dataUpdated }) {
           label="Inactivo"
         />
       </div>
+      <div className={`mb-1 mt-1 borsupd border-3 `}></div>
       <TableContainer component={Paper} className="my-3">
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Documento</TableCell>
+              <TableCell >Documento</TableCell>
               <TableCell>Nombre</TableCell>
               <TableCell>Apellido</TableCell>
               <TableCell>Correo</TableCell>

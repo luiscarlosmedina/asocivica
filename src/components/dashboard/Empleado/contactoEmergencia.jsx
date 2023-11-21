@@ -144,7 +144,7 @@ export default function ContactoEmergencia({ id }) {
         <div className="my-3">
             <div className='d-flex justify-content-between align-items-center'>
                 <div>
-                    <h3>Contactos de emergencia</h3>
+                    <p className="t h3 mb-0 ">Contactos de emergencia</p>
                 </div>
                 <div>
                     <Button
@@ -156,7 +156,7 @@ export default function ContactoEmergencia({ id }) {
                     </Button>
                 </div>
             </div>
-            <hr />
+            <div className={`mb-3 mt-3 borsupd border-3 `}></div>
             {showInsertForm && (
                 <TableContainer component={Paper}>
                     <Table>
