@@ -18,7 +18,7 @@ export default function VerDetalleNovedad() {
     Adjunto_Evidencia: "",
     Nombre_Completo_Empleado: "",
   });
-
+  new FormData
   useEffect(() => {
     fetchData();
   }, []);
@@ -61,9 +61,9 @@ export default function VerDetalleNovedad() {
               </div>
             </div>
             <div class="container-fluid">
-              <div class="row shadow-lg p-3 my-3 bg-body-tertiary rounded-4 h-100">
-                <div class="col-md-6">
-                  <div class="rounded-start ps-3">
+              <div class="row shadow-lg p-3 my-1 bg-body-tertiary rounded-4">
+                <div class="col-md-6 ">
+                  <div class="rounded-start px-3">
                     <div class="row">
                       <div class="col-12">
                         <blockquote class="blockquote">
@@ -83,28 +83,20 @@ export default function VerDetalleNovedad() {
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6 border-start border-4 border-primary">
+                <div class="col-md-6 border-start border-4 border-primary vh-auto" style={{ overflowY: 'auto', maxHeight: '520px' }}>
                   <div class="row">
-                    <div class="col-4 my-1">
-                      <img src={figure} class="img-fluid" alt="Imagen 1" />
+                    <div class="col my-1">
+                      <img src={figure} class="img-fluid w-100" alt="Imagen 1" />
                     </div>
-                    <div class="col-4 my-1">
-                      <img src={figure} class="img-fluid" alt="Imagen 2" />
+                  </div>
+                  <div class="row">
+                    <div class="col my-1">
+                      <img src={figure} class="img-fluid w-100" alt="Imagen 1" />
                     </div>
-                    <div class="col-4 my-1">
-                      <img src={figure} class="img-fluid" alt="Imagen 3" />
-                    </div>
-                    <div class="col-4 my-1">
-                      <img src={figure} class="img-fluid" alt="Imagen 3" />
-                    </div>
-                    <div class="col-4 my-1">
-                      <img src={figure} class="img-fluid" alt="Imagen 3" />
-                    </div>
-                    <div class="col-4 my-1">
-                      <img src={figure} class="img-fluid" alt="Imagen 3" />
-                    </div>
-                    <div class="col-4 my-1">
-                      <img src={figure} class="img-fluid" alt="Imagen 3" />
+                  </div>
+                  <div class="row">
+                    <div class="col my-1">
+                      <img src={figure} class="img-fluid w-100" alt="Imagen 1" />
                     </div>
                   </div>
                 </div>

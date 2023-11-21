@@ -1,14 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Conteonov from './graphic/conteonov';
 import Conteosectornov from './graphic/conteosectornov';
 import Conteonovdia from './graphic/conteonovdia';
 import Conteonovhora from './graphic/conteonovhora';
+import generatePDF, { Margin } from 'react-to-pdf';
+import jsPDF from 'jspdf';
 
 export default function Repnov() {
     const [tpnovedad, setTpnovedad] = useState([]);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [tipoNovedad, setTipoNovedad] = useState(null); // Inicializa como null
+
+    const handleDownloadReport = () => {
+        const pdf = new jsPDF();
+      
+        // Add a custom header
+        const header = () => {
+          pdf.setFont('Arial', 'normal', 12);
+          pdf.text('Este es un texto de ejemplo', 10, 10, 'center');
+        };
+      
+        // Add a custom footer
+        const footer = () => {
+          pdf.setFont('Arial', 'normal', 12);
+          pdf.text(`Página ${pdf.pageNumber} de ${pdf.pageCount}`, 10, 10, 'center');
+        };
+        generatePDF(componentRef, {
+          filename: 'reporte.pdf',
+          orientation: 'landscape',
+          page: { margin: Margin.MEDIUM },
+          pageFooter: footer(),
+          pageHeader: header(),
+          jsPDF: pdf,
+        });
+        footer()
+      };      
 
     const handleStartDateChange = (e) => {
         setStartDate(e.target.value);
@@ -23,6 +50,8 @@ export default function Repnov() {
         const selectedTipoNovedad = selectedValue === "todos" ? null : parseInt(selectedValue);
         setTipoNovedad(selectedTipoNovedad);
     };
+
+    const componentRef = useRef();
 
     useEffect(() => {
         fetchDataTpnoedad();
@@ -46,7 +75,7 @@ export default function Repnov() {
                     <h3>Reporte de la operación</h3>
                 </div>
                 <div>
-                    <button type="button" className="btn btn-outline-success"> Descargar reporte </button>
+                    <button type="button" className="btn btn-outline-success" onClick={handleDownloadReport}> Descargar reporte </button>
                 </div>
             </div>
             <hr />
@@ -87,14 +116,14 @@ export default function Repnov() {
                     />
                 </div>
             </div>
-            <div className='container max-width'>
+            <div className='container max-width' ref={componentRef}>
                 <div className='row h-50'>
                     <Conteonov startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad} />
-                    <Conteosectornov startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad}/>
+                    <Conteosectornov startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad} />
                 </div>
                 <div className='row'>
-                    <Conteonovdia startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad}/>
-                    <Conteonovhora startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad}/>
+                    <Conteonovdia startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad} />
+                    <Conteonovhora startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad} />
                 </div>
             </div>
         </div>
