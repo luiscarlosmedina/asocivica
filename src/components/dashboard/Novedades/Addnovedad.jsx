@@ -48,6 +48,18 @@ export default function Addnovedad() {
     };
 
     const saveEnc = async (T_Nov, updatedEncargado) => {
+        // Reiniciar los errores antes de realizar una nueva validación
+        setErrors({});
+
+        // Validación básica antes de enviar datos al servidor
+        if (!newtpnovedad.Nombre_Tn || !newtpnovedad.descrip_Tn) {
+            // Mostrar errores
+            setErrors({
+                Tipo_Novedad: !newtpnovedad.Nombre_Tn ? "Campo es requerido" : "",
+                descripcion: !newtpnovedad.descrip_Tn ? "Campo es requerido" : "",
+            });
+            return;
+        }
         try {
             const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updatetpnovedad`, {
                 method: 'POST',
@@ -70,6 +82,7 @@ export default function Addnovedad() {
                 setErrors({ ...errors, [`N_En_${T_Nov}`]: "", [`tel1_${T_Nov}`]: "", [`tel2_${T_Nov}`]: "", [`tel3_${T_Nov}`]: "" });
             }
         } catch (error) {
+            swal("Error!","Tipo de novedad ya existe","error");
             console.error("Error:", error);
         }
     };

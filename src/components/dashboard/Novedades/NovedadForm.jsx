@@ -12,6 +12,7 @@ export default function NovedadForm({ onDataUpdate }) {
     fetchDataTpnoedad();
   }, []);
 
+  //traer tipo de novedades
   const fetchDataTpnoedad = () => {
     fetch(
       "http://localhost/api_proyecto.github.io/api.php?apicall=readtpnovedad"
@@ -36,6 +37,7 @@ export default function NovedadForm({ onDataUpdate }) {
     fetchDataSede();
   }, []);
 
+  //traer listado de empresas
   const fetchDataEmpresa = () => {
     fetch(
       "http://localhost/api_proyecto.github.io/api.php?apicall=readnovedadempresa"
@@ -49,6 +51,7 @@ export default function NovedadForm({ onDataUpdate }) {
       });
   };
 
+  //traer listado de sedes correspondientes a la empresa seleccionada
   const fetchDataSede = (id_e) => {
     fetch(
       `http://localhost/api_proyecto.github.io/api.php?apicall=readnovedadsede&id=${id_e}`
@@ -93,42 +96,51 @@ export default function NovedadForm({ onDataUpdate }) {
   const [T_Nov, setT_Nov] = useState(null);
   const [Dic_Nov, setDic_Nov] = useState(null);
   const [Des_Nov, setDes_Nov] = useState(null);
-  const [id_evi, setId_evi] = useState(null);
+  const [adjuntos, setAdjuntos] = useState(null);
   const [id_em, setId_em] = useState(null);
   const [ID_S, setID_S] = useState(null);
   const [message, setMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validar que los campos obligatorios no estén vacíos
+    if (!T_Nov || (!Dic_Nov && !ID_S) || !Des_Nov || !id_em) {
+      swal("Error!", "Todos los campos son obligatorios. Por favor, complete todos los campos antes de enviar la novedad.", "error");
+      return;
+    }
+
+    // datos para crear la novedad
     const novedad = {
       T_Nov,
       Dic_Nov,
       Des_Nov,
-      id_evi,
       id_em,
       ID_S,
+      adjuntos,
     };
-
-    fetch(
-      "http://localhost/api_proyecto.github.io/api.php?apicall=createnovedad",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(novedad),
-      }
-    )
+    console.log(novedad);
+    //crear la novedad
+    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=createnovedad", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(novedad),
+    })
       .then(response => response.json())
       .then(data => {
         if (data.error) {
-          swal("Error!", "No se agrego la novedad, revise que todos los campos esten completos e intentelo nuevamente", "success");
+          swal("Error!", "No se agregó la novedad. Revise que todos los campos estén completos e inténtelo nuevamente", "error");
+          console.log(data.error);
         } else {
-          swal("Buen trabajo!", "creado con exito", "success");
+          swal("¡Buen trabajo!", "Creado con éxito", "success");
           setT_Nov("");
           setDic_Nov("");
           setDes_Nov("");
           setId_em("");
+          setAdjuntos("");
+          setCaracteresRestantes(255);
           setID_S(null);
           setIsChecked(false);
           setShowSelects(false);
@@ -139,7 +151,7 @@ export default function NovedadForm({ onDataUpdate }) {
         }
       })
       .catch(error => {
-        swal("Error!", "No se agrego la novedad, revise que todos los campos esten completos e intentelo nuevamente", "error");
+        swal("Error!", "No se agregó la novedad. Revise que todos los campos estén completos e inténtelo nuevamente", "error");
       });
   };
 
@@ -176,6 +188,7 @@ export default function NovedadForm({ onDataUpdate }) {
     setDescripcion(value);
   };
 
+  //crear tipo de novedad nuevo
   const handleTPnovedad = (e) => {
     e.preventDefault();
     // Verifica los campos individuales
@@ -221,12 +234,15 @@ export default function NovedadForm({ onDataUpdate }) {
       });
   };
 
+  //resetear el formulario
   const handleCancelar = () => {
     setT_Nov("");
     setDic_Nov("");
     setDes_Nov("");
     setId_em("");
     setID_S(null);
+    setAdjuntos("");
+    setCaracteresRestantes(255);
     setIsChecked(false);
     setShowSelects(false);
     setSelectedEmpresa("");
@@ -234,6 +250,7 @@ export default function NovedadForm({ onDataUpdate }) {
     setMessage("");
   };
 
+  //cambiar a seleccionar empresa
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
     if (isChecked) {
@@ -252,6 +269,7 @@ export default function NovedadForm({ onDataUpdate }) {
     setDic_Nov(value);
   };
 
+  //generar condiciones en cada campo del formulario
   const [caracteresRestantes, setCaracteresRestantes] = useState(255);
   const handleInputsChange = (nombreCampo, value) => {
     switch (nombreCampo) {
@@ -267,8 +285,8 @@ export default function NovedadForm({ onDataUpdate }) {
         const restantes = 255 - caracteresUsados;
         setCaracteresRestantes(restantes);
         break;
-      case "id_evi":
-        setId_evi(value);
+      case "adjuntos":
+        setAdjuntos(value);
         break;
       case "id_em":
         setId_em(value);
@@ -504,9 +522,9 @@ export default function NovedadForm({ onDataUpdate }) {
           <div className="row m-auto">
             <div class="col-4 mx-4">
               <label for="link" class="form-label">
-                Agrega la  evidencia
+                Agrega la evidencia
               </label>
-              <input type="file" class="form-control" id="link" value={id_evi} onChange={(e) => handleInputsChange("id_evi", e.target.value)} />
+              <input type="text" class="form-control" id="link" value={adjuntos} placeholder="URL donde se encuentran las evidencias" onChange={(e) => handleInputsChange("adjuntos", e.target.value)} />
               <div class="invalid-feedback">
                 pon la url de la carpeta de evidecia
               </div>

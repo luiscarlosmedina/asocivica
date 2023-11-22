@@ -52,7 +52,6 @@ export default function VerNovedades({ dataUpdated }) {
         .then((response) => response.json())
         .then((data) => {
           setData(data.contenido);
-          filterData(); // Filtrar datos después de obtenerlos
           setLoading(false);
         })
         .catch((error) => {
@@ -74,6 +73,10 @@ export default function VerNovedades({ dataUpdated }) {
 
     fetchData();
     fetchDataTpnoedad();
+  }, []);
+
+  useEffect(() => {
+    filterData(); // Run filterData whenever the dependent variables change
   }, [startDate, endDate, tipoNovedad, data]);
 
   let novedadID;
