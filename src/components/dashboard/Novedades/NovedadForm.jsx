@@ -91,6 +91,9 @@ export default function NovedadForm({ onDataUpdate }) {
         console.log(error);
       });
   };
+  //configurar fecha
+  const fecha = new Date()
+  const hoy =fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate() + " " + fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds();
 
   //funcion para enviar a api
   const [T_Nov, setT_Nov] = useState(null);
@@ -117,6 +120,7 @@ export default function NovedadForm({ onDataUpdate }) {
       Des_Nov,
       id_em,
       ID_S,
+      hoy,
       adjuntos,
     };
     console.log(novedad);
