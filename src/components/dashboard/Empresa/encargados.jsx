@@ -26,11 +26,11 @@ export default function Encargados({ id }) {
   const [errors, setErrors] = useState({}); // Estado para almacenar errores
 
   const fetchData = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readTelSede&id=${id}`)
+    fetch(`http://localhost/api_sisinov/public/api/telsede/${id}`)
       .then((response) => response.json())
       .then((data) => {
         // Filtrar encargados activos (Est_en === "0")
-        const activeEncargados = data.contenido.filter((item) => item.Est_en === "0");
+        const activeEncargados = data.data.filter((item) => item.Est_en === "0");
         setData(activeEncargados);
       })
       .catch((error) => {
@@ -141,7 +141,7 @@ export default function Encargados({ id }) {
     }
 
     try {
-      const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=createencargado`, {
+      const response = await fetch(`http://localhost/api_sisinov/public/api/encargado`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

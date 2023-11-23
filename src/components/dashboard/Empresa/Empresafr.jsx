@@ -9,11 +9,11 @@ function Empresafr({ nit, est, resetForm}) {
     //llamar los tipos de documentos
     const fetchDataDoc = () => {
         fetch(
-            `http://localhost/api_proyecto.github.io/api.php?apicall=readtdoc&id`
+            `http://localhost/api_sisinov/public/api/tdoc`
         )
             .then((response) => response.json())
             .then((doc) => {
-                setDoc(doc.contenido);
+                setDoc(doc.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -222,7 +222,7 @@ function Empresafr({ nit, est, resetForm}) {
         };
 
         // Realizar la solicitud POST
-        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=createempresa", {
+        fetch("http://localhost/api_sisinov/public/api/empresa", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -235,7 +235,7 @@ function Empresafr({ nit, est, resetForm}) {
                     swal("Buen trabajo!", `Creacion exitosa ${responseData.message}`, "success");
                     resetForm();
                 } else {
-                    swal("Error!", `Creacion exitosa ${responseData.message}`, "error");
+                    swal("Error!", `No se pudo crear la empresa ${responseData.message}`, "error");
                 }
 
                 console.log("Respuesta de la API:", responseData);

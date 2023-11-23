@@ -30,10 +30,10 @@ export default function EmpresaVer({ dataUpdated }) {
   }, []);
 
   const fetchData = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempresa&id`)
+    fetch(`http://localhost/api_sisinov/public/api/empresas`)
       .then((response) => response.json())
       .then((data) => {
-        setData(data.contenido);
+        setData(data.data);
         setLoading(false);
       })
       .catch((error) => {

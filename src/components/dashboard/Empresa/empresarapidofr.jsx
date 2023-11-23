@@ -87,7 +87,7 @@ function Empresarapidofr({ nit, est, resetForm}) {
         };
 
         // Realizar la solicitud POST
-        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=createfastempresa", {
+        fetch("http://localhost/api_sisinov/public/api/fastempresa", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

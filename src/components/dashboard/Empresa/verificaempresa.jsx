@@ -13,11 +13,11 @@ export default function Verificaempresa() {
 
     const fetchData = async (nit) => {
         try {
-            const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempresanit&nit=${nit}`);
+            const response = await fetch(`http://localhost/api_sisinov/public/api/empresas/${nit}`);
             const data = await response.json();
 
             if (data.contenido !== null) {
-                return data.contenido;
+                return data.data;
             } else {
                 return false;
             }

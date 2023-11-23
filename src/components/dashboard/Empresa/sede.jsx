@@ -40,10 +40,10 @@ export default function Sede({ id }) {
 
   // Función para cargar datos
   const fetchData = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readsede&id=${id}`)
+    fetch(`http://localhost/api_sisinov/public/api/sede/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        setData(data.contenido);
+        setData(data.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -205,7 +205,7 @@ export default function Sede({ id }) {
     }
 
     // Envía los datos al servidor
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=createsede`, {
+    fetch(`http://localhost/api_sisinov/public/api/sede`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

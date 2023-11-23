@@ -28,11 +28,11 @@ export default function EmpresaVerDetalle() {
     //llamar los tipos de documentos
     const fetchDataDoc = () => {
         fetch(
-            `http://localhost/api_proyecto.github.io/api.php?apicall=readtdoc&id`
+            `http://localhost/api_sisinov/public/api/tdoc`
         )
             .then((response) => response.json())
             .then((doc) => {
-                setDoc(doc.contenido);
+                setDoc(doc.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -45,10 +45,10 @@ export default function EmpresaVerDetalle() {
   }, []);
 
   const fetchData = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempresa&id=${empresaid}`)
+    fetch(`http://localhost/api_sisinov/public/api/empresa/${empresaid}`)
       .then((response) => response.json())
       .then((data) => {
-        setEmpresa(data.contenido[0]);
+        setEmpresa(data.data[0]);
         setLoading(false);
       })
       .catch((error) => {
