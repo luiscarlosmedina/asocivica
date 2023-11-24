@@ -8,7 +8,6 @@ import EmpleadoVerDetalles from "./Empleado/empleadoVerDetalles";
 import EmpresaVer from "./Empresa/empresaVer";
 import EmpresaVerDetalle from "./Empresa/empresaVerDetalle";
 import Verificaempresa from "./Empresa/verificaempresa";
-//import Empleadofr_ps from './Empleado/Empleadofr_ps'
 import Addnovedad from "./Novedades/Addnovedad";
 import NovedadForm from "./Novedades/NovedadForm";
 import VerDetalleNovedad from "./Novedades/VerDetalleNovedades";
@@ -22,7 +21,8 @@ function Content() {
       setDataUpdated(true);
     };
     return (
-        <div className='contenido'>
+        // el color gris es vital :V
+        <div className='contenido prinpal'>
             <Routes>
                 <Route path='*' element={<Home />} />
                 <Route path='registrar-empresa' element={<Verificaempresa />}/>

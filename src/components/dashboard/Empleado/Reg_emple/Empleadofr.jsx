@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../../../style/Empleado/Reg_empl/empleado_fr.css";
+import "../../../../style/Empleado/Reg_empl/empleado.css";
 import Botones from "./buttons";
 import AEmple from "./options_form_emple/a";
 import BEmple from "./options_form_emple/b";
@@ -37,7 +37,7 @@ export default function Empleadofr() {
       lic_emp: "",
       lib_em: "",
       tel_em: "",
-      f_em: "",
+     // f_em: "",
       contrato: "",
       barloc_em: "",
       id_pens: "",
@@ -67,7 +67,7 @@ export default function Empleadofr() {
         lic_emp: "",
         lib_em: "",
         tel_em: "",
-        f_em: "",
+       // f_em: "",
         contrato: "",
         barloc_em: "",
         id_pens: "",

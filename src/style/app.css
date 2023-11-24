@@ -2,6 +2,10 @@
 .uno {
     background-color: var(--azul);
   }
+
+.prinpal{
+  background-color: #f7f7f7;
+}
   
   /* Media query para dispositivos con un ancho máximo de 767px (dispositivos móviles) */
   @media (max-width: 767px) {

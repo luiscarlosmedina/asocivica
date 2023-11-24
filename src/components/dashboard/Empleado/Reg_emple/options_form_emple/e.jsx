@@ -17,13 +17,13 @@ function EEmple(props) {
         }
         break;
 
-      case "f_em":
+      /*case "f_em":
         if (!valorCampo) {
           nuevosErrores.f_em = "Por favor, carga una foto del empleado.";
         } else {
           delete nuevosErrores.f_em;
         }
-        break;
+        break;*/
 
       default:
         break;
@@ -32,7 +32,8 @@ function EEmple(props) {
     setErrores(nuevosErrores);
     return Object.keys(nuevosErrores).length === 0;
   };
-  const handleFileChange = (e) => {
+
+ /*const handleFileChange = (e) => {
     const datofoto = e.target.files[0];
     handleInputChange({
       target: {
@@ -41,7 +42,7 @@ function EEmple(props) {
       },
     });
     validarCampo("f_em", datofoto);
-  };
+  };*/
   
   
   const validarcampose = () => {
@@ -79,19 +80,7 @@ function EEmple(props) {
               />
               <div className="invalid-feedback">{errores.contrato}</div>
             </div>
-            <div>
-              <label  className="form-label">
-                Foto
-              </label>
-              <input
-                type="file"
-                name="f_em"
-                className={`form-control ${errores.f_em ? "is-invalid" : valores.f_em ? "is-valid" : ""}`}
-                onChange={handleFileChange}
-
-              />
-              <div className="invalid-feedback">{errores.f_em}</div>
-            </div>
+           
 
             <div className="espbots">
               <div className="float-end">

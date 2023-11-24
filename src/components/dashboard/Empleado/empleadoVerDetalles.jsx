@@ -15,6 +15,7 @@ export default function EmpleadoVerDetalles() {
     const { empleadoid } = useParams();
     const back = useNavigate();
     const [loading, setLoading] = useState(true);
+
     const [empleado, setEmpleado] = useState({
         id_em: "",
         documento: "",
@@ -42,6 +43,10 @@ export default function EmpleadoVerDetalles() {
         fetchData();
     }, []);
 
+    var act_ina = empleado.estado
+
+
+
     const fetchData = () => {
         fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempleado&id=${empleadoid}`)
             .then((response) => response.json())
@@ -55,55 +60,73 @@ export default function EmpleadoVerDetalles() {
             });
     };
     return (
-        <div>
+        <div className='box-mayor-ver-emple'>
             {loading ? (
                 <p>Cargando...</p>
             ) : (
                 <div key={empleado.id_em} >
-                    <div className='d-flex justify-content-between align-items-center'>
-                        <div>
-                        <p className="t h3 mb-1 mt-4">Datos Basicos</p>
+                    <div className='row '>
+                        <div className=' row col-9  '>
+                            <div className=' col-5' > <p className="t h3 mb-2 mt-3">Información personal del Empleado </p></div>
+                        
                         </div>
-                        <div>
-                            <button type="button" className="btnfa btn btn-primary " onClick={() => back('/consultar-empleados')}>Salir</button>
-                            <button type="button" className="btnfs btn btn-primary " > Editar </button>
-                        </div>
-                    </div>
-                    <div className={`mb-3 mt-3 borsupd border-3 `}></div>
-                    <div className="row">
-                        <div className="card border border-0 col-md-2">
-                            <img src={usersPhoto('./pablo.jpg')} className="card-img-top" alt="Image by rawpixel.com on Freepik" />
-                            <a href={empleado.contrato} target="_blank" rel="noreferrer">Contrato {empleado.n_em}</a>
-                        </div>
-                        <div className='col-10'>
-                            <div className='row'>
-                                <div className='col-md-4 m-auto'>
-                                    <p><i className="bi bi-person-fill text-primary"></i> {empleado.n_em + " " + empleado.a_em}</p>
-                                    <p><i className="bi bi-envelope-fill text-primary"></i> {empleado.eml_em}</p>
-                                    <p><i className="bi bi-buildings-fill text-primary"></i> {empleado.dir_em + " " + empleado.barloc_em}</p>
-                                    <p><i className="bi bi-telephone-fill text-primary"></i> {empleado.tel_em}</p>
-                                </div>
-                                <div className='col-md-4 m-auto'>
-                                    <p><span className="text-primary">{empleado.N_TDoc}</span> {empleado.documento}</p>
-                                    <p><span className="text-primary">Libreta militar: </span> {empleado.lib_em}</p>
-                                    <p><span className="text-primary">Licencia de conduccion: </span>{empleado.lic_emp}</p>
-                                    <p><span className="text-primary">Estado: </span> {empleado.estado}</p>  
-                                    <p><span className="text-primary">RH: </span> {empleado.T_RH}</p>  
-                                </div>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div className='row my-3'>
-                        <div className='d-flex justify-content-between align-items-center'>
-                            <div>
-                            <p className="t h3 mb-0 ">Parafiscales</p>
-                            <div className={`mb-3 mt-3 borsupd border-3 `}></div>  
-                            </div>
+                        <div className='col-1 mt-2' >
+                            <button className="buton-editar btnfs btn btn-primary ">Editar  </button>
                             
                         </div>
+                        <div className='col-1 mt-2' >
+                            <button className="buton-baja btnfd btn btn-primary ">Dar de baja </button>
+                        
+                        </div>
 
-                        <TableContainer component={Paper}>
+
+
+                        <div className='col-1 mt-2' >
+                            <button type="button" className="buton-regresar btnfa btn btn-primary " onClick={() => back('/consultar-empleados')}>Regresar</button>
+                        </div>
+
+                    </div>
+                    <div className={`mb-3 mt-2 borsupd border-3 `}></div>
+                    <div className="row">
+                        <div className="ud-e col-2  card border-photho ">
+                        <div className='col-12  mt-1 text-center' >{act_ina === "0" ? (<a className="link-successs">Actualmente: Activo</a>) : (<a className="link-dangerr">Actualmente: Inactivo</a>)}</div>
+                            <img src={usersPhoto('./empleado.png')} className="card-img-top  img-emple" alt="Image by rawpixel.com on Freepik" />
+                            <button className=" buton-contrato  btnfs btn btn-primary " href={empleado.contrato} target="_blank" rel="noreferrer">Contrato {empleado.n_em}</button>
+                        </div>
+
+                        <div className='col-9-uxin '>
+                            <div className='row box-datos-basicos '>
+                                <div className='col-6 caja-input  '>
+                                    <span className="t-box">Nombres y apellidos: </span>
+                                    <input className='i-box form-control ' disabled value={empleado.n_em + ' ' + empleado.a_em} />
+                                    <span className="t-box">{empleado.N_TDoc}:</span>
+                                    <input className='i-box form-control' disabled value={empleado.documento} />
+                                    <span className="t-box">Dirección - Barrio y localidad: </span>
+                                    <input className='i-box form-control' disabled value={empleado.dir_em + " - " + empleado.barloc_em} />
+                                    <span className="t-box">Telefono celular: </span>
+                                    <input className='i-box form-control' disabled value={empleado.tel_em} />
+                                </div>
+
+                                <div className='col-6 caja-input'>
+                                    <span className="t-box">Email: </span>
+                                    <input className='i-box form-control' disabled value={empleado.eml_em} />
+                                    <span className="t-box">Libreta militar:  </span>
+                                    <input className='i-box form-control' disabled value={empleado.lib_em} />
+                                    <span className="t-box">Licencia de conducción:  </span>
+                                    <input className='i-box form-control' disabled value={empleado.lic_emp} />
+                                    <span className="t-box">Tipo de RH:  </span>
+                                    <input className='i-box form-control' disabled value={empleado.T_RH} />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div className='row '>
+                        <p className="t h3 mt-3  ">Parafiscales</p>
+                        <div className={`mb-3 mt-3 borsupd-para border-3 `}></div>
+
+                        <TableContainer >
                             <Table>
                                 <TableHead>
                                     <TableRow>

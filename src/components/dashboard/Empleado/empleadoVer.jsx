@@ -106,7 +106,7 @@ export default function EmpleadoVer({ dataUpdated }) {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell >Documento</TableCell>
+              <TableCell className="">Documento</TableCell>
               <TableCell>Nombre</TableCell>
               <TableCell>Apellido</TableCell>
               <TableCell>Correo</TableCell>
@@ -118,7 +118,7 @@ export default function EmpleadoVer({ dataUpdated }) {
           <TableBody>
             {loading ? (
               <TableRow>
-                <TableCell colSpan={7} align="center">
+                <TableCell colSpan={7} align="centr">
                   <CircularProgress color="primary" />
                 </TableCell>
               </TableRow>
@@ -137,9 +137,9 @@ export default function EmpleadoVer({ dataUpdated }) {
                   </TableCell>
                   <TableCell>
                     <Link to={`/consultar-empleados/${(item.id_em)}`}>
-                      <Button variant="contained" color="primary">
-                        Ver mas
-                      </Button>
+                      <button className="btnfa btn btn-primary">
+                         Ver mas
+                      </button>
                     </Link>
                   </TableCell>
                 </TableRow>

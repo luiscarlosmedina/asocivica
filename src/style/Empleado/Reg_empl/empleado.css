@@ -12,14 +12,14 @@
 
 }
 
-.form-label{
+.form-label {
     font-weight: 500;
     color: #002142;
     margin-top: 5px;
 }
 
 .mb-3 {
-margin: 0; 
+    margin: 0;
 }
 
 .figure1 {
@@ -94,18 +94,17 @@ h6 {
 
 .btnfs {
     color: #002f5d;
-    background-color: #002f5d00;
+    background-color: #ffffff;
     border: 2px solid#002f5d;
     font-size: 17px;
     font-weight: 500;
     box-shadow: 1px 2px 4px #002f5d78;
-    margin-right: 1em;
-     
+
 }
 
 .btnfs:hover {
     color: #198754;
-    background-color: #002f5d00;
+    background-color: #ffffff;
     border: 2px solid #198754;
     font-size: 17px;
     font-weight: 500;
@@ -114,25 +113,45 @@ h6 {
 
 .btnfa {
     color: #002f5d;
-    background-color: #002f5d00;
+    background-color: #ffffff;
     border: 2px solid#002f5d;
     font-size: 17px;
     font-weight: 500;
     box-shadow: 1px 2px 4px #002f5d78;
-     
+
 }
 
 
 .btnfa:hover {
     color: #dd5c00;
-    background-color: #002f5d00;
+    background-color: #ffffff;
     border: 2px solid #dd5c00;
     font-size: 17px;
     font-weight: 500;
     box-shadow: 1px 2px 4px rgba(135, 71, 25, 0.462)
 }
 
-.t{
+.btnfd {
+    color: #002f5d;
+    background-color: #ffffff;
+    border: 2px solid#002f5d;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 1px 2px 4px #002f5d78;
+
+}
+
+
+.btnfd:hover {
+    color: #b90000;
+    background-color: #ffffff;
+    border: 2px solid #b90000;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 1px 2px 4px rgba(135, 71, 25, 0.462)
+}
+
+.t {
     color: #134074;
 }
 
@@ -167,7 +186,7 @@ h6 {
     margin-top: 0;
     margin-bottom: 1rem;
     font-size: 15px;
-}   
+}
 
 .segun .container {
     display: flex;
@@ -176,7 +195,99 @@ h6 {
 
 }
 
-.blockquote .title_validacion{
+
+.box-mayor-ver-emple {
+    margin-top: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-bottom: 1em;
+}
+
+
+.form-control:disabled {
+    background-color: white;
+    opacity: 1;
+}
+
+.buton-contrato {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.ud-e {
+    margin-left: 13px;
+}
+
+.border-photho {
+    border-color: white;
+}
+
+.box-datos-basicos {
+    background-color: white;
+    border-radius: 6px;
+    margin-left: 1em;
+
+}
+
+.caja-input {
+    margin-top: 18px;
+    margin-bottom: 20px;
+}
+
+.img-emple {
+    margin-top: 10px;
+}
+
+.columna-info {
+    flex: 0 0;
+    margin-left: 2pc;
+    width: 80%;
+}
+
+.col-9-uxin {
+    flex: 0 0 81.8%;
+    max-width: 81.8%;
+
+}
+
+.buton-editar {
+    margin-left: 3em;
+}
+
+.buton-regresar {
+    margin-left: 2em;
+}
+
+
+.link-successs {
+    font-size: 16px;
+    font-weight: 500;
+    color: #11c470;
+}
+
+.link-danger {
+    color: #e66001;
+}
+
+.t-box {
+    color: #002f5d;
+    font-size: 16px;
+    font-weight: 500;
+
+}
+
+.i-box,
+.form-control {
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.col-md-4,
+.m-auto {
+    flex: 1;
+}
+
+.blockquote .title_validacion {
     margin-bottom: 2rem;
     margin-top: 1rem;
     font-size: 1.25rem;
@@ -186,12 +297,12 @@ h6 {
     color: #134074;
     font-size: 61px;
     text-shadow: 2px 2px 4px rgb(0 185 99 / 12%);
-  }
+}
 
 .azul2 {
     background-color: #134074;
     box-shadow: 2px 1px 1px 1px rgb(0 185 99 / 14%);
-  }
+}
 
 .desactivo {
     color: #a0a0a0;
@@ -202,21 +313,23 @@ h6 {
 }
 
 .activo {
-    color:#e66001;
+    color: #e66001;
     text-shadow: 0px 2px 4px #ffffff;
     font-size: 61px;
 }
 
-.borsupd{
+.borsupd {
     margin: 1px;
     border-bottom: 3px solid #134074;
 }
 
-.borsupa{
+.borsupa {
     margin: 1px;
     border-bottom: 3px solid #ff7d1f;
 }
 
 
-
-
+.borsupd-para {
+    margin: 1px;
+    border-bottom: 3px solid #134074;
+}
