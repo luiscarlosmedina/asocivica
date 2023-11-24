@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Tooltip, Treemap, ResponsiveContainer } from 'recharts';
 
-export default function Conteonov({ startDate, endDate, tipoNovedad }) {
+export default function Conteoempresanov({ startDate, endDate, ltempresa }) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
         fetchData();
-    }, [startDate, endDate, tipoNovedad]);
+    }, [startDate, endDate, ltempresa]);
 
     const fetchData = () => {
         // Construye la URL con los parámetros de fecha
-        let apiUrl = `http://localhost/api_proyecto.github.io/api.php?apicall=repnov`;
+        let apiUrl = ``;
+        if(ltempresa === null){
+            apiUrl = `http://localhost/api_proyecto.github.io/api.php?apicall=repempresanov`;
+        }else {
+            apiUrl = `http://localhost/api_proyecto.github.io/api.php?apicall=repsedenov`;
+        }
 
         // Agrega el tipo de novedad si se proporciona
         if (startDate) {
@@ -20,8 +25,8 @@ export default function Conteonov({ startDate, endDate, tipoNovedad }) {
             apiUrl += `&enddate=${endDate}`;
         }
         // Agrega el tipo de novedad si se proporciona
-        if (tipoNovedad) {
-            apiUrl += `&tipoNovedad=${tipoNovedad}`;
+        if (ltempresa) {
+            apiUrl += `&ltempresa=${ltempresa}`;
         }
 
         fetch(apiUrl)
@@ -35,9 +40,9 @@ export default function Conteonov({ startDate, endDate, tipoNovedad }) {
     };
 
     return (
-        <div className='border border-1 col-md-6'>
-            <p>Novedades ocurridas</p>
-            <ResponsiveContainer width="100%" height={300} className={"my-3"}>
+        <div className='border border-1 col-md-12'>
+            <p>Novedades ocurridas por {ltempresa === null ? "empresas" : "sedes"}</p>
+            <ResponsiveContainer width="100%" height={400} className={"my-3"}>
                 <Treemap
                     data={data}
                     nameKey="name"
@@ -59,5 +64,5 @@ export default function Conteonov({ startDate, endDate, tipoNovedad }) {
                 </Treemap>
             </ResponsiveContainer>
         </div>
-    );
+    )
 }
