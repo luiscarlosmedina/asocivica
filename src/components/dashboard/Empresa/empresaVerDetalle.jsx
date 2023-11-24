@@ -25,19 +25,19 @@ export default function EmpresaVerDetalle() {
   })
   const [doc, setDoc] = useState([])
 
-    //llamar los tipos de documentos
-    const fetchDataDoc = () => {
-        fetch(
-            `http://localhost/api_sisinov/public/api/tdoc`
-        )
-            .then((response) => response.json())
-            .then((doc) => {
-                setDoc(doc.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
+  //llamar los tipos de documentos
+  const fetchDataDoc = () => {
+    fetch(
+      `http://localhost/api_sisinov/public/api/tdoc`
+    )
+      .then((response) => response.json())
+      .then((doc) => {
+        setDoc(doc.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     fetchData();
@@ -56,6 +56,13 @@ export default function EmpresaVerDetalle() {
         setLoading(false);
       });
   };
+
+  //transformar el formato de fecha
+  const date = (fechaCompleta) => {
+    const fecha = new Date(fechaCompleta);
+    const soloFecha = fecha.toISOString().split('T')[0];
+    return soloFecha;
+  }
   return (
     <div>
       {loading ? (
@@ -129,12 +136,12 @@ export default function EmpresaVerDetalle() {
               {empresa.Est_E === "0" ? (
                 <div className="input-group mb-2 align-items-center">
                   <span className="input-group-text text-primary bg-transparent" id="inputGroup-sizing-default">Afiliacion</span>
-                  <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.Fh_Afi} />
+                  <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={date(empresa.Fh_Afi)} />
                 </div>
               ) : (
                 <div className="input-group mb-2 align-items-center">
                   <span className="input-group-text text-primary bg-transparent" id="inputGroup-sizing-default">Desafiliacion</span>
-                  <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.fechaFinalizacion} />
+                  <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={date(empresa.fechaFinalizacion)} />
                 </div>
               )}
               <div className="input-group mb-2 align-items-center">
