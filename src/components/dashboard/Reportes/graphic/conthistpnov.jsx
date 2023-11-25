@@ -46,18 +46,29 @@ export default function Conthistpnov({ startDate, endDate, ltempresa }) {
                 // Handle the error (e.g., display an error message to the user)
             });
     };
+    let nombre_nov = data.Nombre_nov
 
     return (
         <div className='border border-1 col-md-12'>
-            <p>Historico de novedades ocurridas</p>
+            <p>Historico de novedad más ocurridas</p>
             <ResponsiveContainer width="100%" height={400}>
                 <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
+                    <XAxis dataKey="MesAnio" />
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Line type="monotone" dataKey="Novedad" stroke="#8884d8" />
+                    {Array.from(new Set(data.map(item => item.Nombre_nov))).map((nombreNovedad, index) => (
+                        <Line
+                            key={index}
+                            type="monotone"
+                            dataKey="Novedad"
+                            name={nombreNovedad}
+                            data={data.filter(item => item.Nombre_nov === nombreNovedad)}
+                            stroke="#8884d8"
+                        />
+                    ))}
+                    {/* <Line type="monotone" dataKey="Novedad" key={data.nombre_nov} stroke="#8884d8" /> */}
                 </LineChart>
             </ResponsiveContainer>
         </div>

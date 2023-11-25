@@ -148,6 +148,7 @@ function Empresarapidofr({ nit, est, resetForm}) {
                                 type="text"
                                 id="nit"
                                 placeholder='123456789-0'
+                                className={`form-control ${getError("Nit_E") && "is-invalid"}`}
                                 name="Nit_E"
                                 value={nit}
                                 onChange={handleChange}
