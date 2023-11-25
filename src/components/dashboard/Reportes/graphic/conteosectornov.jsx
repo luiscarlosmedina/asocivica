@@ -37,7 +37,7 @@ export default function Conteosectornov({ startDate, endDate, tipoNovedad }) {
     return (
         <div className='border border-1 col-md-6'>
             <p>Novedades por sector de vigilancia</p>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={400}>
                 <PieChart>
                     <Pie
                         data={data}

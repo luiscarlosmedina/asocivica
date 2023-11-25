@@ -8,11 +8,13 @@ export default function Verificaempresa() {
     const [est_E, setEst_E] = useState('');
     const [nitValido, setNitValido] = useState(true); // Inicialmente asumimos que el NIT es válido
     const [formulario, setFormulario] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [tpform, setTpform] = useState("0");
     const navega = useNavigate();
 
     const fetchData = async (nit) => {
         try {
+            setLoading(true);
             const response = await fetch(`http://localhost/api_sisinov/public/api/empresas/${nit}`);
             const data = await response.json();
 
@@ -24,6 +26,8 @@ export default function Verificaempresa() {
         } catch (error) {
             console.error(error);
             throw error;
+        } finally {
+            setLoading(false); // Finaliza la carga
         }
     };
     const resetForm = () => {
@@ -42,12 +46,12 @@ export default function Verificaempresa() {
                 const contenido = await fetchData(nit);
                 if (contenido === null || contenido.length === 0) {
                     setFormulario(true);
-                    if (est_E === "0"){
+                    if (est_E === "0") {
                         setTpform("1")
-                    }else{
+                    } else {
                         setTpform("2")
                     }
-                    
+
                 } else {
                     const valor = contenido[0];
                     return navega(`/consultar-empresas/${valor.id_e}`);
@@ -126,15 +130,16 @@ export default function Verificaempresa() {
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="btn btn-primary" disabled={loading}>
+                            {loading && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}
                             Verificar Empresa
                         </button>
                     </form>
                 </div>
             ) : tpform === "1" ? (
-                <Empresafr nit={nit} est={est_E} resetForm={resetForm}/>
+                <Empresafr nit={nit} est={est_E} resetForm={resetForm} />
             ) : (
-                <Empresarapidofr nit={nit} est={est_E} resetForm={resetForm}/>
+                <Empresarapidofr nit={nit} est={est_E} resetForm={resetForm} />
             )}
         </>
     );

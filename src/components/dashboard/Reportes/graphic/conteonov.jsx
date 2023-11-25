@@ -37,7 +37,7 @@ export default function Conteonov({ startDate, endDate, tipoNovedad }) {
     return (
         <div className='border border-1 col-md-6'>
             <p>Novedades ocurridas</p>
-            <ResponsiveContainer width="100%" height={300} className={"my-3"}>
+            <ResponsiveContainer width="100%" height={400} className={"my-3"}>
                 <Treemap
                     data={data}
                     nameKey="name"

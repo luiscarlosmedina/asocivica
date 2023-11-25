@@ -1,13 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Conteoempresanov from './graphic/conteoempresanov';
 import Contsedetpnov from './graphic/contsedetpnov';
 import Conthistpnov from './graphic/conthistpnov';
+import generatePDF, { Margin } from 'react-to-pdf';
+import jsPDF from 'jspdf';
+import logoA from "./../../../img/logosf.png"
+import logoB from "./../../../img/SINOVlg.png"
 
 export default function Repemp() {
   const [listempresa, setListempresa] = useState([]);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [ltempresa, setLtempresa] = useState(null); // Inicializa como null
+  const [ltempresa, setLtempresa] = useState(null);
+
+  const componentRef = useRef();
+
+  const handleDownloadReport = () => {
+    const pdf = new jsPDF();
+
+    // Llama a la función generadora del PDF desde react-to-pdf
+    generatePDF(componentRef, {
+      filename: 'reporte.pdf',
+      orientation: 'landscape',
+      page: { margin: Margin.MEDIUM },
+      jsPDF: pdf,
+    });
+  };
 
   const handleStartDateChange = (e) => {
     setStartDate(e.target.value);
@@ -45,7 +63,7 @@ export default function Repemp() {
           <h3>Reporte por empresas</h3>
         </div>
         <div>
-          <button type="button" className="btn btn-outline-success"> Descargar reporte </button>
+          <button type="button" className="btn btn-outline-success" onClick={handleDownloadReport}> Descargar reporte </button>
         </div>
       </div>
       <hr />
@@ -86,7 +104,21 @@ export default function Repemp() {
           />
         </div>
       </div>
-      <div className='container max-width'>
+      <div className='container max-width' ref={componentRef}>
+        <div className="header d-flex align-items-center justify-content-between mb-3" >
+          <div className="logo-left">
+            <img src={logoA} alt="Logo Asocivica" style={{ width: '170px', height: 'auto' }} />
+          </div>
+          <div className="text-center">
+            <h5>ASOCIACION CIVICA CENTRO COMERCIAL PALOQUEMAO</h5>
+            <p>NIT: 860.056.799-7</p>
+            <p>Desde 1977</p>
+          </div>
+          <div className="logo-right">
+            <img src={logoB} alt="Logo SINOV" style={{ width: '170px', height: 'auto' }} />
+          </div>
+        </div>
+        <hr className="border border-danger border-2 opacity-50" />
         <div className='row'>
           <Conteoempresanov startDate={startDate} endDate={endDate} ltempresa={ltempresa} />
           <Conthistpnov startDate={startDate} endDate={endDate} ltempresa={ltempresa} />
@@ -94,5 +126,5 @@ export default function Repemp() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -34,7 +34,7 @@ export default function Conteonovhora({ startDate, endDate, tipoNovedad }) {
         <div className='border border-1 col-md-12 h-50'>
             <p>Novedades por hora</p>
             <div>
-                <ResponsiveContainer width="100%" height={300}>
+                <ResponsiveContainer width="100%" height={400}>
                     <AreaChart data={data}
                         margin={{
                             top: 5,

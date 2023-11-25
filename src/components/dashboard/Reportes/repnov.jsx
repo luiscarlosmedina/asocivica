@@ -5,6 +5,8 @@ import Conteonovdia from './graphic/conteonovdia';
 import Conteonovhora from './graphic/conteonovhora';
 import generatePDF, { Margin } from 'react-to-pdf';
 import jsPDF from 'jspdf';
+import logoA from "./../../../img/logosf.png"
+import logoB from "./../../../img/SINOVlg.png"
 
 export default function Repnov() {
     const [tpnovedad, setTpnovedad] = useState([]);
@@ -14,28 +16,28 @@ export default function Repnov() {
 
     const handleDownloadReport = () => {
         const pdf = new jsPDF();
-      
+
         // Add a custom header
         const header = () => {
-          pdf.setFont('Arial', 'normal', 12);
-          pdf.text('Este es un texto de ejemplo', 10, 10, 'center');
+            pdf.setFont('Arial', 'normal', 12);
+            pdf.text('Este es un texto de ejemplo', 10, 10, 'center');
         };
-      
+
         // Add a custom footer
         const footer = () => {
-          pdf.setFont('Arial', 'normal', 12);
-          pdf.text(`Página ${pdf.pageNumber} de ${pdf.pageCount}`, 10, 10, 'center');
+            pdf.setFont('Arial', 'normal', 12);
+            pdf.text(`Página ${pdf.pageNumber} de ${pdf.pageCount}`, 10, 10, 'center');
         };
         generatePDF(componentRef, {
-          filename: 'reporte.pdf',
-          orientation: 'landscape',
-          page: { margin: Margin.MEDIUM },
-          pageFooter: footer(),
-          pageHeader: header(),
-          jsPDF: pdf,
+            filename: 'reporte.pdf',
+            orientation: 'landscape',
+            page: { margin: Margin.MEDIUM },
+            pageFooter: footer(),
+            pageHeader: header(),
+            jsPDF: pdf,
         });
         footer()
-      };      
+    };
 
     const handleStartDateChange = (e) => {
         setStartDate(e.target.value);
@@ -117,6 +119,22 @@ export default function Repnov() {
                 </div>
             </div>
             <div className='container max-width' ref={componentRef}>
+                <div className="d-flex align-items-center justify-content-between p-3 mb-3">
+                    <div className="logo-left">
+                        {/* Agrega tu logo izquierdo aquí */}
+                        <img src={logoA} alt="Logo Asocivica" style={{ width: '170px', height: 'auto' }}/>
+                    </div>
+                    <div className="text-center">
+                        <h5>ASOCIACION CIVICA CENTRO COMERCIAL PALOQUEMAO</h5>
+                        <p>NIT: 860.056.799-7</p>
+                        <p>Desde 1977</p>
+                    </div>
+                    <div className="logo-right">
+                        {/* Agrega tu logo derecho aquí */}
+                        <img src={logoB} alt="Logo SINOV" style={{ width: '170px', height: 'auto' }}/>
+                    </div>
+                </div>
+                <hr className="border border-danger border-2 opacity-50"/>
                 <div className='row h-50'>
                     <Conteonov startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad} />
                     <Conteosectornov startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad} />

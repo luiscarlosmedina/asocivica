@@ -34,7 +34,7 @@ export default function Conteonovdia({ startDate, endDate, tipoNovedad }) {
         <div className='border border-1 col-md-12 h-50'>
             <p>Novedades por día</p>
             <div>
-                <ResponsiveContainer width="100%" height={300}>
+                <ResponsiveContainer width="100%" height={400}>
                     <BarChart
                         data={data}
                         margin={{
