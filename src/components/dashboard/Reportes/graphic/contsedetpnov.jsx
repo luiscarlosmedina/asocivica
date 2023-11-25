@@ -37,7 +37,6 @@ export default function Contsedetpnov({ startDate, endDate, ltempresa }) {
             .then((response) => response.json())
             .then((data) => {
                 setData(data);
-                console.log(data);
             })
             .catch((error) => {
                 console.log(error);

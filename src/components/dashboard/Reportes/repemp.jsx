@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Conteoempresanov from './graphic/conteoempresanov';
 import Contsedetpnov from './graphic/contsedetpnov';
+import Conthistpnov from './graphic/conthistpnov';
 
 export default function Repemp() {
   const [listempresa, setListempresa] = useState([]);
@@ -88,6 +89,7 @@ export default function Repemp() {
       <div className='container max-width'>
         <div className='row'>
           <Conteoempresanov startDate={startDate} endDate={endDate} ltempresa={ltempresa} />
+          <Conthistpnov startDate={startDate} endDate={endDate} ltempresa={ltempresa} />
           {ltempresa !== null ? <Contsedetpnov startDate={startDate} endDate={endDate} ltempresa={ltempresa} /> : " "}
         </div>
       </div>
