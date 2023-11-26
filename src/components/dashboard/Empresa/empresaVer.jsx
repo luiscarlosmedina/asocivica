@@ -49,13 +49,13 @@ export default function EmpresaVer({ dataUpdated }) {
     const containsSearchTerm =
       item.Nom_E.toLowerCase().includes(searchTermLower) ||
       item.Nit_E.toLowerCase().includes(searchTermLower);
-  
+
     // Verificar si el estado cumple con alguna de las condiciones en filterStates
     const matchesFilter =
       (filterStates.active && item.Est_E === "0") ||
       (filterStates.inStudy && item.Est_E === "1") ||
       (filterStates.inactive && item.Est_E === "2");
-  
+
     // Retornar true si ambas condiciones se cumplen
     return containsSearchTerm && matchesFilter;
   });
@@ -70,7 +70,7 @@ export default function EmpresaVer({ dataUpdated }) {
 
   return (
     <div className="consultar-container">
-      <h3>Empresas</h3>
+      <p className="t h2 mb-4 mt-3">Empresas</p>
       <TextField
         label="Buscar por nombre o NIT"
         variant="outlined"
@@ -111,6 +111,7 @@ export default function EmpresaVer({ dataUpdated }) {
           label="Inactivo"
         />
       </div>
+      <div className={`mb-1 mt-1 borsupd border-3 `}></div>
       <TableContainer component={Paper} className="my-3">
         <Table>
           <TableHead>
@@ -145,14 +146,14 @@ export default function EmpresaVer({ dataUpdated }) {
                     {item.Est_E === "0"
                       ? "Activo"
                       : item.Est_E === "1"
-                      ? "En Estudio"
-                      : "Inactivo"}
+                        ? "En Estudio"
+                        : "Inactivo"}
                   </TableCell>
                   <TableCell>
                     <Link to={`/consultar-empresas/${(item.id_e)}`}>
-                      <Button variant="contained" color="primary">
+                      <button className="btnfa btn btn-primary">
                         Ver mas
-                      </Button>
+                      </button>
                     </Link>
                   </TableCell>
                 </TableRow>

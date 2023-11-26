@@ -70,7 +70,7 @@ export default function EmpleadoVer({ dataUpdated }) {
 
   return (
     <div className="consultar-container">
-      <p className="t h2 mb-4  mt-4">Empleados registrados en el sistema</p>
+      <p className="t h2 mb-4  mt-3">Empleados</p>
       <TextField
         label="Buscar por nombre o documento"
         variant="outlined"
