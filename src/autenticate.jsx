@@ -6,7 +6,7 @@ const AuthContext = createContext({
 });
 
 export function AuthProvider({ children }) {
-  const [user, setUsuario] = useState(false);
+  const [user, setUsuario] = useState(null);
   const [error, setError] = useState(null);
 
   // Verificar si hay una sesión activa al cargar la aplicación
@@ -29,10 +29,10 @@ export function AuthProvider({ children }) {
       if (response.ok) {
         const responseData = await response.json();
         if (responseData.error === false) {
-          setUsuario(true);
+          setUsuario(responseData.user);
 
           // Almacena la información de autenticación en localStorage
-          localStorage.setItem('user', JSON.stringify(true));
+          localStorage.setItem('user', JSON.stringify(responseData.user));
         } else {
           setError("Credenciales inválidas, inténtelo nuevamente");
         }
@@ -46,7 +46,7 @@ export function AuthProvider({ children }) {
 
   const logout = () => {
     // Realiza la lógica de cierre de sesión actualizando el estado del usuario.
-    setUsuario(false);
+    setUsuario(null);
 
     // Borra la información de autenticación del localStorage al cerrar sesión
     localStorage.removeItem('user');
