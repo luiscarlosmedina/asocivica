@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../../style/content.css";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
-import Perfil from "./Empleado/perfil";
+import Perfil from "./Perfil/perfil";
 import Empleadofr from "./Empleado/Reg_emple/Empleadofr";
 import EmpleadoVer from "./Empleado/empleadoVer";
 import EmpleadoVerDetalles from "./Empleado/empleadoVerDetalles";

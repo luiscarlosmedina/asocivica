@@ -4,7 +4,6 @@ import { useAuth } from "../../autenticate";
 
 const User = () => {
   const { user } = useAuth();
-  console.log(user);
   return (
     <div className="card my-1 bg-primary text-white text-center p-1">
       <img
