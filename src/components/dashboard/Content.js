@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../../style/content.css";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
+import Perfil from "./Empleado/perfil";
 import Empleadofr from "./Empleado/Reg_emple/Empleadofr";
 import EmpleadoVer from "./Empleado/empleadoVer";
 import EmpleadoVerDetalles from "./Empleado/empleadoVerDetalles";
@@ -25,6 +26,7 @@ function Content() {
         <div className='contenido prinpal'>
             <Routes>
                 <Route path='*' element={<Home />} />
+                <Route path='perfil' element={<Perfil />} />
                 <Route path='registrar-empresa' element={<Verificaempresa />}/>
                 <Route path='consultar-empresas' element={<EmpresaVer dataUpdated={dataUpdated} />} />
                 <Route path='consultar-empresas/:empresaid' element={< EmpresaVerDetalle />} />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import "../../style/navbar.css"
 import { useAuth } from '../../autenticate';
 
@@ -17,6 +18,7 @@ const Navbar = () => {
                         <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i className="bi bi-gear"></i></a>
                         <ul className="dropdown-menu dropdown-menu-end text-white">
                             <li><a className="dropdown-item" onClick={handleLogout}>Salir</a></li>
+                            <li><Link to="/perfil" className="dropdown-item">Perfil</Link></li>
                         </ul>
                     </li>
                 </ul>
