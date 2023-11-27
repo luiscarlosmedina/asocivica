@@ -39,7 +39,6 @@ export default function Conthistpnov({ startDate, endDate, ltempresa }) {
             })
             .then((data) => {
                 setData(data);
-                console.log(data);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
