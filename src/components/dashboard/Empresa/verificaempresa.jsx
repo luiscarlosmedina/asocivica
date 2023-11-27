@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Empresafr from './Empresafr';
 import Empresarapidofr from './empresarapidofr';
+import { useAuth } from '../../../autenticate';
 
 export default function Verificaempresa() {
     const [nit, setNit] = useState('');
@@ -11,6 +12,7 @@ export default function Verificaempresa() {
     const [loading, setLoading] = useState(false);
     const [tpform, setTpform] = useState("0");
     const navega = useNavigate();
+    const {user} = useAuth()
 
     const fetchData = async (nit) => {
         try {
@@ -130,10 +132,10 @@ export default function Verificaempresa() {
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" className="btn btn-primary" disabled={loading}>
+                        {user.ID_rol !== 3 ?<button type="submit" className="btn btn-primary" disabled={loading}>
                             {loading && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}
                             Verificar Empresa
-                        </button>
+                        </button> : <p>Su rol no tiene acceso a esta funcionalidad</p>}
                     </form>
                 </div>
             ) : tpform === "1" ? (

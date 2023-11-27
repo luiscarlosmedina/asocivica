@@ -14,11 +14,13 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
+import { useAuth } from "../../../autenticate";
 
 export default function EmpleadoVer({ dataUpdated }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const {user} = useAuth();
   const [filterStates, setFilterStates] = useState({
     active: true,
     inactive: false,
@@ -122,7 +124,7 @@ export default function EmpleadoVer({ dataUpdated }) {
                   <CircularProgress color="primary" />
                 </TableCell>
               </TableRow>
-            ) : filteredData.length > 0 ? (
+            ) : filteredData.length > 0 && user.ID_rol !== 3 ? (
               filteredData.map((item) => (
                 <TableRow key={item.id_em}>
                   <TableCell>{item.documento}</TableCell>

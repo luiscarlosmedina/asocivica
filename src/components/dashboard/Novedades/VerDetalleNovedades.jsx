@@ -3,11 +3,13 @@ import TiempoTranscurrido from "./ComponentsFunction/TiempoTranscurrido";
 import FormateadorFecha from "./ComponentsFunction/FormateadorFecha";
 import Evidencia from "./ComponentsFunction/evidencia";
 import { useParams, useNavigate } from "react-router-dom";
+import { useAuth } from "../../../autenticate";
 
 export default function VerDetalleNovedad() {
   const [loading, setLoading] = useState(true);
   const { novedadID } = useParams();
   const back = useNavigate();
+  const { user } = useAuth()
   const [novedad, setNovedad] = useState({
     ID_Novedad: "",
     Fecha_Novedad: "",
@@ -49,9 +51,9 @@ export default function VerDetalleNovedad() {
                 <h3>Novedad</h3>
               </div>
               <div className="col-4 text-end p-2">
-                <button className="btn btn-outline-primary" type="button">
+                {user.ID_rol !== 3 ? <button className="btn btn-outline-primary" type="button">
                   Editar
-                </button>
+                </button> : ""}
                 <button
                   type="button"
                   className="btn-close m-3"
@@ -84,7 +86,7 @@ export default function VerDetalleNovedad() {
                   </div>
                 </div>
                 <div className="col-md-6 border-start border-4 border-primary vh-auto" style={{ overflowY: 'auto', maxHeight: '520px' }}>
-                  <Evidencia id={novedadID}/>
+                  <Evidencia id={novedadID} />
                 </div>
               </div>
             </div>

@@ -8,10 +8,13 @@ import DEmple from "./options_form_emple/d";
 import EEmple from "./options_form_emple/e";
 import Fin from "./options_form_emple/fin";
 import Validador from "./options_form_emple/validadorempleado";
+import { useAuth } from "../../../../autenticate";
 
 
 
 export default function Empleadofr() {
+  //--------------------------------------------------------------------------------------//
+  const {user} = useAuth();
   //-----------------------------------------------------------------------------------------------------
    //Variable de estado para almacenar los pasos del Formulario multi-progeso
     const [pasos, setPasos] = useState({
@@ -227,7 +230,7 @@ export default function Empleadofr() {
 
   return (
     <div>
-        {componenteActual}
-    </div>
+        {user.ID_rol !== 3 ? componenteActual : <p>Su rol no tiene acceso a esta funcionalidad</p> }
+    </div> 
   );
 };

@@ -11,6 +11,7 @@ import {
     TextField,
 } from "@mui/material";
 import swal from "sweetalert";
+import { useAuth } from "../../../autenticate";
 
 
 export default function Addnovedad() {
@@ -19,7 +20,7 @@ export default function Addnovedad() {
         Nombre_Tn: "",
         descrip_Tn: "",
     });
-    
+    const { user } = useAuth();
     const [showInsertForm, setShowInsertForm] = useState(false);
     const [editMode, setEditMode] = useState({});
     const [errors, setErrors] = useState({}); // Estado para almacenar errores
@@ -82,7 +83,7 @@ export default function Addnovedad() {
                 setErrors({ ...errors, [`N_En_${T_Nov}`]: "", [`tel1_${T_Nov}`]: "", [`tel2_${T_Nov}`]: "", [`tel3_${T_Nov}`]: "" });
             }
         } catch (error) {
-            swal("Error!","Tipo de novedad ya existe","error");
+            swal("Error!", "Tipo de novedad ya existe", "error");
             console.error("Error:", error);
         }
     };
@@ -129,7 +130,7 @@ export default function Addnovedad() {
                 setShowInsertForm(false);
             }
         } catch (error) {
-            swal("Error!","Tipo de novedad ya existe","error");
+            swal("Error!", "Tipo de novedad ya existe", "error");
             console.error("Error:", error);
         }
     };
@@ -144,7 +145,7 @@ export default function Addnovedad() {
                 <div>
                     <h3>Tipo de novedades</h3>
                 </div>
-                <div>
+                {user.ID_rol !== 3 ? <div>
                     <Button
                         variant="outlined"
                         color="primary"
@@ -152,7 +153,7 @@ export default function Addnovedad() {
                     >
                         {showInsertForm ? "Cancelar" : "Agregar"}
                     </Button>
-                </div>
+                </div> : ""}
             </div>
             <hr />
             {showInsertForm && (
@@ -219,7 +220,7 @@ export default function Addnovedad() {
                         <TableRow>
                             <TableCell>Tipo</TableCell>
                             <TableCell>Descripcion</TableCell>
-                            <TableCell>Mas opciones</TableCell>
+                            {user.ID_rol !== 3 ? <TableCell>Mas opciones</TableCell> : ""}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -274,7 +275,7 @@ export default function Addnovedad() {
                                         item.descripcion
                                     )}
                                 </TableCell>
-                                <TableCell>
+                                {user.ID_rol !== 3 ? <TableCell>
                                     {editMode[item.T_Nov] ? (
                                         <>
                                             <Button
@@ -306,7 +307,7 @@ export default function Addnovedad() {
                                             </Button>
                                         </>
                                     )}
-                                </TableCell>
+                                </TableCell> : ""}
                             </TableRow>
                         ))}
                     </TableBody>

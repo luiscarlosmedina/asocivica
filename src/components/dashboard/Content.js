@@ -22,7 +22,6 @@ function Content() {
       setDataUpdated(true);
     };
     return (
-        // el color gris es vital :V
         <div className='contenido prinpal'>
             <Routes>
                 <Route path='*' element={<Home />} />

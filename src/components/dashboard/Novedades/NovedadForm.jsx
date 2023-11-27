@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
 import DateTimeDisplay from "./ComponentsFunction/DataTimeDisplay";
+import { useAuth } from "../../../autenticate";
 
 export default function NovedadForm({ onDataUpdate }) {
   //para traer el select de tipo novedad
   const [tpnovedad, setTpnovedad] = useState([]);
   const [showSelects, setShowSelects] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const {user} = useAuth();
 
   useEffect(() => {
     fetchDataTpnoedad();
@@ -542,9 +544,9 @@ export default function NovedadForm({ onDataUpdate }) {
             >
               Cancelar
             </button>
-            <button type="submit" class="btn btn-primary mb-4 me-4">
+            {user.ID_rol !== 3 ?<button type="submit" class="btn btn-primary mb-4 me-4">
               Registrar novedad
-            </button>
+            </button> : <p>Su rol no tiene acceso a esta funcionalidad</p>}
           </div>
         </form>
         {message && <p>{message}</p>}

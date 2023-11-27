@@ -6,12 +6,14 @@ import generatePDF, { Margin } from 'react-to-pdf';
 import jsPDF from 'jspdf';
 import logoA from "./../../../img/logosf.png"
 import logoB from "./../../../img/SINOVlg.png"
+import { useAuth } from '../../../autenticate';
 
 export default function Repemp() {
   const [listempresa, setListempresa] = useState([]);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [ltempresa, setLtempresa] = useState(null);
+  const {user} = useAuth();
 
   const componentRef = useRef();
 
@@ -119,11 +121,11 @@ export default function Repemp() {
           </div>
         </div>
         <hr className="border border-danger border-2 opacity-50" />
-        <div className='row'>
+        { user.ID_rol !== 3 ? <div className='row'>
           <Conteoempresanov startDate={startDate} endDate={endDate} ltempresa={ltempresa} />
           <Conthistpnov startDate={startDate} endDate={endDate} ltempresa={ltempresa} />
           {ltempresa !== null ? <Contsedetpnov startDate={startDate} endDate={endDate} ltempresa={ltempresa} /> : " "}
-        </div>
+        </div> : <p>Su rol no tiene acceso a esta funcionalidad</p> }
       </div>
     </div>
   );

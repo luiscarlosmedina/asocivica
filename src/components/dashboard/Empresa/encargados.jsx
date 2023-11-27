@@ -10,9 +10,11 @@ import {
   Button,
   TextField,
 } from "@mui/material";
+import { useAuth } from "../../../autenticate";
 
 export default function Encargados({ id }) {
   const [data, setData] = useState([]);
+  const {user} = useAuth()
   const [newEncargado, setNewEncargado] = useState({
     ID_S: id,
     Est_en: "0",
@@ -173,13 +175,13 @@ export default function Encargados({ id }) {
 
   return (
     <div>
-      <Button
+      {user.ID_rol !== 3 ? <Button
         variant="outlined"
         color="primary"
         onClick={() => setShowInsertForm(!showInsertForm)}
       >
         {showInsertForm ? "Cancelar" : "Agregar encargado"}
-      </Button>
+      </Button> : ""}
 
       {showInsertForm && (
         <TableContainer component={Paper}>
@@ -296,7 +298,7 @@ export default function Encargados({ id }) {
               <TableCell>Telefono 1</TableCell>
               <TableCell>Telefono 2</TableCell>
               <TableCell>Telefono 3</TableCell>
-              <TableCell>Opciones</TableCell>
+              {user.ID_rol !== 3 ? <TableCell>Opciones</TableCell> : ""}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -405,7 +407,7 @@ export default function Encargados({ id }) {
                     item.tel3
                   )}
                 </TableCell>
-                <TableCell>
+                {user.ID_rol !== 3 ? <TableCell>
                   {editMode[item.ID_En] ? (
                     <Button
                       color="primary"
@@ -436,7 +438,7 @@ export default function Encargados({ id }) {
                       </Button>
                     </>
                   )}
-                </TableCell>
+                </TableCell> : "" }
               </TableRow>
             ))}
           </TableBody>

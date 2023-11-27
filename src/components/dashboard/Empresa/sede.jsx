@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Encargados from './encargados';
+import { useAuth } from '../../../autenticate';
 
 export default function Sede({ id }) {
   // Estados
@@ -27,6 +28,7 @@ export default function Sede({ id }) {
   const [expandedSede, setExpandedSede] = useState(null);
   const [errors, setErrors] = useState({});
   const [showInsertForm, setShowInsertForm] = useState(false);
+  const {user} = useAuth();
   const [nuevaSede, setNuevaSede] = useState({
     Dic_S: '',
     Sec_V: '1', // Valor por defecto, puedes cambiarlo según tus necesidades
@@ -237,14 +239,14 @@ export default function Sede({ id }) {
         <div>
           <h3>Sedes y encargados</h3>
         </div>
-        <div>
+        {user.ID_rol !== 3 ? <div>
           <Button
             variant="outlined"
             color="primary"
             onClick={() => setShowInsertForm(!showInsertForm)}>
             {showInsertForm ? "Cancelar" : "Agregar sede"}
           </Button>
-        </div>
+        </div> : ""}
       </div>
       <hr className='pb-3' />
       <div className="container my-3">
@@ -300,7 +302,7 @@ export default function Sede({ id }) {
                 <TableCell>Direccion</TableCell>
                 <TableCell>Sector de vigilancia</TableCell>
                 <TableCell>Detalles</TableCell>
-                <TableCell>Mas opciones</TableCell>
+                {user.ID_rol !== 3 ? <TableCell>Mas opciones</TableCell> : ""}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -360,13 +362,13 @@ export default function Sede({ id }) {
                             </>
                           ) : (
                             <>
-                              <Button
+                              {user.ID_rol !== 3 ? <Button
                                 color="primary"
                                 onClick={() => handleEdit(item.ID_S)}
                                 disabled={item.est_sed === '1'}
                               >
                                 Editar
-                              </Button>
+                              </Button> : ""}
                               <Button
                                 variant="contained"
                                 color="info"
@@ -378,7 +380,7 @@ export default function Sede({ id }) {
                             </>
                           )}
                         </TableCell>
-                        <TableCell>
+                        {user.ID_rol !== 3 ? <TableCell>
                           {item.est_sed === '0' ? (
                             <button className='btn' onClick={() => handleToggleSede(item.ID_S, '1')}>
                               <i className="bi bi-emoji-smile  text-success"></i>
@@ -391,7 +393,7 @@ export default function Sede({ id }) {
                           <Button onClick={() => handleToggleSede(item.ID_S, '2')}>
                             <i className="bi bi-trash3 text-danger"></i>
                           </Button>
-                        </TableCell>
+                        </TableCell> : ""}
                       </TableRow>
                     )}
                     {expandedSede === item.ID_S && (

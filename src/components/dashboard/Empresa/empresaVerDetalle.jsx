@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Sede from './sede';
 import EditarE from './editarempresa'
+import { useAuth } from '../../../autenticate';
 
 export default function EmpresaVerDetalle() {
   const [loading, setLoading] = useState(true);
   const { empresaid } = useParams();
   const back = useNavigate();
+  const {user} = useAuth();
   const [empresa, setEmpresa] = useState({
     id_e: "",
     Nit_E: "",
@@ -75,7 +77,7 @@ export default function EmpresaVerDetalle() {
             </div>
             <div>
               <button type="button" className="btn btn-link" onClick={() => back('/consultar-empresas')}>Salir</button>
-              <button type="button" className="btn btn-link" data-bs-toggle="modal" data-bs-target="#editarempresa" data-bs-whatever="@mdo"> Editar </button>
+              {user.ID_rol !== 3 ?<button type="button" className="btn btn-link" data-bs-toggle="modal" data-bs-target="#editarempresa" data-bs-whatever="@mdo"> Editar </button> : ""}
             </div>
           </div>
           {/*inicio de modal editar empresa*/}

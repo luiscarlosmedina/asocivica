@@ -1,8 +1,10 @@
 import React from 'react';
 import '../../style/options.css'; // Importa tus estilos personalizados si es necesario
 import { NavLink } from 'react-router-dom';
+import { useAuth } from '../../autenticate';
 
 const Options = () => {
+  const {user} = useAuth()
   return (
     <ul className="navbar-nav vh-100 d-flex flex-column" id='menu'>
       <li className="nav-item">
@@ -22,7 +24,7 @@ const Options = () => {
         </a>
         <ul className="dropdown-menu">
           <li><NavLink to="/consultar-empresas" className="dropdown-item">Ver empresas</NavLink></li>
-          <li><NavLink to="/registrar-empresa" className="dropdown-item">Agregar empresas</NavLink></li>
+          {user.ID_rol !== 3 ?<li><NavLink to="/registrar-empresa" className="dropdown-item">Agregar empresas</NavLink></li> : ""}
         </ul>
       </li>
       <li className="nav-item dropdown">
@@ -37,11 +39,11 @@ const Options = () => {
         </a>
         <ul className="dropdown-menu">
           <li><NavLink to="/consultar-novedades" className="dropdown-item">Ver Novedades</NavLink></li>
-          <li><NavLink to="/registrar-novedades" className="dropdown-item">Agregar Novedades</NavLink></li>
+          {user.ID_rol !== 3 ?<li><NavLink to="/registrar-novedades" className="dropdown-item">Agregar Novedades</NavLink></li>: ""}
           <li><NavLink to="/tipo-novedades" className="dropdown-item">Tipo de Novedades</NavLink></li>
         </ul>
       </li>
-      <li className="nav-item dropdown">
+      {user.ID_rol !== 3 ? <li className="nav-item dropdown">
         <a
           className="nav-link dropdown-toggle text-white small text-center"
           href="empleados"
@@ -55,8 +57,8 @@ const Options = () => {
           <li><NavLink to="/consultar-empleados" className="dropdown-item">Ver empleados</NavLink></li>
           <li><NavLink to="/registrar-empleado" className="dropdown-item">Agregar empleado</NavLink></li>
         </ul>
-      </li>
-      <li className="nav-item dropdown">
+      </li> : ""}
+      {user.ID_rol !== 3 ? <li className="nav-item dropdown">
         <a
           className="nav-link dropdown-toggle text-white small text-center"
           href="reportes"
@@ -70,7 +72,7 @@ const Options = () => {
           <li><NavLink to="/reporte-operaciones" className="dropdown-item">Operación</NavLink></li>
           <li><NavLink to="/reporte-clientes" className="dropdown-item">Cliente</NavLink></li>
         </ul>
-      </li>
+      </li> : ""}
     </ul>
   );
 };

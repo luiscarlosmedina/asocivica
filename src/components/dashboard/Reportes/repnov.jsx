@@ -7,12 +7,14 @@ import generatePDF, { Margin } from 'react-to-pdf';
 import jsPDF from 'jspdf';
 import logoA from "./../../../img/logosf.png"
 import logoB from "./../../../img/SINOVlg.png"
+import { useAuth } from '../../../autenticate';
 
 export default function Repnov() {
     const [tpnovedad, setTpnovedad] = useState([]);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [tipoNovedad, setTipoNovedad] = useState(null); // Inicializa como null
+    const {user} = useAuth();
 
     const handleDownloadReport = () => {
         const pdf = new jsPDF();
@@ -118,7 +120,7 @@ export default function Repnov() {
                     />
                 </div>
             </div>
-            <div className='container max-width' ref={componentRef}>
+            { user.ID_rol !== 3 ? <div className='container max-width' ref={componentRef}>
                 <div className="d-flex align-items-center justify-content-between p-3 mb-3">
                     <div className="logo-left">
                         {/* Agrega tu logo izquierdo aquí */}
@@ -143,7 +145,7 @@ export default function Repnov() {
                     <Conteonovdia startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad} />
                     <Conteonovhora startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad} />
                 </div>
-            </div>
+            </div> : <p>Su rol no tiene acceso a esta funcionalidad</p> }
         </div>
     );
 }
