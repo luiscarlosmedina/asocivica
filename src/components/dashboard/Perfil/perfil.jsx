@@ -42,7 +42,6 @@ export default function Perfil() {
       [field]: value,
     });
   };
-  console.log(empleado);
 
   const handleSaveChanges = () => {
     fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateperfil`, {
