@@ -8,7 +8,7 @@ export default function EmpresaVerDetalle() {
   const [loading, setLoading] = useState(true);
   const { empresaid } = useParams();
   const back = useNavigate();
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [empresa, setEmpresa] = useState({
     id_e: "",
     Nit_E: "",
@@ -73,10 +73,10 @@ export default function EmpresaVerDetalle() {
         <div key={empresa.id_e} >
           <div className='d-flex justify-content-between align-items-center'>
             <div>
-                <p className="t h2 mb-4 mt-3">Datos Basicos</p>
+              <p className="t h2 mb-4 mt-3">Datos Basicos</p>
             </div>
             <div>
-              {user.ID_rol !== 3 ?<button type="button" className="btnfa btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarempresa" data-bs-whatever="@mdo"> Editar </button> : ""}
+              {user.ID_rol !== 3 ? <button type="button" className="btnfa btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarempresa" data-bs-whatever="@mdo"> Editar </button> : ""}
               <button type="button" className="btn-close m-3" onClick={() => back('/consultar-empresas')}></button>
             </div>
           </div>
@@ -95,69 +95,51 @@ export default function EmpresaVerDetalle() {
           </div>
           {/*fin de modal editar empresa*/}
           <div className={`mb-1 mt-1 borsupd border-3 `}></div>
-          <div className=' row'>
-            <div className='col-md-4 m-auto'>
-              <div className="input-group mb-2 align-items-center">
-                <span className="input-group-text bg-transparent" id="inputGroup-sizing-default"><i className="bi bi-buildings-fill text-primary"></i></span>
-                <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.Nom_E} />
-              </div>
-              <div className="input-group mb-2 align-items-center">
-                <span className="input-group-text bg-transparent" id="inputGroup-sizing-default"><i className="bi bi-envelope-fill text-primary"></i></span>
-                <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.Eml_E} />
-              </div>
-              <div className="input-group mb-2 align-items-center">
-                <span className="input-group-text bg-transparent" id="inputGroup-sizing-default"><i className="bi bi-telephone-fill text-primary"></i></span>
-                <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.telefonoGeneral !== "" ? empresa.telefonoGeneral : "No registra"} />
-              </div>
-              <div className="input-group mb-2 align-items-center">
-                <span className="input-group-text bg-transparent" id="inputGroup-sizing-default"><i className="bi bi-currency-dollar text-primary"></i></span>
-                <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.Val_E !== "" ? empresa.Val_E : "No registra"} />
-              </div>
-              <div className="input-group mb-2 align-items-center">
-                <span className="input-group-text bg-transparent" id="inputGroup-sizing-default"><i className="bi bi-person-fill text-primary"></i></span>
-                <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.Nom_Rl !== "" ? empresa.Nom_Rl : "No registra"} />
-              </div>
-            </div>
-            <div className='col-md-4 m-auto'>
-              <div className="input-group mb-2 align-items-center">
-                <span className="input-group-text text-primary bg-transparent" id="inputGroup-sizing-default">NIT</span>
-                <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.Nit_E !== "" ? empresa.Nit_E : "No registra"} />
-              </div>
-              <div className="input-group mb-2 align-items-center">
-                <span className="input-group-text text-primary bg-transparent" id="inputGroup-sizing-default">Sector</span>
-                <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.COD_SE !== "" ? empresa.COD_SE : "No registra"} />
-              </div>
-              <div className="input-group mb-2 align-items-center">
-                <span className="input-group-text text-primary bg-transparent" id="inputGroup-sizing-default">Actividad</span>
-                <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.COD_AE !== "" ? empresa.COD_AE : "No registra"} />
-              </div>
-              <div className="input-group mb-2 align-items-center">
-                <span className="input-group-text text-primary bg-transparent" id="inputGroup-sizing-default">Estado</span>
-                <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.Est_E === "0" ? "Activo" : empresa.Est_E === "1" ? "En estudio" : "Inactivo"} />
-              </div>
-              {empresa.Est_E === "0" ? (
-                <div className="input-group mb-2 align-items-center">
-                  <span className="input-group-text text-primary bg-transparent" id="inputGroup-sizing-default">Afiliacion</span>
-                  <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={date(empresa.Fh_Afi)} />
+          <div className='m-auto row'>
+            <div className='col'>
+              <div className='row box-datos-basicos '>
+                <div className='col-6 caja-input  '>
+                  <span className="t-box">NIT: </span>
+                  <p className='i-box mb-2'>{empresa.Nit_E}</p>
+                  <span className="t-box">Nombre empresa:</span>
+                  <p className='i-box mb-2'>{empresa.Nom_E}</p>
+                  <span className="t-box">Email: </span>
+                  <p className='i-box mb-2'>{empresa.Eml_E !== "" ? empresa.Eml_E : "No registra"}</p>
+                  <span className="t-box">Telefono: </span>
+                  <p className='i-box mb-2'>{empresa.telefonoGeneral !== "" ? empresa.telefonoGeneral : "No registra"}</p>
+                  <span className="t-box">Cuota: </span>
+                  <p className='i-box mb-2'>{empresa.Val_E !== "" ? empresa.Val_E : "No registra"}</p>
+                  <span className="t-box">Nombre representante legal: </span>
+                  <p className='i-box mb-2'>{empresa.Nom_Rl !== "" ? empresa.Nom_Rl : "No registra"}</p>
                 </div>
-              ) : (
-                <div className="input-group mb-2 align-items-center">
-                  <span className="input-group-text text-primary bg-transparent" id="inputGroup-sizing-default">Desafiliacion</span>
-                  <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={date(empresa.fechaFinalizacion)} />
+
+                <div className='col-6 caja-input'>
+                  <span className="t-box">Sector economico: </span>
+                  <p className='i-box mb-2'>{empresa.COD_SE !== "" ? empresa.COD_SE : "No registra"}</p>
+                  <span className="t-box">Actividad economica:  </span>
+                  <p className='i-box mb-2'>{empresa.COD_AE !== "" ? empresa.COD_AE : "No registra"}</p>
+                  <span className="t-box">Estado:  </span>
+                  <p className='i-box mb-2'>{empresa.Est_E === "0" ? "Activo" : empresa.Est_E === "1" ? "En estudio" : "Inactivo"}</p>
+                  {empresa.Est_E === "0" ?
+                    <div>
+                      <span className="t-box">Afiliacion:  </span>
+                      <p className='i-box mb-2'>{date(empresa.Fh_Afi)}</p>
+                    </div>
+                    :
+                    <div>
+                      <span className="t-box">Desafiliacion:</span>
+                      <p className='i-box mb-2'>{date(empresa.fechaFinalizacion)}</p>
+                    </div>
+                  }
+                  <span className="t-box">
+                    {doc.map((item) => (item.ID_Doc === empresa.ID_Doc ?
+                      <div>
+                        {item.N_TDoc}
+                      </div>
+                      : ""
+                    ))}</span>
+                  <p className='i-box mb-2'>{empresa.CC_Rl !== "" ? empresa.CC_Rl : "No registra"}</p>
                 </div>
-              )}
-              <div className="input-group mb-2 align-items-center">
-                <select className="form-control text-primary bg-transparent" id="inputGroup-sizing-default" value={empresa.ID_Doc} disabled>
-                  <option selected disabled value="">
-                    Tipo de documento
-                  </option>
-                  {doc.map((item) => (
-                    <option key={item.ID_Doc} value={item.ID_Doc}>
-                      {item.N_TDoc}
-                    </option>
-                  ))}
-                </select>
-                <input type="text" className="form-control bg-transparent border border-0 " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled value={empresa.CC_Rl} />
               </div>
             </div>
           </div>
