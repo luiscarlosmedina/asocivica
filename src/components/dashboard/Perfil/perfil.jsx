@@ -96,7 +96,7 @@ export default function Perfil() {
               )}
             </div>
           </div>
-          <hr className="mb-3 mt-2 border border-2 border-primary opacity-75" />
+          <div className={`mb-1 mt-1 borsupd border-3 `}></div>
           <div className="row container-fluid">
             <div className='col-10 m-auto'>
               <div className='row box-datos-basicos p-3'>

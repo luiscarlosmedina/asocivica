@@ -13,7 +13,7 @@ export default function Repemp() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [ltempresa, setLtempresa] = useState(null);
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   const componentRef = useRef();
 
@@ -62,13 +62,13 @@ export default function Repemp() {
     <div className='my-3'>
       <div className='d-flex justify-content-between align-items-center'>
         <div>
-          <h3>Reporte por empresas</h3>
+          <p className="t h2 mb-4  mt-3">Reporte por empresa</p>
         </div>
         <div>
           <button type="button" className="btn btn-outline-success" onClick={handleDownloadReport}> Descargar reporte </button>
         </div>
       </div>
-      <hr />
+      <div className={`mb-1 mt-1 borsupd border-3 `}></div>
       <div className="row">
         <div className="mb-3 col-md-4">
           <label htmlFor="id_e" className="form-label">
@@ -121,11 +121,11 @@ export default function Repemp() {
           </div>
         </div>
         <hr className="border border-danger border-2 opacity-50" />
-        { user.ID_rol !== 3 ? <div className='row'>
+        {user.ID_rol !== 3 ? <div className='row'>
           <Conteoempresanov startDate={startDate} endDate={endDate} ltempresa={ltempresa} />
           <Conthistpnov startDate={startDate} endDate={endDate} ltempresa={ltempresa} />
           {ltempresa !== null ? <Contsedetpnov startDate={startDate} endDate={endDate} ltempresa={ltempresa} /> : " "}
-        </div> : <p>Su rol no tiene acceso a esta funcionalidad</p> }
+        </div> : <p>Su rol no tiene acceso a esta funcionalidad</p>}
       </div>
     </div>
   );

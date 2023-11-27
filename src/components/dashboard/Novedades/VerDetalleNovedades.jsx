@@ -47,11 +47,11 @@ export default function VerDetalleNovedad() {
         ) : (
           <div key={novedad.ID_Novedad}>
             <div className="row justify-content-between">
-              <div className="col-4 p-3">
-                <h3>Novedad</h3>
+              <div className="col-4">
+                <p className="t h2 mb-4  mt-3">Novedad</p>
               </div>
               <div className="col-4 text-end p-2">
-                {user.ID_rol !== 3 ? <button className="btn btn-outline-primary" type="button">
+                {user.ID_rol !== 3 ? <button className="btnfa btn btn-primary" type="button">
                   Editar
                 </button> : ""}
                 <button
@@ -62,6 +62,7 @@ export default function VerDetalleNovedad() {
                 ></button>
               </div>
             </div>
+            <div className={`mb-1 mt-1 borsupd border-3 `}></div>
             <div className="container-fluid">
               <div className="row shadow-lg p-3 my-1 bg-body-tertiary rounded-4">
                 <div className="col-md-6 ">

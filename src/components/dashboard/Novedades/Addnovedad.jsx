@@ -143,7 +143,7 @@ export default function Addnovedad() {
         <div className="my-3">
             <div className='d-flex justify-content-between align-items-center'>
                 <div>
-                    <h3>Tipo de novedades</h3>
+                    <p className="t h2 mb-4  mt-3">Tipos de novedades</p>
                 </div>
                 {user.ID_rol !== 3 ? <div>
                     <Button
@@ -155,7 +155,7 @@ export default function Addnovedad() {
                     </Button>
                 </div> : ""}
             </div>
-            <hr />
+            <div className={`mb-1 mt-1 borsupd border-3 `}></div>
             {showInsertForm && (
                 <TableContainer component={Paper}>
                     <Table>

@@ -73,11 +73,11 @@ export default function EmpresaVerDetalle() {
         <div key={empresa.id_e} >
           <div className='d-flex justify-content-between align-items-center'>
             <div>
-              <h3>Datos Basicos</h3>
+                <p className="t h2 mb-4 mt-3">Datos Basicos</p>
             </div>
             <div>
-              <button type="button" className="btn btn-link" onClick={() => back('/consultar-empresas')}>Salir</button>
-              {user.ID_rol !== 3 ?<button type="button" className="btn btn-link" data-bs-toggle="modal" data-bs-target="#editarempresa" data-bs-whatever="@mdo"> Editar </button> : ""}
+              {user.ID_rol !== 3 ?<button type="button" className="btnfa btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarempresa" data-bs-whatever="@mdo"> Editar </button> : ""}
+              <button type="button" className="btn-close m-3" onClick={() => back('/consultar-empresas')}></button>
             </div>
           </div>
           {/*inicio de modal editar empresa*/}
@@ -94,7 +94,7 @@ export default function EmpresaVerDetalle() {
             </div>
           </div>
           {/*fin de modal editar empresa*/}
-          <hr className='pb-3' />
+          <div className={`mb-1 mt-1 borsupd border-3 `}></div>
           <div className=' row'>
             <div className='col-md-4 m-auto'>
               <div className="input-group mb-2 align-items-center">

@@ -83,7 +83,7 @@ export default function VerNovedades({ dataUpdated }) {
   return (
     <>
       <div>
-        <h3>Novedades</h3>
+        <p className="t h2 mb-4  mt-3">Novedades</p>
       </div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
@@ -124,6 +124,7 @@ export default function VerNovedades({ dataUpdated }) {
           </div>
         </div>
       </nav>
+      <div className={`mb-1 mt-1 borsupd border-3 `}></div>
       <div className="row row-cols row-cols-md-3 g-1">
         {loading ? (
           <div className="spinner-border text-primary" role="status">

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import swal from 'sweetalert';
 
-function Empresarapidofr({ nit, est, resetForm}) {
+function Empresarapidofr({ nit, est, resetForm }) {
     const fecha = new Date();
     const hoy = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate();
 
@@ -132,11 +132,10 @@ function Empresarapidofr({ nit, est, resetForm}) {
 
     return (
         <div>
-            <div className="mb-1 border-bottom border-primary border-3 row justify-content-between">
-                <div className="col-0">
-                    <p className="text-primary h2">Registrar Empresa</p>
-                </div>
+            <div className="col-0">
+                <p className="t h2 mb-4 mt-3">Registrar empresa</p>
             </div>
+            <div className={`mb-1 mt-1 borsupd border-3 `}></div>
             <form onSubmit={handleSubmit} className='my-3'>
                 <div className="row">
                     <div className="col-md-6">

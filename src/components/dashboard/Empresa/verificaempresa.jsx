@@ -12,7 +12,7 @@ export default function Verificaempresa() {
     const [loading, setLoading] = useState(false);
     const [tpform, setTpform] = useState("0");
     const navega = useNavigate();
-    const {user} = useAuth()
+    const { user } = useAuth()
 
     const fetchData = async (nit) => {
         try {
@@ -88,11 +88,10 @@ export default function Verificaempresa() {
         <>
             {formulario === false ? (
                 <div>
-                    <div className="mb-1 border-bottom border-primary border-3 row justify-content-between">
-                        <div className="col-0">
-                            <p className="text-primary h2">Registrar Empresa</p>
-                        </div>
+                    <div className="col-0">
+                        <p className="t h2 mb-4 mt-3">Registrar empresa</p>
                     </div>
+                    <div className={`mb-1 mt-1 borsupd border-3 `}></div>
                     <form className="my-3" onSubmit={handleSubmit}>
                         <div className="row">
                             <div className="col-md-6">
@@ -132,7 +131,7 @@ export default function Verificaempresa() {
                                 </div>
                             </div>
                         </div>
-                        {user.ID_rol !== 3 ?<button type="submit" className="btn btn-primary" disabled={loading}>
+                        {user.ID_rol !== 3 ? <button type="submit" className="btn btn-primary" disabled={loading}>
                             {loading && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}
                             Verificar Empresa
                         </button> : <p>Su rol no tiene acceso a esta funcionalidad</p>}

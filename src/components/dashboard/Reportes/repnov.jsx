@@ -14,7 +14,7 @@ export default function Repnov() {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [tipoNovedad, setTipoNovedad] = useState(null); // Inicializa como null
-    const {user} = useAuth();
+    const { user } = useAuth();
 
     const handleDownloadReport = () => {
         const pdf = new jsPDF();
@@ -76,13 +76,13 @@ export default function Repnov() {
         <div className="my-3">
             <div className='d-flex justify-content-between align-items-center'>
                 <div>
-                    <h3>Reporte de la operación</h3>
+                    <p className="t h2 mb-4  mt-3">Reporte de la operación</p>
                 </div>
                 <div>
                     <button type="button" className="btn btn-outline-success" onClick={handleDownloadReport}> Descargar reporte </button>
                 </div>
             </div>
-            <hr />
+            <div className={`mb-1 mt-1 borsupd border-3 `}></div>
             <div className="row">
                 <div className="mb-3 col-md-4">
                     <label htmlFor="T_Nov" className="form-label">
@@ -120,11 +120,11 @@ export default function Repnov() {
                     />
                 </div>
             </div>
-            { user.ID_rol !== 3 ? <div className='container max-width' ref={componentRef}>
+            {user.ID_rol !== 3 ? <div className='container max-width' ref={componentRef}>
                 <div className="d-flex align-items-center justify-content-between p-3 mb-3">
                     <div className="logo-left">
                         {/* Agrega tu logo izquierdo aquí */}
-                        <img src={logoA} alt="Logo Asocivica" style={{ width: '170px', height: 'auto' }}/>
+                        <img src={logoA} alt="Logo Asocivica" style={{ width: '170px', height: 'auto' }} />
                     </div>
                     <div className="text-center">
                         <h5>ASOCIACION CIVICA CENTRO COMERCIAL PALOQUEMAO</h5>
@@ -133,10 +133,10 @@ export default function Repnov() {
                     </div>
                     <div className="logo-right">
                         {/* Agrega tu logo derecho aquí */}
-                        <img src={logoB} alt="Logo SINOV" style={{ width: '170px', height: 'auto' }}/>
+                        <img src={logoB} alt="Logo SINOV" style={{ width: '170px', height: 'auto' }} />
                     </div>
                 </div>
-                <hr className="border border-danger border-2 opacity-50"/>
+                <hr className="border border-danger border-2 opacity-50" />
                 <div className='row h-50'>
                     <Conteonov startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad} />
                     <Conteosectornov startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad} />
@@ -145,7 +145,7 @@ export default function Repnov() {
                     <Conteonovdia startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad} />
                     <Conteonovhora startDate={startDate} endDate={endDate} tipoNovedad={tipoNovedad} />
                 </div>
-            </div> : <p>Su rol no tiene acceso a esta funcionalidad</p> }
+            </div> : <p>Su rol no tiene acceso a esta funcionalidad</p>}
         </div>
     );
 }

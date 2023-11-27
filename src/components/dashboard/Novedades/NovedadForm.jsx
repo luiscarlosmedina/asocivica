@@ -308,9 +308,9 @@ export default function NovedadForm({ onDataUpdate }) {
   return (
     <>
       <div className="shadow-lg p-0 mb-3 bg-body-tertiary rounded">
-        <div className="m-1 border-bottom border-primary border-3 row justify-content-between">
+        <div className="m-1 row justify-content-between">
           <div className="col-6">
-            <p className="text-primary h2 ms-2 mt-4">Registrar Novedad</p>
+            <p className="t h2 mb-4  mt-3">Registrar Novedad</p>
           </div>
           <div
             className="col-4 alert alert-primary mb-1 mt-2 me-2"
@@ -319,6 +319,7 @@ export default function NovedadForm({ onDataUpdate }) {
             <DateTimeDisplay />
           </div>
         </div>
+        <div className={`mb-1 mt-1 borsupd border-3 `}></div>
         <form
           onSubmit={handleSubmit}
           className="needs-validation justify-content-between"
