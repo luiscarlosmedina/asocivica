@@ -154,11 +154,7 @@ export default function VerNovedades({ dataUpdated }) {
                         to={`/consultar-novedades/${(novedadID =
                           item.ID_Novedad)}`}
                       >
-                        <button
-                          value={novedadID}
-                          type="button"
-                          className="btn btn-primary"
-                        >
+                        <button value={novedadID} className="btnfa btn btn-primary">
                           VER MAS
                         </button>
                       </Link>
