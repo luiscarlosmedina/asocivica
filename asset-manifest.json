@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/asocivica/static/css/main.a5a39ad7.css",
-    "main.js": "/asocivica/static/js/main.5c0764e0.js",
+    "main.css": "/asocivica/static/css/main.9a64b978.css",
+    "main.js": "/asocivica/static/js/main.3784e8a2.js",
     "static/js/703.5482ad49.chunk.js": "/asocivica/static/js/703.5482ad49.chunk.js",
     "static/js/513.0cb482ab.chunk.js": "/asocivica/static/js/513.0cb482ab.chunk.js",
     "static/js/787.f3c98735.chunk.js": "/asocivica/static/js/787.f3c98735.chunk.js",
@@ -14,14 +14,14 @@
     "static/media/bner1.jpg": "/asocivica/static/media/bner1.286b44efed26fe4be720.jpg",
     "static/media/SINOVlg.png": "/asocivica/static/media/SINOVlg.abdda0af89fd16783fb1.png",
     "index.html": "/asocivica/index.html",
-    "main.a5a39ad7.css.map": "/asocivica/static/css/main.a5a39ad7.css.map",
-    "main.5c0764e0.js.map": "/asocivica/static/js/main.5c0764e0.js.map",
+    "main.9a64b978.css.map": "/asocivica/static/css/main.9a64b978.css.map",
+    "main.3784e8a2.js.map": "/asocivica/static/js/main.3784e8a2.js.map",
     "703.5482ad49.chunk.js.map": "/asocivica/static/js/703.5482ad49.chunk.js.map",
     "513.0cb482ab.chunk.js.map": "/asocivica/static/js/513.0cb482ab.chunk.js.map",
     "787.f3c98735.chunk.js.map": "/asocivica/static/js/787.f3c98735.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a5a39ad7.css",
-    "static/js/main.5c0764e0.js"
+    "static/css/main.9a64b978.css",
+    "static/js/main.3784e8a2.js"
   ]
 }
