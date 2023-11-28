@@ -34,7 +34,13 @@ export default function EmpleadoVerDetalles() {
         barloc_em: "",
         dir_em: "",
         lib_em: "",
-        lic_emp: ""
+        lic_emp: "",
+        contrato: "",
+        estado: "",
+        id_eps: "",
+        id_arl: "",
+        id_pens: "",
+        id_ces:""
     });
 
     const tipoRhOptions = {
@@ -56,7 +62,6 @@ export default function EmpleadoVerDetalles() {
         5: 'Pasaporte',
         6: 'Nit',
     };
-
 
 
     var act_ina = empleado.estado
@@ -81,35 +86,35 @@ export default function EmpleadoVerDetalles() {
 
     const fetchDataoneUpdate = () => {
         const requestOptions = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            ...empleado
-          }),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ...empleado
+            }),
         };
-      
+
         fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateempleadoinfoone`, requestOptions)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            swal("¡Éxito!", "Los datos del empleado se han actualizado correctamente.", "success");
-            fetchDataone();
-            setIsEditing(false);
-          })
-          .catch((error) => {
-            console.error('Error al actualizar los datos del empleado:', error);
-            swal("Error", "Hubo un problema al actualizar los datos del empleado.", "error");
-          });
-      };
-      
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                swal("¡Éxito!", "Los datos del empleado se han actualizado correctamente.", "success");
+                fetchDataone();
+                setIsEditing(false);
+            })
+            .catch((error) => {
+                console.error('Error al actualizar los datos del empleado:', error);
+                swal("Error", "Hubo un problema al actualizar los datos del empleado.", "error");
+            });
+    };
+
 
     const comenzarEdicion = () => {
         setIsEditing(true);
         setEmpleadoOriginal({ ...empleado });
     };
-    
+
     const caneclarEdicion = () => {
         setIsEditing(false);
         setEmpleado(empleadoOriginal);
@@ -206,16 +211,24 @@ export default function EmpleadoVerDetalles() {
                 }
                 break;
 
-            
-                case "tel_em":
-                    const telefonoRegex = /^[0-9]{10}$/;
-                    if (!telefonoRegex.test(valorCampo)) {
-                      nuevosErrores.tel_em =
+
+            case "tel_em":
+                const telefonoRegex = /^[0-9]{10}$/;
+                if (!telefonoRegex.test(valorCampo)) {
+                    nuevosErrores.tel_em =
                         "Por favor, ingrese un número de teléfono válido";
-                    } else {
-                      delete nuevosErrores.tel_em;
-                    }
-                    break;
+                } else {
+                    delete nuevosErrores.tel_em;
+                }
+                break;
+
+            case "contrato":
+                if (!valorCampo || valorCampo.length < 10 || valorCampo.length > 100) {
+                    nuevosErrores.contrato = "Por favor, verifica la URL del contrato.";
+                } else {
+                    delete nuevosErrores.contrato;
+                }
+                break;
 
             default:
                 break;
@@ -235,8 +248,11 @@ export default function EmpleadoVerDetalles() {
                 user.ID_rol !== 3 ? (
                     <div key={empleado.id_em} >
                         <div className={`row `}>
-                            <div className=' row col-9  '>
-                                <div className=' col-5' > <p className="t h3 mb-2 mt-3">Información personal del Empleado </p></div>
+                            <div className=' row col-9 '>
+                                <div className=' col-5' >
+                                    <p className={`t h3 mb-2 mt-3 `}>Información personal del Empleado </p>
+
+                                </div>
                             </div>
                             <div className='col-2 mt-2' >
                                 {isEditing ? (
@@ -258,16 +274,25 @@ export default function EmpleadoVerDetalles() {
                                 <button type="button" className="buton-regresar btnfa btn btn-primary " onClick={() => back('/consultar-empleados')}>Regresar</button>
                             </div>
                         </div>
-                        <div className={`mb-3 mt-2 borsupd border-3 `}></div>
-                        <div className="row">
-                            <div className="ud-e col-2  card border-photho ">
-                                <div className='col-12  mt-1 text-center' >{act_ina === "0" ? (<a className="link-successs">Actualmente: Activo</a>) : (<a className="link-dangerr">Actualmente: Inactivo</a>)}</div>
-                                <img src={usersPhoto('./empleado.png')} className="card-img-top  img-emple" alt="Image by rawpixel.com on Freepik" />
-                                <button className=" buton-contrato  btnfs btn btn-primary " href={empleado.contrato} target="_blank" rel="noreferrer">Ver contrato</button>
+                        <div className=" mt-3 row">
+
+                            <div className={`ud-e col-2  card border-photho`}>
+
+                                <button className={act_ina === 0 ? ' btn btn primary btn-estado-activo' : ' btn btn primary btn-estado-inactivo'} >
+                                    {act_ina === 0 ? 'Actualmente: Activo' : 'Actualmente: Inactivo'}
+                                </button>
+                                <img
+                                    src={act_ina === 0 ? usersPhoto('./empleado.png') : usersPhoto('./desactivo.jpeg')}
+                                    className="card-img-top img-emple"
+                                    
+                                />
+
+                                <button className=" buton-contrato btnfa btn btn-primary " href={empleado.contrato} target="_blank" rel="noreferrer">Ver contrato del empleado</button>
+
                             </div>
                             <div className='col-9-uxin '>
-                            <div className={`row box-datos-basicos ${isEditing ? 'editing-mode' : ''}`}>
-                                    <div className='col-6 caja-input  '>
+                                <div className={`row  ${isEditing ? 'editing-mode-datos' : 'canceled-mode-datos'}`}>
+                                    <div className='col-6 caja-input '>
                                         <div className='row'>
                                             <div className='col-6'>
                                                 <span className="t-box">Nombres:  </span>
@@ -529,61 +554,151 @@ export default function EmpleadoVerDetalles() {
                                                 </select>
                                             ) : (
                                                 <input
-                                                    className='i-box form-control'
+                                                    className='i-box-contrato form-control'
                                                     disabled
                                                     value={empleado.lic_emp}
                                                 />
                                             )}
-
-                                        
                                         </div>
+                                    </div>
+                                    <div >
+                                        <span className="t-box">Link de contrato:  </span>
+                                        {isEditing ? (
+                                            <div>
+                                                <input
+                                                    className={`i-finish form-control ${errores.contrato ? "is-invalid" : empleado.contrato ? "is-valid" : ""}`}
+                                                    disabled={!isEditing}
+                                                    value={empleado.contrato}
+                                                    onChange={(e) => {
+                                                        handleInputChange(e, 'contrato');
+                                                        validarCampo("contrato", e.target.value);
+                                                    }}
+                                                />
+                                                {errores.contrato && <div className="invalid-feedback">{errores.contrato}</div>}
+                                            </div>
+                                        ) : (
+                                            <input
+                                                className={`i-finish i-box form-control ${isEditing ? 'editing-mode' : ''}`}
+                                                disabled={!isEditing}
+                                                value={empleado.contrato}
+                                            />
+                                        )}
 
                                     </div>
                                 </div>
 
                             </div>
                         </div>
-                        <div className='row '>
-                            <p className="t h3 mt-3  ">Parafiscales</p>
-                            <div className={`mb-3 mt-3 borsupd-para border-3 `}></div>
 
-                            <TableContainer >
-                                <Table>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell>Pension</TableCell>
-                                            <TableCell>Censantias</TableCell>
-                                            <TableCell>EPS</TableCell>
-                                            <TableCell>ARL</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        <TableRow>
-                                            <TableCell>
+                        <div className='mt-4 box-main-parafis'>
 
-                                                {empleado.id_pens}
 
-                                            </TableCell>
-                                            <TableCell>
+                            <div className='mt-3 d-flex'>
+                                <div className='box-i-para col-3'>
+                                    <span className=" t-box"> Entidad Promotora de Salud (EPS):  </span>
+                                    {isEditing ? (
+                                        <div>
+                                            <input
+                                                className={`mt-2 i-para form-control ${errores.id_eps ? "is-invalid" : empleado.id_eps ? "is-valid" : ""}`}
+                                                disabled={!isEditing}
+                                                value={empleado.id_eps}
+                                                onChange={(e) => {
+                                                    handleInputChange(e, 'id_eps');
+                                                    validarCampo("id_eps", e.target.value);
+                                                }}
+                                            />
+                                            {errores.id_eps && <div className="invalid-feedback">{errores.id_eps}</div>}
+                                        </div>
+                                    ) : (
+                                        <input
+                                            className={`mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
+                                            disabled={!isEditing}
+                                            value={empleado.id_eps}
+                                        />
+                                    )}
 
-                                                {empleado.id_ces}
 
-                                            </TableCell>
-                                            <TableCell>
+                                </div>
 
-                                                {empleado.id_eps}
+                                <div className='box-i-para col-3'>
+                                    <span className="t-box"> Fondo de cesantias:  </span>
+                                    {isEditing ? (
+                                        <div>
+                                            <input
+                                                className={`mt-2 i-para form-control ${errores.id_ces ? "is-invalid" : empleado.id_ces ? "is-valid" : ""}`}
+                                                disabled={!isEditing}
+                                                value={empleado.id_ces}
+                                                onChange={(e) => {
+                                                    handleInputChange(e, 'id_ces');
+                                                    validarCampo("id_ces", e.target.value);
+                                                }}
+                                            />
+                                            {errores.id_ces && <div className="invalid-feedback">{errores.id_ces}</div>}
+                                        </div>
+                                    ) : (
+                                        <input
+                                            className={`mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
+                                            disabled={!isEditing}
+                                            value={empleado.id_ces}
+                                        />
+                                    )}
+                                </div>
 
-                                            </TableCell>
-                                            <TableCell>
+                                <div className='box-i-para col-3'>
+                                    <span className="t-box"> Administradoras de Riesgos Laborales (ARL):  </span>
+                                    {isEditing ? (
+                                        <div>
+                                            <input
+                                                className={`mt-2 i-para form-control ${errores.id_arl ? "is-invalid" : empleado.id_arl ? "is-valid" : ""}`}
+                                                disabled={!isEditing}
+                                                value={empleado.id_arl}
+                                                onChange={(e) => {
+                                                    handleInputChange(e, 'id_arl');
+                                                    validarCampo("id_arl", e.target.value);
+                                                }}
+                                            />
+                                            {errores.id_arl && <div className="invalid-feedback">{errores.id_arl}</div>}
+                                        </div>
+                                    ) : (
+                                        <input
+                                            className={`mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
+                                            disabled={!isEditing}
+                                            value={empleado.id_arl}
+                                        />
+                                    )}</div>
 
-                                                {empleado.id_arl}
+                                <div className='box-i-para col-3'>
+                                    <span className="t-box"> Fondo pensional:  </span>
+                                    {isEditing ? (
+                                        <div>
+                                            <input
+                                                className={`mt-2 i-para form-control ${errores.id_pens ? "is-invalid" : empleado.id_pens ? "is-valid" : ""}`}
+                                                disabled={!isEditing}
+                                                value={empleado.id_pens}
+                                                onChange={(e) => {
+                                                    handleInputChange(e, 'id_pens');
+                                                    validarCampo("id_pens", e.target.value);
+                                                }}
+                                            />
+                                            {errores.id_pens && <div className="invalid-feedback">{errores.id_pens}</div>}
+                                        </div>
+                                    ) : (
+                                        <input
+                                            className={`mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
+                                            disabled={!isEditing}
+                                            value={empleado.id_pens}
+                                        />
+                                    )}
 
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
+                                </div>
+
+                            </div>
+
+
                         </div>
+
+
+
                     </div>) : (<p>Su rol no tiene acceso a esta funcionalidad</p>)
             )}
             {user.ID_rol !== 3 ? <div>

@@ -156,7 +156,7 @@ export default function ContactoEmergencia({ id }) {
                     </Button>
                 </div>
             </div>
-            <div className={`mb-3 mt-3 borsupd border-3 `}></div>
+            <div className={`mb-3 mt-3  border-3 `}></div>
             {showInsertForm && (
                 <TableContainer component={Paper}>
                     <Table>

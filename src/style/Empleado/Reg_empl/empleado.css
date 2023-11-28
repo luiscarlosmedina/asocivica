@@ -141,6 +141,52 @@ h6 {
 
 }
 
+.btn-estado-activo {
+    margin-top: 1em;
+    margin-bottom: 0.6em;
+    color: #198754;
+    background-color: #ffffff;
+    border: 2px solid #198754;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 1px 2px 4px rgba(0, 185, 99, 0.403);
+}
+
+.btn-estado-activo:hover {
+    margin-top: 1em;
+    margin-bottom: 0.6em;
+    color: #198754;
+    background-color: #ffffff;
+    border: 2px solid #198754;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 1px 2px 4px rgba(0, 185, 99, 0.403);
+}
+
+
+.btn-estado-inactivo {
+    margin-top: 1em;
+    margin-bottom: 0.2em;
+    color: #b90000;
+    background-color: #ffffff;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 1px 2px 4px rgba(135, 32, 25, 0.462)
+
+}
+
+.btn-estado-inactivo:hover {
+    margin-top: 1em;
+    margin-bottom: 0.2em;
+    color: #b90000;
+    background-color: #ffffff;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 1px 2px 4px rgba(135, 32, 25, 0.462)
+
+}
+
+
 
 .btnfd:hover {
     color: #b90000;
@@ -151,9 +197,7 @@ h6 {
     box-shadow: 1px 2px 4px rgba(135, 71, 25, 0.462)
 }
 
-.t {
-    color: #134074;
-}
+
 
 .espbots {
     margin-top: 3em;
@@ -192,12 +236,31 @@ h6 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-top: 3px solid  #002f5d;
 
 }
 
-.editing-mode {
-    box-shadow: 0px 0px 7px 1px rgb(0 185 99 / 54%)
+.editing-mode-datos {
+    background-color: #1987540f;
+    border-radius: 6px;
+    margin-left: 1em;
+    border-top: 3px solid #005d39; 
+    box-shadow: 1px 2px 4px #005d396b; 
+    
  }
+
+ .canceled-mode-datos {
+    background-color: white;
+    border-radius: 6px;
+    margin-left: 1em;
+    border-top: 3px solid  #002f5d;
+
+ }
+
+
+.mode-color{
+    border-bottom: 2px solid #134074;
+}
  
 .box-mayor-ver-emple {
     margin-top: 1em;
@@ -213,28 +276,27 @@ h6 {
 }
 
 .buton-contrato {
-    margin-top: 15px;
-    margin-bottom: 10px;
+    margin-top: 1.5em;
+    margin-bottom: 13px;
+    height: 3em;
 }
 
 .ud-e {
     margin-left: 13px;
 }
 
+
 .border-photho {
-    border-color: white;
-}
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    border-top: 3px solid  #002f5d;
 
-.box-datos-basicos {
-    background-color: white;
-    border-radius: 6px;
-    margin-left: 1em;
 
 }
+
 
 .caja-input {
-    margin-top: 18px;
-    margin-bottom: 20px;
+    margin-top: 10px;
 }
 
 .img-emple {
@@ -257,13 +319,12 @@ h6 {
 
 
 .link-successs {
-    font-size: 16px;
     font-weight: 500;
     color: #11c470;
 }
 
 .link-dangerr {
-    font-size: 16px;
+
     font-weight: 500;
     color: #e66001;
 }
@@ -276,10 +337,18 @@ h6 {
 
 }
 
+.i-box-contrato,
+.form-control {
+    margin-bottom: 1px;
+    margin-top: 1px;
+}
+
+
+
 
 .i-box,
 .form-control {
-    margin-bottom: 10px;
+    margin-bottom: 13px;
     margin-top: 5px;
 }
 
@@ -319,9 +388,11 @@ h6 {
     font-size: 61px;
 }
 
+
 .borsupd {
     margin: 1px;
     border-bottom: 3px solid #134074;
+    
 }
 
 .borsupa {
@@ -329,8 +400,21 @@ h6 {
     border-bottom: 3px solid #ff7d1f;
 }
 
+.i-para {
+    width: 24em;
+}
 
-.borsupd-para {
-    margin: 1px;
-    border-bottom: 3px solid #134074;
+.box-i-para{
+    margin-left: 8px;
+    margin-bottom: 0.9em;
+}
+.box-main-parafis{
+    background-color: white;
+    border-radius: 1em;
+    border-top: 3px solid #134074;
+  
+} 
+
+.text-parafis{
+    color: #134074;
 }
