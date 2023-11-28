@@ -50,7 +50,7 @@ export default function EmpresaVerDetalle() {
     fetch(`http://localhost/api_sisinov/public/api/empresa/${empresaid}`)
       .then((response) => response.json())
       .then((data) => {
-        setEmpresa(data.data[0]);
+        setEmpresa(data.data);
         setLoading(false);
       })
       .catch((error) => {

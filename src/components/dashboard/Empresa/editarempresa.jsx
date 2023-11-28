@@ -77,7 +77,7 @@ export default function EditarE({ id, onUpdate }) {
         fetch(`http://localhost/api_sisinov/public/api/empresa/${id}`)
             .then(response => response.json())
             .then(data => {
-                setEmpresa(data.data[0]);
+                setEmpresa(data.data);
             })
             .catch(error => {
                 console.error('Error:', error);
