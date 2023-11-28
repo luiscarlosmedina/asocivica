@@ -53,10 +53,15 @@ export default function Validador(props) {
                 } else if (valorCampo.length < 2 || valorCampo.length > 14) {
                     nuevosErrores.documento =
                         "El campo debe tener entre 2 y 14 caracteres";
+                } else if (!/^\d+$/.test(valorCampo)) {
+                    nuevosErrores.documento =
+                        "Ingrese solo números para el campo documento";
                 } else {
                     delete nuevosErrores.documento;
                 }
                 break;
+
+                
             case "id_doc":
 
                 if (

@@ -195,7 +195,10 @@ h6 {
 
 }
 
-
+.editing-mode {
+    box-shadow: 0px 0px 7px 1px rgb(0 185 99 / 54%)
+ }
+ 
 .box-mayor-ver-emple {
     margin-top: 1em;
     margin-left: 1em;
@@ -205,7 +208,7 @@ h6 {
 
 
 .form-control:disabled {
-    background-color: white;
+    background-color:#b4c6e73b;
     opacity: 1;
 }
 
@@ -237,7 +240,9 @@ h6 {
 .img-emple {
     margin-top: 10px;
 }
-
+.buton-cancelare1{
+    margin-left: 3.6em;
+}
 .columna-info {
     flex: 0 0;
     margin-left: 2pc;
@@ -250,14 +255,6 @@ h6 {
 
 }
 
-.buton-editar {
-    margin-left: 3em;
-}
-
-.buton-regresar {
-    margin-left: 2em;
-}
-
 
 .link-successs {
     font-size: 16px;
@@ -265,9 +262,12 @@ h6 {
     color: #11c470;
 }
 
-.link-danger {
+.link-dangerr {
+    font-size: 16px;
+    font-weight: 500;
     color: #e66001;
 }
+
 
 .t-box {
     color: #002f5d;
@@ -275,6 +275,7 @@ h6 {
     font-weight: 500;
 
 }
+
 
 .i-box,
 .form-control {
