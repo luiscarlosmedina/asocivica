@@ -45,7 +45,6 @@ export default function Conthistpnov({ startDate, endDate, ltempresa }) {
                 // Handle the error (e.g., display an error message to the user)
             });
     };
-    let nombre_nov = data.Nombre_nov
 
     return (
         <div className='border border-1 col-md-12'>

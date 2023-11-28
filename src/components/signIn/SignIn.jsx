@@ -95,7 +95,7 @@ export default function SignIn() {
             <p className="error-message text-red m-auto px-1">{error}</p>
           </div>
           <div className="password-olvidada">
-            {/* <a href="#">¿Olvidaste tu contraseña?</a> */}
+            <a href="#">¿Olvidaste tu contraseña?</a>
           </div>
           <div className="input">
             <input type="submit" value="Ingresar" />
