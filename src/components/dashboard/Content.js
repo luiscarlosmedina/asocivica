@@ -15,6 +15,7 @@ import VerDetalleNovedad from "./Novedades/VerDetalleNovedades";
 import VerNovedades from "./Novedades/VerNovedades";
 import Repnov from "./Reportes/repnov";
 import Repemp from "./Reportes/repemp";
+import Trazabilidad from "./Reportes/trazabilidad";
 
 function Content() {
     const [dataUpdated, setDataUpdated] = useState(false);
@@ -38,6 +39,7 @@ function Content() {
                 <Route path='consultar-novedades/:novedadID' element={<VerDetalleNovedad />} />
                 <Route path='reporte-operaciones' element={<Repnov/>} />
                 <Route path='reporte-clientes' element={<Repemp/>} />
+                <Route path='trazabilidad' element={<Trazabilidad/>} />
             </Routes>
         </div>
     )

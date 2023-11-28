@@ -70,7 +70,7 @@ export default function VerDetalleNovedad() {
                     <div className="row">
                       <div className="col-12">
                         <blockquote className="blockquote">
-                          <h3>{novedad.Tipo_Novedad}</h3>
+                          <h3>NV{novedad.ID_Novedad} - {novedad.Tipo_Novedad}</h3>
                           <em className="p-0 m-0">Creada: <FormateadorFecha fechaDada={novedad.Fecha_Novedad} />  <TiempoTranscurrido fechaDada={novedad.Fecha_Novedad} /></em>
                         </blockquote>
                         <figcaption className="blockquote-footer">

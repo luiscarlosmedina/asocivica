@@ -138,7 +138,6 @@ export default function NovedadForm({ onDataUpdate }) {
       .then(data => {
         if (data.error) {
           swal("Error!", "No se agregó la novedad. Revise que todos los campos estén completos e inténtelo nuevamente", "error");
-          console.log(data.error);
         } else {
           swal("¡Buen trabajo!", "Creado con éxito", "success");
           setT_Nov("");
