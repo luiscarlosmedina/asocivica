@@ -42,7 +42,7 @@ function AEmple(props) {
       //siguientePaso();
       fetchDataValidacion();
     } else {
-      swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
+      swal("¡Completa los campos!", "Por favor, verifica los campos para continuar con el proceso.", "error");
     }
 
     return documentosValidos;
