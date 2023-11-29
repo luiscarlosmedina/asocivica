@@ -9,7 +9,7 @@ export default function Evidencia({ id }) {
     }, [id]);
 
     const fetchData = () => {
-        fetch(`http://20.106.206.47/api_sisinov/public/api/evidencia/${id}`)
+        fetch(`https://20.106.206.47/api_sisinov/public/api/evidencia/${id}`)
             .then((response) => response.json())
             .then((responseData) => {
                 // Verificar si 'responseData' y 'responseData.contenido' están definidos

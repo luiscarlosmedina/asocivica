@@ -42,7 +42,7 @@ export default function Sede({ id }) {
 
   // Función para cargar datos
   const fetchData = () => {
-    fetch(`http://20.106.206.47/api_sisinov/public/api/sede/${id}`)
+    fetch(`https://20.106.206.47/api_sisinov/public/api/sede/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setData(data.data);
@@ -101,7 +101,7 @@ export default function Sede({ id }) {
       const editedRow = data.find((row) => row.ID_S === id);
       editedRow[field] = newValue;
 
-      fetch(`http://20.106.206.47/api_sisinov/public/api/sede/${id}`, {
+      fetch(`https://20.106.206.47/api_sisinov/public/api/sede/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -165,7 +165,7 @@ export default function Sede({ id }) {
 
   // Función para realizar la eliminación de una sede
   const performDeleteSede = (id, estado) => {
-    return fetch(`http://20.106.206.47/api_sisinov/public/api/estadosede/${id}`, {
+    return fetch(`https://20.106.206.47/api_sisinov/public/api/estadosede/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -202,7 +202,7 @@ export default function Sede({ id }) {
     }
 
     // Envía los datos al servidor
-    fetch(`http://20.106.206.47/api_sisinov/public/api/sede`, {
+    fetch(`https://20.106.206.47/api_sisinov/public/api/sede`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

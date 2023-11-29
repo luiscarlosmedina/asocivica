@@ -62,7 +62,7 @@ export default function Repnov() {
     }, []);
 
     const fetchDataTpnoedad = () => {
-        fetch("http://20.106.206.47/api_proyecto.github.io/api.php?apicall=readtpnovedad")
+        fetch("https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readtpnovedad")
             .then((response) => response.json())
             .then((tpnovedad) => {
                 setTpnovedad(tpnovedad.contenido);

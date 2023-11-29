@@ -12,9 +12,9 @@ export default function Conteoempresanov({ startDate, endDate, ltempresa }) {
         // Construye la URL con los parámetros de fecha
         let apiUrl = ``;
         if(ltempresa === null){
-            apiUrl = `http://20.106.206.47/api_proyecto.github.io/api.php?apicall=repempresanov`;
+            apiUrl = `https://20.106.206.47/api_proyecto.github.io/api.php?apicall=repempresanov`;
         }else {
-            apiUrl = `http://20.106.206.47/api_proyecto.github.io/api.php?apicall=repsedenov`;
+            apiUrl = `https://20.106.206.47/api_proyecto.github.io/api.php?apicall=repsedenov`;
         }
 
         // Agrega el tipo de novedad si se proporciona

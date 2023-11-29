@@ -17,7 +17,7 @@ export default function Trazabilidad() {
     const [searchTerm, setSearchTerm] = useState("");
 
     const fetchData = () => {
-        fetch(`http://20.106.206.47/api_proyecto.github.io/api.php?apicall=readtrazabilidad`)
+        fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readtrazabilidad`)
             .then((response) => response.json())
             .then((data) => {
                 setData(data.contenido);

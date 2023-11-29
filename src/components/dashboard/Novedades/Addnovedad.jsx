@@ -26,7 +26,7 @@ export default function Addnovedad() {
     const [errors, setErrors] = useState({}); // Estado para almacenar errores
 
     const fetchData = () => {
-        fetch(`http://20.106.206.47/api_sisinov/public/api/tpnov`)
+        fetch(`https://20.106.206.47/api_sisinov/public/api/tpnov`)
             .then((response) => response.json())
             .then((data) => {
                 setData(data.data);
@@ -62,7 +62,7 @@ export default function Addnovedad() {
             return;
         }
         try {
-            const response = await fetch(`http://20.106.206.47/api_proyecto.github.io/api.php?apicall=updatetpnovedad`, {
+            const response = await fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=updatetpnovedad`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ export default function Addnovedad() {
         }
 
         try {
-            const response = await fetch(`http://20.106.206.47/api_sisinov/public/api/tpnov`, {
+            const response = await fetch(`https://20.106.206.47/api_sisinov/public/api/tpnov`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

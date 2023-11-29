@@ -27,7 +27,7 @@ export default function VerDetalleNovedad() {
   const fetchData = () => {
     setLoading(true)
     fetch(
-      `http://20.106.206.47/api_sisinov/public/api/novedad/${novedadID}`
+      `https://20.106.206.47/api_sisinov/public/api/novedad/${novedadID}`
     )
       .then((response) => response.json())
       .then((data) => {

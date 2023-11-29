@@ -72,7 +72,7 @@ export default function EmpleadoVerDetalles() {
     }, []);
 
     const fetchDataone = () => {
-        fetch(`http://20.106.206.47/api_proyecto.github.io/api.php?apicall=readempleadoone&id=${empleadoid}`)
+        fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readempleadoone&id=${empleadoid}`)
             .then((response) => response.json())
             .then((data) => {
                 setEmpleado(data.contenido[0]);
@@ -95,7 +95,7 @@ export default function EmpleadoVerDetalles() {
             }),
         };
 
-        fetch(`http://20.106.206.47/api_proyecto.github.io/api.php?apicall=updateempleadoinfoone`, requestOptions)
+        fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=updateempleadoinfoone`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);

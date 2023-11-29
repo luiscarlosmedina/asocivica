@@ -17,7 +17,7 @@ export default function Verificaempresa() {
     const fetchData = async (nit) => {
         try {
             setLoading(true);
-            const response = await fetch(`http://20.106.206.47/api_sisinov/public/api/empresas/${nit}`);
+            const response = await fetch(`https://20.106.206.47/api_sisinov/public/api/empresas/${nit}`);
             const data = await response.json();
 
             if (data.contenido !== null) {
