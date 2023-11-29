@@ -40,7 +40,7 @@ export default function Empleadofr() {
       lic_emp: "",
       lib_em: "",
       tel_em: "",
-     // f_em: "",
+      f_em: "n/a",
       contrato: "",
       barloc_em: "",
       id_pens: "",
