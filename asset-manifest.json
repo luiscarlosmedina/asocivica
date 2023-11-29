@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/asocivica/static/css/main.9a64b978.css",
-    "main.js": "/asocivica/static/js/main.3784e8a2.js",
+    "main.css": "/asocivica/static/css/main.a53e0e7f.css",
+    "main.js": "/asocivica/static/js/main.d6073938.js",
     "static/js/703.5482ad49.chunk.js": "/asocivica/static/js/703.5482ad49.chunk.js",
     "static/js/513.0cb482ab.chunk.js": "/asocivica/static/js/513.0cb482ab.chunk.js",
     "static/js/787.f3c98735.chunk.js": "/asocivica/static/js/787.f3c98735.chunk.js",
@@ -13,15 +13,16 @@
     "static/media/pablo.jpg": "/asocivica/static/media/pablo.ed3f4cb9d4b48918d668.jpg",
     "static/media/bner1.jpg": "/asocivica/static/media/bner1.286b44efed26fe4be720.jpg",
     "static/media/SINOVlg.png": "/asocivica/static/media/SINOVlg.abdda0af89fd16783fb1.png",
+    "static/media/desactivo.jpeg": "/asocivica/static/media/desactivo.fbaf76bc8646756008de.jpeg",
     "index.html": "/asocivica/index.html",
-    "main.9a64b978.css.map": "/asocivica/static/css/main.9a64b978.css.map",
-    "main.3784e8a2.js.map": "/asocivica/static/js/main.3784e8a2.js.map",
+    "main.a53e0e7f.css.map": "/asocivica/static/css/main.a53e0e7f.css.map",
+    "main.d6073938.js.map": "/asocivica/static/js/main.d6073938.js.map",
     "703.5482ad49.chunk.js.map": "/asocivica/static/js/703.5482ad49.chunk.js.map",
     "513.0cb482ab.chunk.js.map": "/asocivica/static/js/513.0cb482ab.chunk.js.map",
     "787.f3c98735.chunk.js.map": "/asocivica/static/js/787.f3c98735.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9a64b978.css",
-    "static/js/main.3784e8a2.js"
+    "static/css/main.a53e0e7f.css",
+    "static/js/main.d6073938.js"
   ]
 }
