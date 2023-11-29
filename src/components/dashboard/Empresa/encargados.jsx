@@ -59,8 +59,8 @@ export default function Encargados({ id }) {
 
   const saveEnc = async (ID_En, updatedEncargado) => {
     try {
-      const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateencargado`, {
-        method: 'POST',
+      const response = await fetch(`http://localhost/api_sisinov/public/api/encargado/${ID_En}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -93,18 +93,14 @@ export default function Encargados({ id }) {
   };
 
   const deleteEnc = async (ID_En) => {
-    const dt = {
-      ID_En,
-      Est_en: '1'
-    };
 
     try {
-      const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=deleteencargado`, {
-        method: 'POST',
+      const response = await fetch(`http://localhost/api_sisinov/public/api/encargadoestado/${ID_En}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(dt),
+        body: JSON.stringify({Est_en: '1'}),
       });
 
       const responseData = await response.json();
@@ -412,7 +408,6 @@ export default function Encargados({ id }) {
                     <Button
                       color="primary"
                       onClick={() => saveEnc(item.ID_En, {
-                        ID_En: item.ID_En,
                         N_En: item.N_En,
                         tel1: item.tel1,
                         tel2: item.tel2,

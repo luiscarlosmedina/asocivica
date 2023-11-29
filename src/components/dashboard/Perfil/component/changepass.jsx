@@ -28,7 +28,7 @@ export default function Changepass({ id }) {
 
             const verifica = { "passw": password, "id_em": id };
 
-            const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=verifpass`, {
+            const response = await fetch(`http://localhost/api_sisinov/public/api/verifpass`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ export default function Changepass({ id }) {
             const cambio = { "passw": newPassword, "id_em": id };
 
             if (user.id_em === id) {
-                const ress = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=changepass`, {
+                const ress = await fetch(`http://localhost/api_sisinov/public/api/changepass`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
