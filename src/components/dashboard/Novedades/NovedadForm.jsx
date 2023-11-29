@@ -17,11 +17,11 @@ export default function NovedadForm({ onDataUpdate }) {
   //traer tipo de novedades
   const fetchDataTpnoedad = () => {
     fetch(
-      "http://localhost/api_proyecto.github.io/api.php?apicall=readtpnovedad"
+      "http://localhost/api_sisinov/public/api/tpnov"
     )
       .then((response) => response.json())
       .then((tpnovedad) => {
-        setTpnovedad(tpnovedad.contenido);
+        setTpnovedad(tpnovedad.data);
       })
       .catch((error) => {
         console.log(error);
@@ -42,11 +42,11 @@ export default function NovedadForm({ onDataUpdate }) {
   //traer listado de empresas
   const fetchDataEmpresa = () => {
     fetch(
-      "http://localhost/api_proyecto.github.io/api.php?apicall=readnovedadempresa"
+      "http://localhost/api_sisinov/public/api/novedadempresa"
     )
       .then((response) => response.json())
       .then((empresa) => {
-        setEmpresa(empresa.contenido);
+        setEmpresa(empresa.data);
       })
       .catch((error) => {
         console.log(error);
@@ -56,11 +56,11 @@ export default function NovedadForm({ onDataUpdate }) {
   //traer listado de sedes correspondientes a la empresa seleccionada
   const fetchDataSede = (id_e) => {
     fetch(
-      `http://localhost/api_proyecto.github.io/api.php?apicall=readnovedadsede&id=${id_e}`
+      `http://localhost/api_sisinov/public/api/novedadsede/${id_e}`
     )
       .then((response) => response.json())
       .then((sede) => {
-        setSede(sede.contenido);
+        setSede(sede.data);
       })
       .catch((error) => {
         console.log(error);
@@ -83,11 +83,11 @@ export default function NovedadForm({ onDataUpdate }) {
 
   const fetchDataEmpleado = () => {
     fetch(
-      "http://localhost/api_proyecto.github.io/api.php?apicall=readnovedadempleado"
+      "http://localhost/api_sisinov/public/api/novedadempleados"
     )
       .then((response) => response.json())
       .then((empleado) => {
-        setEmpleado(empleado.contenido);
+        setEmpleado(empleado.data);
       })
       .catch((error) => {
         console.log(error);
@@ -122,12 +122,12 @@ export default function NovedadForm({ onDataUpdate }) {
       Des_Nov,
       id_em,
       ID_S,
-      hoy,
+      Fe_Nov : hoy,
       adjuntos,
     };
     console.log(novedad);
     //crear la novedad
-    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=createnovedad", {
+    fetch("http://localhost/api_sisinov/public/api/novedad", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -214,7 +214,7 @@ export default function NovedadForm({ onDataUpdate }) {
     }
 
     fetch(
-      "http://localhost/api_proyecto.github.io/api.php?apicall=createtpnovedad",
+      "http://localhost/api_sisinov/public/api/tpnov",
       {
         method: "POST",
         headers: {
@@ -342,7 +342,7 @@ export default function NovedadForm({ onDataUpdate }) {
                   </option>
                   {tpnovedad.map((item) => (
                     <option key={item.T_Nov} value={item.T_Nov}>
-                      {item.Tipo_Novedad}
+                      {item.Nombre_Tn}
                     </option>
                   ))}
                 </select>
@@ -408,7 +408,7 @@ export default function NovedadForm({ onDataUpdate }) {
                 </option>
                 {empleado.map((item) => (
                   <option key={item.id_em} value={item.id_em}>
-                    {item.Nombre_Completo_Empleado}
+                    {item.Nombre}
                   </option>
                 ))}
               </select>

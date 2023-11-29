@@ -9,11 +9,11 @@ export default function Evidencia({ id }) {
     }, [id]);
 
     const fetchData = () => {
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readevidencia&id=${id}`)
+        fetch(`http://localhost/api_sisinov/public/api/evidencia/${id}`)
             .then((response) => response.json())
             .then((responseData) => {
                 // Verificar si 'responseData' y 'responseData.contenido' están definidos
-                if (responseData && responseData.contenido) {
+                if (responseData && responseData.data) {
                     setData(responseData);
                 } else {
                     setData([]); // Establecer un valor predeterminado o manejar de otra manera
@@ -33,7 +33,7 @@ export default function Evidencia({ id }) {
             ) : (
                 <div>
                     {/* Map over data.contenido */}
-                    {data.contenido.map((item) => (
+                    {data.data.map((item) => (
                         <div className="row" key={item.id_evi}>
                             <div className="col my-1">
                                 <a href={item.adjunto} target="_blank" rel="evidencia">Acceder a evidencia</a>

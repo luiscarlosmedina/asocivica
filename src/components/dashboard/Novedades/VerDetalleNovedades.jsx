@@ -11,13 +11,13 @@ export default function VerDetalleNovedad() {
   const back = useNavigate();
   const { user } = useAuth()
   const [novedad, setNovedad] = useState({
-    ID_Novedad: "",
-    Fecha_Novedad: "",
-    Tipo_Novedad: "",
-    Descripcion_Tipo: "",
+    ID_Nov: "",
+    Fe_Nov: "",
+    Nombre_Tn: "",
+    descrip_Tn: "",
     Direccion: "",
-    Descripcion_Novedad: "",
-    Nombre_Completo_Empleado: "",
+    Des_Nov: "",
+    Nombre: "",
   });
 
   useEffect(() => {
@@ -27,11 +27,11 @@ export default function VerDetalleNovedad() {
   const fetchData = () => {
     setLoading(true)
     fetch(
-      `http://localhost/api_proyecto.github.io/api.php?apicall=readnovedad&id=${novedadID}`
+      `http://localhost/api_sisinov/public/api/novedad/${novedadID}`
     )
       .then((response) => response.json())
       .then((data) => {
-        setNovedad(data.contenido[0]);
+        setNovedad(data.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -45,7 +45,7 @@ export default function VerDetalleNovedad() {
         {loading ? (
           <p>Cargando...</p>
         ) : (
-          <div key={novedad.ID_Novedad}>
+          <div key={novedad.ID_Nov}>
             <div className="row justify-content-between">
               <div className="col-4">
                 <p className="t h2 mb-4  mt-3">Novedad</p>
@@ -70,18 +70,18 @@ export default function VerDetalleNovedad() {
                     <div className="row">
                       <div className="col-12">
                         <blockquote className="blockquote">
-                          <h3>NV{novedad.ID_Novedad} - {novedad.Tipo_Novedad}</h3>
-                          <em className="p-0 m-0">Creada: <FormateadorFecha fechaDada={novedad.Fecha_Novedad} />  <TiempoTranscurrido fechaDada={novedad.Fecha_Novedad} /></em>
+                          <h3>NV{novedad.ID_Nov} - {novedad.Nombre_Tn}</h3>
+                          <em className="p-0 m-0">Creada: <FormateadorFecha fechaDada={novedad.Fe_Nov} />  <TiempoTranscurrido fechaDada={novedad.Fe_Nov} /></em>
                         </blockquote>
                         <figcaption className="blockquote-footer">
                           <em className="fs-5 pt-0 mt-0">Dirección: {novedad.Direccion}</em>
                         </figcaption>
                         <figcaption className="blockquote-footer">
-                          <em className="fs-5">Descripción de novedad: {novedad.Descripcion_Novedad}</em>
+                          <em className="fs-5">Descripción de novedad: {novedad.Des_Nov}</em>
                         </figcaption>
                       </div>
                       <div className="col-12">
-                        <p className="fs-5 pt-0 mt-0 text-capitalize fw-lighter"> Motorizado: {novedad.Nombre_Completo_Empleado}</p>
+                        <p className="fs-5 pt-0 mt-0 text-capitalize fw-lighter"> Motorizado: {novedad.Nombre}</p>
                       </div>
                     </div>
                   </div>
