@@ -10,7 +10,7 @@ export default function Conteonov({ startDate, endDate, tipoNovedad }) {
 
     const fetchData = () => {
         // Construye la URL con los parámetros de fecha
-        let apiUrl = `http://localhost/api_proyecto.github.io/api.php?apicall=repnov`;
+        let apiUrl = `http://20.106.206.47/api_proyecto.github.io/api.php?apicall=repnov`;
 
         // Agrega el tipo de novedad si se proporciona
         if (startDate) {

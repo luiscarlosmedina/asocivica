@@ -48,7 +48,7 @@ export default function VerNovedades({ dataUpdated }) {
 
   useEffect(() => {
     const fetchData = () => {
-      fetch(`http://localhost/api_sisinov/public/api/novedad`)
+      fetch(`http://20.106.206.47/api_sisinov/public/api/novedad`)
         .then((response) => response.json())
         .then((data) => {
           setData(data.data);
@@ -61,7 +61,7 @@ export default function VerNovedades({ dataUpdated }) {
     };
 
     const fetchDataTpnoedad = () => {
-      fetch("http://localhost/api_sisinov/public/api/tpnov")
+      fetch("http://20.106.206.47/api_sisinov/public/api/tpnov")
         .then((response) => response.json())
         .then((tpnovedad) => {
           setTpnovedad(tpnovedad.data);

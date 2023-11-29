@@ -18,7 +18,7 @@ export default function Conthistpnov({ startDate, endDate, ltempresa }) {
     }, [startDate, endDate, ltempresa]);
 
     const fetchData = () => {
-        let apiUrl = `http://localhost/api_proyecto.github.io/api.php?apicall=rephistnov`;
+        let apiUrl = `http://20.106.206.47/api_proyecto.github.io/api.php?apicall=rephistnov`;
 
         if (startDate) {
             apiUrl += `&startdate=${startDate}`;
