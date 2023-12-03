@@ -31,15 +31,15 @@ export default function VerNovedades({ dataUpdated }) {
     let filtered = data;
 
     if (startDate) {
-      filtered = filtered.filter((item) => new Date(item.Fecha_Novedad) >= new Date(startDate));
+      filtered = filtered.filter((item) => new Date(item.Fe_Nov) >= new Date(startDate));
     }
 
     if (endDate) {
-      filtered = filtered.filter((item) => new Date(item.Fecha_Novedad) <= new Date(endDate));
+      filtered = filtered.filter((item) => new Date(item.Fe_Nov) <= new Date(endDate));
     }
 
     if (tipoNovedad !== null && tipoNovedad !== "") {
-      filtered = filtered.filter((item) => item.Tipo_Novedad === tipoNovedad);
+      filtered = filtered.filter((item) => item.Nombre_Tn === tipoNovedad);
     }
 
     // Actualiza el estado con los datos filtrados
@@ -48,10 +48,10 @@ export default function VerNovedades({ dataUpdated }) {
 
   useEffect(() => {
     const fetchData = () => {
-      fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readnovedad&id`)
+      fetch(`https://20.106.206.47/api_sisinov/public/api/novedad`)
         .then((response) => response.json())
         .then((data) => {
-          setData(data.contenido);
+          setData(data.data);
           setLoading(false);
         })
         .catch((error) => {
@@ -61,10 +61,10 @@ export default function VerNovedades({ dataUpdated }) {
     };
 
     const fetchDataTpnoedad = () => {
-      fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtpnovedad")
+      fetch("https://20.106.206.47/api_sisinov/public/api/tpnov")
         .then((response) => response.json())
         .then((tpnovedad) => {
-          setTpnovedad(tpnovedad.contenido);
+          setTpnovedad(tpnovedad.data);
         })
         .catch((error) => {
           console.log(error);
@@ -95,8 +95,8 @@ export default function VerNovedades({ dataUpdated }) {
               <select className="form-select" onChange={handleTipoNovedadChange}>
                 <option value="">Todos</option>
                 {tpnovedad.map((item) => (
-                  <option key={item.T_Nov} value={item.Tipo_Novedad}>
-                    {item.Tipo_Novedad}
+                  <option key={item.T_Nov} value={item.Nombre_Tn}>
+                    {item.Nombre_Tn}
                   </option>
                 ))}
               </select>
@@ -132,27 +132,27 @@ export default function VerNovedades({ dataUpdated }) {
           </div>
         ) : Array.isArray(filteredData) && filteredData.length > 0 ? (
           filteredData.map((item) => (
-            <div className="card-group" key={item.ID_Novedad}>
+            <div className="card-group" key={item.ID_Nov}>
               <div className="card border rounded-0 p-2">
                 <div className="card-header">
                   <p className="card-text">
-                    <FormateadorFecha fechaDada={item.Fecha_Novedad} />
+                    <FormateadorFecha fechaDada={item.Fe_Nov} />
                   </p>
-                  <h4 className="card-title">{item.Tipo_Novedad}</h4>
+                  <h4 className="card-title">{item.Nombre_Tn}</h4>
                 </div>
                 <div className="card-body">
                   <h6 className="card-title">{item.Direccion}</h6>
-                  <p className="card-text">{item.Descripcion_Novedad}</p>
+                  <p className="card-text">{item.descrip_Tn}</p>
                 </div>
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item">
-                    {item.Nombre_Completo_Empleado}
+                    {item.Nombre}
                   </li>
                   <li className="list-group-item">
                     <div className="d-flex justify-content-between">
                       <Link
                         to={`/consultar-novedades/${(novedadID =
-                          item.ID_Novedad)}`}
+                          item.ID_Nov)}`}
                       >
                         <button value={novedadID} className="btnfa btn btn-primary">
                           VER MAS
@@ -163,7 +163,7 @@ export default function VerNovedades({ dataUpdated }) {
                 </ul>
                 <div className="card-footer">
                   <small className="text-body-secondary">
-                    <TiempoTranscurrido fechaDada={item.Fecha_Novedad} />
+                    <TiempoTranscurrido fechaDada={item.Fe_Nov} />
                   </small>
                 </div>
               </div>

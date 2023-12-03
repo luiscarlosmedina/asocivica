@@ -26,10 +26,10 @@ export default function Addnovedad() {
     const [errors, setErrors] = useState({}); // Estado para almacenar errores
 
     const fetchData = () => {
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readtpnovedad`)
+        fetch(`https://20.106.206.47/api_sisinov/public/api/tpnov`)
             .then((response) => response.json())
             .then((data) => {
-                setData(data.contenido);
+                setData(data.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -62,7 +62,7 @@ export default function Addnovedad() {
             return;
         }
         try {
-            const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updatetpnovedad`, {
+            const response = await fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=updatetpnovedad`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ export default function Addnovedad() {
         }
 
         try {
-            const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=createtpnovedad`, {
+            const response = await fetch(`https://20.106.206.47/api_sisinov/public/api/tpnov`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -248,7 +248,7 @@ export default function Addnovedad() {
                                             helperText={errors[`Tipo_Novedad_${item.T_Nov}`]}
                                         />
                                     ) : (
-                                        item.Tipo_Novedad
+                                        item.Nombre_Tn
                                     )}
                                 </TableCell>
                                 <TableCell>
@@ -272,7 +272,7 @@ export default function Addnovedad() {
                                             helperText={errors[`descripcion_${item.T_Nov}`]}
                                         />
                                     ) : (
-                                        item.descripcion
+                                        item.descrip_Tn
                                     )}
                                 </TableCell>
                                 {user.ID_rol !== 3 ? <TableCell>

@@ -9,7 +9,7 @@ export default function EditarE({ id, onUpdate }) {
     //llamar los tipos de documentos
     const fetchDataDoc = () => {
         fetch(
-            `http://localhost/api_sisinov/public/api/tdoc`
+            `https://20.106.206.47/api_sisinov/public/api/tdoc`
         )
             .then((response) => response.json())
             .then((doc) => {
@@ -74,7 +74,7 @@ export default function EditarE({ id, onUpdate }) {
     };
 
     useEffect(() => {
-        fetch(`http://localhost/api_sisinov/public/api/empresa/${id}`)
+        fetch(`https://20.106.206.47/api_sisinov/public/api/empresa/${id}`)
             .then(response => response.json())
             .then(data => {
                 setEmpresa(data.data);
@@ -91,7 +91,6 @@ export default function EditarE({ id, onUpdate }) {
     const handleUpdateEmpresa = () => {
         if (Object.keys(errors).length === 0) {
             const datosActualizados = {
-                'id_e': empresa.id_e,
                 'Nit_E': empresa.Nit_E,
                 'Nom_E': empresa.Nom_E,
                 'Eml_E': empresa.Eml_E,
@@ -107,8 +106,8 @@ export default function EditarE({ id, onUpdate }) {
                 'COD_AE': empresa.COD_AE
             };
 
-            fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateempresa`, {
-                method: 'POST',
+            fetch(`https://20.106.206.47/api_sisinov/public/api/empresa/${id}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },

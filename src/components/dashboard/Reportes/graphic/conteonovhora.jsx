@@ -8,7 +8,7 @@ export default function Conteonovhora({ startDate, endDate, tipoNovedad }) {
     }, [startDate, endDate, tipoNovedad]);
 
     const fetchData = () => {
-        let apiUrl = `http://localhost/api_proyecto.github.io/api.php?apicall=repnovhora`;
+        let apiUrl = `https://20.106.206.47/api_proyecto.github.io/api.php?apicall=repnovhora`;
 
         // Agrega el tipo de novedad si se proporciona
         if (startDate) {

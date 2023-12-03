@@ -8,7 +8,7 @@ export default function Conteonovdia({ startDate, endDate, tipoNovedad }) {
     }, [startDate, endDate, tipoNovedad]);
 
     const fetchData = () => {
-        let apiUrl = `http://localhost/api_proyecto.github.io/api.php?apicall=repnovdia`;
+        let apiUrl = `https://20.106.206.47/api_proyecto.github.io/api.php?apicall=repnovdia`;
 
         // Agrega el tipo de novedad si se proporciona
         if (startDate) {

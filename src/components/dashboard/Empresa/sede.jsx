@@ -42,7 +42,7 @@ export default function Sede({ id }) {
 
   // Función para cargar datos
   const fetchData = () => {
-    fetch(`http://localhost/api_sisinov/public/api/sede/${id}`)
+    fetch(`https://20.106.206.47/api_sisinov/public/api/sede/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setData(data.data);
@@ -101,8 +101,8 @@ export default function Sede({ id }) {
       const editedRow = data.find((row) => row.ID_S === id);
       editedRow[field] = newValue;
 
-      fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updatesede`, {
-        method: 'POST',
+      fetch(`https://20.106.206.47/api_sisinov/public/api/sede/${id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -140,7 +140,7 @@ export default function Sede({ id }) {
         dangerMode: true,
       }).then((confirmation) => {
         if (confirmation) {
-          performDeleteSede(id)
+          performDeleteSede(id, estado)
             .then(() => {
               swal('Eliminado con éxito', { icon: 'success' });
               fetchData();
@@ -165,17 +165,12 @@ export default function Sede({ id }) {
 
   // Función para realizar la eliminación de una sede
   const performDeleteSede = (id, estado) => {
-    const dataToSend = {
-      ID_S: id,
-      est_sed: estado,
-    };
-
-    return fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateestsd`, {
-      method: 'POST',
+    return fetch(`https://20.106.206.47/api_sisinov/public/api/estadosede/${id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(dataToSend),
+      body: JSON.stringify({est_sed: estado}),
     })
       .then((response) => response.json())
       .then((responseData) => {
@@ -207,7 +202,7 @@ export default function Sede({ id }) {
     }
 
     // Envía los datos al servidor
-    fetch(`http://localhost/api_sisinov/public/api/sede`, {
+    fetch(`https://20.106.206.47/api_sisinov/public/api/sede`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

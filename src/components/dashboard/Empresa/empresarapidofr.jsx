@@ -87,7 +87,7 @@ function Empresarapidofr({ nit, est, resetForm }) {
         };
 
         // Realizar la solicitud POST
-        fetch("http://localhost/api_sisinov/public/api/fastempresa", {
+        fetch("https://20.106.206.47/api_sisinov/public/api/fastempresa", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

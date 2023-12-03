@@ -24,7 +24,7 @@ export default function Perfil() {
   }, []);
 
   const fetchData = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readperfil&id=${user.id_em}`)
+    fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readperfil&id=${user.id_em}`)
       .then((response) => response.json())
       .then((data) => {
         setEmpleado(data.contenido[0]);
@@ -44,7 +44,7 @@ export default function Perfil() {
   };
 
   const handleSaveChanges = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateperfil`, {
+    fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=updateperfil`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

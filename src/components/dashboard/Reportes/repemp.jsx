@@ -44,7 +44,7 @@ export default function Repemp() {
   };
 
   const fetchDataListempresa = () => {
-    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readnovedadempresa")
+    fetch("https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readnovedadempresa")
       .then((response) => response.json())
       .then((listempresa) => {
         setListempresa(listempresa.contenido);

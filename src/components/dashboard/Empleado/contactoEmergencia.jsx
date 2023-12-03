@@ -30,7 +30,7 @@ export default function ContactoEmergencia({ id }) {
     const [errors, setErrors] = useState({}); // Estado para almacenar errores
 
     const fetchData = () => {
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readcontemg&id=${id}`)
+        fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readcontemg&id=${id}`)
             .then((response) => response.json())
             .then((data) => {
                 setData(data.contenido);
@@ -54,7 +54,7 @@ export default function ContactoEmergencia({ id }) {
 
     const saveEnc = async (ID_CEm, updatedEncargado) => {
         try {
-            const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updatecontemg`, {
+            const response = await fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=updatecontemg`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ export default function ContactoEmergencia({ id }) {
         }
 
         try {
-            const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=createcontemg`, {
+            const response = await fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=createcontemg`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -49,7 +49,7 @@ function AEmple(props) {
   };
 
   const fetchDataValidacion = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readveriemlempleado&eml_em=${valores.eml_em}`)
+    fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readveriemlempleado&eml_em=${valores.eml_em}`)
       .then((response) => response.json())
       .then((respuesta) => {
         if (respuesta.encontrado) {
