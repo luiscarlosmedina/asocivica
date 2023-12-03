@@ -9,7 +9,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .form-label {
@@ -30,7 +29,6 @@
     width: 70.7%;
     margin-top: 3em;
     margin-bottom: 3em;
-
 }
 
 .bi-person-vcard-fill,
@@ -42,13 +40,10 @@
     font-size: 60px;
 }
 
-
-
 .box-menu {
     display: flex;
     font-weight: 550;
     text-align: center;
-
 }
 
 .box-options {
@@ -78,18 +73,14 @@ h6 {
     margin-left: -1em;
 }
 
-
 .secundary-box {
     height: 52em;
     width: 100%;
-
 }
 
 .secundary-box .container {
     background-color: rgb(255, 255, 255);
     width: 70%;
-
-
 }
 
 .btnfs {
@@ -99,7 +90,6 @@ h6 {
     font-size: 17px;
     font-weight: 500;
     box-shadow: 1px 2px 4px #002f5d78;
-
 }
 
 .btnfs:hover {
@@ -118,9 +108,7 @@ h6 {
     font-size: 17px;
     font-weight: 500;
     box-shadow: 1px 2px 4px #002f5d78;
-
 }
-
 
 .btnfa:hover {
     color: #dd5c00;
@@ -138,7 +126,6 @@ h6 {
     font-size: 17px;
     font-weight: 500;
     box-shadow: 1px 2px 4px #002f5d78;
-
 }
 
 .btn-estado-activo {
@@ -163,30 +150,27 @@ h6 {
     box-shadow: 1px 2px 4px rgba(0, 185, 99, 0.403);
 }
 
-
 .btn-estado-inactivo {
     margin-top: 1em;
     margin-bottom: 0.2em;
-    color: #b90000;
+    color: #000000;
     background-color: #ffffff;
     font-size: 17px;
+    border: 2px solid #000000;
     font-weight: 500;
-    box-shadow: 1px 2px 4px rgba(135, 32, 25, 0.462)
-
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.462)
 }
 
 .btn-estado-inactivo:hover {
     margin-top: 1em;
     margin-bottom: 0.2em;
-    color: #b90000;
+    color: #000000;
     background-color: #ffffff;
     font-size: 17px;
+    border: 2px solid #000000;
     font-weight: 500;
-    box-shadow: 1px 2px 4px rgba(135, 32, 25, 0.462)
-
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.462)
 }
-
-
 
 .btnfd:hover {
     color: #b90000;
@@ -197,8 +181,6 @@ h6 {
     box-shadow: 1px 2px 4px rgba(135, 71, 25, 0.462)
 }
 
-
-
 .espbots {
     margin-top: 3em;
 
@@ -207,7 +189,6 @@ h6 {
 .ip {
     font-size: 16px;
 }
-
 
 .divider-horizontal1,
 .divider-horizontal2,
@@ -236,32 +217,36 @@ h6 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 3px solid  #002f5d;
-
+    border-top: 3px solid #002f5d;
 }
 
 .editing-mode-datos {
-    background-color: #1987540f;
+    background-color: #19875403;
     border-radius: 6px;
     margin-left: 1em;
-    border-top: 3px solid #005d39; 
-    box-shadow: 1px 2px 4px #005d396b; 
-    
- }
+    border-top: 3px solid #00a164;
+    box-shadow: 1px 2px 4px #005d396b;
+}
 
- .canceled-mode-datos {
+.inactive-mode-datos {
+    background-color: rgb(255, 255, 255);
+    border-radius: 6px;
+    margin-left: 1em;
+    border-top: 3px solid #000000;
+
+}
+
+.canceled-mode-datos {
     background-color: white;
     border-radius: 6px;
     margin-left: 1em;
-    border-top: 3px solid  #002f5d;
+    border-top: 3px solid #002f5d;
+}
 
- }
-
-
-.mode-color{
+.mode-color {
     border-bottom: 2px solid #134074;
 }
- 
+
 .box-mayor-ver-emple {
     margin-top: 1em;
     margin-left: 1em;
@@ -269,31 +254,88 @@ h6 {
     margin-bottom: 1em;
 }
 
+.e:disabled {
+    background-color: #2b75cb1f;
+    border-bottom: #2b75cb1f;
+    opacity: 1;
+    height: 38px;
+}
 
-.form-control:disabled {
-    background-color:#b4c6e73b;
+.o:disabled {
+    background-color: rgba(255, 0, 0, 0.89);
     opacity: 1;
 }
 
-.buton-contrato {
+.buton-contrato-activo {
     margin-top: 1.5em;
     margin-bottom: 13px;
     height: 3em;
+    color: #002f5d;
+    background-color: #ffffff;
+    border: 2px solid #002f5d;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 1px 2px 4px #00165d6b;
+}
+
+.buton-contrato-activo:hover {
+    margin-top: 1.5em;
+    margin-bottom: 13px;
+    height: 3em;
+    color: #002f5d;
+    background-color: #ffffff;
+    border: 2px solid #002f5d;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 1px 2px 4px #00165d6b;
+}
+
+.buton-contrato-desactivo {
+    margin-top: 1.5em;
+    margin-bottom: 13px;
+    height: 3em;
+    color: #000000;
+    background-color: #ffffff;
+    border: 2px solid #000000;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.462)
+}
+
+.buton-contrato-desactivo:hover {
+    margin-top: 1.5em;
+    margin-bottom: 13px;
+    height: 3em;
+    color: #b90000;
+    background-color: #ffffff;
+    border: 2px solid #b90000;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 1px 2px 4px rgba(135, 71, 25, 0.462)
 }
 
 .ud-e {
     margin-left: 13px;
 }
 
-
-.border-photho {
-    background-color: #ffffff;
-    border: 1px solid #ffffff;
-    border-top: 3px solid  #002f5d;
-
-
+.editing-border-photho {
+    background-color: #19875403;
+    border-radius: 6px;
+    border-top: 3px solid #00a164;
+    box-shadow: 1px 2px 4px #005d396b;
 }
 
+.canceled-border-photho {
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    border-top: 3px solid #002f5d;
+}
+
+.inactive-border-photho {
+    background-color: rgb(255, 255, 255);
+    border-radius: 6px;
+    border-top: 3px solid #000000;
+}
 
 .caja-input {
     margin-top: 10px;
@@ -302,9 +344,11 @@ h6 {
 .img-emple {
     margin-top: 10px;
 }
-.buton-cancelare1{
+
+.buton-cancelare1 {
     margin-left: 3.6em;
 }
+
 .columna-info {
     flex: 0 0;
     margin-left: 2pc;
@@ -314,9 +358,7 @@ h6 {
 .col-9-uxin {
     flex: 0 0 81.8%;
     max-width: 81.8%;
-
 }
-
 
 .link-successs {
     font-weight: 500;
@@ -324,17 +366,22 @@ h6 {
 }
 
 .link-dangerr {
-
     font-weight: 500;
     color: #e66001;
 }
 
+.t-principal-activo {
+    color: #002f5d;
+}
+
+.t-principal-inaactivo {
+    color: #000000;
+}
 
 .t-box {
     color: #002f5d;
     font-size: 16px;
     font-weight: 500;
-
 }
 
 .i-box-contrato,
@@ -342,9 +389,6 @@ h6 {
     margin-bottom: 1px;
     margin-top: 1px;
 }
-
-
-
 
 .i-box,
 .form-control {
@@ -392,7 +436,7 @@ h6 {
 .borsupd {
     margin: 1px;
     border-bottom: 3px solid #134074;
-    
+
 }
 
 .borsupa {
@@ -401,20 +445,36 @@ h6 {
 }
 
 .i-para {
-    width: 24em;
+    width: 23.1em;
+    margin-left: 6px;
 }
 
-.box-i-para{
+.box-i-para {
     margin-left: 8px;
     margin-bottom: 0.9em;
 }
-.box-main-parafis{
-    background-color: white;
-    border-radius: 1em;
-    border-top: 3px solid #134074;
-  
-} 
 
-.text-parafis{
+.editing-box-main-parafis {
+    background-color: #19875403;
+    border-radius: 6px;
+    border-top: 3px solid #00a164;
+    box-shadow: 1px 2px 4px #005d396b;
+}
+
+.canceled-box-main-parafis {
+    background-color: rgb(255, 255, 255);
+    border-radius: 6px;
+    border-top: 3px solid #002f5d;
+
+}
+
+.inactive-box-main-parafis {
+    background-color: rgb(255, 255, 255);
+    border-radius: 6px;
+    border-top: 3px solid #000000;
+
+}
+
+.text-parafis {
     color: #134074;
 }

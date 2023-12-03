@@ -6,6 +6,16 @@ export default function Validador(props) {
     const { handleInputChange, valores, siguientePaso } = props;
     const [errores, setErrores] = useState({});
 
+    const tipoDocumentoOptions = {
+        "": 'seleccione Tipo de documento',
+        1: 'Tarjeta de Identidad',
+        2: 'Cédula de Ciudadanía',
+        3: 'Tarjeta de Extranjería',
+        4: 'Cédula de Extranjería',
+        5: 'Pasaporte',
+        6: 'Nit',
+    };
+
 
     const validarcampos = () => {
         let campos = ["documento", "id_doc"];
@@ -61,7 +71,7 @@ export default function Validador(props) {
                 }
                 break;
 
-                
+
             case "id_doc":
 
                 if (
@@ -111,7 +121,6 @@ export default function Validador(props) {
                         <div>
                             <label className="form-label">Tipo de Documento</label>
                             <select
-
                                 type="Number"
                                 name="id_doc"
                                 className={`form-control ${errores.id_doc
@@ -126,13 +135,11 @@ export default function Validador(props) {
                                 }}
                                 value={valores.id_doc}
                             >
-                                <option value="">seleccione un tipo de documento </option>
-                                <option value="1">Tarjeta de Identidad</option>
-                                <option value="2">Cédula de Ciudadanía</option>
-                                <option value="3">Tarjeta de Extranjería</option>
-                                <option value="4">Cédula de Extranjería</option>
-                                <option value="5">Pasaporte</option>
-                                <option value="6">Nit</option>
+                                {Object.entries(tipoDocumentoOptions).map(([value, label]) => (
+                                    <option key={value} value={value}>
+                                        {label}
+                                    </option>
+                                ))}
                             </select>
                             <div className="invalid-feedback">{errores.id_doc}</div>
                         </div>

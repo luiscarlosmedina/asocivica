@@ -4,10 +4,8 @@ import swal from 'sweetalert';
 
 
 function Fin(props) {
-
     const { valores, anteriorPaso, resetEmpleadoData, resetearPasos} = props;
     const MySwal = swal
-
     MySwal({
         title: "¿Estás seguro de guardar?",
         text: "Si finalizas, no podrás revisar la información ingresada.",
@@ -28,7 +26,7 @@ function Fin(props) {
                         .then(response => {
                             if (!response.ok) {
                                 throw new Error(`Error de red: ${response.status}`);
-                            }
+                            }Feat
                             return response.json();
                         })
                         .then(data => {
@@ -42,7 +40,7 @@ function Fin(props) {
 
                         }).catch(error => {
                             console.error('Error al enviar datos:', error);
-                            swal("¡Error!", "Hubo un problema al enviar los datos. Inténtalo de nuevo.", "error");
+                            swal("¡Error!", "Hubo un problema al enviar los datos. Verifica e inténtalo de nuevo.", "error");
                             anteriorPaso();
                             
                         });

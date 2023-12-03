@@ -5,6 +5,27 @@ function BEmple(props) {
   const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
   const [errores, setErrores] = useState({});
 
+  const rolOptions = {
+
+    "": 'Selecione un Rol',
+    1: 'Administrador',
+    2: 'Radio Operador',
+    3: 'Motorizado',
+  }
+
+  const tipoRhOptions = {
+    "": 'Selecione un tipo de rh',
+    1: 'A+',
+    2: 'A-',
+    3: 'B+',
+    4: 'B-',
+    5: 'AB+',
+    6: 'AB-',
+    7: 'O+',
+    8: 'O-',
+  };
+
+
   const validarcamposb = () => {
     //console.log("prueba si pasa")
     let campos = ["id_rol", "barloc_em", "dir_em", "tel_em", "eml_em", "id_rh"];
@@ -16,7 +37,7 @@ function BEmple(props) {
     });
 
     if (documentosValidos) {
-    //console.log("prueba si pasa")
+      //console.log("prueba si pasa")
       siguientePaso();
     } else {
       swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
@@ -33,7 +54,7 @@ function BEmple(props) {
         if (
           valorCampo !== "1" &&
           valorCampo !== "2" &&
-          valorCampo !== "3" 
+          valorCampo !== "3"
         ) {
           nuevosErrores.id_rol = "Por favor, seleccione un rol válido";
         } else {
@@ -113,10 +134,10 @@ function BEmple(props) {
                 type="number"
                 name="id_rol"
                 className={`form-control ${errores.id_rol
-                    ? "is-invalid"
-                    : valores.id_rol
-                      ? "is-valid"
-                      : ""
+                  ? "is-invalid"
+                  : valores.id_rol
+                    ? "is-valid"
+                    : ""
                   }`}
                 id="id_rol"
                 onChange={(e) => {
@@ -125,10 +146,11 @@ function BEmple(props) {
                 }}
                 value={valores.id_rol}
               >
-                <option value="">seleccione un Rol</option>
-                <option value="1">Administrador</option>
-                <option value="2">Radio operador</option>
-                <option value="3">Motorizado</option>
+                {Object.entries(rolOptions).map(([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
               </select>
 
               <div className="invalid-feedback">{errores.id_rol}</div>
@@ -140,10 +162,10 @@ function BEmple(props) {
                 type="text"
                 name="barloc_em"
                 className={`form-control ${errores.barloc_em
-                    ? "is-invalid"
-                    : valores.barloc_em
-                      ? "is-valid"
-                      : ""
+                  ? "is-invalid"
+                  : valores.barloc_em
+                    ? "is-valid"
+                    : ""
                   }`}
                 onChange={(e) => {
                   handleInputChange(e);
@@ -159,10 +181,10 @@ function BEmple(props) {
                 type="text"
                 name="dir_em"
                 className={`form-control ${errores.dir_em
-                    ? "is-invalid"
-                    : valores.dir_em
-                      ? "is-valid"
-                      : ""
+                  ? "is-invalid"
+                  : valores.dir_em
+                    ? "is-valid"
+                    : ""
                   }`}
                 onChange={(e) => {
                   handleInputChange(e);
@@ -178,10 +200,10 @@ function BEmple(props) {
                 type="Number"
                 name="tel_em"
                 className={`form-control ${errores.tel_em
-                    ? "is-invalid"
-                    : valores.tel_em
-                      ? "is-valid"
-                      : ""
+                  ? "is-invalid"
+                  : valores.tel_em
+                    ? "is-valid"
+                    : ""
                   }`}
                 onChange={(e) => {
                   handleInputChange(e);
@@ -204,15 +226,11 @@ function BEmple(props) {
                 }}
                 value={valores.id_rh}
               >
-                <option value="">Seleccione un tipo de rh</option>
-                <option value="1">A+</option>
-                <option value="2">A-</option>
-                <option value="3">B+</option>
-                <option value="4">B-</option>
-                <option value="5">AB+</option>
-                <option value="6">AB-</option>
-                <option value="7">O+</option>
-                <option value="8">O-</option>
+                {Object.entries(tipoRhOptions).map(([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
               </select>
               <div className="invalid-feedback">{errores.id_rh}</div>
 

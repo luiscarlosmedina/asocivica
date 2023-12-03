@@ -61,7 +61,7 @@ function Botones(props) {
     <div>
       <div className={`m-1 ${bor_sup} border-3 row justify-content-between`}>
         <div className="col-">
-          <p className="t h2 mb-3 ms-3 mt-4">Registrar Empleado</p>
+          <p className="t-principal-activo h2 mb-3 ms-3 mt-4">Registrar Empleado</p>
         </div>
       </div>
 

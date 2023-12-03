@@ -5,6 +5,70 @@ function CEmple(props) {
   const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
   const [errores, setErrores] = useState({});
 
+  const epsOptions = {
+
+    "": 'Selecione un tipo de eps',
+    1: 'COOSALUD EPS-S',
+    2: 'NUEVA EPS',
+    3: 'MUTUAL SER',
+    4: 'ALIANSALUD EPS',
+    5: 'SALUD TOTAL EPS S.A.',
+    6: 'EPS SANITAS',
+    7: 'EPS SURA',
+    8: 'FAMISANAR',
+    9: 'SERVICIO OCCIDENTAL DE SALUD EPS SOS',
+    10: 'SALUD MIA',
+    11: 'COMFENALCO VALLE',
+    12: 'COMPENSAR EPS',
+    13: 'EPM - EMPRESAS PUBLICAS DE MEDELLIN',
+    14: 'FONDO DE PASIVO SOCIAL DE FERROCARRILES NACIONALES...',
+    15: 'CAJACOPI ATLANTICO',
+    16: 'CAPRESOCA',
+    17: 'COMFACHOCO',
+    18: 'COMFAORIENTE',
+    19: 'EPS FAMILIAR DE COLOMBIA',
+    20: 'ASMET SALUD',
+    21: 'EMSSANAR E.S.S.',
+    22: 'CAPITAL SALUD EPS-S',
+    23: 'SAVIA SALUD EPS',
+    24: 'DUSAKAWI EPSI',
+    25: 'ASOCIACION INDIGENA DEL CAUCA EPSI',
+  };
+
+  const penOptions = {
+    "": 'Selecione un fondo de pension',
+    1: 'COLFONDOS',
+    2: 'PORVENIR',
+    3: 'PROTECCIÓN',
+    4: 'SKANDIA',
+    5: 'COLPENSIONES',
+  };
+
+  const cesOptions = {
+    "": 'Selecione un fondo de cesantias',
+    1: 'COLFONDOS',
+    2: 'PORVENIR',
+    3: 'PROTECCIÓN',
+    4: 'SKANDIA',
+    5: 'FONDO NACIONAL DEL AHORRO',
+  };
+
+  const arlOptions = {
+    "": 'Selecione un tipo de arl',
+    1: 'ARL POSITIVA',
+    2: 'SEGUROS BOLÍVAR S.A',
+    3: 'SEGUROS DE VIDA AURORA S.A',
+    4: 'LIBERTY SEGUROS DE VIDA',
+    5: 'MAPFRE COLOMBIA VIDA SEGUROS S.A.',
+    6: 'RIESGOS LABORALES COLMENA',
+    7: 'SEGUROS DE VIDA ALFA S.A',
+    8: 'SEGUROS DE VIDA COLPATRIA S.A',
+    9: 'SEGUROS DE VIDA LA EQUIDAD ORGANISMO C.',
+    10: 'SURA - CIA. SURAMERICANA DE SEGUROS DE VIDA',
+
+  };
+
+
   const validarcamposc = () => {
     //console.log("prueba si pasa")
     let campos = ["lib_em", "lic_emp", "id_eps", "id_pens", "id_ces", "id_arl"];
@@ -43,94 +107,57 @@ function CEmple(props) {
         break;
 
       case "lic_emp":
-        if (valorCampo === "" || valorCampo === null) {
-          nuevosErrores.lic_emp = "Por favor, este campo no puede estar vacio";
+        if (
+          valorCampo !== "A1" &&
+          valorCampo !== "A2" &&
+          valorCampo !== "En proceso" &&
+          valorCampo !== "No aplica"
+        ) {
+          nuevosErrores.lib_em =
+            "Por favor, seleccione una opcion válida";
         } else {
           delete nuevosErrores.lic_emp;
         }
         break;
 
       case "id_eps":
-        if (
-          valorCampo !== "1" &&
-          valorCampo !== "2" &&
-          valorCampo !== "3" &&
-          valorCampo !== "4" &&
-          valorCampo !== "5" &&
-          valorCampo !== "6" &&
-          valorCampo !== "7" &&
-          valorCampo !== "8" &&
-          valorCampo !== "7" &&
-          valorCampo !== "9" &&
-          valorCampo !== "10"
-        ) {
-          nuevosErrores.id_eps = "Por favor, este campo no puede estar vacio";
+        const valorNumero = parseInt(valorCampo, 10);
+        if (!(valorNumero in epsOptions)) {
+          nuevosErrores.id_eps = "Por favor, seleccione un tipo de EPS válido";
         } else {
           delete nuevosErrores.id_eps;
         }
-
         break;
 
-      case "id_pens":
-        if (
-          valorCampo !== "1" &&
-          valorCampo !== "2" &&
-          valorCampo !== "3" &&
-          valorCampo !== "4" &&
-          valorCampo !== "5" &&
-          valorCampo !== "6" &&
-          valorCampo !== "7" &&
-          valorCampo !== "8" &&
-          valorCampo !== "7" &&
-          valorCampo !== "9" &&
-          valorCampo !== "10"
+        case "id_pens":
+          const valorNumeroPens = parseInt(valorCampo, 10);
+          if (!(valorNumeroPens in penOptions)) {
+            nuevosErrores.id_pens = "Por favor, seleccione un fondo de pensión válido";
+          } else {
+            delete nuevosErrores.id_pens;
+          }
+          break;
+        
 
-        ) {
-          nuevosErrores.id_pens = "Por favor, este campo no puede estar vacio";
-        } else {
-          delete nuevosErrores.id_pens;
-        }
+          case "id_ces":
+            const valorNumeroCes = parseInt(valorCampo, 10);
+            if (!(valorNumeroCes in cesOptions)) {
+              nuevosErrores.id_ces = "Por favor, seleccione un fondo de cesantías válido";
+            } else {
+              delete nuevosErrores.id_ces;
+            }
+            break;
+          
 
-        break;
-
-      case "id_ces":
-        if (valorCampo !== "1" &&
-          valorCampo !== "2" &&
-          valorCampo !== "3" &&
-          valorCampo !== "4" &&
-          valorCampo !== "5" &&
-          valorCampo !== "6" &&
-          valorCampo !== "7" &&
-          valorCampo !== "8" &&
-          valorCampo !== "7" &&
-          valorCampo !== "9" &&
-          valorCampo !== "10") {
-          nuevosErrores.id_ces =
-            "Por favor, este el campo no puede estar vacio";
-        } else {
-          delete nuevosErrores.id_ces;
-        }
-
-        break;
-
-      case "id_arl":
-        if (
-          valorCampo !== "1" &&
-          valorCampo !== "2" &&
-          valorCampo !== "3" &&
-          valorCampo !== "4" &&
-          valorCampo !== "5" &&
-          valorCampo !== "6" &&
-          valorCampo !== "7" &&
-          valorCampo !== "8"
-        ) {
-          nuevosErrores.id_arl =
-            "Por favor, seleccione un tipo de documento válido";
-        } else {
-          delete nuevosErrores.id_arl;
-        }
-
-        break;
+            case "id_arl":
+              const valorNumeroArl = parseInt(valorCampo, 10);
+              if (!(valorNumeroArl in arlOptions)) {
+                nuevosErrores.id_arl = "Por favor, seleccione un tipo de ARL válido";
+              } else {
+                delete nuevosErrores.id_arl;
+              }
+              break;
+            
 
       default:
 
@@ -174,7 +201,7 @@ function CEmple(props) {
               <label className="form-label">
                 Tipo de licencia de conducción
               </label>
-              <input
+              <select
                 type="Text"
                 name="lic_emp"
                 className={`form-control ${errores.lic_emp ? "is-invalid" : valores.lic_emp ? "is-valid" : ""
@@ -184,11 +211,17 @@ function CEmple(props) {
                   validarCampo("lic_emp", e.target.value);
                 }}
                 value={valores.lic_emp}
-              />
+              >
+                <option value="">seleccione una opción </option>
+                <option value="A1">A1</option>
+                <option value="A2">A2</option>
+                <option value="En proceso">En proceso</option>
+                <option value="No aplica">No aplica</option>
+              </select>
               <div className="invalid-feedback">{errores.lic_emp}</div>
             </div>
             <div>
-              <label className="form-label">Eps</label>
+              <label className="form-label">Entidad Promotora de Salud (EPS): </label>
               <select
                 type="Text"
                 name="id_eps"
@@ -204,23 +237,17 @@ function CEmple(props) {
                 }}
                 value={valores.id_eps}
               >
-                <option value="">seleccione una opción </option>
-                <option value="1">Sura</option>
-                <option value="2">Compensar</option>
-                <option value="3">Nueva eps</option>
-                <option value="4">Sanitas</option>
-                <option value="5">Coomeva</option>
-                <option value="6">Salud total</option>
-                <option value="7">Famisanar</option>
-                <option value="8">Asmet salud</option>
-                <option value="9">ASMET salud</option>
-                <option value="10">Medimas</option>
+                {Object.entries(epsOptions).map(([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
               </select>
 
               <div className="invalid-feedback">{errores.id_eps}</div>
             </div>
             <div>
-              <label className="form-label">Fondo pensional</label>
+              <label className="form-label">Fondo pensional: </label>
               <select
                 type="Number"
                 name="id_pens"
@@ -236,23 +263,17 @@ function CEmple(props) {
                 }}
                 value={valores.id_pens}
               >
-                <option value="">seleccione una opción </option>
-                <option value="1">Colpensiones</option>
-                <option value="2">Porvenir</option>
-                <option value="3">Proteccion</option>
-                <option value="4">Old mutual</option>
-                <option value="5">Fondo nacional del ahorro</option>
-                <option value="6">Fondo de pensiones de Antioquia</option>
-                <option value="7">Fondo de penciones de Córdoba</option>
-                <option value="8">Fondo de penciones de Tolima</option>
-                <option value="9">Fondo de penciones de Boyacá</option>
-                <option value="10">Fondo de penciones de Nariño</option>
+                {Object.entries(penOptions).map(([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
               </select>
               <div className="invalid-feedback">{errores.id_pens}</div>
             </div>
 
             <div>
-              <label className="form-label">Fondo de cesantias </label>
+              <label className="form-label">Fondo de cesantias: </label>
               <select
                 type="Number"
                 name="id_ces"
@@ -268,22 +289,16 @@ function CEmple(props) {
                 }}
                 value={valores.id_ces}
               >
-                <option value="">seleccione una opción </option>
-                <option value="1">Porvenir S.A.</option>
-                <option value="2">Proteccion S.A.</option>
-                <option value="3">Colfondos S.A. </option>
-                <option value="4">Fondo nacional del ahorro</option>
-                <option value="5">Old mundial S.A.</option>
-                <option value="6">Skandia Vida S.A.</option>
-                <option value="7">Allianz Seguros S.A.</option>
-                <option value="8">Seguros Bolívar S.A.</option>
-                <option value="9">Liberty Seguros S.A.</option>
-                <option value="10">Seguros SURA S.A.</option>
+                {Object.entries(cesOptions).map(([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
               </select>
               <div className="invalid-feedback">{errores.id_ces}</div>
             </div>
             <div>
-              <label className="form-label">Arl</label>
+              <label className="form-label">Administradoras de Riesgos Laborales (ARL):</label>
               <select
                 type="Number"
                 name="id_arl"
@@ -299,15 +314,11 @@ function CEmple(props) {
                 }}
                 value={valores.id_arl}
               >
-                <option value="">seleccione una opción </option>
-                <option value="1">Sura</option>
-                <option value="2">Colpatria</option>
-                <option value="3">Positiva</option>
-                <option value="4">Bolívar</option>
-                <option value="5">Seguros sura</option>
-                <option value="6">QBE</option>
-                <option value="7">Liberty</option>
-                <option value="8">Mapfre</option>
+                {Object.entries(arlOptions).map(([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
               </select>
               <div className="invalid-feedback">{errores.id_arl}</div>
             </div>
