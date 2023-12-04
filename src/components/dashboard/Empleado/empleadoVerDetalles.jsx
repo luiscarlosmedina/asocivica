@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import swal from 'sweetalert';
 import { useParams, useNavigate } from 'react-router-dom';
 import ContactoEmergencia from './contactoEmergencia';
+import "../../../../src/style/Empleado/Reg_empl/empleado.css";
 import {
     Table,
     TableBody,
@@ -16,15 +17,14 @@ import { useAuth } from '../../../autenticate';
 export default function EmpleadoVerDetalles() {
     const { empleadoid } = useParams();
     const back = useNavigate();
-    const [loading, setLoading] = useState(true);
     const { user } = useAuth();
     const [isEditing, setIsEditing] = useState(false);
     const [errores, setErrores] = useState({});
     const [empleadoOriginal, setEmpleadoOriginal] = useState({});
 
+
     const abrirContrato = () => {
         window.open(empleado.contrato);
-
     };
 
     const [empleado, setEmpleado] = useState({
@@ -126,27 +126,31 @@ export default function EmpleadoVerDetalles() {
         5: 'COLPENSIONES',
     };
 
-    var act_ina = empleado.estado
+
 
     const usersPhoto = require.context("../../../assets/empleados", true)
 
     useEffect(() => {
         fetchDataone();
+        fetchDataestado();
     }, []);
 
     const fetchDataone = () => {
-        fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readempleadoone&id=${empleadoid}`)
+        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempleadoone&id=${empleadoid}`)
             .then((response) => response.json())
             .then((data) => {
                 setEmpleado(data.contenido[0]);
                 setLoading(false);
-                console.log(empleado.estado)
+
             })
             .catch((error) => {
                 console.log(error);
                 setLoading(false);
             });
     };
+
+
+
 
     const fetchDataoneUpdate = () => {
         const requestOptions = {
@@ -159,7 +163,7 @@ export default function EmpleadoVerDetalles() {
             }),
         };
 
-        fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=updateempleadoinfoone`, requestOptions)
+        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateempleadoinfoone`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
@@ -174,15 +178,18 @@ export default function EmpleadoVerDetalles() {
     };
 
 
+   
+
+
     const comenzarEdicion = () => {
         setIsEditing(true);
         setEmpleadoOriginal({ ...empleado });
     };
 
     const caneclarEdicion = () => {
-        
+
         swal({
-            title: "¿Seguro de desahacer esta acción?",
+            title: "¿Seguro de deshacer esta acción?",
             text: "Recuerda que perderas los elementos modificados.",
             icon: "warning",
             buttons: true,
@@ -191,8 +198,8 @@ export default function EmpleadoVerDetalles() {
             if (willDelete) {
                 setIsEditing(false);
                 setEmpleado(empleadoOriginal);
-            
-            } 
+
+            }
         });
 
 
@@ -225,8 +232,8 @@ export default function EmpleadoVerDetalles() {
             }).then((willDelete) => {
                 if (willDelete) {
                     fetchDataoneUpdate();
-                
-                } 
+
+                }
             });
 
         } else {
@@ -235,8 +242,6 @@ export default function EmpleadoVerDetalles() {
 
         return documentosValidos;
     };
-
-
 
     const validarCampo = (nombreCampo, valorCampo) => {
         const nuevosErrores = { ...errores };
@@ -327,6 +332,65 @@ export default function EmpleadoVerDetalles() {
         return Object.keys(nuevosErrores).length === 0;
     };
 
+    const [empleadoestado, setEmpleadoestado] = useState({
+        id_em: "",
+        estado: ""
+      });
+    
+      const [loading, setLoading] = useState(true);
+    
+      const fetchDataestado = async () => {
+        try {
+          const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempleadoestado&id=${empleadoid}`);
+          const data = await response.json();
+          setEmpleadoestado(data.contenido[0]);
+          setLoading(false);
+        } catch (error) {
+          console.error('Error al obtener los datos del empleado:', error);
+          setLoading(false);
+        }
+      };
+    
+      const actualizarEstadoEmpleado = async (nuevoEstado) => {
+        try {
+          const requestOptions = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              ...empleadoestado,
+              estado: nuevoEstado,
+            }),
+          };
+    
+          const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateestadoempleado`, requestOptions);
+          const data = await response.json();
+    
+          console.log(data);
+          swal("¡Éxito!", "Verifica que el empleado se haya actualizado correctamente.", "success");
+          fetchDataone();
+          setIsEditing(false);
+          back('/consultar-empleados')
+        } catch (error) {
+          console.error('Error al actualizar los datos del empleado:', error);
+          swal("Error", "Hubo un problema al actualizar los datos del empleado.", "error");
+        }
+      };
+    
+      const activar = () => {
+        actualizarEstadoEmpleado("0");
+      };
+    
+      const desactivar = () => {
+        actualizarEstadoEmpleado("1");
+      };
+    
+      useEffect(() => {
+        fetchDataestado();
+      }, []); // Solo se ejecuta al montar el componente
+
+
     return (
         <div className='box-mayor-ver-emple'>
             {loading ? (
@@ -341,10 +405,10 @@ export default function EmpleadoVerDetalles() {
                                 </div>
                             </div>
                             <div className='col-2 mt-2'>
-                                {empleado.estado === "0" ? (
+                                {empleadoestado.estado === "0" ? (
                                     isEditing ? (
                                         <div>
-                                            <button className="buton-editar btnfs btn btn-primary" onClick={validarcamposprincipal}>
+                                            <button className=" btnfs btn btn-primary" onClick={validarcamposprincipal}>
                                                 Guardar
                                             </button>
                                             <button className="buton-cancelare1 btnfa btn btn-primary" onClick={caneclarEdicion}>
@@ -352,7 +416,7 @@ export default function EmpleadoVerDetalles() {
                                             </button>
                                         </div>
                                     ) : (
-                                        <button className="buton-editar btnfs btn btn-primary" onClick={comenzarEdicion}>
+                                        <button className="btnfs btn btn-primary" onClick={comenzarEdicion}>
                                             Editar información Principal
                                         </button>
                                     )
@@ -900,24 +964,21 @@ export default function EmpleadoVerDetalles() {
                                             disabled
                                             value={penOptions[empleado.id_pens]} />
                                     )}
-
-
-
-
                                 </div>
-
                             </div>
-
-
                         </div>
-
-
-
                     </div>) : (<p>Su rol no tiene acceso a esta funcionalidad</p>)
             )}
             {user.ID_rol !== 3 ? <div>
                 <ContactoEmergencia id={empleadoid} />
+
             </div> : ""}
+            <div className="d-flex align-items-center justify-content-center ">
+                <button className="btnfd btn btn-primary" onClick={empleadoestado.estado === "0" ? desactivar : activar}>
+                    {empleadoestado.estado === "0" ? "Dar de baja al empleado" : "Activar empleado"}
+                </button>
+            </div>
+
         </div>
     )
 }

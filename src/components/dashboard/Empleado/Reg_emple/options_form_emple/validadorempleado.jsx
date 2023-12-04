@@ -36,7 +36,7 @@ export default function Validador(props) {
     };
 
     const fetchDataValidacion = () => {
-        fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readverificarempleado&id_doc=${valores.id_doc}&documento=${valores.documento}`)
+        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readverificarempleado&id_doc=${valores.id_doc}&documento=${valores.documento}`)
             .then((response) => response.json())
             .then((respuesta) => {
                 if (respuesta.encontrado) {

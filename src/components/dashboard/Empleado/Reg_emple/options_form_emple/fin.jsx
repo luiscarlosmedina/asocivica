@@ -16,7 +16,7 @@ function Fin(props) {
         .then((willDelete) => {
             if (willDelete) {
                     console.log(valores);
-                    fetch('https://20.106.206.47/api_proyecto.github.io/api.php?apicall=createempleado', {
+                    fetch('http://localhost/api_proyecto.github.io/api.php?apicall=createempleado', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ function Fin(props) {
                         .then(response => {
                             if (!response.ok) {
                                 throw new Error(`Error de red: ${response.status}`);
-                            }Feat
+                            }
                             return response.json();
                         })
                         .then(data => {
