@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 
 export default function VerNovedades({ dataUpdated }) {
   const [tpnovedad, setTpnovedad] = useState([]);
+  const [listempresa, setListempresa] = useState([]);
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]); // Nuevo estado para datos filtrados
   const [loading, setLoading] = useState(true);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [tipoNovedad, setTipoNovedad] = useState(null);
+  const [ltempresa, setLtempresa] = useState(null);
 
   const handleStartDateChange = (e) => {
     setStartDate(e.target.value);
@@ -25,6 +27,13 @@ export default function VerNovedades({ dataUpdated }) {
     const selectedTipoNovedad = selectedValue === "" ? null : selectedValue;
     setTipoNovedad(selectedTipoNovedad);
   };
+
+  const handleltempresaChange = (e) => {
+    const selectedValue = e.target.value;
+    const selectedltempresa = selectedValue === "todos" ? null : parseInt(selectedValue);
+    setLtempresa(selectedltempresa);
+  };
+
 
   const filterData = () => {
     // Filtra los datos según los criterios seleccionados
@@ -42,13 +51,17 @@ export default function VerNovedades({ dataUpdated }) {
       filtered = filtered.filter((item) => item.Nombre_Tn === tipoNovedad);
     }
 
+    if (ltempresa !== null && ltempresa !== "todos") {
+      filtered = filtered.filter((item) => item.id_e === ltempresa);
+    }
+
     // Actualiza el estado con los datos filtrados
     setFilteredData(filtered);
   };
 
   useEffect(() => {
     const fetchData = () => {
-      fetch(`https://20.106.206.47/api_sisinov/public/api/novedad`)
+      fetch(`http://localhost/api_sisinov/public/api/novedad`)
         .then((response) => response.json())
         .then((data) => {
           setData(data.data);
@@ -61,7 +74,7 @@ export default function VerNovedades({ dataUpdated }) {
     };
 
     const fetchDataTpnoedad = () => {
-      fetch("https://20.106.206.47/api_sisinov/public/api/tpnov")
+      fetch("http://localhost/api_sisinov/public/api/tpnov")
         .then((response) => response.json())
         .then((tpnovedad) => {
           setTpnovedad(tpnovedad.data);
@@ -70,14 +83,25 @@ export default function VerNovedades({ dataUpdated }) {
           console.log(error);
         });
     };
+    const fetchDataListempresa = () => {
+      fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readnovedadempresa")
+        .then((response) => response.json())
+        .then((listempresa) => {
+          setListempresa(listempresa.contenido);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
 
     fetchData();
     fetchDataTpnoedad();
+    fetchDataListempresa();
   }, []);
 
   useEffect(() => {
     filterData(); // Run filterData whenever the dependent variables change
-  }, [startDate, endDate, tipoNovedad, data]);
+  }, [startDate, endDate, tipoNovedad, ltempresa, data]);
 
   let novedadID;
   return (
@@ -88,6 +112,21 @@ export default function VerNovedades({ dataUpdated }) {
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <div className="row">
+            <div className="mb-3 col-md-4">
+              <label htmlFor="id_e" className="form-label">
+                Empresas
+              </label>
+              <select className="form-select" onChange={handleltempresaChange}>
+                <option selected value="todos">
+                  Todos
+                </option>
+                {listempresa.map((item) => (
+                  <option key={item.id_e} value={item.id_e}>
+                    {item.Nom_E}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div className="mb-3 col-md-4">
               <label htmlFor="T_Nov" className="form-label">
                 Tipo de novedad
