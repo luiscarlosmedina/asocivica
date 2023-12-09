@@ -82,24 +82,39 @@ h6 {
     background-color: rgb(255, 255, 255);
     width: 70%;
 }
-
+/* Establece los estilos de los botones */
 .btnfs {
     color: #002f5d;
     background-color: #ffffff;
-    border: 2px solid#002f5d;
+    border: 2px solid #002f5d;
     font-size: 17px;
     font-weight: 500;
     box-shadow: 1px 2px 4px #002f5d78;
-}
-
-.btnfs:hover {
+  }
+  
+  .btnfs:hover {
     color: #198754;
     background-color: #ffffff;
     border: 2px solid #198754;
     font-size: 17px;
     font-weight: 500;
     box-shadow: 1px 2px 4px rgba(0, 185, 99, 0.403);
-}
+  }
+  
+  /* Establece los estilos de los íconos */
+  .editar-btn:hover .editar-icon {
+    color: #198754;
+    font-size: 1em;
+    margin-right: 3px;
+  }
+  
+  /* Establece el color inicial del ícono */
+  .editar-icon {
+    color: #002f5d;
+    font-size: 1em;
+    margin-right: 3px;
+  }
+  
 
 .btnfa {
     color: #002f5d;
@@ -119,14 +134,39 @@ h6 {
     box-shadow: 1px 2px 4px rgba(135, 71, 25, 0.462)
 }
 
+/* Establece los estilos de los botones de eliminar */
 .btnfd {
     color: #002f5d;
     background-color: #ffffff;
-    border: 2px solid#002f5d;
+    border: 2px solid #002f5d;
     font-size: 17px;
     font-weight: 500;
     box-shadow: 1px 2px 4px #002f5d78;
-}
+  }
+  
+  .btnfd:hover {
+    color: #b90000;
+    background-color: #ffffff;
+    border: 2px solid #b90000;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 1px 2px 4px rgba(135, 71, 25, 0.462);
+  }
+  
+  /* Establece los estilos de los íconos dentro del botón de eliminar */
+  .eliminar-btn:hover .eliminar-icon {
+    color: #b90000;
+    font-size: 1em;
+    margin-right: 3px;
+  }
+  
+  /* Establece el color inicial del ícono dentro del botón de eliminar */
+  .eliminar-icon {
+    color: #002f5d;
+    font-size: 1em;
+    margin-right: 3px;
+  }
+  
 
 .btn-estado-activo {
     margin-top: 1em;
@@ -172,14 +212,7 @@ h6 {
     box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.462)
 }
 
-.btnfd:hover {
-    color: #b90000;
-    background-color: #ffffff;
-    border: 2px solid #b90000;
-    font-size: 17px;
-    font-weight: 500;
-    box-shadow: 1px 2px 4px rgba(135, 71, 25, 0.462)
-}
+
 
 .espbots {
     margin-top: 3em;
@@ -374,7 +407,17 @@ h6 {
     color: #002f5d;
 }
 
+
 .t-principal-inaactivo {
+    color: #000000;
+    margin-left: 0.4em;
+}
+
+.t-secundario-activo {
+    color: #002f5d;
+}
+
+.t-secundario-inaactivo {
     color: #000000;
 }
 
@@ -382,7 +425,31 @@ h6 {
     color: #002f5d;
     font-size: 16px;
     font-weight: 500;
+
 }
+
+.t-box-ver-1{
+    color: #002f5d;
+    font-size: 16px;
+    font-weight: 500;
+    
+}
+
+.t-box-ver-2{
+    color: #002f5d;
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 0.4em;
+}
+
+.t-box-ver-3{
+    color: #002f5d;
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 0.4em;
+}
+
+
 
 .i-box-contrato,
 .form-control {
@@ -401,6 +468,9 @@ h6 {
     flex: 1;
 }
 
+.modal-contenido{
+    box-shadow: 0px 4px 20px 3px rgb(10 8 48);
+}
 .blockquote .title_validacion {
     margin-bottom: 2rem;
     margin-top: 1rem;
@@ -478,3 +548,34 @@ h6 {
 .text-parafis {
     color: #134074;
 }
+
+
+.table-contacto-desa{
+    width: 98.5%;
+    margin-left: 14px;
+
+}
+
+.tc{
+    margin-left: 12px ;
+}
+
+.table-contacto-act{
+    margin-left: 1em;
+}
+.i-para-con-act{
+    margin-left: -1px;
+}
+
+.t-box-ver-4{
+    color: #002f5d;
+    font-weight: 500;
+    margin-left: -1px;
+}
+
+.col-act{
+    flex: 0 0 auto;
+    width: 27%;
+}
+
+

@@ -3,15 +3,6 @@ import swal from 'sweetalert';
 import { useParams, useNavigate } from 'react-router-dom';
 import ContactoEmergencia from './contactoEmergencia';
 import "../../../../src/style/Empleado/Reg_empl/empleado.css";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-
-} from "@mui/material";
 import { useAuth } from '../../../autenticate';
 
 export default function EmpleadoVerDetalles() {
@@ -21,7 +12,6 @@ export default function EmpleadoVerDetalles() {
     const [isEditing, setIsEditing] = useState(false);
     const [errores, setErrores] = useState({});
     const [empleadoOriginal, setEmpleadoOriginal] = useState({});
-
 
     const abrirContrato = () => {
         window.open(empleado.contrato);
@@ -126,8 +116,6 @@ export default function EmpleadoVerDetalles() {
         5: 'COLPENSIONES',
     };
 
-
-
     const usersPhoto = require.context("../../../assets/empleados", true)
 
     useEffect(() => {
@@ -148,9 +136,6 @@ export default function EmpleadoVerDetalles() {
                 setLoading(false);
             });
     };
-
-
-
 
     const fetchDataoneUpdate = () => {
         const requestOptions = {
@@ -177,33 +162,33 @@ export default function EmpleadoVerDetalles() {
             });
     };
 
-
-   
-
-
     const comenzarEdicion = () => {
         setIsEditing(true);
         setEmpleadoOriginal({ ...empleado });
     };
 
-    const caneclarEdicion = () => {
-
+    const cancelarEdicion = () => {
         swal({
-            title: "¿Seguro de deshacer esta acción?",
-            text: "Recuerda que perderas los elementos modificados.",
-            icon: "warning",
-            buttons: true,
-            dangerMode: false,
-        }).then((willDelete) => {
-            if (willDelete) {
-                setIsEditing(false);
-                setEmpleado(empleadoOriginal);
-
-            }
+          title: "¿Estás seguro de deshacer esta acción?",
+          text: "Recuerda que perderás los elementos modificados.",
+          icon: "warning",
+          buttons: ["Cancelar", "Deshacer"],
+          dangerMode: true,
+        }).then((deshacer) => {
+          if (deshacer) {
+            setIsEditing(false);
+            setEmpleado(empleadoOriginal);
+            swal("¡Acción deshecha!", {
+              icon: "success",
+            });
+          } else {
+            swal("Continuar editando.", {
+              icon: "info",
+            });
+          }
         });
-
-
-    };
+      };
+      
 
     const handleInputChange = (e, field) => {
         const value = e.target.value;
@@ -335,60 +320,60 @@ export default function EmpleadoVerDetalles() {
     const [empleadoestado, setEmpleadoestado] = useState({
         id_em: "",
         estado: ""
-      });
-    
-      const [loading, setLoading] = useState(true);
-    
-      const fetchDataestado = async () => {
+    });
+
+    const [loading, setLoading] = useState(true);
+
+    const fetchDataestado = async () => {
         try {
-          const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempleadoestado&id=${empleadoid}`);
-          const data = await response.json();
-          setEmpleadoestado(data.contenido[0]);
-          setLoading(false);
+            const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempleadoestado&id=${empleadoid}`);
+            const data = await response.json();
+            setEmpleadoestado(data.contenido[0]);
+            setLoading(false);
         } catch (error) {
-          console.error('Error al obtener los datos del empleado:', error);
-          setLoading(false);
+            console.error('Error al obtener los datos del empleado:', error);
+            setLoading(false);
         }
-      };
-    
-      const actualizarEstadoEmpleado = async (nuevoEstado) => {
+    };
+
+    const actualizarEstadoEmpleado = async (nuevoEstado) => {
         try {
-          const requestOptions = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              ...empleadoestado,
-              estado: nuevoEstado,
-            }),
-          };
-    
-          const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateestadoempleado`, requestOptions);
-          const data = await response.json();
-    
-          console.log(data);
-          swal("¡Éxito!", "Verifica que el empleado se haya actualizado correctamente.", "success");
-          fetchDataone();
-          setIsEditing(false);
-          back('/consultar-empleados')
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ...empleadoestado,
+                    estado: nuevoEstado,
+                }),
+            };
+
+            const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateestadoempleado`, requestOptions);
+            const data = await response.json();
+
+            console.log(data);
+            swal("¡Éxito!", "Verifica que el empleado se haya actualizado correctamente.", "success");
+            fetchDataone();
+            setIsEditing(false);
+            back('/consultar-empleados')
         } catch (error) {
-          console.error('Error al actualizar los datos del empleado:', error);
-          swal("Error", "Hubo un problema al actualizar los datos del empleado.", "error");
+            console.error('Error al actualizar los datos del empleado:', error);
+            swal("Error", "Hubo un problema al actualizar los datos del empleado.", "error");
         }
-      };
-    
-      const activar = () => {
+    };
+
+    const activar = () => {
         actualizarEstadoEmpleado("0");
-      };
-    
-      const desactivar = () => {
+    };
+
+    const desactivar = () => {
         actualizarEstadoEmpleado("1");
-      };
-    
-      useEffect(() => {
+    };
+
+    useEffect(() => {
         fetchDataestado();
-      }, []); // Solo se ejecuta al montar el componente
+    }, []); 
 
 
     return (
@@ -411,7 +396,7 @@ export default function EmpleadoVerDetalles() {
                                             <button className=" btnfs btn btn-primary" onClick={validarcamposprincipal}>
                                                 Guardar
                                             </button>
-                                            <button className="buton-cancelare1 btnfa btn btn-primary" onClick={caneclarEdicion}>
+                                            <button className="buton-cancelare1 btnfa btn btn-primary" onClick={cancelarEdicion}>
                                                 Cancelar
                                             </button>
                                         </div>
@@ -451,7 +436,7 @@ export default function EmpleadoVerDetalles() {
                                     <div className='col-6 caja-input '>
                                         <div className='row'>
                                             <div className='col-6'>
-                                                <span className="t-box">Nombres:  </span>
+                                                <span className="t-box-ver-1">Nombres:  </span>
                                                 {empleado.estado === "0" ? (
                                                     isEditing ? (
                                                         <div>
@@ -482,7 +467,7 @@ export default function EmpleadoVerDetalles() {
                                                 )}
                                             </div>
                                             <div className='col-6'>
-                                                <span className="t-box">Apellidos: </span>
+                                                <span className="t-box-ver-1">Apellidos: </span>
                                                 {empleado.estado === "0" ? (
                                                     isEditing ? (
                                                         <div>
@@ -514,7 +499,7 @@ export default function EmpleadoVerDetalles() {
                                             </div>
                                         </div>
                                         <div>
-                                            <span className="t-box">Correo electronico: </span>
+                                            <span className="t-box-ver-1">Correo electronico: </span>
                                             {empleado.estado === "0" ? (
                                                 isEditing ? (
                                                     <div>
@@ -545,7 +530,7 @@ export default function EmpleadoVerDetalles() {
                                             )}
                                         </div>
                                         <div>
-                                            <span className="t-box">Tipo de RH:  </span>
+                                            <span className="t-box-ver-1">Tipo de RH:  </span>
                                             {empleado.estado === "0" ? (
                                                 isEditing ? (
                                                     <select
@@ -576,7 +561,7 @@ export default function EmpleadoVerDetalles() {
                                         </div>
                                         <div className='row'>
                                             <div className='col-6'>
-                                                <span className="t-box"> Numero de documento:</span>
+                                                <span className="t-box-ver-1"> Numero de documento:</span>
 
                                                 {empleado.estado === "0" ? (
                                                     isEditing ? (
@@ -608,7 +593,7 @@ export default function EmpleadoVerDetalles() {
                                                 )}
                                             </div>
                                             <div className='col-6'>
-                                                <span className="t-box"> Tipo de documento:</span>
+                                                <span className="t-box-ver-1"> Tipo de documento:</span>
                                                 {empleado.estado === "0" ? (
                                                     isEditing ? (
                                                         <select
@@ -644,7 +629,7 @@ export default function EmpleadoVerDetalles() {
 
                                     <div className='col-6 caja-input'>
 
-                                        <span className="t-box">Telefono celular: </span>
+                                        <span className="t-box-ver-1">Telefono celular: </span>
 
                                         {empleado.estado === "0" ? (
                                             isEditing ? (
@@ -678,7 +663,7 @@ export default function EmpleadoVerDetalles() {
 
                                         <div className='row' >
                                             <div className='col-6'>
-                                                <span className="t-box"> Barrio y localidad: </span>
+                                                <span className="t-box-ver-1"> Barrio y localidad: </span>
                                                 {empleado.estado === "0" ? (
                                                     isEditing ? (
                                                         <div>
@@ -711,7 +696,7 @@ export default function EmpleadoVerDetalles() {
                                             </div>
 
                                             <div className='col-6'>
-                                                <span className="t-box">Dirección: </span>
+                                                <span className="t-box-ver-1">Dirección: </span>
                                                 {empleado.estado === "0" ? (
                                                     isEditing ? (
                                                         <div>
@@ -744,7 +729,7 @@ export default function EmpleadoVerDetalles() {
                                         </div>
 
                                         <div>
-                                            <span className="t-box">Libreta militar:  </span>
+                                            <span className="t-box-ver-1">Libreta militar:  </span>
 
                                             {empleado.estado === "0" ? (
                                                 isEditing ? (
@@ -778,7 +763,7 @@ export default function EmpleadoVerDetalles() {
 
                                         </div>
                                         <div>
-                                            <span className="t-box">Licencia de conducción:  </span>
+                                            <span className="t-box-ver-1">Licencia de conducción:  </span>
                                             {empleado.estado === "0" ? (
                                                 isEditing ? (
                                                     <select
@@ -809,7 +794,7 @@ export default function EmpleadoVerDetalles() {
                                         </div>
                                     </div>
                                     <div >
-                                        <span className="t-box">Link de contrato:  </span>
+                                        <span className="t-box-ver-1">Link de contrato:  </span>
                                         {empleado.estado === "0" ? (
                                             isEditing ? (
                                                 <div>
@@ -847,11 +832,10 @@ export default function EmpleadoVerDetalles() {
                         </div>
 
                         <div className={`mt-4 ${empleado.estado === "0" ? (isEditing ? 'editing-box-main-parafis' : 'canceled-box-main-parafis') : 'inactive-box-main-parafis'}`}>
-
-
+                        
                             <div className='mt-3 d-flex'>
                                 <div className='box-i-para col-3'>
-                                    <span className=" t-box"> Entidad Promotora de Salud (EPS):  </span>
+                                    <span className=" t-box-ver-2"> Entidad Promotora de Salud (EPS):  </span>
                                     {empleado.estado === "0" ? isEditing ? (
                                         <select
                                             className={`mt-2 i-para form-control ${errores.id_eps ? "is-invalid" : empleado.id_eps ? "is-valid" : ""}`}
@@ -881,7 +865,7 @@ export default function EmpleadoVerDetalles() {
                                 </div>
 
                                 <div className='box-i-para col-3'>
-                                    <span className="t-box"> Fondo de cesantias:  </span>
+                                    <span className="t-box-ver-2"> Fondo de cesantias:  </span>
                                     {empleado.estado === "0" ? isEditing ? (
                                         <select
                                             className={`mt-2 i-para form-control ${errores.id_ces ? "is-invalid" : empleado.id_ces ? "is-valid" : ""}`}
@@ -910,7 +894,7 @@ export default function EmpleadoVerDetalles() {
                                 </div>
 
                                 <div className='box-i-para col-3'>
-                                    <span className="t-box"> Administradoras de Riesgos Laborales (ARL):  </span>
+                                    <span className="t-box-ver-2"> Administradoras de Riesgos Laborales (ARL):  </span>
                                     {empleado.estado === "0" ? isEditing ? (
                                         <select
                                             className={`mt-2 i-para form-control ${errores.id_arl ? "is-invalid" : empleado.id_arl ? "is-valid" : ""}`}
@@ -939,7 +923,7 @@ export default function EmpleadoVerDetalles() {
                                 </div>
 
                                 <div className='box-i-para col-3'>
-                                    <span className="t-box"> Fondo pensional: </span>
+                                    <span className="t-box-ver-2"> Fondo pensional: </span>
                                     {empleado.estado === "0" ? isEditing ? (
                                         <select
                                             className={`mt-2 i-para form-control ${errores.id_pens ? "is-invalid" : empleado.id_pens ? "is-valid" : ""}`}
@@ -970,7 +954,7 @@ export default function EmpleadoVerDetalles() {
                     </div>) : (<p>Su rol no tiene acceso a esta funcionalidad</p>)
             )}
             {user.ID_rol !== 3 ? <div>
-                <ContactoEmergencia id={empleadoid} />
+                <ContactoEmergencia id={empleadoid} estado={empleado.estado} />
 
             </div> : ""}
             <div className="d-flex align-items-center justify-content-center ">
