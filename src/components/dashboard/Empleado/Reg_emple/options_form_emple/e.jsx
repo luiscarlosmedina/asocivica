@@ -51,7 +51,6 @@ function EEmple(props) {
 
     if (documentosValidos) {
       siguientePaso();
-      console.log(valores)
     } else {
       swal("¡Completa los campos!", "Por favor, verifica los campos para seguir con el proceso...", "error");
     }
