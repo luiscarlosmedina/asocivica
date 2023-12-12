@@ -46,12 +46,12 @@ function EEmple(props) {
   
   
   const validarcampose = () => {
-    const campos = ["contrato", "f_em"];
+    const campos = ["contrato"];
     const documentosValidos = campos.every((campo) => validarCampo(campo, valores[campo]));
 
     if (documentosValidos) {
       siguientePaso();
-      console.log(valores)
+      
     } else {
       swal("¡Completa los campos!", "Por favor, verifica los campos para seguir con el proceso...", "error");
     }

@@ -9,7 +9,6 @@ import {
   TableRow,
   Paper,
   CircularProgress,
-  Button,
   TextField,
   FormControlLabel,
   Checkbox,
@@ -72,7 +71,7 @@ export default function EmpleadoVer({ dataUpdated }) {
 
   return (
     <div className="consultar-container">
-      <p className="t-principal-activo h2 mb-4  mt-3">Empleados registrados en el sistema</p>
+      <p className="t-principal-activo h2 mb-4  mt-3">Empleados registrados </p>
       <TextField
         label="Buscar por nombre o documento"
         variant="outlined"

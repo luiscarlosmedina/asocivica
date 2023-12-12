@@ -56,7 +56,6 @@ function Botones(props) {
   }
 
 
-
   return (
     <div>
       <div className={`m-1 ${bor_sup} border-3 row justify-content-between`}>
@@ -73,7 +72,6 @@ function Botones(props) {
           <cite title="Título fuente">Por favor, complete este formulario con la información necesaria para agregar internamente  un nuevo miembro al sistema.</cite>
         </figcaption>
       </figure>
-
 
       <div className="segun container">
         <header className="primary-box">

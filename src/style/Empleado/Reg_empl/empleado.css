@@ -17,9 +17,6 @@
     margin-top: 5px;
 }
 
-.mb-3 {
-    margin: 0;
-}
 
 .figure1 {
     margin-left: 40px;
@@ -535,8 +532,11 @@ h6 {
     background-color: rgb(255, 255, 255);
     border-radius: 6px;
     border-top: 3px solid #002f5d;
-
 }
+
+
+
+
 
 .inactive-box-main-parafis {
     background-color: rgb(255, 255, 255);
@@ -578,4 +578,9 @@ h6 {
     width: 27%;
 }
 
+.i-para-con-act:disabled{
+    background-color: #2b75cb1f;
+    border-bottom: #2b75cb1f;
+    opacity: 1;
 
+}

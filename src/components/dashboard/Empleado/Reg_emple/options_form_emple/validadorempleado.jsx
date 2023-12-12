@@ -16,7 +16,6 @@ export default function Validador(props) {
         6: 'Nit',
     };
 
-
     const validarcampos = () => {
         let campos = ["documento", "id_doc"];
         let documentosValidos = true;
@@ -53,7 +52,6 @@ export default function Validador(props) {
 
     const validarCampo = (nombreCampo, valorCampo) => {
         const nuevosErrores = { ...errores };
-
         switch (nombreCampo) {
 
             case "documento":
@@ -151,7 +149,6 @@ export default function Validador(props) {
                         <figcaption class="blockquote-footer">
                             <cite title="Título fuente">"Antes de agregar un nuevo empleado al sistema, ten en cuenta validar cuidadosamente la información del usuario para garantizar la precisión y autenticidad de los datos. Contribuye a mantener la integridad y seguridad de nuestro entorno laboral digital."</cite>
                         </figcaption>
-
                         <div className="espbots">
                             <div className="float-end">
                                 <button
@@ -162,8 +159,6 @@ export default function Validador(props) {
                                 </button>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>

@@ -2,6 +2,17 @@ import React, { useEffect, useState } from "react";
 import swal from 'sweetalert';
 
 export default function ContactoEmergencia({ id, estado }) {
+
+    // Estado para manejar los errores de validación
+    const [errores, setErrores] = useState({});
+    const [errorestwo, setErrorestwo] = useState({});
+
+    // Obtener la lista de contactos de emergencia al cargar el componente
+    useEffect(() => {
+      fetchData();
+    }, []);
+
+
   // Estado para almacenar la lista de contactos de emergencia
   const [data, setData] = useState([
     {
@@ -12,17 +23,18 @@ export default function ContactoEmergencia({ id, estado }) {
     }
   ]);
 
-  // Estado para manejar los errores de validación
-  const [errores, setErrores] = useState({});
-  
+
   // Estdo para manejar la edición
   const [isEditing, setIsEditing] = useState(false);
+  const [editingIndex, setEditingIndex] = useState(null);
 
 
   // Obtener y cambiar el estado para empezar edición
-  const comenzarEdicion = () => {
+  const comenzarEdicion = (index) => {
     setIsEditing(true);
+    setEditingIndex(index);
   };
+
 
   // Obtener y cambiar el estado para cancelar
   const cancelarEdicion = () => {
@@ -45,8 +57,37 @@ export default function ContactoEmergencia({ id, estado }) {
       }
     });
   };
-  
 
+  // Actualizar un contacto de emergencia
+  const fetchDatacmgUpdate = (contactoId) => {
+    const contactoActualizado = data.find((contacto) => contacto.id_cem === contactoId);
+    console.log(contactoActualizado)
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(contactoActualizado),
+    };
+  
+    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updatecontemg`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (!data.error) {
+          swal("¡Éxito!", "Los datos del contacto de emergencia se han actualizado correctamente.", "success");
+          setIsEditing(false);
+          fetchData(); 
+        } else {
+          swal("Error", "Hubo un problema al actualizar los datos del contacto de emergencia.", "error");
+        }
+      })
+      .catch((error) => {
+        console.error('Error al actualizar los datos del contacto de emergencia:', error);
+        swal("Error", "Hubo un problema al actualizar los datos del contacto de emergencia.", "error");
+      });
+  };
+  
 
 
   // Estado para almacenar los datos del nuevo contacto
@@ -57,10 +98,21 @@ export default function ContactoEmergencia({ id, estado }) {
     t_cem: ""
   });
 
-  // Obtener la lista de contactos de emergencia al cargar el componente
-  useEffect(() => {
-    fetchData();
-  }, []);
+
+
+  const handleInputChangeUpdate = (e, field, index) => {
+    
+    const value = e.target.value;
+    setData((prevData) => {
+      const newData = [...prevData];
+      newData[index] = {
+        ...newData[index],
+        [field]: value,
+      };
+      return newData;
+    });
+    validarCampoUpdate(field, value)
+  };
 
   // Manejar cambios en los campos del nuevo contacto
   const handleNuevoContactoChange = (campo, valor) => {
@@ -68,8 +120,7 @@ export default function ContactoEmergencia({ id, estado }) {
       ...prevState,
       [campo]: valor
     }));
-
-    validarCampo(campo, valor);
+    validarCampoCreate(campo, valor);
   };
 
   // Validar si el teléfono existe antes de crear un nuevo contacto
@@ -182,18 +233,18 @@ export default function ContactoEmergencia({ id, estado }) {
 
 
   // Validar campos antes de agregar un nuevo contacto
-  const validarcampos = () => {
+  const validarcamposc = () => {
     let campos = ["n_coe", "csag", "t_cem"];
     let documentosValidos = true;
 
     campos.forEach((campo) => {
       if (documentosValidos) {
-        documentosValidos = validarCampo(campo, nuevoContacto[campo]);
+        documentosValidos = validarCampoCreate(campo, nuevoContacto[campo]);
       }
     });
 
     if (documentosValidos) {
-      fetchDataValidaciontel();
+        fetchDataValidaciontel();
     } else {
       swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
     }
@@ -201,16 +252,37 @@ export default function ContactoEmergencia({ id, estado }) {
     return documentosValidos;
   };
 
-  // Validar un campo específico
-  const validarCampo = (nombreCampo, valorCampo) => {
+  const validarEditar = (index) => {
+    let campos = ["n_coe", "csag", "t_cem"];
+    let documentosValidos = true;
+
+    campos.forEach((campo) => {
+      if (documentosValidos) {
+        documentosValidos = validarCampoUpdate(campo, data[index][campo]);
+      }
+    });
+
+    if (documentosValidos) {
+      fetchDatacmgUpdate(data[index].id_cem);
+    } else {
+      swal(
+        "¡Completa los campos!",
+        "Por favor. Verifica los campos para seguir con el proceso...",
+        "error"
+      );
+    }
+  };
+
+  // Validar un campo específico create
+  const validarCampoCreate = (nombreCampo, valorCampo) => {
     const nuevosErrores = { ...errores };
 
     switch (nombreCampo) {
       case "n_coe":
         if (!valorCampo.trim()) {
           nuevosErrores.n_coe = "Por favor, este campo no puede estar vacío";
-        } else if (valorCampo.length < 2 || valorCampo.length > 20) {
-          nuevosErrores.n_coe = "El campo debe tener entre 2 y 19 caracteres";
+        } else if (valorCampo.length < 2 || valorCampo.length > 30) {
+          nuevosErrores.n_coe = "El campo debe tener entre 2 y 30 caracteres";
         } else if (!/^[A-Za-z\s]+$/.test(valorCampo)) {
           nuevosErrores.n_coe = "Ingrese solo letras y espacios en blanco";
         } else {
@@ -247,6 +319,57 @@ export default function ContactoEmergencia({ id, estado }) {
     return Object.keys(nuevosErrores).length === 0;
   };
 
+
+
+  // Validar un campo específico Update
+  const validarCampoUpdate = (nombreCampo, valorCampo) => {
+    const nuevosErrorestwo = { ...errorestwo };
+ 
+    switch (nombreCampo) {
+      case "n_coe":
+        if (!valorCampo.trim()) {
+          nuevosErrorestwo.n_coe = "Por favor, este campo no puede estar vacío";
+        } else if (valorCampo.length < 2 || valorCampo.length > 30) {
+          nuevosErrorestwo.n_coe = "El campo debe tener entre 2 y 30 caracteres";
+        } else if (!/^[A-Za-z\s]+$/.test(valorCampo)) {
+          nuevosErrorestwo.n_coe = "Ingrese solo letras y espacios en blanco";
+        } else {
+          delete nuevosErrorestwo.n_coe;
+        }
+        break;
+
+      case "csag":
+        if (!valorCampo.trim()) {
+          nuevosErrorestwo.csag = "Por favor, este campo no puede estar vacío";
+        } else if (valorCampo.length < 2 || valorCampo.length > 20) {
+          nuevosErrorestwo.csag = "El campo debe tener entre 2 y 19 caracteres";
+        } else if (!/^[A-Za-z\s]+$/.test(valorCampo)) {
+          nuevosErrorestwo.csag = "Ingrese solo letras y espacios en blanco";
+        } else {
+          delete nuevosErrorestwo.csag;
+        }
+        break;
+
+      case "t_cem":
+        const telefonoRegex = /^[0-9]{10}$/;
+        if (!telefonoRegex.test(valorCampo)) {
+          nuevosErrorestwo.t_cem = "Por favor, ingrese un número de teléfono válido";
+        } else {
+          delete nuevosErrorestwo.t_cem;
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    setErrorestwo(nuevosErrorestwo);
+    return Object.keys(nuevosErrorestwo).length === 0;
+  };
+
+
+
+
   // Limpiar campos después de agregar un nuevo contacto
   const limpiarCampos = () => {
     setNuevoContacto({
@@ -265,8 +388,8 @@ export default function ContactoEmergencia({ id, estado }) {
   };
 
   return (
-    <div className={`mt-4 mb-5 ${estado === "0" ? 'canceled-box-main-parafis' : 'inactive-box-main-parafis'}`}>
-      <div className="my-3 row">
+    <div className={`mt-4 mb-5 ${estado === "0" ? (isEditing ? 'editing-box-main-parafis ' : 'canceled-box-main-parafis') : 'inactive-box-main-parafis'}`}>
+      <div className="my-2 row">
         <div className="col-11">
           <p className={estado === "0" ? '  tc t-secundario-activo h4 mb-1 mt-1' : ' tc t-secundario-inativo h4 mb-1 mt-1'}>Contactos de emergencia</p>
         </div>
@@ -280,10 +403,11 @@ export default function ContactoEmergencia({ id, estado }) {
       </div>
       <div>
         <div className="row">
-          {estado === "0" ? (
-            <div className="table-contacto-act">
+          {estado === "0" ?
+
+            (<div className="table-contacto-act">
               {/* Encabezado de columnas */}
-              <div className="row mb-2">
+              <div className="row ">
                 <div className="col-act">
                   <strong className="t-box-ver-4" >Nombre Completo</strong>
                 </div>
@@ -297,93 +421,144 @@ export default function ContactoEmergencia({ id, estado }) {
                   {/* Este espacio es para mantener la alineación */}
                 </div>
               </div>
-              {/* Datos de contacto */}
-              {data.map((data) => (
-                <div key={data.id_cem} className="row mb-2">
-                  <div className="col-act">
-                    <input type="text " className={`mt-2 i-para-con-act i-box form-control`} value={data.n_coe} />
-                  </div>
-                  <div className="col-act">
-                    <input className={`mt-2 i-para-con-act i-box form-control`} value={data.csag} />
-                  </div>
-                  <div className="col-act">
-                    <input className={`mt-2 i-para-con-act i-box form-control`} value={data.t_cem} />
-                  </div>
-                  <div className="col-2">
-                    <div className="row">
-                      {isEditing ? (
-                        <>
-                          <div className="col-6">
-                            <button className="btn btnfs btn-primary editar-btn">
-                              <i className="bi bi-pencil-square editar-icon"></i>
-                              Guardar
-                            </button>
-                          </div>
-                          <div className="col-6" onClick={cancelarEdicion}>
-                            <button className="btn btnfd btn-danger eliminar-btn" >
-                              <i className="bi bi-trash eliminar-icon"></i>
-                              Cancelar
-                            </button>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <div className="col-6" onClick={comenzarEdicion}>
-                            <button className="btn btnfs btn-primary editar-btn">
-                              <i className="bi bi-pencil-square editar-icon" ></i>
-                              Editar
-                            </button>
-                          </div>
-                          <div className="col-6">
-                            <button className="btn btnfd btn-danger eliminar-btn" onClick={() => eliminarContacto(data.id_cem)}>
-                              <i className="bi bi-trash eliminar-icon"></i>
-                              Eliminar
-                            </button>
-                          </div>
-                        </>
-                      )}
+
+              {isEditing ? (
+                // Datos de contacto en modo de edición
+                data.map((contacto, index) => (
+                  <div key={contacto.id_cem} className={`row mb-2 ${isEditing && editingIndex === index ? 'editing-row' : ''}`}>
+                    <div className="col-act">
+                      <input
+                        className={`mt-2 i-para-con-act i-box form-control ${!isEditing || editingIndex !== index ? 'con-disabled' : errorestwo.n_coe ? "is-invalid" : data[index]?.n_coe ? "is-valid" : ""}`}
+                        name="n_coe"
+                        onChange={(e) => {
+                          handleInputChangeUpdate(e, 'n_coe', index)
+                        }}
+                        type="text"
+                        value={data[index]?.n_coe}
+                        disabled={!isEditing || editingIndex !== index}
+                      />
+
+                      <div className="invalid-feedback">{errorestwo.n_coe}</div>
                     </div>
+                    <div className="col-act">
+                      <input
+                        className={`mt-2 i-para-con-act i-box form-control ${!isEditing || editingIndex !== index ? 'con-disabled' : errorestwo.csag ? "is-invalid" : data[index]?.csag ? "is-valid" : ""}`}
+                        name="csag"
+                         onChange={(e) => {
+                          handleInputChangeUpdate(e, 'csag',  index);
+                         }}
+                        type="text"
+                        value={data[index]?.csag}
+                        disabled={!isEditing || editingIndex !== index}
+                      />
+                      <div className="invalid-feedback">{errorestwo.csag}</div>
+                    </div>
+                    <div className="col-act">
+                      <input
+                        className={`mt-2 i-para-con-act i-box form-control ${!isEditing || editingIndex !== index ? 'con-disabled' : errorestwo.t_cem ? "is-invalid" : data[index]?.t_cem ? "is-valid" : ""}`}
+                        name="t_cem"
+                        onChange={(e) => {
+                          handleInputChangeUpdate(e, 't_cem',  index);
+                        }}
+                        type="text"
+                        value={data[index]?.t_cem}
+                        disabled={!isEditing || editingIndex !== index}
+                      />
+                      <div className="invalid-feedback">{errorestwo.t_cem}</div>
+                    </div>
+                    <div className="col-2">
+                      <div className="row">
+                        {editingIndex === index ? (
+                          <>
+                            <div className="col-6" onClick={() => validarEditar(index)}>
+                              <button className="btn btnfs btn-primary editar-btn">
+                                <i className="bi bi-pencil-square editar-icon"></i>
+                                Guardar
+                              </button>
+                            </div>
 
+                            <div className="col-6" onClick={() => cancelarEdicion()}>
+                              <button className="btn btnfs btn-primary editar-btn">
+                                <i className="bi bi-trash eliminar-icon"></i>
+                                Cancelar
+                              </button>
+                            </div>
+                          </>
+                        ) : null}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                // Datos de contacto en modo no de edición
+                data.map((contacto, index) => (
+                  <div key={contacto.id_cem} className="row mb-2">
+                    <div className="col-act">
+                      <input disabled className={`e mt-2 i-para-con-act i-box form-control`} value={data[index]?.n_coe} />
+                    </div>
+                    <div className="col-act">
+                      <input disabled className={`e mt-2 i-para-con-act i-box form-control`} value={data[index]?.csag} />
+                    </div>
+                    <div className="col-act">
+                      <input disabled className={`e mt-2 i-para-con-act i-box form-control`} value={data[index]?.t_cem} />
+                    </div>
+                    <div className="col-2">
+                      <div className="row">
+                        <div className="col-6" onClick={() => comenzarEdicion(index)}>
+                          <button className="btn btnfs btn-primary editar-btn">
+                            <i className="bi bi-pencil-square editar-icon" ></i>
+                            Editar
+                          </button>
+                        </div>
+                        <div className="col-6">
+                          <button className="btn btnfd btn-danger eliminar-btn" onClick={() => eliminarContacto(data.id_cem)}>
+                            <i className="bi bi-trash eliminar-icon"></i>
+                            Eliminar
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+
+              )}
             </div>
-          ) : (
-            <div className="table-contacto-desa">
-              <div className="row mb-2">
-                <div className="col-4">
-                  <strong className="t-box-ver-4">Nombre</strong>
-                </div>
-                <div className="col-4">
-                  <strong className="t-box-ver-4" >Parentesco</strong>
-                </div>
-                <div className="col-4">
-                  <strong className="t-box-ver-4" >Teléfono</strong>
+            ) : (
+              <div className="table-contacto-desa">
+                <div className="row mb-2">
+                  <div className="col-4">
+                    <strong className="t-box-ver-4">Nombre</strong>
+                  </div>
+                  <div className="col-4">
+                    <strong className="t-box-ver-4" >Parentesco</strong>
+                  </div>
+                  <div className="col-4">
+                    <strong className="t-box-ver-4" >Teléfono</strong>
+                  </div>
+
                 </div>
 
+                {/* Datos de contacto */}
+                {data.map((data) => (
+                  <div key={data.id_cem} className="row mb-3">
+                    <div className="col-4">
+                      <input disabled className={` i-box form-control`} value={data.n_coe} />
+                    </div>
+                    <div className="col-4">
+                      <input disabled className={` i-box form-control`} value={data.csag} />
+                    </div>
+                    <div className="col-4">
+                      <input disabled className={` i-box form-control`} value={data.t_cem} />
+                    </div>
+                  </div>
+                ))}
               </div>
-
-              {/* Datos de contacto */}
-              {data.map((data) => (
-                <div key={data.id_cem} className="row mb-2">
-                  <div className="col-4">
-                    <input disabled className={` i-box form-control`} value={data.n_coe} />
-                  </div>
-                  <div className="col-4">
-                    <input disabled className={` i-box form-control`} value={data.csag} />
-                  </div>
-                  <div className="col-4">
-                    <input disabled className={` i-box form-control`} value={data.t_cem} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+            )}
         </div>
 
 
 
-      </div>
+      </div >
       <div className="modal fade" id="modalAgregar" aria-hidden="true" data-bs-hidden="limpiarCampos">
         <div className="modal-dialog">
           <div className="modal-content  modal-contenido">
@@ -427,14 +602,15 @@ export default function ContactoEmergencia({ id, estado }) {
                 <div className="invalid-feedback">{errores.t_cem}</div>
               </div>
               {/* Botón para guardar el nuevo contacto */}
-              <button className="btn btnfs btn-primary float-end" onClick={() => validarcampos()}>
+              <button className="btn btnfs btn-primary float-end" onClick={() => validarcamposc()}>
                 Guardar
               </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
+
 

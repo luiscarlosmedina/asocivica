@@ -37,11 +37,11 @@ function Fin(props) {
                             resetEmpleadoData();
                             resetearPasos();    
                             
-
                         }).catch(error => {
                             console.error('Error al enviar datos:', error);
                             swal("¡Error!", "Hubo un problema al enviar los datos. Verifica e inténtalo de nuevo.", "error");
                             anteriorPaso();
+                            
                             
                         });
             

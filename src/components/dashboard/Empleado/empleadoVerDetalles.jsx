@@ -12,6 +12,277 @@ export default function EmpleadoVerDetalles() {
     const [isEditing, setIsEditing] = useState(false);
     const [errores, setErrores] = useState({});
     const [empleadoOriginal, setEmpleadoOriginal] = useState({});
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        fetchDataone();
+        fetchDataestado();
+    }, []);
+
+
+    //ROL --------------------------------------------------------------------------------------------
+    const [tprol, setTprol] = useState([]);
+    const [rolemp, setRolemp] = useState({
+        id_rol: ""
+    });
+    useEffect(() => {
+        fetchDataTproles();
+        fetchDatarol();
+    }, []);
+
+    // read Roles ------------------------
+    const fetchDataTproles = () => {
+        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtprol")
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                    console.error("Error en la respuesta de la API:", data.message);
+                    // Puedes manejar el error de alguna manera si es necesario
+                } else if (Array.isArray(data.contenido)) {
+                    setTprol(data.contenido);
+                } else {
+                    console.error("El contenido de la respuesta no es un array:", data.contenido);
+                }
+            })
+            .catch((error) => {
+                console.error("Error al realizar la solicitud:", error);
+                // Puedes manejar el error de alguna manera si es necesario
+            });
+    };
+    // read Roles ------------------------
+
+    // read Rol Emple ------------------------
+    const fetchDatarol = () => {
+        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempleadorol&id_em=${empleadoid}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setRolemp((prevRolemp) => {
+                    // Asegúrate de que estás obteniendo el valor correcto
+                    return { id_rol: data.id_rol };
+                });
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    };
+    // read Rol Emple ------------------------
+
+    // Update Rol ------------------------
+    const fetchDataUpdaterol = () => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ...nuevorol
+            }),
+        };
+
+        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=update_rol`, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                fetchDatarol();
+            })
+            .catch((error) => {
+                console.error('Error al actualizar los datos del empleado:', error);
+
+            });
+    };
+    // Update Rol ------------------------
+
+    const [nuevorol, setNuevorol] = useState({
+        id_em: empleadoid,
+        id_rol: ""
+    });
+
+    const handleInputChangerol = (e) => {
+        const value = e.target.value;
+
+        setNuevorol((prevNuevorol) => ({
+            ...prevNuevorol,
+            id_rol: value,
+        }));
+    };
+
+    //ROL --------------------------------------------------------------------------------------------
+
+
+    //RH   --------------------------------------------------------------------------------------------
+    const [tipoRhOptions, setTipoRhOptions] = useState([]);
+    useEffect(() => {
+        fetchDataTprh();
+    }, []);
+    // read rhs ------------------------
+    const fetchDataTprh = () => {
+        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtprh")
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                    console.error("Error en la respuesta de la API:", data.message);
+                    // Puedes manejar el error de alguna manera si es necesario
+                } else if (Array.isArray(data.contenido)) {
+                    setTipoRhOptions(data.contenido);
+                } else {
+                    console.error("El contenido de la respuesta no es un array:", data.contenido);
+                }
+            })
+            .catch((error) => {
+                console.error("Error al realizar la solicitud:", error);
+                // Puedes manejar el error de alguna manera si es necesario
+            });
+    };
+    // read rhs ------------------------
+    //RH   --------------------------------------------------------------------------------------------
+
+
+    //TIPO DOCUMENTOS   --------------------------------------------------------------------------------------
+    const [tipoDocumentoOptions, setTipoDocumentoOptions] = useState([]);
+    useEffect(() => {
+        fetchDataTpdoc();
+    }, []);
+     // read documentos ------------------------
+     const fetchDataTpdoc = () => {
+        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtpdocu")
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                    console.error("Error en la respuesta de la API:", data.message);
+                    // Puedes manejar el error de alguna manera si es necesario
+                } else if (Array.isArray(data.contenido)) {
+                    setTipoDocumentoOptions(data.contenido);
+                } else {
+                    console.error("El contenido de la respuesta no es un array:", data.contenido);
+                }
+            })
+            .catch((error) => {
+                console.error("Error al realizar la solicitud:", error);
+                // Puedes manejar el error de alguna manera si es necesario
+            });
+    };
+     // read documentos ------------------------
+
+    //TIPO DOCUMENTOS   --------------------------------------------------------------------------------------
+
+    //TIPO EPS  ---------------------------------------------------------------------------------------
+    const [epsOptions, setepsOptions] = useState([]);
+    useEffect(() => {
+        fetchDataTpeps();
+    }, []);
+     // read eps ------------------------
+     const fetchDataTpeps = () => {
+        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtpeps")
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                    console.error("Error en la respuesta de la API:", data.message);
+                    // Puedes manejar el error de alguna manera si es necesario
+                } else if (Array.isArray(data.contenido)) {
+                    setepsOptions(data.contenido);
+                } else {
+                    console.error("El contenido de la respuesta no es un array:", data.contenido);
+                }
+            })
+            .catch((error) => {
+                console.error("Error al realizar la solicitud:", error);
+                // Puedes manejar el error de alguna manera si es necesario
+            });
+    };
+     // read eps ------------------------
+    //TIPO EPS  ---------------------------------------------------------------------------------------
+
+
+    
+    //TIPO CESANTIAS ---------------------------------------------------------------------------------------
+    const [cesOptions, setcesOptions] = useState([]);
+    useEffect(() => {
+        fetchDataTpces();
+    }, [])
+     // read ces ------------------------
+     const fetchDataTpces = () => {
+        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtces")
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                    console.error("Error en la respuesta de la API:", data.message);
+                    // Puedes manejar el error de alguna manera si es necesario
+                } else if (Array.isArray(data.contenido)) {
+                    setcesOptions(data.contenido);
+                } else {
+                    console.error("El contenido de la respuesta no es un array:", data.contenido);
+                }
+            })
+            .catch((error) => {
+                console.error("Error al realizar la solicitud:", error);
+                // Puedes manejar el error de alguna manera si es necesario
+            });
+    };
+     // read ces ------------------------
+    //TIPO CESANTIAS  ---------------------------------------------------------------------------------------
+
+    //TIPO ARL  ---------------------------------------------------------------------------------------
+    const [arlOptions, setArlOptions] = useState([]);
+    useEffect(() => {
+        fetchDataTparl();
+    }, [])
+     // read arls ------------------------
+     const fetchDataTparl = () => {
+        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtparl")
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                    console.error("Error en la respuesta de la API:", data.message);
+                    // Puedes manejar el error de alguna manera si es necesario
+                } else if (Array.isArray(data.contenido)) {
+                    setArlOptions(data.contenido);
+                } else {
+                    console.error("El contenido de la respuesta no es un array:", data.contenido);
+                }
+            })
+            .catch((error) => {
+                console.error("Error al realizar la solicitud:", error);
+                // Puedes manejar el error de alguna manera si es necesario
+            });
+    };
+     // read arls ------------------------
+    //TIPO ARL  ---------------------------------------------------------------------------------------
+
+
+    
+    //TIPO PENSIONES ---------------------------------------------------------------------------------------
+    const [penOptions, setPenOptions] = useState([]);
+    useEffect(() => {
+        fetchDataTpen();
+    }, [])
+     // read pens ------------------------
+     const fetchDataTpen = () => {
+        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtppens")
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                    console.error("Error en la respuesta de la API:", data.message);
+                    // Puedes manejar el error de alguna manera si es necesario
+                } else if (Array.isArray(data.contenido)) {
+                    setPenOptions(data.contenido);
+                } else {
+                    console.error("El contenido de la respuesta no es un array:", data.contenido);
+                }
+            })
+            .catch((error) => {
+                console.error("Error al realizar la solicitud:", error);
+                // Puedes manejar el error de alguna manera si es necesario
+            });
+    };
+     // read pens ------------------------
+    //TIPO PENSIONES  ---------------------------------------------------------------------------------------
+    
+     
+
+    
+
+
+
 
     const abrirContrato = () => {
         window.open(empleado.contrato);
@@ -38,90 +309,9 @@ export default function EmpleadoVerDetalles() {
         id_ces: ""
     });
 
-    const tipoRhOptions = {
-        1: 'A+',
-        2: 'A-',
-        3: 'B+',
-        4: 'B-',
-        5: 'AB+',
-        6: 'AB-',
-        7: 'O+',
-        8: 'O-',
-    };
-
-    const tipoDocumentoOptions = {
-        1: 'Tarjeta de Identidad',
-        2: 'Cédula de Ciudadanía',
-        3: 'Tarjeta de Extranjería',
-        4: 'Cédula de Extranjería',
-        5: 'Pasaporte',
-        6: 'Nit',
-    };
-
-    const epsOptions = {
-        1: 'COOSALUD EPS-S',
-        2: 'NUEVA EPS',
-        3: 'MUTUAL SER',
-        4: 'ALIANSALUD EPS',
-        5: 'SALUD TOTAL EPS S.A.',
-        6: 'EPS SANITAS',
-        7: 'EPS SURA',
-        8: 'FAMISANAR',
-        9: 'SERVICIO OCCIDENTAL DE SALUD EPS SOS',
-        10: 'SALUD MIA',
-        11: 'COMFENALCO VALLE',
-        12: 'COMPENSAR EPS',
-        13: 'EPM - EMPRESAS PUBLICAS DE MEDELLIN',
-        14: 'FONDO DE PASIVO SOCIAL DE FERROCARRILES NACIONALES...',
-        15: 'CAJACOPI ATLANTICO',
-        16: 'CAPRESOCA',
-        17: 'COMFACHOCO',
-        18: 'COMFAORIENTE',
-        19: 'EPS FAMILIAR DE COLOMBIA',
-        20: 'ASMET SALUD',
-        21: 'EMSSANAR E.S.S.',
-        22: 'CAPITAL SALUD EPS-S',
-        23: 'SAVIA SALUD EPS',
-        24: 'DUSAKAWI EPSI',
-        25: 'ASOCIACION INDIGENA DEL CAUCA EPSI',
-    };
-
-    const cesOptions = {
-        1: 'COLFONDOS',
-        2: 'PORVENIR',
-        3: 'PROTECCIÓN',
-        4: 'SKANDIA',
-        5: 'FONDO NACIONAL DEL AHORRO',
-    };
-
-    const arlOptions = {
-        1: 'ARL POSITIVA',
-        2: 'SEGUROS BOLÍVAR S.A',
-        3: 'SEGUROS DE VIDA AURORA S.A',
-        4: 'LIBERTY SEGUROS DE VIDA',
-        5: 'MAPFRE COLOMBIA VIDA SEGUROS S.A.',
-        6: 'RIESGOS LABORALES COLMENA',
-        7: 'SEGUROS DE VIDA ALFA S.A',
-        8: 'SEGUROS DE VIDA COLPATRIA S.A',
-        9: 'SEGUROS DE VIDA LA EQUIDAD ORGANISMO C.',
-        10: 'SURA - CIA. SURAMERICANA DE SEGUROS DE VIDA',
-
-    };
-
-    const penOptions = {
-        1: 'COLFONDOS',
-        2: 'PORVENIR',
-        3: 'PROTECCIÓN',
-        4: 'SKANDIA',
-        5: 'COLPENSIONES',
-    };
 
     const usersPhoto = require.context("../../../assets/empleados", true)
 
-    useEffect(() => {
-        fetchDataone();
-        fetchDataestado();
-    }, []);
 
     const fetchDataone = () => {
         fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempleadoone&id=${empleadoid}`)
@@ -136,6 +326,8 @@ export default function EmpleadoVerDetalles() {
                 setLoading(false);
             });
     };
+
+
 
     const fetchDataoneUpdate = () => {
         const requestOptions = {
@@ -169,26 +361,26 @@ export default function EmpleadoVerDetalles() {
 
     const cancelarEdicion = () => {
         swal({
-          title: "¿Estás seguro de deshacer esta acción?",
-          text: "Recuerda que perderás los elementos modificados.",
-          icon: "warning",
-          buttons: ["Cancelar", "Deshacer"],
-          dangerMode: true,
+            title: "¿Estás seguro de deshacer esta acción?",
+            text: "Recuerda que perderás los elementos modificados.",
+            icon: "warning",
+            buttons: ["Cancelar", "Deshacer"],
+            dangerMode: true,
         }).then((deshacer) => {
-          if (deshacer) {
-            setIsEditing(false);
-            setEmpleado(empleadoOriginal);
-            swal("¡Acción deshecha!", {
-              icon: "success",
-            });
-          } else {
-            swal("Continuar editando.", {
-              icon: "info",
-            });
-          }
+            if (deshacer) {
+                setIsEditing(false);
+                setEmpleado(empleadoOriginal);
+                swal("¡Acción deshecha!", {
+                    icon: "success",
+                });
+            } else {
+                swal("Continuar editando.", {
+                    icon: "info",
+                });
+            }
         });
-      };
-      
+    };
+
 
     const handleInputChange = (e, field) => {
         const value = e.target.value;
@@ -217,6 +409,7 @@ export default function EmpleadoVerDetalles() {
             }).then((willDelete) => {
                 if (willDelete) {
                     fetchDataoneUpdate();
+                    fetchDataUpdaterol();
 
                 }
             });
@@ -322,7 +515,7 @@ export default function EmpleadoVerDetalles() {
         estado: ""
     });
 
-    const [loading, setLoading] = useState(true);
+
 
     const fetchDataestado = async () => {
         try {
@@ -371,9 +564,6 @@ export default function EmpleadoVerDetalles() {
         actualizarEstadoEmpleado("1");
     };
 
-    useEffect(() => {
-        fetchDataestado();
-    }, []); 
 
 
     return (
@@ -386,7 +576,7 @@ export default function EmpleadoVerDetalles() {
                         <div className={`row `}>
                             <div className=' row col-9 '>
                                 <div className=' col-5' >
-                                    <p className={empleado.estado === "0" ? 't-principal-activo h3 mb-2 mt-3' : 't-principal-inativo h3 mb-2 mt-3'}>Información personal del Empleado </p>
+                                    <p className={empleado.estado === "0" ? 't-principal-activo h3 mb-2 mt-3' : 't-principal-inativo h3 mb-2 mt-3'}>Información personal </p>
                                 </div>
                             </div>
                             <div className='col-2 mt-2'>
@@ -402,7 +592,7 @@ export default function EmpleadoVerDetalles() {
                                         </div>
                                     ) : (
                                         <button className="btnfs btn btn-primary" onClick={comenzarEdicion}>
-                                            Editar información Principal
+                                            Información Principal
                                         </button>
                                     )
                                 ) : null}
@@ -411,7 +601,7 @@ export default function EmpleadoVerDetalles() {
                                 <button type="button" className="buton-regresar btnfa btn btn-primary " onClick={() => back('/consultar-empleados')}>Regresar</button>
                             </div>
                         </div>
-                        <div className=" mt-3 row">
+                        <div className=" mt-2 row">
 
                             <div className={`ud-e col-2 card ${empleado.estado === "0" ? (isEditing ? 'editing-border-photho' : 'canceled-border-photho') : 'inactive-border-photho'}`}>
 
@@ -428,7 +618,7 @@ export default function EmpleadoVerDetalles() {
                                     target="_blank"
                                     rel="noreferrer"
                                 >
-                                    Click para ver contrato
+                                    Ver contrato
                                 </button>
                             </div>
                             <div className='col-9-uxin '>
@@ -530,7 +720,7 @@ export default function EmpleadoVerDetalles() {
                                             )}
                                         </div>
                                         <div>
-                                            <span className="t-box-ver-1">Tipo de RH:  </span>
+                                            <span className="t-box-ver-1">Tipo de RH: </span>
                                             {empleado.estado === "0" ? (
                                                 isEditing ? (
                                                     <select
@@ -538,9 +728,9 @@ export default function EmpleadoVerDetalles() {
                                                         value={empleado.id_rh}
                                                         onChange={(e) => handleInputChange(e, 'id_rh')}
                                                     >
-                                                        {Object.entries(tipoRhOptions).map(([value, label]) => (
-                                                            <option key={value} value={value}>
-                                                                {label}
+                                                        {tipoRhOptions.map((rh) => (
+                                                            <option key={rh.ID_rh} value={rh.ID_rh}>
+                                                                {rh.Tipo_rh}
                                                             </option>
                                                         ))}
                                                     </select>
@@ -548,17 +738,18 @@ export default function EmpleadoVerDetalles() {
                                                     <input
                                                         className={`e i-box form-control `}
                                                         disabled
-                                                        value={tipoRhOptions[empleado.id_rh]}
+                                                        value={tipoRhOptions.find(item => item.ID_rh === empleado.id_rh)?.Tipo_rh || ''}
                                                     />
                                                 )
                                             ) : (
                                                 <input
                                                     className={`form-control '`}
                                                     disabled
-                                                    value={tipoRhOptions[empleado.id_rh]}
+                                                    value={tipoRhOptions.find(item => item.ID_rh === empleado.id_rh)?.Tipo_rh || ''}
                                                 />
                                             )}
                                         </div>
+
                                         <div className='row'>
                                             <div className='col-6'>
                                                 <span className="t-box-ver-1"> Numero de documento:</span>
@@ -592,45 +783,74 @@ export default function EmpleadoVerDetalles() {
                                                     />
                                                 )}
                                             </div>
-                                            <div className='col-6'>
-                                                <span className="t-box-ver-1"> Tipo de documento:</span>
-                                                {empleado.estado === "0" ? (
-                                                    isEditing ? (
+                                                <div className='col-6'>
+                                                    <span className="t-box-ver-1"> Tipo de documento:</span>
+                                                    {empleado.estado === "0" ? (
+                                                        isEditing ? (
+                                                            <select
+                                                                className={`form-control ${errores.id_doc ? "is-invalid" : empleado.id_doc ? "is-valid" : ""}`}
+                                                                value={empleado.id_doc}
+                                                                onChange={(e) => handleInputChange(e, 'id_doc')}
+                                                            >
+                                                                {tipoDocumentoOptions.map((doc) => (
+                                                                <option key={doc.ID_Doc} value={doc.ID_Doc}>
+                                                                    {doc.Nombre_documento}
+                                                                </option>
+                                                            ))}
+                                                            </select>
+                                                        ) : (
+                                                            <input
+                                                                className={`e i-box form-control `}
+                                                                disabled
+                                                                value={tipoDocumentoOptions.find(item => item.ID_Doc === empleado.id_doc)?.Nombre_documento || ''}
+                                                            />
+                                                        )
+                                                    ) : (
+                                                        <input
+                                                            className={`form-control '`}
+                                                            disabled
+                                                            value={tipoDocumentoOptions.find(item => item.ID_Doc === empleado.id_doc)?.Nombre_documento || ''}
+                                                        />
+                                                    )}
+
+                                                </div>
+                                        </div>
+                                        <div >
+                                            <span className="t-box-ver-1">Rol en el sistema </span>
+                                            {empleado.estado === "0" ? (
+                                                isEditing ? (
+                                                    <div>
                                                         <select
-                                                            className={`form-control ${errores.id_doc ? "is-invalid" : empleado.id_doc ? "is-valid" : ""}`}
-                                                            value={empleado.id_doc}
-                                                            onChange={(e) => handleInputChange(e, 'id_doc')}
+                                                            className={`i-finish form-control ${errores.contrato ? "is-invalid" : empleado.contrato ? "is-valid" : ""}`}
+                                                            disabled={!isEditing}
+                                                            value={rolemp.id_rol}
+                                                            onChange={handleInputChangerol}
                                                         >
-                                                            {Object.entries(tipoDocumentoOptions).map(([value, label]) => (
-                                                                <option key={value} value={value}>
-                                                                    {label}
+                                                            {tprol.map((rol) => (
+                                                                <option key={rol.ID_rol} value={rol.ID_rol}>
+                                                                    {rol.Tipo_rol}
                                                                 </option>
                                                             ))}
                                                         </select>
-                                                    ) : (
-                                                        <input
-                                                            className={`e i-box form-control `}
-                                                            disabled
-                                                            value={tipoDocumentoOptions[empleado.id_doc]}
-                                                        />
-                                                    )
+                                                    </div>
                                                 ) : (
                                                     <input
-                                                        className={`form-control '`}
-                                                        disabled
-                                                        value={tipoDocumentoOptions[empleado.id_doc]}
+                                                        className={`e i-finish i-box form-control ${isEditing ? 'editing-mode' : ''}`}
+                                                        disabled={!isEditing}
+                                                        value={tprol.find(item => item.ID_rol === rolemp.id_rol)?.Tipo_rol || ''}
                                                     />
-                                                )}
-
-                                            </div>
+                                                )
+                                            ) : (
+                                                <input
+                                                    className={`i-finish i-box form-control ${isEditing ? 'editing-mode' : ''}`}
+                                                    disabled={!isEditing}
+                                                    value={tprol.find(item => item.ID_rol === rolemp.id_rol)?.Tipo_rol || ''}
+                                                />
+                                            )}
                                         </div>
-
                                     </div>
-
                                     <div className='col-6 caja-input'>
-
                                         <span className="t-box-ver-1">Telefono celular: </span>
-
                                         {empleado.estado === "0" ? (
                                             isEditing ? (
                                                 <div>
@@ -792,47 +1012,50 @@ export default function EmpleadoVerDetalles() {
                                                 />
                                             )}
                                         </div>
-                                    </div>
-                                    <div >
-                                        <span className="t-box-ver-1">Link de contrato:  </span>
-                                        {empleado.estado === "0" ? (
-                                            isEditing ? (
-                                                <div>
+
+                                        <div >
+                                            <span className="t-box-ver-1">Link de contrato:  </span>
+                                            {empleado.estado === "0" ? (
+                                                isEditing ? (
+                                                    <div>
+                                                        <input
+                                                            className={`i-finish form-control ${errores.contrato ? "is-invalid" : empleado.contrato ? "is-valid" : ""}`}
+                                                            disabled={!isEditing}
+                                                            value={empleado.contrato}
+                                                            onChange={(e) => {
+                                                                handleInputChange(e, 'contrato');
+                                                                validarCampo("contrato", e.target.value);
+                                                            }}
+                                                        />
+                                                        {errores.contrato && <div className="invalid-feedback">{errores.contrato}</div>}
+                                                    </div>
+                                                ) : (
                                                     <input
-                                                        className={`i-finish form-control ${errores.contrato ? "is-invalid" : empleado.contrato ? "is-valid" : ""}`}
+                                                        className={`e i-finish i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                                         disabled={!isEditing}
                                                         value={empleado.contrato}
-                                                        onChange={(e) => {
-                                                            handleInputChange(e, 'contrato');
-                                                            validarCampo("contrato", e.target.value);
-                                                        }}
                                                     />
-                                                    {errores.contrato && <div className="invalid-feedback">{errores.contrato}</div>}
-                                                </div>
+                                                )
                                             ) : (
                                                 <input
-                                                    className={`e i-finish i-box form-control ${isEditing ? 'editing-mode' : ''}`}
+                                                    className={`i-finish i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                                     disabled={!isEditing}
                                                     value={empleado.contrato}
                                                 />
-                                            )
-                                        ) : (
-                                            <input
-                                                className={`i-finish i-box form-control ${isEditing ? 'editing-mode' : ''}`}
-                                                disabled={!isEditing}
-                                                value={empleado.contrato}
-                                            />
-                                        )}
+                                            )}
+
+                                        </div>
 
 
                                     </div>
+
                                 </div>
 
                             </div>
                         </div>
 
                         <div className={`mt-4 ${empleado.estado === "0" ? (isEditing ? 'editing-box-main-parafis' : 'canceled-box-main-parafis') : 'inactive-box-main-parafis'}`}>
-                        
+
                             <div className='mt-3 d-flex'>
                                 <div className='box-i-para col-3'>
                                     <span className=" t-box-ver-2"> Entidad Promotora de Salud (EPS):  </span>
@@ -842,23 +1065,24 @@ export default function EmpleadoVerDetalles() {
                                             value={empleado.id_eps}
                                             onChange={(e) => handleInputChange(e, 'id_eps')}
                                         >
-                                            {Object.entries(epsOptions).map(([value, label]) => (
-                                                <option key={value} value={value}>
-                                                    {label}
-                                                </option>
-                                            ))}
+                                          {epsOptions.map((eps) => (
+                                                            <option key={eps.ID_eps} value={eps.ID_eps}>
+                                                                {eps.Nombre_eps}
+                                                            </option>
+                                                        ))}
                                         </select>
                                     ) : (
                                         <input
                                             className={`e mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={epsOptions[empleado.id_eps]}
+                                            value={epsOptions.find(item => item.ID_eps === empleado.id_eps)?.Nombre_eps || ''}
                                         />
                                     ) : (
                                         <input
                                             className={`mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={epsOptions[empleado.id_eps]} />
+                                            value={epsOptions.find(item => item.ID_eps === empleado.id_eps)?.Nombre_eps || ''}
+                                            />
                                     )}
 
 
@@ -872,23 +1096,25 @@ export default function EmpleadoVerDetalles() {
                                             value={empleado.id_ces}
                                             onChange={(e) => handleInputChange(e, 'id_ces')}
                                         >
-                                            {Object.entries(cesOptions).map(([value, label]) => (
-                                                <option key={value} value={value}>
-                                                    {label}
-                                                </option>
-                                            ))}
+                                           {cesOptions.map((ces) => (
+                                                            <option key={ces.ID_ces} value={ces.ID_ces}>
+                                                                {ces.Nombre_ces}
+                                                            </option>
+                                                        ))}
                                         </select>
                                     ) : (
                                         <input
                                             className={`e mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={cesOptions[empleado.id_ces]}
+                                            value={cesOptions.find(item => item.ID_ces === empleado.id_ces)?.Nombre_ces || ''}
                                         />
                                     ) : (
                                         <input
                                             className={`mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={cesOptions[empleado.id_ces]} />
+                                            value={cesOptions.find(item => item.ID_ces === empleado.id_ces)?.Nombre_ces || ''}
+                                            
+                                            />
                                     )}
 
                                 </div>
@@ -901,23 +1127,23 @@ export default function EmpleadoVerDetalles() {
                                             value={empleado.id_arl}
                                             onChange={(e) => handleInputChange(e, 'id_arl')}
                                         >
-                                            {Object.entries(arlOptions).map(([value, label]) => (
-                                                <option key={value} value={value}>
-                                                    {label}
-                                                </option>
-                                            ))}
+                                           {arlOptions.map((arl) => (
+                                                            <option key={arl.ID_arl} value={arl.ID_arl}>
+                                                                {arl.Nombre_arl}
+                                                            </option>
+                                                        ))}
                                         </select>
                                     ) : (
                                         <input
                                             className={`e mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={arlOptions[empleado.id_arl]}
+                                           value={arlOptions.find(item => item.ID_arl === empleado.id_arl)?.Nombre_arl || ''}
                                         />
                                     ) : (
                                         <input
                                             className={`mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={arlOptions[empleado.id_arl]} />
+                                           value={arlOptions.find(item => item.ID_arl === empleado.id_arl)?.Nombre_arl || ''} />
                                     )}
 
                                 </div>
@@ -930,23 +1156,23 @@ export default function EmpleadoVerDetalles() {
                                             value={empleado.id_pens}
                                             onChange={(e) => handleInputChange(e, 'id_pens')}
                                         >
-                                            {Object.entries(penOptions).map(([value, label]) => (
-                                                <option key={value} value={value}>
-                                                    {label}
-                                                </option>
-                                            ))}
+                                            {penOptions.map((pen) => (
+                                                            <option key={pen.ID_pens} value={pen.ID_pens}>
+                                                                {pen.Nombre_pens}
+                                                            </option>
+                                                        ))}
                                         </select>
                                     ) : (
                                         <input
                                             className={`e mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={penOptions[empleado.id_pens]}
+                                            value={penOptions.find(item => item.ID_pens === empleado.id_pens)?.Nombre_pens || ''} 
                                         />
                                     ) : (
                                         <input
                                             className={`mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={penOptions[empleado.id_pens]} />
+                                            value={penOptions.find(item => item.ID_pens === empleado.id_pens)?.Nombre_pens || ''} /> 
                                     )}
                                 </div>
                             </div>

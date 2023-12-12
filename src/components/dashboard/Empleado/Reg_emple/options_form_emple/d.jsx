@@ -33,8 +33,8 @@ function DEmple(props) {
       case "n_coe":
         if (!valorCampo.trim()) {
           nuevosErrores.n_coe = "Por favor, este campo no puede estar vacío";
-        } else if (valorCampo.length < 2 || valorCampo.length > 20) {
-          nuevosErrores.n_coe = "El campo debe tener entre 2 y 19 caracteres";
+        } else if (valorCampo.length < 2 || valorCampo.length > 30) {
+          nuevosErrores.n_coe = "El campo debe tener entre 2 y 30 caracteres";
         } else if (!/^[A-Za-z\s]+$/.test(valorCampo)) {
           nuevosErrores.n_coe = "Ingrese solo letras y espacios en blanco";
         } else {
@@ -45,7 +45,7 @@ function DEmple(props) {
       case "csag":
         if (!valorCampo.trim()) {
           nuevosErrores.csag = "Por favor, este campo no puede estar vacío";
-        } else if (valorCampo.length < 2 || valorCampo.length > 20) {
+        } else if (valorCampo.length < 2 || valorCampo.length > 25) {
           nuevosErrores.csag = "El campo debe tener entre 2 y 19 caracteres";
         } else if (!/^[A-Za-z\s]+$/.test(valorCampo)) {
           nuevosErrores.csag = "Ingrese solo letras y espacios en blanco";
