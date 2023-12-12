@@ -124,10 +124,10 @@ export default function EmpleadoVerDetalles() {
     }, []);
 
     const fetchDataone = () => {
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempleadoone&id=${empleadoid}`)
+        fetch(`http://localhost/api_sisinov/public/api/readempleadoone/${empleadoid}`)
             .then((response) => response.json())
             .then((data) => {
-                setEmpleado(data.contenido[0]);
+                setEmpleado(data.data);
                 setLoading(false);
 
             })

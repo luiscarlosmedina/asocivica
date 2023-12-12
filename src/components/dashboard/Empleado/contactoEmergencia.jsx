@@ -30,7 +30,7 @@ export default function ContactoEmergencia({ id }) {
     const [errors, setErrors] = useState({}); // Estado para almacenar errores
 
     const fetchData = () => {
-        fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readcontemg&id=${id}`)
+        fetch(`https://localhost/api_sisinov/public/api/readcontemg/${id}`)
             .then((response) => response.json())
             .then((data) => {
                 setData(data.contenido);
