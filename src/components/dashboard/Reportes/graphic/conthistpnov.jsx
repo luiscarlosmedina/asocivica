@@ -18,19 +18,16 @@ export default function Conthistpnov({ startDate, endDate, ltempresa }) {
     }, [startDate, endDate, ltempresa]);
 
     const fetchData = () => {
-        let apiUrl = `https://20.106.206.47/api_proyecto.github.io/api.php?apicall=rephistnov`;
+        const arreglo = {ltempresa:ltempresa, startDate: startDate, endDate: endDate};
+        let apiUrl = `http://localhost/api_sisinov/public/api/rephistnov`;
 
-        if (startDate) {
-            apiUrl += `&startdate=${startDate}`;
-        }
-        if (endDate) {
-            apiUrl += `&enddate=${endDate}`;
-        }
-        if (ltempresa) {
-            apiUrl += `&ltempresa=${ltempresa}`;
-        }
-
-        fetch(apiUrl)
+        fetch(apiUrl,{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(arreglo),
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

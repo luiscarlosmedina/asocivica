@@ -99,13 +99,14 @@ export default function VerDetalleNovedad() {
       swal("Error", "La descripción tiene un formato no valido.", "error");
       return;
     }
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updatenovedad`, {
-      method: 'POST',
+    console.log(editedNovedad)
+    fetch(`http://localhost/api_sisinov/public/api/novedad`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(editedNovedad)
-    })
+    })  
       .then(response => response.json())
       .then(responseData => {
         if (responseData) {

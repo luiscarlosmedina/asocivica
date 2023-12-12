@@ -8,20 +8,14 @@ export default function Conteonovdia({ startDate, endDate, tipoNovedad }) {
     }, [startDate, endDate, tipoNovedad]);
 
     const fetchData = () => {
-        let apiUrl = `https://20.106.206.47/api_proyecto.github.io/api.php?apicall=repnovdia`;
-
-        // Agrega el tipo de novedad si se proporciona
-        if (startDate) {
-            apiUrl += `&startdate=${startDate}`;
-        }
-        if (endDate) {
-            apiUrl += `&enddate=${endDate}`;
-        }
-        // Agrega el tipo de novedad si se proporciona
-        if (tipoNovedad) {
-            apiUrl += `&tipoNovedad=${tipoNovedad}`;
-        }
-        fetch(apiUrl)
+        const arreglo = {tipoNovedad: tipoNovedad, startDate:startDate, endDate:endDate}
+        fetch(`http://localhost/api_sisinov/public/api/repnovdia`,{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(arreglo),
+        })
             .then((response) => response.json())
             .then((data) => {
                 setData(data);

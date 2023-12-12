@@ -44,10 +44,10 @@ export default function Repemp() {
   };
 
   const fetchDataListempresa = () => {
-    fetch("https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readnovedadempresa")
+    fetch("https://localhost/api_sisinov/public/api/novedadempresa")
       .then((response) => response.json())
       .then((listempresa) => {
-        setListempresa(listempresa.contenido);
+        setListempresa(listempresa.data);
       })
       .catch((error) => {
         console.log(error);

@@ -62,10 +62,10 @@ export default function Repnov() {
     }, []);
 
     const fetchDataTpnoedad = () => {
-        fetch("https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readtpnovedad")
+        fetch("http://localhost/api_sisinov/public/api/tpnov")
             .then((response) => response.json())
             .then((tpnovedad) => {
-                setTpnovedad(tpnovedad.contenido);
+                setTpnovedad(tpnovedad.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -94,7 +94,7 @@ export default function Repnov() {
                         </option>
                         {tpnovedad.map((item) => (
                             <option key={item.T_Nov} value={item.T_Nov}>
-                                {item.Tipo_Novedad}
+                                {item.Nombre_Tn}
                             </option>
                         ))}
                     </select>
