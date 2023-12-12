@@ -127,7 +127,7 @@ export default function EmpleadoVerDetalles() {
         fetch(`http://localhost/api_sisinov/public/api/readempleadoone/${empleadoid}`)
             .then((response) => response.json())
             .then((data) => {
-                setEmpleado(data.data);
+                setEmpleado(data.data[0]);
                 setLoading(false);
 
             })
@@ -172,7 +172,7 @@ export default function EmpleadoVerDetalles() {
           title: "¿Estás seguro de deshacer esta acción?",
           text: "Recuerda que perderás los elementos modificados.",
           icon: "warning",
-          buttons: ["Cancelar", "Deshacer"],
+          buttons: ["Cancelar", "Si"],
           dangerMode: true,
         }).then((deshacer) => {
           if (deshacer) {
@@ -326,9 +326,9 @@ export default function EmpleadoVerDetalles() {
 
     const fetchDataestado = async () => {
         try {
-            const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempleadoestado&id=${empleadoid}`);
+            const response = await fetch(`http://localhost/api_sisinov/public/api/readempleadoestado/${empleadoid}`);
             const data = await response.json();
-            setEmpleadoestado(data.contenido[0]);
+            setEmpleadoestado(data.data[0]);
             setLoading(false);
         } catch (error) {
             console.error('Error al obtener los datos del empleado:', error);
@@ -339,7 +339,7 @@ export default function EmpleadoVerDetalles() {
     const actualizarEstadoEmpleado = async (nuevoEstado) => {
         try {
             const requestOptions = {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -349,7 +349,7 @@ export default function EmpleadoVerDetalles() {
                 }),
             };
 
-            const response = await fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateestadoempleado`, requestOptions);
+            const response = await fetch(`http://localhost/api_sisinov/public/api/updateestadoempleado`, requestOptions);
             const data = await response.json();
 
             console.log(data);

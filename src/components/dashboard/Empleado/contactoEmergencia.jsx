@@ -54,8 +54,8 @@ export default function ContactoEmergencia({ id }) {
 
     const saveEnc = async (ID_CEm, updatedEncargado) => {
         try {
-            const response = await fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=updatecontemg`, {
-                method: 'POST',
+            const response = await fetch(`https://localhost/api_sisinov/public/api/updatecontemg`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -111,7 +111,7 @@ export default function ContactoEmergencia({ id }) {
         }
 
         try {
-            const response = await fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=createcontemg`, {
+            const response = await fetch(`https://localhost/api_sisinov/public/api/createcontemg`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

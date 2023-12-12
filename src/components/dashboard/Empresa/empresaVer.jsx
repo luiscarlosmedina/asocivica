@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 
 export default function EmpresaVer({ dataUpdated }) {
+  const url = process.env.REACT_APP_BACK_RUT;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -30,7 +31,7 @@ export default function EmpresaVer({ dataUpdated }) {
   }, []);
 
   const fetchData = () => {
-    fetch(`https://20.106.206.47/api_sisinov/public/api/empresas`)
+    fetch(`${url}/empresas`)
       .then((response) => response.json())
       .then((data) => {
         setData(data.data);
