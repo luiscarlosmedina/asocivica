@@ -3,14 +3,14 @@ import swal from 'sweetalert';
 
 export default function ContactoEmergencia({ id, estado }) {
 
-    // Estado para manejar los errores de validación
-    const [errores, setErrores] = useState({});
-    const [errorestwo, setErrorestwo] = useState({});
+  // Estado para manejar los errores de validación
+  const [errores, setErrores] = useState({});
+  const [errorestwo, setErrorestwo] = useState({});
 
-    // Obtener la lista de contactos de emergencia al cargar el componente
-    useEffect(() => {
-      fetchData();
-    }, []);
+  // Obtener la lista de contactos de emergencia al cargar el componente
+  useEffect(() => {
+    fetchData();
+  }, []);
 
 
   // Estado para almacenar la lista de contactos de emergencia
@@ -58,6 +58,49 @@ export default function ContactoEmergencia({ id, estado }) {
     });
   };
 
+  // Crear un nuevo contacto de emergencia
+  const fetchDatatwoCreate = () => {
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...nuevoContacto
+      }),
+
+    };
+    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=createcontemg`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        swal("¡Éxito!", "Los datos del empleado se creado correctamente.", "success");
+        limpiarCampos();
+        fetchData();
+      })
+      .catch((error) => {
+        console.error('Error al actualizar los datos del empleado:', error);
+        swal("Error", "Hubo un problema al actualizar los datos del empleado.", "error");
+      });
+  };
+
+
+  // Obtener la lista de contactos de emergencia
+  const fetchData = () => {
+    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readcontemg&id=${id}`)
+      .then((response) => response.json())
+      .then((result) => {
+        if (!result.error) {
+          setData(result.contenido);
+        } else {
+          console.error(result.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
+
   // Actualizar un contacto de emergencia
   const fetchDatacmgUpdate = (contactoId) => {
     const contactoActualizado = data.find((contacto) => contacto.id_cem === contactoId);
@@ -69,7 +112,7 @@ export default function ContactoEmergencia({ id, estado }) {
       },
       body: JSON.stringify(contactoActualizado),
     };
-  
+
     fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updatecontemg`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
@@ -77,7 +120,7 @@ export default function ContactoEmergencia({ id, estado }) {
         if (!data.error) {
           swal("¡Éxito!", "Los datos del contacto de emergencia se han actualizado correctamente.", "success");
           setIsEditing(false);
-          fetchData(); 
+          fetchData();
         } else {
           swal("Error", "Hubo un problema al actualizar los datos del contacto de emergencia.", "error");
         }
@@ -87,7 +130,56 @@ export default function ContactoEmergencia({ id, estado }) {
         swal("Error", "Hubo un problema al actualizar los datos del contacto de emergencia.", "error");
       });
   };
-  
+
+  const eliminarContacto = (contactoId) => {
+    if (data.length === 1) {
+      swal("Imposible eliminar", "Debe haber al menos un contacto de emergencia.", "warning");
+      return;
+    }
+
+    swal({
+      title: "¿Estás seguro?",
+      text: "Una vez eliminado, no podrás recuperar este contacto de emergencia.",
+      icon: "warning",
+      buttons: ["Cancelar", "Eliminar"],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        // Usuario hizo clic en "Eliminar"
+        const requestOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id_cem: contactoId,
+          }),
+        };
+        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=deletecontemg`, requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            if (!data.error) {
+              swal("¡Éxito!", "El contacto de emergencia se ha eliminado correctamente.", "success");
+              // Actualizar la lista de contactos después de eliminar
+              fetchData();
+            } else {
+              swal("Error", "Hubo un problema al eliminar el contacto de emergencia.", "error");
+            }
+          })
+          .catch((error) => {
+            console.error('Error al actualizar los datos del contacto de emergencia:', error);
+            swal("Error", "Hubo un problema al actualizar los datos del contacto de emergencia.", "error");
+          });
+
+      } else {
+        // Usuario hizo clic en "Cancelar"
+        swal("Operación cancelada", "El contacto de emergencia no ha sido eliminado.", "info");
+      }
+
+    });
+  };
+
 
 
   // Estado para almacenar los datos del nuevo contacto
@@ -101,7 +193,7 @@ export default function ContactoEmergencia({ id, estado }) {
 
 
   const handleInputChangeUpdate = (e, field, index) => {
-    
+
     const value = e.target.value;
     setData((prevData) => {
       const newData = [...prevData];
@@ -141,117 +233,7 @@ export default function ContactoEmergencia({ id, estado }) {
   };
 
 
-    const handleInputChange = (e, ID_CEm, fieldName) => {
-        const { value } = e.target;
-        const newData = data.map((item) => {
-            if (item.ID_CEm === ID_CEm) {
-                return { ...item, [fieldName]: value };
-            }
-            return item;
-        });
-        setData(newData);
-    };
-
-    const saveEnc = async (ID_CEm, updatedEncargado) => {
-        try {
-            const response = await fetch(`https://localhost/api_sisinov/public/api/updatecontemg`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(updatedEncargado),
-            });
-            const responseData = await response.json();
-
-            if (responseData) {
-                fetchData();
-                // Desactivar el modo de edición
-                setEditMode({
-                    ...editMode,
-                    [ID_CEm]: false,
-                });
-
-                // Quitar mensaje de error si existe
-                setErrors({ ...errors, [`N_En_${ID_CEm}`]: "", [`tel1_${ID_CEm}`]: "", [`tel2_${ID_CEm}`]: "", [`tel3_${ID_CEm}`]: "" });
-            }
-        } catch (error) {
-            console.error("Error:", error);
-        }
-    };
-
-    const editeContEmg = (ID_CEm) => {
-        // Activar el modo de edición para el contacto de emergencia
-        setEditMode({
-            ...editMode,
-            [ID_CEm]: true,
-        });
-    };
-
-    const handleInsertSubmit = async () => {
-        // Reiniciar los errores antes de realizar una nueva validación
-        setErrors({});
-
-        // Validación básica antes de enviar datos al servidor
-        if (!newContEmg.N_CoE || !newContEmg.T_CEm) {
-            // Mostrar errores
-            setErrors({
-                N_CoE: !newContEmg.N_CoE ? "Nombre encargado es requerido" : "",
-                T_CEm: !newContEmg.T_CEm ? "Teléfono es requerido" : "",
-            });
-            return;
-        }
-
-        // Validar números de teléfono
-        if (!validatePhone(newContEmg.T_CEm)) {
-            // Mostrar errores
-            setErrors({
-                T_CEm: !validatePhone(newContEmg.T_CEm) ? "Teléfono no es válido" : "",
-            });
-            return;
-        }
-
-    swal({
-      title: "¿Estás seguro?",
-      text: "Una vez eliminado, no podrás recuperar este contacto de emergencia.",
-      icon: "warning",
-      buttons: ["Cancelar", "Eliminar"],
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        // Usuario hizo clic en "Eliminar"
-        const requestOptions = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            id_cem: contactoId,
-          }),
-        };
-
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=deletecontemg`, requestOptions)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            if (!data.error) {
-              swal("¡Éxito!", "El contacto de emergencia se ha eliminado correctamente.", "success");
-              // Actualizar la lista de contactos después de eliminar
-              fetchData();
-            } else {
-              swal("Error", "Hubo un problema al eliminar el contacto de emergencia.", "error");
-            }
-          })
-          .catch((error) => {
-            console.error('Error al eliminar el contacto de emergencia:', error);
-            swal("Error", "Hubo un problema al eliminar el contacto de emergencia.", "error");
-          });
-      } else {
-        // Usuario hizo clic en "Cancelar"
-        swal("Operación cancelada", "El contacto de emergencia no ha sido eliminado.", "info");
-      }
-    });
-  };
-
+ 
 
   // Validar campos antes de agregar un nuevo contacto
   const validarcamposc = () => {
@@ -265,7 +247,7 @@ export default function ContactoEmergencia({ id, estado }) {
     });
 
     if (documentosValidos) {
-        fetchDataValidaciontel();
+      fetchDataValidaciontel();
     } else {
       swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
     }
@@ -345,7 +327,7 @@ export default function ContactoEmergencia({ id, estado }) {
   // Validar un campo específico Update
   const validarCampoUpdate = (nombreCampo, valorCampo) => {
     const nuevosErrorestwo = { ...errorestwo };
- 
+
     switch (nombreCampo) {
       case "n_coe":
         if (!valorCampo.trim()) {
@@ -432,17 +414,7 @@ export default function ContactoEmergencia({ id, estado }) {
                 <div className="col-act">
                   <strong className="t-box-ver-4" >Nombre Completo</strong>
                 </div>
-                <div>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        onClick={() => setShowInsertForm(!showInsertForm)}
-                    >
-                        {showInsertForm ? "Cancelar" : "Agregar contacto"}
-                    </Button>
-                </div>
               </div>
-
               {isEditing ? (
                 // Datos de contacto en modo de edición
                 data.map((contacto, index) => (
@@ -465,9 +437,9 @@ export default function ContactoEmergencia({ id, estado }) {
                       <input
                         className={`mt-2 i-para-con-act i-box form-control ${!isEditing || editingIndex !== index ? 'con-disabled' : errorestwo.csag ? "is-invalid" : data[index]?.csag ? "is-valid" : ""}`}
                         name="csag"
-                         onChange={(e) => {
-                          handleInputChangeUpdate(e, 'csag',  index);
-                         }}
+                        onChange={(e) => {
+                          handleInputChangeUpdate(e, 'csag', index);
+                        }}
                         type="text"
                         value={data[index]?.csag}
                         disabled={!isEditing || editingIndex !== index}
@@ -479,7 +451,7 @@ export default function ContactoEmergencia({ id, estado }) {
                         className={`mt-2 i-para-con-act i-box form-control ${!isEditing || editingIndex !== index ? 'con-disabled' : errorestwo.t_cem ? "is-invalid" : data[index]?.t_cem ? "is-valid" : ""}`}
                         name="t_cem"
                         onChange={(e) => {
-                          handleInputChangeUpdate(e, 't_cem',  index);
+                          handleInputChangeUpdate(e, 't_cem', index);
                         }}
                         type="text"
                         value={data[index]?.t_cem}

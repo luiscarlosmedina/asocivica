@@ -6,7 +6,7 @@ const AuthContext = createContext({
 });
 
 export function AuthProvider({ children }) {
-  const [user, setUsuario] = useState(null);
+  const [user, setUsuario] = useState(true);
   const [error, setError] = useState(null);
 
   // Verificar si hay una sesión activa al cargar la aplicación
@@ -17,6 +17,7 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
+  
   const login = async (doc, password) => {
     try {
       //https://20.106.206.47/api_sisinov/public/api/login
