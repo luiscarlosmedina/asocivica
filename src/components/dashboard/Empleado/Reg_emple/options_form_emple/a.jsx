@@ -49,10 +49,10 @@ function AEmple(props) {
   };
 
   const fetchDataValidacion = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readveriemlempleado&eml_em=${valores.eml_em}`)
+    fetch(`http://localhost/api_sisinov/public/api/readveriemlempleado/${valores.eml_em}`)
       .then((response) => response.json())
       .then((respuesta) => {
-        if (respuesta.encontrado) {
+        if (respuesta.data) {
           swal("Correo existente!", "El correo suministrado ya existe en el sistema.", "error");
         } else {
           siguientePaso();

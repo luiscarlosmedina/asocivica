@@ -8,23 +8,15 @@ export default function Conteonov({ startDate, endDate, tipoNovedad }) {
         fetchData();
     }, [startDate, endDate, tipoNovedad]);
 
-    const fetchData = () => {
-        // Construye la URL con los parámetros de fecha
-        let apiUrl = `https://20.106.206.47/api_proyecto.github.io/api.php?apicall=repnov`;
-
-        // Agrega el tipo de novedad si se proporciona
-        if (startDate) {
-            apiUrl += `&startdate=${startDate}`;
-        }
-        if (endDate) {
-            apiUrl += `&enddate=${endDate}`;
-        }
-        // Agrega el tipo de novedad si se proporciona
-        if (tipoNovedad) {
-            apiUrl += `&tipoNovedad=${tipoNovedad}`;
-        }
-
-        fetch(apiUrl)
+    const fetchData = () => {        
+        const arreglo = {tipoNovedad:tipoNovedad, startDate: startDate, endDate: endDate}
+        fetch(`http://localhost/api_sisinov/public/api/repnov`,{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(arreglo),
+        })
             .then((response) => response.json())
             .then((data) => {
                 setData(data);

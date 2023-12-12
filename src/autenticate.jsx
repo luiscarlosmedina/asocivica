@@ -20,7 +20,7 @@ export function AuthProvider({ children }) {
   const login = async (doc, password) => {
     try {
       //https://20.106.206.47/api_sisinov/public/api/login
-      const response = await fetch("http://localhost/api_proyecto.github.io/api.php?apicall=login", {
+      const response = await fetch("http://localhost/api_sisinov/public/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

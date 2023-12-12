@@ -9,27 +9,21 @@ export default function Conteoempresanov({ startDate, endDate, ltempresa }) {
     }, [startDate, endDate, ltempresa]);
 
     const fetchData = () => {
-        // Construye la URL con los parámetros de fecha
+        const arreglo = {ltempresa:ltempresa, startDate: startDate, endDate:endDate} 
         let apiUrl = ``;
         if(ltempresa === null){
-            apiUrl = `https://20.106.206.47/api_proyecto.github.io/api.php?apicall=repempresanov`;
+            apiUrl = `https://localhost/api_sisinov/public/api/repempresanov`;
         }else {
-            apiUrl = `https://20.106.206.47/api_proyecto.github.io/api.php?apicall=repsedenov`;
+            apiUrl = `https://localhost/api_sisinov/public/api/repsedenov`;
         }
 
-        // Agrega el tipo de novedad si se proporciona
-        if (startDate) {
-            apiUrl += `&startdate=${startDate}`;
-        }
-        if (endDate) {
-            apiUrl += `&enddate=${endDate}`;
-        }
-        // Agrega el tipo de novedad si se proporciona
-        if (ltempresa) {
-            apiUrl += `&ltempresa=${ltempresa}`;
-        }
-
-        fetch(apiUrl)
+        fetch(apiUrl,{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(arreglo),
+        })
             .then((response) => response.json())
             .then((data) => {
                 setData(data);

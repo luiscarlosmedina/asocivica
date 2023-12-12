@@ -15,8 +15,7 @@ function Fin(props) {
     })
         .then((willDelete) => {
             if (willDelete) {
-                    console.log(valores);
-                    fetch('http://localhost/api_proyecto.github.io/api.php?apicall=createempleado', {
+                    fetch('http://localhost/api_sisinov/public/api/empleado', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

@@ -30,10 +30,10 @@ export default function EmpleadoVer({ dataUpdated }) {
   }, []);
 
   const fetchData = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readminempleado`)
+    fetch(`http://localhost/api_sisinov/public/api/readminempleado`)
       .then((response) => response.json())
       .then((data) => {
-        setData(data.contenido);
+        setData(data.data);
         setLoading(false);
       })
       .catch((error) => {

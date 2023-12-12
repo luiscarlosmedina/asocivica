@@ -140,54 +140,75 @@ export default function ContactoEmergencia({ id, estado }) {
       });
   };
 
-  // Crear un nuevo contacto de emergencia
-  const fetchDatatwoCreate = () => {
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...nuevoContacto
-      }),
+
+    const handleInputChange = (e, ID_CEm, fieldName) => {
+        const { value } = e.target;
+        const newData = data.map((item) => {
+            if (item.ID_CEm === ID_CEm) {
+                return { ...item, [fieldName]: value };
+            }
+            return item;
+        });
+        setData(newData);
     };
 
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=createcontemg`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        swal("¡Éxito!", "Los datos del empleado se han actualizado correctamente.", "success");
-        limpiarCampos();
-        fetchData();
-      })
-      .catch((error) => {
-        console.error('Error al actualizar los datos del empleado:', error);
-        swal("Error", "Hubo un problema al actualizar los datos del empleado.", "error");
-      });
-  };
+    const saveEnc = async (ID_CEm, updatedEncargado) => {
+        try {
+            const response = await fetch(`https://localhost/api_sisinov/public/api/updatecontemg`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedEncargado),
+            });
+            const responseData = await response.json();
 
-  // Obtener la lista de contactos de emergencia
-  const fetchData = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readcontemg&id=${id}`)
-      .then((response) => response.json())
-      .then((result) => {
-        if (!result.error) {
-          setData(result.contenido);
-        } else {
-          console.error(result.message);
+            if (responseData) {
+                fetchData();
+                // Desactivar el modo de edición
+                setEditMode({
+                    ...editMode,
+                    [ID_CEm]: false,
+                });
+
+                // Quitar mensaje de error si existe
+                setErrors({ ...errors, [`N_En_${ID_CEm}`]: "", [`tel1_${ID_CEm}`]: "", [`tel2_${ID_CEm}`]: "", [`tel3_${ID_CEm}`]: "" });
+            }
+        } catch (error) {
+            console.error("Error:", error);
         }
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  };
+    };
 
-  // Eliminar un contacto de emergencia
-  const eliminarContacto = (contactoId) => {
-    if (data.length === 1) {
-      swal("Imposible eliminar", "Debe haber al menos un contacto de emergencia.", "warning");
-      return;
-    }
+    const editeContEmg = (ID_CEm) => {
+        // Activar el modo de edición para el contacto de emergencia
+        setEditMode({
+            ...editMode,
+            [ID_CEm]: true,
+        });
+    };
+
+    const handleInsertSubmit = async () => {
+        // Reiniciar los errores antes de realizar una nueva validación
+        setErrors({});
+
+        // Validación básica antes de enviar datos al servidor
+        if (!newContEmg.N_CoE || !newContEmg.T_CEm) {
+            // Mostrar errores
+            setErrors({
+                N_CoE: !newContEmg.N_CoE ? "Nombre encargado es requerido" : "",
+                T_CEm: !newContEmg.T_CEm ? "Teléfono es requerido" : "",
+            });
+            return;
+        }
+
+        // Validar números de teléfono
+        if (!validatePhone(newContEmg.T_CEm)) {
+            // Mostrar errores
+            setErrors({
+                T_CEm: !validatePhone(newContEmg.T_CEm) ? "Teléfono no es válido" : "",
+            });
+            return;
+        }
 
     swal({
       title: "¿Estás seguro?",
@@ -411,14 +432,14 @@ export default function ContactoEmergencia({ id, estado }) {
                 <div className="col-act">
                   <strong className="t-box-ver-4" >Nombre Completo</strong>
                 </div>
-                <div className="col-act">
-                  <strong className="t-box-ver-4" >Parentesco</strong>
-                </div>
-                <div className="col-act">
-                  <strong className="t-box-ver-4" >Teléfono</strong>
-                </div>
-                <div className="col-act">
-                  {/* Este espacio es para mantener la alineación */}
+                <div>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={() => setShowInsertForm(!showInsertForm)}
+                    >
+                        {showInsertForm ? "Cancelar" : "Agregar contacto"}
+                    </Button>
                 </div>
               </div>
 

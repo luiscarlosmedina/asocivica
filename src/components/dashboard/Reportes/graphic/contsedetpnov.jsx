@@ -18,22 +18,14 @@ export default function Contsedetpnov({ startDate, endDate, ltempresa }) {
     }, [startDate, endDate, ltempresa]);
 
     const fetchData = () => {
-        // Construye la URL con los parámetros de fecha
-        let apiUrl = `https://20.106.206.47/api_proyecto.github.io/api.php?apicall=repsedetpnov`;
-
-        // Agrega el tipo de novedad si se proporciona
-        if (startDate) {
-            apiUrl += `&startdate=${startDate}`;
-        }
-        if (endDate) {
-            apiUrl += `&enddate=${endDate}`;
-        }
-        // Agrega el tipo de novedad si se proporciona
-        if (ltempresa) {
-            apiUrl += `&ltempresa=${ltempresa}`;
-        }
-
-        fetch(apiUrl)
+        const arreglo = {ltempresa:ltempresa, startDate: startDate, endDate: endDate}
+        fetch(`http://localhost/api_sisinov/public/api/repsedetpnov`,{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(arreglo),
+        })
             .then((response) => response.json())
             .then((data) => {
                 setData(data);
