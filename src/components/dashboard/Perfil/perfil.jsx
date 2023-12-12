@@ -24,10 +24,16 @@ export default function Perfil() {
   }, []);
 
   const fetchData = () => {
-    fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=readperfil&id=${user.id_em}`)
+    fetch(`http://localhost/api_sisinov/public/api/readperfil`,{
+      method: 'POST',
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({id:user.id_em}),
+  })
       .then((response) => response.json())
       .then((data) => {
-        setEmpleado(data.contenido[0]);
+        setEmpleado(data.data[0]);
         setLoading(false);
       })
       .catch((error) => {
@@ -44,8 +50,8 @@ export default function Perfil() {
   };
 
   const handleSaveChanges = () => {
-    fetch(`https://20.106.206.47/api_proyecto.github.io/api.php?apicall=updateperfil`, {
-      method: "POST",
+    fetch(`http://localhost/api_sisinov/public/api/updateperfil`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
