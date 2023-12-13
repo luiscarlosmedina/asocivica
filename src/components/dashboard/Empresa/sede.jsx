@@ -178,7 +178,7 @@ export default function Sede({ id }) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({est_sed: estado}),
+      body: JSON.stringify({nToken:token, est_sed: estado}),
     })
       .then((response) => response.json())
       .then((responseData) => {
