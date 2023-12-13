@@ -5,13 +5,13 @@ import SignIn from "./components/signIn/SignIn";
 import { useAuth } from "./autenticate";
 
 function App() {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   return (
     <div className="wrapper">
       <HashRouter>
         <Routes>
-          <Route path="/*" element={user ? <Dashboard /> : <Navigate to="/login" />} />
-          <Route path="/login" element={user ? <Navigate to="/*" /> : <SignIn />} />
+          <Route path="/*" element={user && token ? <Dashboard /> : <Navigate to="/login" />} />
+          <Route path="/login" element={user && token ? <Navigate to="/*" /> : <SignIn />} />
         </Routes>
       </HashRouter>
     </div>

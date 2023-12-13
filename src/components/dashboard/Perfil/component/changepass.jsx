@@ -28,7 +28,7 @@ export default function Changepass({ id }) {
 
             const verifica = { "passw": password, "id_em": id };
 
-            const response = await fetch(`https://20.106.206.47/api_sisinov/public/api/verifpass`, {
+            const response = await fetch(`http://localhost/api_sisinov/public/api/verifpass`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ export default function Changepass({ id }) {
             const cambio = { "passw": newPassword, "id_em": id };
 
             if (user.id_em === id) {
-                const ress = await fetch(`https://20.106.206.47/api_sisinov/public/api/changepass`, {
+                const ress = await fetch(`http://localhost/api_sisinov/public/api/changepass`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

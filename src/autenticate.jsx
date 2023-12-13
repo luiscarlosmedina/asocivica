@@ -3,11 +3,13 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 const AuthContext = createContext({
   user: false,
   error: null,
+  token: null, 
 });
 
 export function AuthProvider({ children }) {
   const [user, setUsuario] = useState(true);
   const [error, setError] = useState(null);
+  const [token, setToken] = useState(null); 
 
   // Verificar si hay una sesión activa al cargar la aplicación
   useEffect(() => {
@@ -20,7 +22,7 @@ export function AuthProvider({ children }) {
   
   const login = async (doc, password) => {
     try {
-      //https://20.106.206.47/api_sisinov/public/api/login
+      //http://localhost/api_sisinov/public/api/login
       const response = await fetch("http://localhost/api_sisinov/public/api/login", {
         method: "POST",
         headers: {
@@ -32,9 +34,9 @@ export function AuthProvider({ children }) {
         const responseData = await response.json();
         if (responseData.error === false) {
           setUsuario(responseData.user);
-
-          // Almacena la información de autenticación en localStorage
           localStorage.setItem('user', JSON.stringify(responseData.user));
+          sessionStorage.setItem('token', responseData.token);
+          setToken(responseData.token);
         } else {
           setError("Credenciales inválidas, inténtelo nuevamente");
         }
@@ -52,10 +54,12 @@ export function AuthProvider({ children }) {
 
     // Borra la información de autenticación del localStorage al cerrar sesión
     localStorage.removeItem('user');
+    sessionStorage.removeItem('token');
+    setToken(null); 
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, error }}>
+    <AuthContext.Provider value={{ token, user, login, logout, error }}>
       {children}
     </AuthContext.Provider>
   );

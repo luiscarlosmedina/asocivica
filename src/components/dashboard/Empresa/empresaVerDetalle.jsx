@@ -30,7 +30,7 @@ export default function EmpresaVerDetalle() {
   //llamar los tipos de documentos
   const fetchDataDoc = () => {
     fetch(
-      `https://20.106.206.47/api_sisinov/public/api/tdoc`
+      `https://localhost/api_sisinov/public/api/tdoc`
     )
       .then((response) => response.json())
       .then((doc) => {
@@ -47,7 +47,7 @@ export default function EmpresaVerDetalle() {
   }, []);
 
   const fetchData = () => {
-    fetch(`https://20.106.206.47/api_sisinov/public/api/empresa/${empresaid}`)
+    fetch(`https://localhost/api_sisinov/public/api/empresa/${empresaid}`)
       .then((response) => response.json())
       .then((data) => {
         setEmpresa(data.data);

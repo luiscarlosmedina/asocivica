@@ -17,7 +17,7 @@ export default function NovedadForm({ onDataUpdate }) {
   //traer tipo de novedades
   const fetchDataTpnoedad = () => {
     fetch(
-      "https://20.106.206.47/api_sisinov/public/api/tpnov"
+      "http://localhost/api_sisinov/public/api/tpnov"
     )
       .then((response) => response.json())
       .then((tpnovedad) => {
@@ -42,7 +42,7 @@ export default function NovedadForm({ onDataUpdate }) {
   //traer listado de empresas
   const fetchDataEmpresa = () => {
     fetch(
-      "https://20.106.206.47/api_sisinov/public/api/novedadempresa"
+      "http://localhost/api_sisinov/public/api/novedadempresa"
     )
       .then((response) => response.json())
       .then((empresa) => {
@@ -56,7 +56,7 @@ export default function NovedadForm({ onDataUpdate }) {
   //traer listado de sedes correspondientes a la empresa seleccionada
   const fetchDataSede = (id_e) => {
     fetch(
-      `https://20.106.206.47/api_sisinov/public/api/novedadsede/${id_e}`
+      `http://localhost/api_sisinov/public/api/novedadsede/${id_e}`
     )
       .then((response) => response.json())
       .then((sede) => {
@@ -83,7 +83,7 @@ export default function NovedadForm({ onDataUpdate }) {
 
   const fetchDataEmpleado = () => {
     fetch(
-      "https://20.106.206.47/api_sisinov/public/api/novedadempleados"
+      "http://localhost/api_sisinov/public/api/novedadempleados"
     )
       .then((response) => response.json())
       .then((empleado) => {
@@ -127,7 +127,7 @@ export default function NovedadForm({ onDataUpdate }) {
     };
     console.log(novedad);
     //crear la novedad
-    fetch("https://20.106.206.47/api_sisinov/public/api/novedad", {
+    fetch("http://localhost/api_sisinov/public/api/novedad", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -214,7 +214,7 @@ export default function NovedadForm({ onDataUpdate }) {
     }
 
     fetch(
-      "https://20.106.206.47/api_sisinov/public/api/tpnov",
+      "http://localhost/api_sisinov/public/api/tpnov",
       {
         method: "POST",
         headers: {

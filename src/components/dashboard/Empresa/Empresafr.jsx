@@ -9,7 +9,7 @@ function Empresafr({ nit, est, resetForm }) {
     //llamar los tipos de documentos
     const fetchDataDoc = () => {
         fetch(
-            `https://20.106.206.47/api_sisinov/public/api/tdoc`
+            `http://localhost/api_sisinov/public/api/tdoc`
         )
             .then((response) => response.json())
             .then((doc) => {
@@ -222,7 +222,7 @@ function Empresafr({ nit, est, resetForm }) {
         };
 
         // Realizar la solicitud POST
-        fetch("https://20.106.206.47/api_sisinov/public/api/empresa", {
+        fetch("http://localhost/api_sisinov/public/api/empresa", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

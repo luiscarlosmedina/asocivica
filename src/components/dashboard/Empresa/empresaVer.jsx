@@ -31,7 +31,7 @@ export default function EmpresaVer({ dataUpdated }) {
   }, []);
 
   const fetchData = () => {
-    fetch(`${url}/empresas`)
+    fetch(`https://localhost/api_sisinov/public/api/empresas`)
       .then((response) => response.json())
       .then((data) => {
         setData(data.data);
