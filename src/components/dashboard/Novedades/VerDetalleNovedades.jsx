@@ -11,7 +11,7 @@ export default function VerDetalleNovedad() {
   const [loading, setLoading] = useState(true);
   const { novedadID } = useParams();
   const back = useNavigate();
-  const { user } = useAuth();
+  const { user, token } = useAuth();
 
   const [novedad, setNovedad] = useState({
     ID_Nov: "",
@@ -27,6 +27,7 @@ export default function VerDetalleNovedad() {
   });
 
   const [editedNovedad, setEditedNovedad] = useState({
+    nToken: token,
     ID_Nov: "",
     Des_Nov: "",
     id_em: "",
@@ -44,7 +45,13 @@ export default function VerDetalleNovedad() {
 
   const fetchData = () => {
     setLoading(true);
-    fetch(`http://localhost/api_sisinov/public/api/novedad/${novedadID}`)
+    fetch(`http://localhost/api_sisinov/public/api/novedad/${novedadID}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({nToken:token})
+    })
       .then((response) => response.json())
       .then((data) => {
         setNovedad(data.data);
@@ -57,13 +64,18 @@ export default function VerDetalleNovedad() {
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
         setLoading(false);
       });
   };
 
   const fetchMotorizadoOptions = () => {
-    fetch("http://localhost/api_sisinov/public/api/novedadempleados")
+    fetch("http://localhost/api_sisinov/public/api/novedadempleados", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({nToken:token})
+    })
       .then((response) => response.json())
       .then((data) => {
         setMotorizadoOptions(data.data);
@@ -74,7 +86,13 @@ export default function VerDetalleNovedad() {
   };
 
   const fetchTpNovOptions = () => {
-    fetch("http://localhost/api_sisinov/public/api/tpnov")
+    fetch("http://localhost/api_sisinov/public/api/tpnovs", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({nToken:token})
+    })
       .then((response) => response.json())
       .then((data) => {
         setTipoNovedadOptions(data.data);
@@ -86,7 +104,6 @@ export default function VerDetalleNovedad() {
 
   //funcion para guardar la edicion
   const handleSaveChanges = () => {
-    console.log(editedNovedad);
     // Validar que la descripción no esté vacía y no contenga scripts maliciosos
     if (editedNovedad.Des_Nov.trim() === "") {
       swal("Error!", "La descripción no puede estar vacía.", "error");
@@ -99,7 +116,6 @@ export default function VerDetalleNovedad() {
       swal("Error", "La descripción tiene un formato no valido.", "error");
       return;
     }
-    console.log(editedNovedad)
     fetch(`http://localhost/api_sisinov/public/api/novedad`, {
       method: 'PUT',
       headers: {
@@ -271,7 +287,7 @@ export default function VerDetalleNovedad() {
                   className="col-md-6 border-start border-4 border-primary vh-auto"
                   style={{ overflowY: "auto", maxHeight: "520px" }}
                 >
-                  {/* <Evidencia id={novedadID} /> */}
+                  <Evidencia id={novedadID} />
                 </div>
               </div>
               {editing && (

@@ -28,8 +28,9 @@ export default function Sede({ id }) {
   const [expandedSede, setExpandedSede] = useState(null);
   const [errors, setErrors] = useState({});
   const [showInsertForm, setShowInsertForm] = useState(false);
-  const {user} = useAuth();
+  const {user, token} = useAuth();
   const [nuevaSede, setNuevaSede] = useState({
+    nToken: token,
     Dic_S: '',
     Sec_V: '1', // Valor por defecto, puedes cambiarlo según tus necesidades
     id_e: id,
@@ -42,7 +43,13 @@ export default function Sede({ id }) {
 
   // Función para cargar datos
   const fetchData = () => {
-    fetch(`https://localhost/api_sisinov/public/api/sede/${id}`)
+    fetch(`http://localhost/api_sisinov/public/api/sede/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({nToken:token})
+    })
       .then((response) => response.json())
       .then((data) => {
         setData(data.data);
@@ -100,6 +107,7 @@ export default function Sede({ id }) {
       // Si todos los campos son válidos, procede a enviar los datos a la API
       const editedRow = data.find((row) => row.ID_S === id);
       editedRow[field] = newValue;
+      editedRow['nToken'] = token;
 
       fetch(`http://localhost/api_sisinov/public/api/sede/${id}`, {
         method: 'PUT',
@@ -213,6 +221,7 @@ export default function Sede({ id }) {
       .then((responseData) => {
         if (responseData) {
           setNuevaSede({
+            nToken: token,
             Dic_S: '',
             Sec_V: '1', // Restablece los valores predeterminados
             id_e: id,

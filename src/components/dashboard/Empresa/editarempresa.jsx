@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import swal from 'sweetalert';
+import { useAuth } from '../../../autenticate';
 
 export default function EditarE({ id, onUpdate }) {
     const [errors, setErrors] = useState({});
     const [close, setClose] = useState(" ");
-    const [doc, setDoc] = useState([])
+    const [doc, setDoc] = useState([]);
+    const { token } = useAuth();
 
     //llamar los tipos de documentos
     const fetchDataDoc = () => {
         fetch(
-            `http://localhost/api_sisinov/public/api/tdoc`
-        )
+            `http://localhost/api_sisinov/public/api/tdoc`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nToken: token })
+        })
             .then((response) => response.json())
             .then((doc) => {
                 setDoc(doc.data);
@@ -74,7 +81,13 @@ export default function EditarE({ id, onUpdate }) {
     };
 
     useEffect(() => {
-        fetch(`http://localhost/api_sisinov/public/api/empresa/${id}`)
+        fetch(`http://localhost/api_sisinov/public/api/empresa/${id}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({nToken:token})
+          })
             .then(response => response.json())
             .then(data => {
                 setEmpresa(data.data);
@@ -103,7 +116,8 @@ export default function EditarE({ id, onUpdate }) {
                 'Fh_Afi': empresa.Fh_Afi,
                 'fechaFinalizacion': empresa.fechaFinalizacion,
                 'COD_SE': empresa.COD_SE,
-                'COD_AE': empresa.COD_AE
+                'COD_AE': empresa.COD_AE,
+                "nToken": token
             };
 
             fetch(`http://localhost/api_sisinov/public/api/empresa/${id}`, {

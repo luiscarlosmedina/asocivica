@@ -8,7 +8,7 @@ export default function EmpresaVerDetalle() {
   const [loading, setLoading] = useState(true);
   const { empresaid } = useParams();
   const back = useNavigate();
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const [empresa, setEmpresa] = useState({
     id_e: "",
     Nit_E: "",
@@ -30,8 +30,13 @@ export default function EmpresaVerDetalle() {
   //llamar los tipos de documentos
   const fetchDataDoc = () => {
     fetch(
-      `https://localhost/api_sisinov/public/api/tdoc`
-    )
+      `http://localhost/api_sisinov/public/api/tdoc`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({nToken:token})
+      })
       .then((response) => response.json())
       .then((doc) => {
         setDoc(doc.data);
@@ -47,7 +52,13 @@ export default function EmpresaVerDetalle() {
   }, []);
 
   const fetchData = () => {
-    fetch(`https://localhost/api_sisinov/public/api/empresa/${empresaid}`)
+    fetch(`http://localhost/api_sisinov/public/api/empresa/${empresaid}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({nToken:token})
+    })
       .then((response) => response.json())
       .then((data) => {
         setEmpresa(data.data);

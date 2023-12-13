@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import TiempoTranscurrido from "./ComponentsFunction/TiempoTranscurrido";
 import FormateadorFecha from "./ComponentsFunction/FormateadorFecha";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../../autenticate";
 
 export default function VerNovedades({ dataUpdated }) {
   const [tpnovedad, setTpnovedad] = useState([]);
@@ -13,6 +14,7 @@ export default function VerNovedades({ dataUpdated }) {
   const [endDate, setEndDate] = useState("");
   const [tipoNovedad, setTipoNovedad] = useState(null);
   const [ltempresa, setLtempresa] = useState(null);
+  const { token } = useAuth()
 
   const handleStartDateChange = (e) => {
     setStartDate(e.target.value);
@@ -61,7 +63,13 @@ export default function VerNovedades({ dataUpdated }) {
 
   useEffect(() => {
     const fetchData = () => {
-      fetch(`http://localhost/api_sisinov/public/api/novedad`)
+      fetch(`http://localhost/api_sisinov/public/api/novedades`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nToken: token })
+      })
         .then((response) => response.json())
         .then((data) => {
           setData(data.data);
@@ -74,7 +82,13 @@ export default function VerNovedades({ dataUpdated }) {
     };
 
     const fetchDataTpnoedad = () => {
-      fetch("http://localhost/api_sisinov/public/api/tpnov")
+      fetch("http://localhost/api_sisinov/public/api/tpnovs", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({nToken:token})
+      })
         .then((response) => response.json())
         .then((tpnovedad) => {
           setTpnovedad(tpnovedad.data);
@@ -84,7 +98,13 @@ export default function VerNovedades({ dataUpdated }) {
         });
     };
     const fetchDataListempresa = () => {
-      fetch("https://localhost/api_sisinov/public/api/novedadempresa")
+      fetch("https://localhost/api_sisinov/public/api/novedadempresa", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({nToken:token})
+      })
         .then((response) => response.json())
         .then((listempresa) => {
           setListempresa(listempresa.data);

@@ -13,99 +13,48 @@ import {
 import swal from "sweetalert";
 import { useAuth } from "../../../autenticate";
 
+const initialState = {
+    Nombre_Tn: "",
+    descrip_Tn: "",
+};
 
 export default function Addnovedad() {
     const [data, setData] = useState([]);
-    const [newtpnovedad, setNewtpnovedad] = useState({
-        Nombre_Tn: "",
-        descrip_Tn: "",
-    });
-    const { user } = useAuth();
+    const [newtpnovedad, setNewtpnovedad] = useState(initialState);
+    const { user, token } = useAuth();
     const [showInsertForm, setShowInsertForm] = useState(false);
     const [editMode, setEditMode] = useState({});
-    const [errors, setErrors] = useState({}); // Estado para almacenar errores
+    const [errors, setErrors] = useState({});
 
-    const fetchData = () => {
-        fetch(`http://localhost/api_sisinov/public/api/tpnov`)
-            .then((response) => response.json())
-            .then((data) => {
-                setData(data.data);
-            })
-            .catch((error) => {
-                console.log(error);
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`http://localhost/api_sisinov/public/api/tpnovs`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nToken: token })
             });
+            const responseData = await response.json();
+            setData(responseData.data);
+        } catch (error) {
+            console.error(error);
+        }
     };
-
 
     const handleInputChange = (e, T_Nov, fieldName) => {
         const { value } = e.target;
-        const newData = data.map((item) => {
-            if (item.T_Nov === T_Nov) {
-                return { ...item, [fieldName]: value };
-            }
-            return item;
-        });
+        const newData = data.map((item) => (item.T_Nov === T_Nov ? { ...item, [fieldName]: value } : item));
         setData(newData);
     };
 
-    const saveEnc = async (T_Nov, updatedEncargado) => {
-        // Reiniciar los errores antes de realizar una nueva validación
+    const saveEnc = async (T_Nov, updatednovedad) => {
         setErrors({});
 
-        // Validación básica antes de enviar datos al servidor
-        if (!newtpnovedad.Nombre_Tn || !newtpnovedad.descrip_Tn) {
-            // Mostrar errores
+        if (!updatednovedad.Nombre_Tn || !updatednovedad.descrip_Tn) {
             setErrors({
-                Tipo_Novedad: !newtpnovedad.Nombre_Tn ? "Campo es requerido" : "",
-                descripcion: !newtpnovedad.descrip_Tn ? "Campo es requerido" : "",
-            });
-            return;
-        }
-        try {
-            const response = await fetch(`http://localhost/api_sisinov/public/api/updatetpnovedad`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(updatedEncargado),
-            });
-            const responseData = await response.json();
-
-            if (responseData) {
-                fetchData();
-                // Desactivar el modo de edición
-                setEditMode({
-                    ...editMode,
-                    [T_Nov]: false,
-                });
-
-                // Quitar mensaje de error si existe
-                setErrors({ ...errors, [`N_En_${T_Nov}`]: "", [`tel1_${T_Nov}`]: "", [`tel2_${T_Nov}`]: "", [`tel3_${T_Nov}`]: "" });
-            }
-        } catch (error) {
-            swal("Error!", "Tipo de novedad ya existe", "error");
-            console.error("Error:", error);
-        }
-    };
-
-    const editeTpnov = (T_Nov) => {
-        // Activar el modo de edición para el contacto de emergencia
-        setEditMode({
-            ...editMode,
-            [T_Nov]: true,
-        });
-    };
-
-    const handleInsertSubmit = async () => {
-        // Reiniciar los errores antes de realizar una nueva validación
-        setErrors({});
-
-        // Validación básica antes de enviar datos al servidor
-        if (!newtpnovedad.Nombre_Tn || !newtpnovedad.descrip_Tn) {
-            // Mostrar errores
-            setErrors({
-                Tipo_Novedad: !newtpnovedad.Nombre_Tn ? "Campo es requerido" : "",
-                descripcion: !newtpnovedad.descrip_Tn ? "Campo es requerido" : "",
+                Nombre_Tn: !updatednovedad.Nombre_Tn ? "Campo es requerido" : "",
+                descrip_Tn: !updatednovedad.descrip_Tn ? "Campo es requerido" : "",
             });
             return;
         }
@@ -116,17 +65,55 @@ export default function Addnovedad() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify(updatednovedad),
+            });
+            const responseData = await response.json();
+
+            if (responseData) {
+                fetchData();
+                setEditMode({
+                    ...editMode,
+                    [T_Nov]: false,
+                });
+                setErrors({ ...errors, [`N_En_${T_Nov}`]: "", [`tel1_${T_Nov}`]: "", [`tel2_${T_Nov}`]: "", [`tel3_${T_Nov}`]: "" });
+            }
+        } catch (error) {
+            swal("Error!", "Tipo de novedad ya existe", "error");
+            console.error("Error:", error);
+        }
+    };
+
+    const editeTpnov = (T_Nov) => {
+        setEditMode({
+            ...editMode,
+            [T_Nov]: true,
+        });
+    };
+
+    const handleInsertSubmit = async () => {
+        setErrors({});
+
+        if (!newtpnovedad.Nombre_Tn || !newtpnovedad.descrip_Tn) {
+            setErrors({
+                Nombre_Tn: !newtpnovedad.Nombre_Tn ? "Campo es requerido" : "",
+                descrip_Tn: !newtpnovedad.descrip_Tn ? "Campo es requerido" : "",
+            });
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost/api_sisinov/public/api/tpnovs`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify(newtpnovedad),
             });
             const responseData = await response.json();
 
             if (responseData) {
                 fetchData();
-                // Restablecer los campos del formulario después de la inserción
-                setNewtpnovedad({
-                    Nombre_Tn: "",
-                    descrip_Tn: "",
-                });
+                setNewtpnovedad(initialState);
                 setShowInsertForm(false);
             }
         } catch (error) {
@@ -141,19 +128,21 @@ export default function Addnovedad() {
 
     return (
         <div className="my-3">
-            <div className='d-flex justify-content-between align-items-center'>
+            <div className="d-flex justify-content-between align-items-center">
                 <div>
-                    <p className="t h2 mb-4  mt-3">Tipos de novedades</p>
+                    <p className="t h2 mb-4 mt-3">Tipos de novedades</p>
                 </div>
-                {user.ID_rol !== 3 ? <div>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        onClick={() => setShowInsertForm(!showInsertForm)}
-                    >
-                        {showInsertForm ? "Cancelar" : "Agregar"}
-                    </Button>
-                </div> : ""}
+                {user.ID_rol !== 3 && (
+                    <div>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            onClick={() => setShowInsertForm(!showInsertForm)}
+                        >
+                            {showInsertForm ? "Cancelar" : "Agregar"}
+                        </Button>
+                    </div>
+                )}
             </div>
             <div className={`mb-1 mt-1 borsupd border-3 `}></div>
             {showInsertForm && (
@@ -171,10 +160,8 @@ export default function Addnovedad() {
                                         onChange={(e) => setNewtpnovedad({ ...newtpnovedad, Nombre_Tn: e.target.value })}
                                         onBlur={() => {
                                             if (!newtpnovedad.Nombre_Tn) {
-                                                // Establecer error
                                                 setErrors({ ...errors, Nombre_Tn: "tipo de novedad es requerido" });
                                             } else {
-                                                // Quitar mensaje de error si se cumple la validación
                                                 setErrors({ ...errors, Nombre_Tn: "" });
                                             }
                                         }}
@@ -191,7 +178,6 @@ export default function Addnovedad() {
                                         onChange={(e) => setNewtpnovedad({ ...newtpnovedad, descrip_Tn: e.target.value })}
                                         onBlur={() => {
                                             if (!newtpnovedad.descrip_Tn) {
-                                                // Establecer error
                                                 setErrors({ ...errors, descrip_Tn: "Campo es requerido" });
                                             }
                                         }}
@@ -220,7 +206,7 @@ export default function Addnovedad() {
                         <TableRow>
                             <TableCell>Tipo</TableCell>
                             <TableCell>Descripcion</TableCell>
-                            {user.ID_rol !== 3 ? <TableCell>Mas opciones</TableCell> : ""}
+                            {user.ID_rol !== 3 && <TableCell>Mas opciones</TableCell>}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -233,14 +219,12 @@ export default function Addnovedad() {
                                             label="Tipo de novedad"
                                             variant="outlined"
                                             size="small"
-                                            value={item.Tipo_Novedad}
+                                            value={item.Nombre_Tn}
                                             onChange={(e) => handleInputChange(e, item.T_Nov, "Tipo_Novedad")}
                                             onBlur={() => {
-                                                if (!item.Tipo_Novedad) {
-                                                    // Establecer error
+                                                if (!item.Nombre_Tn) {
                                                     setErrors({ ...errors, [`Tipo_Novedad_${item.T_Nov}`]: "Nombre encargado es requerido" });
                                                 } else {
-                                                    // Quitar mensaje de error si se cumple la validación
                                                     setErrors({ ...errors, [`Tipo_Novedad_${item.T_Nov}`]: "" });
                                                 }
                                             }}
@@ -257,14 +241,12 @@ export default function Addnovedad() {
                                             name="descripcion"
                                             label="descripcion"
                                             variant="outlined"
-                                            value={item.descripcion}
+                                            value={item.descrip_Tn}
                                             onChange={(e) => handleInputChange(e, item.T_Nov, "descripcion")}
                                             onBlur={() => {
-                                                if (!item.descripcion) {
-                                                    // Establecer error
+                                                if (!item.descrip_Tn) {
                                                     setErrors({ ...errors, [`descripcion_${item.T_Nov}`]: "Campo es requerido" });
                                                 } else {
-                                                    // Quitar mensaje de error si se cumple la validación
                                                     setErrors({ ...errors, [`descripcion_${item.T_Nov}`]: "" });
                                                 }
                                             }}
@@ -275,39 +257,45 @@ export default function Addnovedad() {
                                         item.descrip_Tn
                                     )}
                                 </TableCell>
-                                {user.ID_rol !== 3 ? <TableCell>
-                                    {editMode[item.T_Nov] ? (
-                                        <>
-                                            <Button
-                                                variant="contained"
-                                                color="primary"
-                                                onClick={() => saveEnc(item.T_Nov, {
-                                                    T_Nov: item.T_Nov,
-                                                    Nombre_Tn: item.Tipo_Novedad,
-                                                    descrip_Tn: item.descripcion,
-                                                })}
-                                            >
-                                                Guardar
-                                            </Button>
-                                            <Button
-                                                color="primary"
-                                                onClick={() => !setEditMode(item.T_Nov)}
-                                            >
-                                                Cancelar
-                                            </Button>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Button
-                                                variant="contained"
-                                                color="info"
-                                                onClick={() => editeTpnov(item.T_Nov)}
-                                            >
-                                                Editar
-                                            </Button>
-                                        </>
-                                    )}
-                                </TableCell> : ""}
+                                {user.ID_rol !== 3 && (
+                                    <TableCell>
+                                        {editMode[item.T_Nov] ? (
+                                            <>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={() => saveEnc(item.T_Nov, {
+                                                        nToken: token,
+                                                        T_Nov: item.T_Nov,
+                                                        Nombre_Tn: item.Nombre_Tn,  // Usar item.Nombre_Tn en lugar de item.Tipo_Novedad
+                                                        descrip_Tn: item.descrip_Tn,
+                                                    })}
+                                                >
+                                                    Guardar
+                                                </Button>
+                                                <Button
+                                                    color="primary"
+                                                    onClick={() => setEditMode({
+                                                        ...editMode,
+                                                        [item.T_Nov]: false,  // Configurar correctamente el modo de edición a false
+                                                    })}
+                                                >
+                                                    Cancelar
+                                                </Button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Button
+                                                    variant="contained"
+                                                    color="info"
+                                                    onClick={() => editeTpnov(item.T_Nov)}
+                                                >
+                                                    Editar
+                                                </Button>
+                                            </>
+                                        )}
+                                    </TableCell>
+                                )}
                             </TableRow>
                         ))}
                     </TableBody>

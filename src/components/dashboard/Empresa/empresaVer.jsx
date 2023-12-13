@@ -9,14 +9,14 @@ import {
   TableRow,
   Paper,
   CircularProgress,
-  Button,
   TextField,
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
+import { useAuth } from "../../../autenticate";
 
 export default function EmpresaVer({ dataUpdated }) {
-  const url = process.env.REACT_APP_BACK_RUT;
+  const { token } = useAuth();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,7 +31,13 @@ export default function EmpresaVer({ dataUpdated }) {
   }, []);
 
   const fetchData = () => {
-    fetch(`https://localhost/api_sisinov/public/api/empresas`)
+    fetch(`http://localhost/api_sisinov/public/api/empresas`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({nToken:token})
+    })
       .then((response) => response.json())
       .then((data) => {
         setData(data.data);

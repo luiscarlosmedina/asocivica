@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import swal from 'sweetalert';
+import { useAuth } from '../../../autenticate';
 
 function Empresafr({ nit, est, resetForm }) {
     const fecha = new Date()
     const hoy = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate()
     const [doc, setDoc] = useState([])
+    const { token } = useAuth();
 
     //llamar los tipos de documentos
     const fetchDataDoc = () => {
         fetch(
-            `http://localhost/api_sisinov/public/api/tdoc`
-        )
+            `http://localhost/api_sisinov/public/api/tdoc`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nToken: token })
+        })
             .then((response) => response.json())
             .then((doc) => {
                 setDoc(doc.data);
@@ -25,6 +32,7 @@ function Empresafr({ nit, est, resetForm }) {
     }, []);
     //definir la estructura del json que se envia a la api
     const [empresa, setEmpresa] = useState({
+        nToken: token,
         Nit_E: "",
         Nom_E: "",
         Eml_E: "",
@@ -205,6 +213,7 @@ function Empresafr({ nit, est, resetForm }) {
         }
         // Crear un objeto para enviar los datos
         const data = {
+            nToken: token,
             Nit_E: nit,
             Nom_E: empresa.Nom_E,
             Eml_E: empresa.Eml_E,
@@ -242,7 +251,7 @@ function Empresafr({ nit, est, resetForm }) {
             })
             .catch((error) => {
                 console.error("Error al enviar la solicitud:", error);
-                swal("Algo salio mal!", `error ${error}`, "error");
+                swal("Algo salio mal!", `error`, "error");
             });
 
         // Limpia el formulario después de enviar
@@ -276,8 +285,6 @@ function Empresafr({ nit, est, resetForm }) {
                 }
             ]
         });
-
-
     };
 
     //agrega array de sede a empresa

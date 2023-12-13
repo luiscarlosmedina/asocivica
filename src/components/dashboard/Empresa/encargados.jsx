@@ -14,8 +14,9 @@ import { useAuth } from "../../../autenticate";
 
 export default function Encargados({ id }) {
   const [data, setData] = useState([]);
-  const {user} = useAuth()
+  const {user, token} = useAuth()
   const [newEncargado, setNewEncargado] = useState({
+    nToken: token,
     ID_S: id,
     Est_en: "0",
     N_En: "",
@@ -28,7 +29,13 @@ export default function Encargados({ id }) {
   const [errors, setErrors] = useState({}); // Estado para almacenar errores
 
   const fetchData = () => {
-    fetch(`http://localhost/api_sisinov/public/api/telsede/${id}`)
+    fetch(`http://localhost/api_sisinov/public/api/telsede/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({nToken:token})
+    })
       .then((response) => response.json())
       .then((data) => {
         // Filtrar encargados activos (Est_en === "0")
@@ -100,7 +107,7 @@ export default function Encargados({ id }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({Est_en: '1'}),
+        body: JSON.stringify({Est_en: '1', nToken : token}),
       });
 
       const responseData = await response.json();
@@ -408,6 +415,7 @@ export default function Encargados({ id }) {
                     <Button
                       color="primary"
                       onClick={() => saveEnc(item.ID_En, {
+                        nToken: token,
                         N_En: item.N_En,
                         tel1: item.tel1,
                         tel2: item.tel2,

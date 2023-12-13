@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import swal from 'sweetalert';
+import { useAuth } from '../../../autenticate';
 
 function Empresarapidofr({ nit, est, resetForm }) {
     const fecha = new Date();
     const hoy = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate();
+    const {token} = useAuth();
 
     const [empresa, setEmpresa] = useState({
         Nit_E: "",
@@ -72,6 +74,7 @@ function Empresarapidofr({ nit, est, resetForm }) {
 
         // Crear un objeto para enviar los datos
         const data = {
+            nToken: token,
             Nit_E: nit,
             Nom_E: empresa.Nom_E,
             Eml_E: empresa.Eml_E,

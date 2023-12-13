@@ -12,12 +12,18 @@ export default function Verificaempresa() {
     const [loading, setLoading] = useState(false);
     const [tpform, setTpform] = useState("0");
     const navega = useNavigate();
-    const { user } = useAuth()
+    const { user, token } = useAuth()
 
     const fetchData = async (nit) => {
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost/api_sisinov/public/api/empresas/${nit}`);
+            const response = await fetch(`http://localhost/api_sisinov/public/api/empresas/${nit}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nToken: token })
+            });
             const data = await response.json();
 
             if (data.contenido !== null) {

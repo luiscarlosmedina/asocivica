@@ -3,13 +3,20 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 const AuthContext = createContext({
   user: false,
   error: null,
-  token: null, 
+  token: null,
 });
 
 export function AuthProvider({ children }) {
-  const [user, setUsuario] = useState(true);
+  const [user, setUsuario] = useState(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
   const [error, setError] = useState(null);
-  const [token, setToken] = useState(null); 
+  const [token, setToken] = useState(() => {
+    const storedToken = sessionStorage.getItem('token');
+    return storedToken ? storedToken : null;
+  });
+
 
   // Verificar si hay una sesión activa al cargar la aplicación
   useEffect(() => {
@@ -19,7 +26,7 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  
+
   const login = async (doc, password) => {
     try {
       //http://localhost/api_sisinov/public/api/login
@@ -41,10 +48,10 @@ export function AuthProvider({ children }) {
           setError("Credenciales inválidas, inténtelo nuevamente");
         }
       } else {
-        setError("Hubo un error, inténtelo más tarde");
+        setError("Credenciales inválidas, inténtelo nuevamente");
       }
     } catch (error) {
-      setError("Hubo un error, inténtelo más tarde");
+      setError("Credenciales inválidas, inténtelo nuevamente");
     }
   };
 
@@ -55,7 +62,7 @@ export function AuthProvider({ children }) {
     // Borra la información de autenticación del localStorage al cerrar sesión
     localStorage.removeItem('user');
     sessionStorage.removeItem('token');
-    setToken(null); 
+    setToken(null);
   };
 
   return (

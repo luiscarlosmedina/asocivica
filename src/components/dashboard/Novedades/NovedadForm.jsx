@@ -8,7 +8,7 @@ export default function NovedadForm({ onDataUpdate }) {
   const [tpnovedad, setTpnovedad] = useState([]);
   const [showSelects, setShowSelects] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const {user} = useAuth();
+  const { user, token } = useAuth();
 
   useEffect(() => {
     fetchDataTpnoedad();
@@ -17,8 +17,14 @@ export default function NovedadForm({ onDataUpdate }) {
   //traer tipo de novedades
   const fetchDataTpnoedad = () => {
     fetch(
-      "http://localhost/api_sisinov/public/api/tpnov"
-    )
+      "http://localhost/api_sisinov/public/api/tpnovs"
+      , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nToken: token })
+      })
       .then((response) => response.json())
       .then((tpnovedad) => {
         setTpnovedad(tpnovedad.data);
@@ -42,8 +48,13 @@ export default function NovedadForm({ onDataUpdate }) {
   //traer listado de empresas
   const fetchDataEmpresa = () => {
     fetch(
-      "http://localhost/api_sisinov/public/api/novedadempresa"
-    )
+      "http://localhost/api_sisinov/public/api/novedadempresa", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ nToken: token })
+    })
       .then((response) => response.json())
       .then((empresa) => {
         setEmpresa(empresa.data);
@@ -56,8 +67,13 @@ export default function NovedadForm({ onDataUpdate }) {
   //traer listado de sedes correspondientes a la empresa seleccionada
   const fetchDataSede = (id_e) => {
     fetch(
-      `http://localhost/api_sisinov/public/api/novedadsede/${id_e}`
-    )
+      `http://localhost/api_sisinov/public/api/novedadsede/${id_e}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ nToken: token })
+    })
       .then((response) => response.json())
       .then((sede) => {
         setSede(sede.data);
@@ -83,8 +99,13 @@ export default function NovedadForm({ onDataUpdate }) {
 
   const fetchDataEmpleado = () => {
     fetch(
-      "http://localhost/api_sisinov/public/api/novedadempleados"
-    )
+      "http://localhost/api_sisinov/public/api/novedadempleados", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({nToken:token})
+      })
       .then((response) => response.json())
       .then((empleado) => {
         setEmpleado(empleado.data);
@@ -95,7 +116,7 @@ export default function NovedadForm({ onDataUpdate }) {
   };
   //configurar fecha
   const fecha = new Date()
-  const hoy =fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate() + " " + fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds();
+  const hoy = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate() + " " + fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds();
 
   //funcion para enviar a api
   const [T_Nov, setT_Nov] = useState(null);
@@ -117,12 +138,13 @@ export default function NovedadForm({ onDataUpdate }) {
 
     // datos para crear la novedad
     const novedad = {
+      nToken:token,
       T_Nov,
       Dic_Nov,
       Des_Nov,
       id_em,
       ID_S,
-      Fe_Nov : hoy,
+      Fe_Nov: hoy,
       adjuntos,
     };
     console.log(novedad);
@@ -209,12 +231,13 @@ export default function NovedadForm({ onDataUpdate }) {
     }
 
     const newNovedad = {
+      "nToken": token,
       "Nombre_Tn": tipoNovedad,
       "descrip_Tn": descripcion,
     }
 
     fetch(
-      "http://localhost/api_sisinov/public/api/tpnov",
+      "http://localhost/api_sisinov/public/api/tpnovs",
       {
         method: "POST",
         headers: {
@@ -544,7 +567,7 @@ export default function NovedadForm({ onDataUpdate }) {
             >
               Cancelar
             </button>
-            {user.ID_rol !== 3 ?<button type="submit" class="btn btn-primary mb-4 me-4">
+            {user.ID_rol !== 3 ? <button type="submit" class="btn btn-primary mb-4 me-4">
               Registrar novedad
             </button> : <p>Su rol no tiene acceso a esta funcionalidad</p>}
           </div>
