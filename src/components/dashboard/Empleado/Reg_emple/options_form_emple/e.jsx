@@ -17,13 +17,6 @@ function EEmple(props) {
         }
         break;
 
-      /*case "f_em":
-        if (!valorCampo) {
-          nuevosErrores.f_em = "Por favor, carga una foto del empleado.";
-        } else {
-          delete nuevosErrores.f_em;
-        }
-        break;*/
 
       default:
         break;
@@ -33,24 +26,16 @@ function EEmple(props) {
     return Object.keys(nuevosErrores).length === 0;
   };
 
- /*const handleFileChange = (e) => {
-    const datofoto = e.target.files[0];
-    handleInputChange({
-      target: {
-        name: 'f_em',
-        value: datofoto.name,
-      },
-    });
-    validarCampo("f_em", datofoto);
-  };*/
   
-  
+
   const validarcampose = () => {
+
     const campos = ["contrato"];
     const documentosValidos = campos.every((campo) => validarCampo(campo, valores[campo]));
 
     if (documentosValidos) {
       siguientePaso();
+      console.log(valores)
       
     } else {
       swal("¡Completa los campos!", "Por favor, verifica los campos para seguir con el proceso...", "error");
@@ -69,6 +54,7 @@ function EEmple(props) {
                 Contrato
               </label>
               <input
+              placeholder="Enlace al documento del contrato"
                 type="text"
                 name="contrato"
                 className={`form-control ${errores.contrato ? "is-invalid" : valores.contrato ? "is-valid" : ""}`}
@@ -80,8 +66,6 @@ function EEmple(props) {
               />
               <div className="invalid-feedback">{errores.contrato}</div>
             </div>
-           
-
             <div className="espbots">
               <div className="float-end">
                 <button className="btnfs btn btn-primary" onClick={validarcampose}>

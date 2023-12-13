@@ -12,7 +12,6 @@ export default function ContactoEmergencia({ id, estado }) {
     fetchData();
   }, []);
 
-
   // Estado para almacenar la lista de contactos de emergencia
   const [data, setData] = useState([
     {
@@ -22,7 +21,6 @@ export default function ContactoEmergencia({ id, estado }) {
       t_cem: ""
     }
   ]);
-
 
   // Estdo para manejar la edición
   const [isEditing, setIsEditing] = useState(false);
@@ -34,7 +32,6 @@ export default function ContactoEmergencia({ id, estado }) {
     setIsEditing(true);
     setEditingIndex(index);
   };
-
 
   // Obtener y cambiar el estado para cancelar
   const cancelarEdicion = () => {
@@ -70,7 +67,7 @@ export default function ContactoEmergencia({ id, estado }) {
       }),
 
     };
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=createcontemg`, requestOptions)
+    fetch(`https://localhost/api_sisinov/public/api/createcontemg`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -87,11 +84,11 @@ export default function ContactoEmergencia({ id, estado }) {
 
   // Obtener la lista de contactos de emergencia
   const fetchData = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readcontemg&id=${id}`)
+    fetch(`https://localhost/api_sisinov/public/api/readcontemg/${id}`)
       .then((response) => response.json())
       .then((result) => {
         if (!result.error) {
-          setData(result.contenido);
+          setData(result.data);
         } else {
           console.error(result.message);
         }
@@ -113,7 +110,7 @@ export default function ContactoEmergencia({ id, estado }) {
       body: JSON.stringify(contactoActualizado),
     };
 
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updatecontemg`, requestOptions)
+    fetch(`https://localhost/api_sisinov/public/api/updatecontemg`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -232,8 +229,6 @@ export default function ContactoEmergencia({ id, estado }) {
       });
   };
 
-
- 
 
   // Validar campos antes de agregar un nuevo contacto
   const validarcamposc = () => {
@@ -465,14 +460,14 @@ export default function ContactoEmergencia({ id, estado }) {
                           <>
                             <div className="col-6" onClick={() => validarEditar(index)}>
                               <button className="btn btnfs btn-primary editar-btn">
-                                <i className="bi bi-pencil-square editar-icon"></i>
+                                <i className="bi bi-arrow-down-square editar-icon"></i>
                                 Guardar
                               </button>
                             </div>
 
                             <div className="col-6" onClick={() => cancelarEdicion()}>
-                              <button className="btn btnfs btn-primary editar-btn">
-                                <i className="bi bi-trash eliminar-icon"></i>
+                              <button className="btn btnfd btn-primary eliminar-btn">
+                                <i className="bi bi-x-square eliminar-icon"></i>
                                 Cancelar
                               </button>
                             </div>

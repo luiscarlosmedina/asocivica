@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { useAuth } from "../../../autenticate";
 
+
 export default function EmpleadoVer({ dataUpdated }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,11 +34,12 @@ export default function EmpleadoVer({ dataUpdated }) {
     fetch(`http://localhost/api_sisinov/public/api/readminempleado`)
       .then((response) => response.json())
       .then((data) => {
-        setData(data.data);
+        //setData(data.data); LARAVEL
+        setData(data.contenido);
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        console.error('Error en la solicitud fetch:', error);
         setLoading(false);
       });
   };

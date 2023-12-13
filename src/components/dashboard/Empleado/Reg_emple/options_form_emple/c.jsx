@@ -1,76 +1,125 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import swal from 'sweetalert';
 
 function CEmple(props) {
   const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
   const [errores, setErrores] = useState({});
 
-  const epsOptions = {
-
-    "": 'Selecione un tipo de eps',
-    1: 'COOSALUD EPS-S',
-    2: 'NUEVA EPS',
-    3: 'MUTUAL SER',
-    4: 'ALIANSALUD EPS',
-    5: 'SALUD TOTAL EPS S.A.',
-    6: 'EPS SANITAS',
-    7: 'EPS SURA',
-    8: 'FAMISANAR',
-    9: 'SERVICIO OCCIDENTAL DE SALUD EPS SOS',
-    10: 'SALUD MIA',
-    11: 'COMFENALCO VALLE',
-    12: 'COMPENSAR EPS',
-    13: 'EPM - EMPRESAS PUBLICAS DE MEDELLIN',
-    14: 'FONDO DE PASIVO SOCIAL DE FERROCARRILES NACIONALES...',
-    15: 'CAJACOPI ATLANTICO',
-    16: 'CAPRESOCA',
-    17: 'COMFACHOCO',
-    18: 'COMFAORIENTE',
-    19: 'EPS FAMILIAR DE COLOMBIA',
-    20: 'ASMET SALUD',
-    21: 'EMSSANAR E.S.S.',
-    22: 'CAPITAL SALUD EPS-S',
-    23: 'SAVIA SALUD EPS',
-    24: 'DUSAKAWI EPSI',
-    25: 'ASOCIACION INDIGENA DEL CAUCA EPSI',
+  //TIPO EPS  ---------------------------------------------------------------------------------------
+  const [epsOptions, setepsOptions] = useState([]);
+  useEffect(() => {
+    fetchDataTpeps();
+  }, []);
+  // read eps ------------------------
+  const fetchDataTpeps = () => {
+    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtpeps")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          console.error("Error en la respuesta de la API:", data.message);
+          // Puedes manejar el error de alguna manera si es necesario
+        } else if (Array.isArray(data.contenido)) {
+          setepsOptions(data.contenido);
+        } else {
+          console.error("El contenido de la respuesta no es un array:", data.contenido);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al realizar la solicitud:", error);
+        // Puedes manejar el error de alguna manera si es necesario
+      });
   };
+  // read eps ------------------------
+  //TIPO EPS  ---------------------------------------------------------------------------------------
 
-  const penOptions = {
-    "": 'Selecione un fondo de pension',
-    1: 'COLFONDOS',
-    2: 'PORVENIR',
-    3: 'PROTECCIÓN',
-    4: 'SKANDIA',
-    5: 'COLPENSIONES',
+
+  //TIPO CESANTIAS ---------------------------------------------------------------------------------------
+  const [cesOptions, setcesOptions] = useState([]);
+  useEffect(() => {
+    fetchDataTpces();
+  }, [])
+  // read ces ------------------------
+  const fetchDataTpces = () => {
+    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtces")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          console.error("Error en la respuesta de la API:", data.message);
+          // Puedes manejar el error de alguna manera si es necesario
+        } else if (Array.isArray(data.contenido)) {
+          setcesOptions(data.contenido);
+        } else {
+          console.error("El contenido de la respuesta no es un array:", data.contenido);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al realizar la solicitud:", error);
+        // Puedes manejar el error de alguna manera si es necesario
+      });
   };
+  // read ces ------------------------
+  //TIPO CESANTIAS  ---------------------------------------------------------------------------------------
 
-  const cesOptions = {
-    "": 'Selecione un fondo de cesantias',
-    1: 'COLFONDOS',
-    2: 'PORVENIR',
-    3: 'PROTECCIÓN',
-    4: 'SKANDIA',
-    5: 'FONDO NACIONAL DEL AHORRO',
+  //TIPO PENSIONES ---------------------------------------------------------------------------------------
+  const [penOptions, setPenOptions] = useState([]);
+  useEffect(() => {
+    fetchDataTpen();
+  }, [])
+  // read pens ------------------------
+  const fetchDataTpen = () => {
+    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtppens")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          console.error("Error en la respuesta de la API:", data.message);
+          // Puedes manejar el error de alguna manera si es necesario
+        } else if (Array.isArray(data.contenido)) {
+          setPenOptions(data.contenido);
+        } else {
+          console.error("El contenido de la respuesta no es un array:", data.contenido);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al realizar la solicitud:", error);
+        // Puedes manejar el error de alguna manera si es necesario
+      });
   };
+  // read pens ------------------------
+  //TIPO PENSIONES  ---------------------------------------------------------------------------------------
 
-  const arlOptions = {
-    "": 'Selecione un tipo de arl',
-    1: 'ARL POSITIVA',
-    2: 'SEGUROS BOLÍVAR S.A',
-    3: 'SEGUROS DE VIDA AURORA S.A',
-    4: 'LIBERTY SEGUROS DE VIDA',
-    5: 'MAPFRE COLOMBIA VIDA SEGUROS S.A.',
-    6: 'RIESGOS LABORALES COLMENA',
-    7: 'SEGUROS DE VIDA ALFA S.A',
-    8: 'SEGUROS DE VIDA COLPATRIA S.A',
-    9: 'SEGUROS DE VIDA LA EQUIDAD ORGANISMO C.',
-    10: 'SURA - CIA. SURAMERICANA DE SEGUROS DE VIDA',
 
+
+  //TIPO ARL  ---------------------------------------------------------------------------------------
+  const [arlOptions, setArlOptions] = useState([]);
+  useEffect(() => {
+    fetchDataTparl();
+  }, [])
+  // read arls ------------------------
+  const fetchDataTparl = () => {
+    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtparl")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          console.error("Error en la respuesta de la API:", data.message);
+          // Puedes manejar el error de alguna manera si es necesario
+        } else if (Array.isArray(data.contenido)) {
+          setArlOptions(data.contenido);
+        } else {
+          console.error("El contenido de la respuesta no es un array:", data.contenido);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al realizar la solicitud:", error);
+        // Puedes manejar el error de alguna manera si es necesario
+      });
   };
+  // read arls ------------------------
+  //TIPO ARL  ---------------------------------------------------------------------------------------
+
+
 
 
   const validarcamposc = () => {
-    //console.log("prueba si pasa")
     let campos = ["lib_em", "lic_emp", "id_eps", "id_pens", "id_ces", "id_arl"];
     let documentosValidos = true;
     campos.forEach((campo) => {
@@ -92,6 +141,7 @@ function CEmple(props) {
     const nuevosErrores = { ...errores };
 
     switch (nombreCampo) {
+
       case "lib_em":
         if (
           valorCampo !== "Primera clase" &&
@@ -100,11 +150,13 @@ function CEmple(props) {
           valorCampo !== "No aplica"
         ) {
           nuevosErrores.lib_em =
-            "Por favor, seleccione un tipo de documento válido";
+            "Por favor, seleccione un tipo de libreta militar válido";
         } else {
           delete nuevosErrores.lib_em;
         }
         break;
+
+
 
       case "lic_emp":
         if (
@@ -113,51 +165,62 @@ function CEmple(props) {
           valorCampo !== "En proceso" &&
           valorCampo !== "No aplica"
         ) {
-          nuevosErrores.lib_em =
-            "Por favor, seleccione una opcion válida";
+          nuevosErrores.lic_emp =
+            "Por favor, seleccione una opción válida";
         } else {
           delete nuevosErrores.lic_emp;
         }
         break;
 
+
       case "id_eps":
-        const valorNumero = parseInt(valorCampo, 10);
-        if (!(valorNumero in epsOptions)) {
+        const valorNumeroEPS = parseInt(valorCampo, 10);
+        const idsDeEPS = epsOptions.map(eps => eps.ID_eps);
+
+        if (!idsDeEPS.includes(valorNumeroEPS)) {
           nuevosErrores.id_eps = "Por favor, seleccione un tipo de EPS válido";
         } else {
           delete nuevosErrores.id_eps;
         }
         break;
 
-        case "id_pens":
-          const valorNumeroPens = parseInt(valorCampo, 10);
-          if (!(valorNumeroPens in penOptions)) {
-            nuevosErrores.id_pens = "Por favor, seleccione un fondo de pensión válido";
-          } else {
-            delete nuevosErrores.id_pens;
-          }
-          break;
-        
 
-          case "id_ces":
-            const valorNumeroCes = parseInt(valorCampo, 10);
-            if (!(valorNumeroCes in cesOptions)) {
-              nuevosErrores.id_ces = "Por favor, seleccione un fondo de cesantías válido";
-            } else {
-              delete nuevosErrores.id_ces;
-            }
-            break;
-          
+      case "id_pens":
+        const valorNumeroPens = parseInt(valorCampo, 10);
+        const idsDePensiones = penOptions.map(pension => pension.ID_pens);
 
-            case "id_arl":
-              const valorNumeroArl = parseInt(valorCampo, 10);
-              if (!(valorNumeroArl in arlOptions)) {
-                nuevosErrores.id_arl = "Por favor, seleccione un tipo de ARL válido";
-              } else {
-                delete nuevosErrores.id_arl;
-              }
-              break;
-            
+        if (!idsDePensiones.includes(valorNumeroPens)) {
+          nuevosErrores.id_pens = "Por favor, seleccione un fondo de pensión válido";
+        } else {
+          delete nuevosErrores.id_pens;
+        }
+        break;
+
+
+      case "id_ces":
+        const valorNumeroCes = parseInt(valorCampo, 10);
+        const idsDeCesantias = cesOptions.map(ces => ces.ID_ces);
+
+        if (!idsDeCesantias.includes(valorNumeroCes)) {
+          nuevosErrores.id_ces = "Por favor, seleccione un fondo de cesantías válido";
+        } else {
+          delete nuevosErrores.id_ces;
+        }
+        break;
+
+
+      case "id_arl":
+        const valorNumeroArl = parseInt(valorCampo, 10);
+        const idsDeArl = arlOptions.map(arl => arl.ID_arl);
+
+        if (!idsDeArl.includes(valorNumeroArl)) {
+          nuevosErrores.id_arl = "Por favor, seleccione un tipo de ARL válido";
+        } else {
+          delete nuevosErrores.id_arl;
+        }
+        break;
+
+
 
       default:
 
@@ -189,7 +252,7 @@ function CEmple(props) {
                 }}
                 value={valores.lib_em}
               >
-                <option value="">seleccione una opción </option>
+                <option value="">Seleccione una opción </option>
                 <option value="Primera clase">Primera clase</option>
                 <option value="Segunda clase">Segunda clase</option>
                 <option value="En proceso">En proceso</option>
@@ -212,9 +275,9 @@ function CEmple(props) {
                 }}
                 value={valores.lic_emp}
               >
-                <option value="">seleccione una opción </option>
-                <option value="A1">A1</option>
-                <option value="A2">A2</option>
+                <option value="">Seleccione una opción </option>
+                <option value="A1">A1 Motocicletas con cilindrada hasta de 125 c.c</option>
+                <option value="A2">A2 Motocicletas con cilindrada mayor a 125 c.c.</option>
                 <option value="En proceso">En proceso</option>
                 <option value="No aplica">No aplica</option>
               </select>
@@ -237,9 +300,10 @@ function CEmple(props) {
                 }}
                 value={valores.id_eps}
               >
-                {Object.entries(epsOptions).map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
+                <option value="" disabled selected>Seleccione un tipo de eps</option>
+                {epsOptions.map((eps) => (
+                  <option key={eps.ID_eps} value={eps.ID_eps}>
+                    {eps.Nombre_eps}
                   </option>
                 ))}
               </select>
@@ -263,9 +327,10 @@ function CEmple(props) {
                 }}
                 value={valores.id_pens}
               >
-                {Object.entries(penOptions).map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
+                <option value="" disabled selected>Seleccione un tipo de fondo</option>
+                {penOptions.map((pen) => (
+                  <option key={pen.ID_pens} value={pen.ID_pens}>
+                    {pen.Nombre_pens}
                   </option>
                 ))}
               </select>
@@ -289,9 +354,10 @@ function CEmple(props) {
                 }}
                 value={valores.id_ces}
               >
-                {Object.entries(cesOptions).map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
+                <option value="" disabled selected>Seleccione un tipo de fondo</option>
+                {cesOptions.map((ces) => (
+                  <option key={ces.ID_ces} value={ces.ID_ces}>
+                    {ces.Nombre_ces}
                   </option>
                 ))}
               </select>
@@ -314,9 +380,10 @@ function CEmple(props) {
                 }}
                 value={valores.id_arl}
               >
-                {Object.entries(arlOptions).map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
+                <option value="" disabled selected>Seleccione un tipo de Adminitradora</option>
+                {arlOptions.map((arl) => (
+                  <option key={arl.ID_arl} value={arl.ID_arl}>
+                    {arl.Nombre_arl}
                   </option>
                 ))}
               </select>
@@ -325,7 +392,7 @@ function CEmple(props) {
 
             <div className="espbots">
               <div className="float-end">
-                <button className="btnfs btn btn-primary" onClick={() => { validarcamposc();  /*siguientePaso();*/ }}>
+                <button className="btnfs btn btn-primary" onClick={() => { validarcamposc(); }}>
                   siguiente
                 </button>
               </div>

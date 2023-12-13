@@ -1,33 +1,82 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import swal from 'sweetalert';
 
 function BEmple(props) {
   const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
   const [errores, setErrores] = useState({});
 
-  const rolOptions = {
+  // variables para selects
+  const [tprol, setTprol] = useState([]);
+  const [tipoRhOptions, setTipoRhOptions] = useState([]);
 
-    "": 'Selecione un Rol',
-    1: 'Administrador',
-    2: 'Radio Operador',
-    3: 'Motorizado',
-  }
+  // variables para selects
 
-  const tipoRhOptions = {
-    "": 'Selecione un tipo de rh',
-    1: 'A+',
-    2: 'A-',
-    3: 'B+',
-    4: 'B-',
-    5: 'AB+',
-    6: 'AB-',
-    7: 'O+',
-    8: 'O-',
+  useEffect(() => {
+    fetchDataTproles();
+    fetchDataTprh();
+  }, []);
+
+  // ROL ------------------------------------------------------------------------------
+  const fetchDataTproles = () => {
+    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtprol")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          console.error("Error en la respuesta de la API:", data.message);
+        } else if (Array.isArray(data.contenido)) {
+          setTprol(data.contenido);
+        } else {
+          console.error("El contenido de la respuesta no es un array:", data.contenido);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al realizar la solicitud:", error);
+
+      });
+  };
+  // ROL ------------------------------------------------------------------------------
+
+  // RH  ------------------------------------------------------------------------------
+  const fetchDataTprh = () => {
+    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtprh")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          console.error("Error en la respuesta de la API:", data.message);
+          // Puedes manejar el error de alguna manera si es necesario
+        } else if (Array.isArray(data.contenido)) {
+          setTipoRhOptions(data.contenido);
+        } else {
+          console.error("El contenido de la respuesta no es un array:", data.contenido);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al realizar la solicitud:", error);
+        // Puedes manejar el error de alguna manera si es necesario
+      });
+  };
+  // RH  ------------------------------------------------------------------------------
+
+   
+  //validacion telefono -----------------------------------------------------------------------------------------------
+  const fetchDataValidaciontelagg = () => {
+    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readtelcontactagg&tel_em=${valores.tel_em}`)
+      .then((response) => response.json())
+      .then((respuesta) => {
+        if (respuesta.encontrado) {
+          swal("¡Telefono existente!", "El Teléfono ya existe en el sistema.", "error");
+        } else {
+         siguientePaso();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        swal("Error", "Hubo un error al validar en el sistema. Por favor, inténtalo de nuevo.", "error");
+      });
   };
 
 
   const validarcamposb = () => {
-    //console.log("prueba si pasa")
     let campos = ["id_rol", "barloc_em", "dir_em", "tel_em", "eml_em", "id_rh"];
     let documentosValidos = true;
     campos.forEach((campo) => {
@@ -37,8 +86,7 @@ function BEmple(props) {
     });
 
     if (documentosValidos) {
-      //console.log("prueba si pasa")
-      siguientePaso();
+      fetchDataValidaciontelagg();
     } else {
       swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
     }
@@ -51,16 +99,16 @@ function BEmple(props) {
     switch (nombreCampo) {
 
       case "id_rol":
-        if (
-          valorCampo !== "1" &&
-          valorCampo !== "2" &&
-          valorCampo !== "3"
-        ) {
+        const valorNumerorol = parseInt(valorCampo, 10);
+        const idsDerol = tprol.map(rol => rol.ID_rol);
+      
+        if (!idsDerol.includes(valorNumerorol)) {
           nuevosErrores.id_rol = "Por favor, seleccione un rol válido";
         } else {
           delete nuevosErrores.id_rol;
         }
         break;
+      
 
       case "barloc_em":
         if (!valorCampo.trim()) {
@@ -95,24 +143,18 @@ function BEmple(props) {
         break;
 
 
-      case "id_rh":
-        if (
-          valorCampo !== "1" &&
-          valorCampo !== "2" &&
-          valorCampo !== "3" &&
-          valorCampo !== "4" &&
-          valorCampo !== "5" &&
-          valorCampo !== "6" &&
-          valorCampo !== "7" &&
-          valorCampo !== "8"
-        ) {
-          nuevosErrores.id_rh =
-            "Por favor, seleccione un tipo de documento válido";
-        } else {
-          delete nuevosErrores.id_rh;
-        }
-
-        break;
+        case "id_rh":
+          const valorNumeroRh = parseInt(valorCampo, 10);
+          const idsDeRh = tipoRhOptions.map(rh => rh.ID_rh);
+        
+          if (!idsDeRh.includes(valorNumeroRh)) {
+            nuevosErrores.id_rh = "Por favor, seleccione un tipo de documento válido";
+          } else {
+            delete nuevosErrores.id_rh;
+          }
+          break;
+        
+    
 
       default:
         break;
@@ -128,7 +170,7 @@ function BEmple(props) {
           <div className="box-main2">
             <div >
               <label className="form-label">
-                Rol
+                Rol en el sistema:
               </label>
               <select
                 type="number"
@@ -146,9 +188,10 @@ function BEmple(props) {
                 }}
                 value={valores.id_rol}
               >
-                {Object.entries(rolOptions).map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
+                <option value="" disabled selected>Seleccione un tipo rol</option>
+                {tprol.map((rol) => (
+                  <option key={rol.ID_rol} value={rol.ID_rol}>
+                    {rol.Tipo_rol}
                   </option>
                 ))}
               </select>
@@ -157,10 +200,11 @@ function BEmple(props) {
             </div>
 
             <div>
-              <label className="form-label">Barrio y localidad</label>
+              <label className="form-label">Localidad y Barrio:</label>
               <input
                 type="text"
                 name="barloc_em"
+                placeholder="Ej. Localidad, Barrio "
                 className={`form-control ${errores.barloc_em
                   ? "is-invalid"
                   : valores.barloc_em
@@ -180,6 +224,7 @@ function BEmple(props) {
               <input
                 type="text"
                 name="dir_em"
+                placeholder="Ingrese una direccion valida"
                 className={`form-control ${errores.dir_em
                   ? "is-invalid"
                   : valores.dir_em
@@ -195,16 +240,12 @@ function BEmple(props) {
               <div className="invalid-feedback">{errores.dir_em}</div>
             </div>
             <div>
-              <label className="form-label">Telefono</label>
+              <label className="form-label">Teléfono</label>
               <input
                 type="Number"
                 name="tel_em"
-                className={`form-control ${errores.tel_em
-                  ? "is-invalid"
-                  : valores.tel_em
-                    ? "is-valid"
-                    : ""
-                  }`}
+                placeholder="Ej. Celular: 1234567890, Fijo: 0118234563"
+                className={`form-control ${errores.tel_em ? "is-invalid" : valores.tel_em ? "is-valid" : ""}`}
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("tel_em", e.target.value);
@@ -213,6 +254,7 @@ function BEmple(props) {
               />
               <div className="invalid-feedback">{errores.tel_em}</div>
             </div>
+
             <div className="">
               <label className="form-label">Grupo sanguineo</label>
               <select
@@ -226,9 +268,10 @@ function BEmple(props) {
                 }}
                 value={valores.id_rh}
               >
-                {Object.entries(tipoRhOptions).map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
+                <option value="" disabled selected>Seleccione un tipo de rh</option>
+                {tipoRhOptions.map((rh) => (
+                  <option key={rh.ID_rh} value={rh.ID_rh}>
+                    {rh.Tipo_rh}
                   </option>
                 ))}
               </select>
@@ -236,7 +279,7 @@ function BEmple(props) {
 
               <div className="espbots">
                 <div className="float-end">
-                  <button className="btnfs btn btn-primary" onClick={() => { validarcamposb();  /*siguientePaso(); */ }}>
+                  <button className="btnfs btn btn-primary" onClick={() => { validarcamposb();   }}>
                     siguiente
                   </button>
                 </div>

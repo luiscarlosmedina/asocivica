@@ -1,10 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import swal from 'sweetalert';
 
 function AEmple(props) {
   const { handleInputChange, valores, siguientePaso, resetearPasos, resetEmpleadoData } = props;
   const [errores, setErrores] = useState({});
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
+
+  const [tipoDocumentoOptions, setTipoDocumentoOptions] = useState([]);
+  useEffect(() => {
+    fetchDataTpdoc();
+  }, []);
+  // read Roles ------------------------
+  const fetchDataTpdoc = () => {
+    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtpdocu")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          console.error("Error en la respuesta de la API:", data.message);
+          // Puedes manejar el error de alguna manera si es necesario
+        } else if (Array.isArray(data.contenido)) {
+          setTipoDocumentoOptions(data.contenido);
+        } else {
+          console.error("El contenido de la respuesta no es un array:", data.contenido);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al realizar la solicitud:", error);
+        // Puedes manejar el error de alguna manera si es necesario
+      });
+  };
+  // read Roles ------------------------
 
   const cancelar = () => {
     swal({
@@ -19,7 +44,7 @@ function AEmple(props) {
           resetearPasos();
           resetEmpleadoData();
         } else {
-          swal("¡Un error le pasa a cualquiera!", "Sigue con el registro..", "success");
+          swal("¡Un error le pasa a cualquiera!", "", "success");
         }
       });
   };
@@ -30,7 +55,7 @@ function AEmple(props) {
 
 
   const validarcamposa = () => {
-    let campos = ["documento", "id_doc", "n_em", "a_em", "eml_em", "passw"];
+    let campos = ["n_em", "a_em", "eml_em", "passw"];
     let documentosValidos = true;
     campos.forEach((campo) => {
       if (documentosValidos) {
@@ -39,7 +64,6 @@ function AEmple(props) {
     });
 
     if (documentosValidos) {
-      //siguientePaso();
       fetchDataValidacion();
     } else {
       swal("¡Completa los campos!", "Por favor, verifica los campos para continuar con el proceso.", "error");
@@ -49,7 +73,8 @@ function AEmple(props) {
   };
 
   const fetchDataValidacion = () => {
-    fetch(`http://localhost/api_sisinov/public/api/readveriemlempleado/${valores.eml_em}`)
+
+      fetch(`http://localhost/api_sisinov/public/api/readveriemlempleado/${valores.eml_em}`) 
       .then((response) => response.json())
       .then((respuesta) => {
         if (respuesta.data) {
@@ -69,34 +94,7 @@ function AEmple(props) {
 
     switch (nombreCampo) {
 
-      case "documento":
-        if (!valorCampo.trim()) {
-          nuevosErrores.documento =
-            "Por favor, este campo no puede estar vacío";
-        } else if (valorCampo.length < 2 || valorCampo.length > 14) {
-          nuevosErrores.documento =
-            "El campo debe tener entre 2 y 14 caracteres"
-        } else {
-          delete nuevosErrores.documento;
-        }
-        break;
 
-      case "id_doc":
-
-        if (
-          valorCampo !== "1" &&
-          valorCampo !== "2" &&
-          valorCampo !== "3" &&
-          valorCampo !== "4" &&
-          valorCampo !== "5" &&
-          valorCampo !== "6"
-        ) {
-          nuevosErrores.id_doc =
-            "Por favor, seleccione un tipo de documento válido";
-        } else {
-          delete nuevosErrores.id_doc;
-        }
-        break;
 
       case "n_em":
         if (!valorCampo.trim()) {
@@ -138,25 +136,25 @@ function AEmple(props) {
         }
         break;
 
-        case "passw":
-          if (!valorCampo.trim()) {
-            nuevosErrores.passw = "Por favor, este campo no puede estar vacío";
-          } else if (valorCampo.length < 8) {
-            nuevosErrores.passw = "Una contraseña segura debe tener al menos 8 caracteres";
-          } else if (valorCampo.length > 20) {
-            nuevosErrores.passw = "La contraseña puede tener como máximo 20 caracteres";
-          } else if (
-            !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(
-              valorCampo
-            )
-          ) {
-            nuevosErrores.passw =
-              "La contraseña debe incluir al menos una mayúscula, una minúscula, un número y un carácter especial";
-          } else {
-            delete nuevosErrores.passw;
-          }
-          break;
-        
+      case "passw":
+        if (!valorCampo.trim()) {
+          nuevosErrores.passw = "Por favor, este campo no puede estar vacío";
+        } else if (valorCampo.length < 8) {
+          nuevosErrores.passw = "Una contraseña segura debe tener al menos 8 caracteres";
+        } else if (valorCampo.length > 20) {
+          nuevosErrores.passw = "La contraseña puede tener como máximo 20 caracteres";
+        } else if (
+          !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(
+            valorCampo
+          )
+        ) {
+          nuevosErrores.passw =
+            "La contraseña debe incluir al menos una mayúscula, una minúscula, un número y un carácter especial";
+        } else {
+          delete nuevosErrores.passw;
+        }
+        break;
+
 
       default:
         break;
@@ -211,13 +209,11 @@ function AEmple(props) {
                 }}
                 value={valores.id_doc}
               >
-                <option value="">seleccione un tipo de documento </option>
-                <option value="1">Tarjeta de Identidad</option>
-                <option value="2">Cédula de Ciudadanía</option>
-                <option value="3">Tarjeta de Extranjería</option>
-                <option value="4">Cédula de Extranjería</option>
-                <option value="5">Pasaporte</option>
-                <option value="6">Nit</option>
+                {tipoDocumentoOptions.map((doc) => (
+                  <option key={doc.ID_Doc} value={doc.ID_Doc}>
+                    {doc.Nombre_documento}
+                  </option>
+                ))}
               </select>
               <div className="invalid-feedback">{errores.id_doc}</div>
             </div>
@@ -230,6 +226,7 @@ function AEmple(props) {
                 className={`form-control ${errores.n_em ? "is-invalid" : valores.n_em ? "is-valid" : ""
                   }`}
                 id="n_em"
+                placeholder="Ingrese los nombres completos"
                 onChange={(e) => {
                   handleInputChange(e);
                   validarCampo("n_em", e.target.value);
@@ -239,11 +236,13 @@ function AEmple(props) {
 
               <div className="invalid-feedback">{errores.n_em}</div>
             </div>
+
             <div>
               <label className="form-label">Apellidos</label>
               <input
                 type="text"
                 name="a_em"
+                placeholder="Ingrese los apellidos completos"
                 className={`form-control ${errores.a_em ? "is-invalid" : valores.a_em ? "is-valid" : ""
                   }`}
                 id="a_em"
@@ -263,7 +262,7 @@ function AEmple(props) {
               <input
                 type="email"
                 name="eml_em"
-
+                placeholder="Ej. ejemplo@email.com"
                 className={`form-control ${errores.eml_em
                   ? "is-invalid"
                   : valores.eml_em
@@ -289,6 +288,7 @@ function AEmple(props) {
                 type={mostrarContraseña ? "text" : "password"}
                 name="passw"
                 id="passw"
+                placeholder="Ingrese una contraseña segura"
                 className={`form-control  type="text" ${errores.passw ? "is-invalid" : valores.passw ? "is-valid" : ""
                   }`}
                 onChange={(e) => {
@@ -320,7 +320,7 @@ function AEmple(props) {
               <div className="float-end">
                 <button
                   className="btnfs btn btn-primary"
-                  onClick={() => { validarcamposa();  /*siguientePaso();*/ }}
+                  onClick={() => { validarcamposa(); }}
                 >
                   Siguiente
                 </button>

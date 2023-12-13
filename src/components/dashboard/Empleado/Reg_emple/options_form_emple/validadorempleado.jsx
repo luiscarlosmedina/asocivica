@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import swal from 'sweetalert';
 
 
@@ -6,15 +6,32 @@ export default function Validador(props) {
     const { handleInputChange, valores, siguientePaso } = props;
     const [errores, setErrores] = useState({});
 
-    const tipoDocumentoOptions = {
-        "": 'seleccione Tipo de documento',
-        1: 'Tarjeta de Identidad',
-        2: 'Cédula de Ciudadanía',
-        3: 'Tarjeta de Extranjería',
-        4: 'Cédula de Extranjería',
-        5: 'Pasaporte',
-        6: 'Nit',
+    
+    const [tipoDocumentoOptions, setTipoDocumentoOptions] = useState([]);
+    useEffect(() => {
+        fetchDataTpdoc();
+    }, []);
+    // read Roles ------------------------
+    const fetchDataTpdoc = () => {
+        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtpdocu")
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                    console.error("Error en la respuesta de la API:", data.message);
+                    // Puedes manejar el error de alguna manera si es necesario
+                } else if (Array.isArray(data.contenido)) {
+                    setTipoDocumentoOptions(data.contenido);
+                } else {
+                    console.error("El contenido de la respuesta no es un array:", data.contenido);
+                }
+            })
+            .catch((error) => {
+                console.error("Error al realizar la solicitud:", error);
+                // Puedes manejar el error de alguna manera si es necesario
+            });
     };
+    // read Roles ------------------------
+
 
     const validarcampos = () => {
         let campos = ["documento", "id_doc"];
@@ -26,8 +43,8 @@ export default function Validador(props) {
         });
 
         if (documentosValidos) {
-            //siguientePaso();
             fetchDataValidacion();
+
         } else {
             swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
         }
@@ -35,7 +52,7 @@ export default function Validador(props) {
     };
 
     const fetchDataValidacion = () => {
-        fetch(`http://localhost/api_sisinov/public/api/readverificarempleado/${valores.id_doc}/${valores.documento}`)
+        fetch(`http://localhost/api_sisinov/public/api/readverificarempleado/${valores.id_doc}/${valores.documento}`) 
             .then((response) => response.json())
             .then((respuesta) => {
                 if (respuesta.encontrado) {
@@ -46,7 +63,7 @@ export default function Validador(props) {
             })
             .catch((error) => {
                 console.log(error);
-                swal("Error", "Hubo un error al validar en el sistema. Por favor, inténtalo de nuevo.", "error");
+                swal("¡Error en el sistema!", "Hubo un error al validar en el sistema. Por favor, inténtalo de nuevo.", "error");
             });
     };
 
@@ -71,17 +88,16 @@ export default function Validador(props) {
 
 
             case "id_doc":
-
-                if (
-                    !["1", "2", "3", "4", "5", "6"].includes(valorCampo)
-                ) {
-                    nuevosErrores.id_doc =
-                        "Por favor, seleccione un tipo de documento válido";
+                const valorNumeroDoc = parseInt(valorCampo, 10);
+                const tiposDeDocValidos = tipoDocumentoOptions.map(doc => doc.ID_Doc);
+              
+                if (!tiposDeDocValidos.includes(valorNumeroDoc)) {
+                  nuevosErrores.id_doc = "Por favor, seleccione un tipo de documento válido";
                 } else {
-                    delete nuevosErrores.id_doc;
-
+                  delete nuevosErrores.id_doc;
                 }
                 break;
+              
 
 
             default:
@@ -98,10 +114,11 @@ export default function Validador(props) {
                 <div className="box-main">
                     <div className="box-main2">
                         <div>
-                            <label className="form-label">Numero de Documento</label>
+                            <label className="form-label">Numero de Documento: </label>
                             <input
                                 type="Number"
                                 name="documento"
+                                placeholder="Ej. 1234567890"
                                 className={`form-control ${errores.documento
                                     ? "is-invalid"
                                     : valores.documento
@@ -117,7 +134,7 @@ export default function Validador(props) {
                             <div className="invalid-feedback">{errores.documento}</div>
                         </div>
                         <div>
-                            <label className="form-label">Tipo de Documento</label>
+                            <label className="form-label">Tipo de Documento: </label>
                             <select
                                 type="Number"
                                 name="id_doc"
@@ -133,9 +150,10 @@ export default function Validador(props) {
                                 }}
                                 value={valores.id_doc}
                             >
-                                {Object.entries(tipoDocumentoOptions).map(([value, label]) => (
-                                    <option key={value} value={value}>
-                                        {label}
+                                <option value="" disabled selected>Seleccione un tipo de documento</option>
+                                {tipoDocumentoOptions.map((doc) => (
+                                    <option key={doc.ID_Doc} value={doc.ID_Doc}>
+                                        {doc.Nombre_documento}
                                     </option>
                                 ))}
                             </select>
@@ -153,7 +171,7 @@ export default function Validador(props) {
                             <div className="float-end">
                                 <button
                                     className="btnfs btn btn-primary"
-                                    onClick={() => { validarcampos(); /*siguientePaso();*/ }}
+                                    onClick={() => { validarcampos(); }}
                                 >
                                     Validar en el sistema
                                 </button>

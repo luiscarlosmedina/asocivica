@@ -102,14 +102,14 @@ h6 {
   .editar-btn:hover .editar-icon {
     color: #198754;
     font-size: 1em;
-    margin-right: 3px;
+    margin-right: 5px;
   }
   
   /* Establece el color inicial del ícono */
   .editar-icon {
     color: #002f5d;
     font-size: 1em;
-    margin-right: 3px;
+    margin-right: 5px;
   }
   
 
@@ -154,15 +154,17 @@ h6 {
   .eliminar-btn:hover .eliminar-icon {
     color: #b90000;
     font-size: 1em;
-    margin-right: 3px;
+    margin-right: 5px;
   }
   
   /* Establece el color inicial del ícono dentro del botón de eliminar */
   .eliminar-icon {
     color: #002f5d;
     font-size: 1em;
-    margin-right: 3px;
+    margin-right: 5px;
   }
+
+ 
   
 
 .btn-estado-activo {
@@ -584,3 +586,20 @@ h6 {
     opacity: 1;
 
 }
+
+
+.regresar-btn:hover .regresar-icon {
+    color: #dd5c00;
+    font-size: 1em;
+    margin-right: 5px
+
+  }
+  
+  /* Establece el color inicial del ícono */
+  .regresar-icon {
+    color: #002f5d;
+    font-size: 1em;
+    margin-right: 5px;
+
+
+  }

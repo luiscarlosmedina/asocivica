@@ -15,7 +15,7 @@ function Fin(props) {
     })
         .then((willDelete) => {
             if (willDelete) {
-                    fetch('http://localhost/api_sisinov/public/api/empleado', {
+                    fetch('http://localhost/api_sisinov/public/api/empleado', { 
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -40,8 +40,7 @@ function Fin(props) {
                             console.error('Error al enviar datos:', error);
                             swal("¡Error!", "Hubo un problema al enviar los datos. Verifica e inténtalo de nuevo.", "error");
                             anteriorPaso();
-                            
-                            
+                        
                         });
             
             } else {
