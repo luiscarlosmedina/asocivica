@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import swal from 'sweetalert';
 import { useParams, useNavigate } from 'react-router-dom';
 import ContactoEmergencia from './contactoEmergencia';
-import "../../../../src/style/Empleado/Reg_empl/empleado.css";
-import { useAuth } from '../../../autenticate';
+import "../../../../../src/style/Empleado/Reg_empl/empleado.css";
+import { useAuth } from '../../../../autenticate';
+
 
 export default function EmpleadoVerDetalles() {
     const { empleadoid } = useParams();
@@ -298,7 +299,7 @@ export default function EmpleadoVerDetalles() {
         id_pens: "",
         id_ces: ""
     });
-    const usersPhoto = require.context("../../../assets/empleados", true)
+    const usersPhoto = require.context("../../../../assets/empleados", true)
     const fetchDataone = () => {
 
         fetch(`http://localhost/api_sisinov/public/api/readempleadoone/${empleadoid}`)

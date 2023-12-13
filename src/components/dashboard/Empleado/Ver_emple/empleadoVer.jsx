@@ -13,7 +13,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
-import { useAuth } from "../../../autenticate";
+import { useAuth } from "../../../../autenticate";
 
 
 export default function EmpleadoVer({ dataUpdated }) {
@@ -34,8 +34,7 @@ export default function EmpleadoVer({ dataUpdated }) {
     fetch(`http://localhost/api_sisinov/public/api/readminempleado`)
       .then((response) => response.json())
       .then((data) => {
-        //setData(data.data); LARAVEL
-        setData(data.contenido);
+        setData(data.data); 
         setLoading(false);
       })
       .catch((error) => {
