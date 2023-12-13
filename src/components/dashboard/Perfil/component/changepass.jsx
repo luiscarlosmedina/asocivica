@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import swal from 'sweetalert';
+import { useAuth } from '../../../../autenticate';
 
 export default function Changepass({ id }) {
     const [show, setShow] = useState(false);
@@ -8,6 +9,7 @@ export default function Changepass({ id }) {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [user, setuser] = useState(null)
+    const {token} = useAuth();
 
     const handleVerif = async () => {
         try {
@@ -26,7 +28,7 @@ export default function Changepass({ id }) {
                 setError('');
             }
 
-            const verifica = { "passw": password, "id_em": id };
+            const verifica = { "passw": password, "id_em": id, "nToken": token };
 
             const response = await fetch(`http://localhost/api_sisinov/public/api/verifpass`, {
                 method: 'POST',
@@ -78,7 +80,7 @@ export default function Changepass({ id }) {
                 return;
             }
 
-            const cambio = { "passw": newPassword, "id_em": id };
+            const cambio = { "passw": newPassword, "id_em": id, "nToken":token};
 
             if (user.id_em === id) {
                 const ress = await fetch(`http://localhost/api_sisinov/public/api/changepass`, {

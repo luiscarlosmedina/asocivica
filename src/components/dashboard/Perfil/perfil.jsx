@@ -4,11 +4,12 @@ import Changepass from './component/changepass';
 import swal from 'sweetalert';
 
 export default function Perfil() {
-  const { user } = useAuth();
+  const { user,token } = useAuth();
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(false);
 
   const [empleado, setEmpleado] = useState({
+    nToken: token,
     id_em: user.id_em,
     n_em: "",
     a_em: "",
@@ -29,7 +30,7 @@ export default function Perfil() {
       headers: {
           "Content-Type": "application/json",
       },
-      body: JSON.stringify({id:user.id_em}),
+      body: JSON.stringify({id:user.id_em, nToken:token}),
   })
       .then((response) => response.json())
       .then((data) => {
