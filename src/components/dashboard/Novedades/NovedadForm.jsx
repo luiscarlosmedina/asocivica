@@ -237,7 +237,7 @@ export default function NovedadForm({ onDataUpdate }) {
     }
 
     fetch(
-      "http://localhost/api_sisinov/public/api/tpnovs",
+      "http://localhost/api_sisinov/public/api/tpnov",
       {
         method: "POST",
         headers: {
