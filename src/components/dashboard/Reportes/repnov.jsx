@@ -14,7 +14,7 @@ export default function Repnov() {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [tipoNovedad, setTipoNovedad] = useState(null); // Inicializa como null
-    const { user } = useAuth();
+    const { user, token } = useAuth();
 
     const handleDownloadReport = () => {
         const pdf = new jsPDF();
@@ -62,7 +62,13 @@ export default function Repnov() {
     }, []);
 
     const fetchDataTpnoedad = () => {
-        fetch("http://localhost/api_sisinov/public/api/tpnov")
+        fetch("http://localhost/api_sisinov/public/api/tpnovs", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({nToken:token})
+          })
             .then((response) => response.json())
             .then((tpnovedad) => {
                 setTpnovedad(tpnovedad.data);

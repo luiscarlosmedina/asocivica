@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Tooltip, Treemap, ResponsiveContainer } from 'recharts';
+import { useAuth } from '../../../../autenticate';
 
 export default function Conteoempresanov({ startDate, endDate, ltempresa }) {
     const [data, setData] = useState([]);
+    const {token} = useAuth();
 
     useEffect(() => {
         fetchData();
     }, [startDate, endDate, ltempresa]);
 
     const fetchData = () => {
-        const arreglo = {ltempresa:ltempresa, startDate: startDate, endDate:endDate} 
+        const arreglo = {nToken:token,ltempresa:ltempresa, startDate: startDate, endDate:endDate} 
         let apiUrl = ``;
         if(ltempresa === null){
             apiUrl = `https://localhost/api_sisinov/public/api/repempresanov`;

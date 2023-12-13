@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useAuth } from '../../../../autenticate';
 
 export default function Conteonovdia({ startDate, endDate, tipoNovedad }) {
     const [data, setData] = useState([])
+    const {token} = useAuth();
     useEffect(() => {
         fetchData();
     }, [startDate, endDate, tipoNovedad]);
 
     const fetchData = () => {
-        const arreglo = {tipoNovedad: tipoNovedad, startDate:startDate, endDate:endDate}
+        const arreglo = {nToken:token, tipoNovedad: tipoNovedad, startDate:startDate, endDate:endDate}
         fetch(`http://localhost/api_sisinov/public/api/repnovdia`,{
             method: 'POST',
             headers: {

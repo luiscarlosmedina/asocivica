@@ -13,7 +13,7 @@ export default function Repemp() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [ltempresa, setLtempresa] = useState(null);
-  const { user } = useAuth();
+  const { user, token } = useAuth();
 
   const componentRef = useRef();
 
@@ -44,7 +44,13 @@ export default function Repemp() {
   };
 
   const fetchDataListempresa = () => {
-    fetch("http://localhost/api_sisinov/public/api/novedadempresa")
+    fetch("http://localhost/api_sisinov/public/api/novedadempresa", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({nToken:token})
+    })
       .then((response) => response.json())
       .then((listempresa) => {
         setListempresa(listempresa.data);

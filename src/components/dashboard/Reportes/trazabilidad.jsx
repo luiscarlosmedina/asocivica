@@ -10,14 +10,22 @@ import {
     Paper,
     CircularProgress
 } from "@mui/material";
+import { useAuth } from "../../../autenticate";
 
 export default function Trazabilidad() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
+    const {token} = useAuth();
 
     const fetchData = () => {
-        fetch(`http://localhost/api_sisinov/public/api/readtrazabilidad`)
+        fetch(`http://localhost/api_sisinov/public/api/readtrazabilidad`,{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({nToken:token}),
+        })
             .then((response) => response.json())
             .then((data) => {
                 setData(data.data);

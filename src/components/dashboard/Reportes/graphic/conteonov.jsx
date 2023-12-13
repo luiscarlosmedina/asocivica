@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Tooltip, Treemap, ResponsiveContainer } from 'recharts';
+import { useAuth } from '../../../../autenticate';
 
 export default function Conteonov({ startDate, endDate, tipoNovedad }) {
     const [data, setData] = useState([]);
+    const {token}= useAuth();
 
     useEffect(() => {
         fetchData();
     }, [startDate, endDate, tipoNovedad]);
 
     const fetchData = () => {        
-        const arreglo = {tipoNovedad:tipoNovedad, startDate: startDate, endDate: endDate}
+        const arreglo = {nToken:token, tipoNovedad:tipoNovedad, startDate: startDate, endDate: endDate}
         fetch(`http://localhost/api_sisinov/public/api/repnov`,{
             method: 'POST',
             headers: {

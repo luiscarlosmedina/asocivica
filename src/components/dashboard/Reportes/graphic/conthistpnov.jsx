@@ -9,16 +9,18 @@ import {
     Legend,
     ResponsiveContainer,
   } from 'recharts';
+import { useAuth } from '../../../../autenticate';
 
 export default function Conthistpnov({ startDate, endDate, ltempresa }) {
     const [data, setData] = useState([]);
+    const {token} = useAuth();
 
     useEffect(() => {
         fetchData();
     }, [startDate, endDate, ltempresa]);
 
     const fetchData = () => {
-        const arreglo = {ltempresa:ltempresa, startDate: startDate, endDate: endDate};
+        const arreglo = {nToken:token, ltempresa:ltempresa, startDate: startDate, endDate: endDate};
         let apiUrl = `http://localhost/api_sisinov/public/api/rephistnov`;
 
         fetch(apiUrl,{
