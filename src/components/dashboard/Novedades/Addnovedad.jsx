@@ -65,9 +65,9 @@ export default function Addnovedad() {
 
     try {
       const response = await fetch(
-        `http://localhost/api_sisinov/public/api/tpnov`,
+        `http://localhost/api_sisinov/public/api/tnov`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
@@ -116,9 +116,9 @@ export default function Addnovedad() {
 
     try {
       const response = await fetch(
-        `http://localhost/api_sisinov/public/api/tnov`,
+        `http://localhost/api_sisinov/public/api/tpnov`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },

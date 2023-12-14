@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import swal from 'sweetalert';
+import { useAuth } from "../../../../../autenticate";
 
 function CEmple(props) {
   const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
   const [errores, setErrores] = useState({});
+  const {token} = useAuth();
 
   //TIPO EPS  ---------------------------------------------------------------------------------------
   const [epsOptions, setepsOptions] = useState([]);
@@ -12,16 +14,22 @@ function CEmple(props) {
   }, []);
   // read eps ------------------------
   const fetchDataTpeps = () => {
-    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtpeps")
+    fetch("http://localhost/api_sisinov/public/api/eps", {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "nToken":token }),
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
           console.error("Error en la respuesta de la API:", data.message);
           // Puedes manejar el error de alguna manera si es necesario
-        } else if (Array.isArray(data.contenido)) {
-          setepsOptions(data.contenido);
+        } else if (Array.isArray(data.data)) {
+          setepsOptions(data.data);
         } else {
-          console.error("El contenido de la respuesta no es un array:", data.contenido);
+          console.error("El contenido de la respuesta no es un array");
         }
       })
       .catch((error) => {
@@ -40,16 +48,22 @@ function CEmple(props) {
   }, [])
   // read ces ------------------------
   const fetchDataTpces = () => {
-    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtces")
+    fetch("http://localhost/api_sisinov/public/api/cesantias", {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "nToken":token }),
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
           console.error("Error en la respuesta de la API:", data.message);
           // Puedes manejar el error de alguna manera si es necesario
-        } else if (Array.isArray(data.contenido)) {
-          setcesOptions(data.contenido);
+        } else if (Array.isArray(data.data)) {
+          setcesOptions(data.data);
         } else {
-          console.error("El contenido de la respuesta no es un array:", data.contenido);
+          console.error("El contenido de la respuesta no es un array");
         }
       })
       .catch((error) => {
@@ -67,16 +81,22 @@ function CEmple(props) {
   }, [])
   // read pens ------------------------
   const fetchDataTpen = () => {
-    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtppens")
+    fetch("http://localhost/api_sisinov/public/api/pensiones", {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "nToken":token }),
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
           console.error("Error en la respuesta de la API:", data.message);
           // Puedes manejar el error de alguna manera si es necesario
-        } else if (Array.isArray(data.contenido)) {
-          setPenOptions(data.contenido);
+        } else if (Array.isArray(data.data)) {
+          setPenOptions(data.data);
         } else {
-          console.error("El contenido de la respuesta no es un array:", data.contenido);
+          console.error("El contenido de la respuesta no es un array");
         }
       })
       .catch((error) => {
@@ -96,16 +116,22 @@ function CEmple(props) {
   }, [])
   // read arls ------------------------
   const fetchDataTparl = () => {
-    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtparl")
+    fetch("http://localhost/api_sisinov/public/api/arl", {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "nToken":token }),
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
           console.error("Error en la respuesta de la API:", data.message);
           // Puedes manejar el error de alguna manera si es necesario
-        } else if (Array.isArray(data.contenido)) {
-          setArlOptions(data.contenido);
+        } else if (Array.isArray(data.data)) {
+          setArlOptions(data.data);
         } else {
-          console.error("El contenido de la respuesta no es un array:", data.contenido);
+          console.error("El contenido de la respuesta no es un array");
         }
       })
       .catch((error) => {
@@ -303,7 +329,7 @@ function CEmple(props) {
                 <option value="" disabled selected>Seleccione un tipo de eps</option>
                 {epsOptions.map((eps) => (
                   <option key={eps.ID_eps} value={eps.ID_eps}>
-                    {eps.Nombre_eps}
+                    {eps.N_eps}
                   </option>
                 ))}
               </select>
@@ -330,7 +356,7 @@ function CEmple(props) {
                 <option value="" disabled selected>Seleccione un tipo de fondo</option>
                 {penOptions.map((pen) => (
                   <option key={pen.ID_pens} value={pen.ID_pens}>
-                    {pen.Nombre_pens}
+                    {pen.N_pens}
                   </option>
                 ))}
               </select>
@@ -357,7 +383,7 @@ function CEmple(props) {
                 <option value="" disabled selected>Seleccione un tipo de fondo</option>
                 {cesOptions.map((ces) => (
                   <option key={ces.ID_ces} value={ces.ID_ces}>
-                    {ces.Nombre_ces}
+                    {ces.N_ces}
                   </option>
                 ))}
               </select>
@@ -383,7 +409,7 @@ function CEmple(props) {
                 <option value="" disabled selected>Seleccione un tipo de Adminitradora</option>
                 {arlOptions.map((arl) => (
                   <option key={arl.ID_arl} value={arl.ID_arl}>
-                    {arl.Nombre_arl}
+                    {arl.N_arl}
                   </option>
                 ))}
               </select>
