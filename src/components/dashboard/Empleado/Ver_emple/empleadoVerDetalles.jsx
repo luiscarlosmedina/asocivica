@@ -359,9 +359,8 @@ export default function EmpleadoVerDetalles() {
         })
             .then((response) => response.json())
             .then((data) => {
-                setEmpleado(data.data);
+                setEmpleado(data.data[0]);
                 setLoading(false);
-
             })
             .catch((error) => {
                 console.log(error);
@@ -568,7 +567,7 @@ export default function EmpleadoVerDetalles() {
                 body: JSON.stringify({ "nToken": token }),
               });
             const data = await response.json();
-            setEmpleadoestado(data.data[0]);
+            setEmpleadoestado(data.data);
             setLoading(false);
         } catch (error) {
             console.error('Error al obtener los datos del empleado:', error);
@@ -802,14 +801,14 @@ export default function EmpleadoVerDetalles() {
                                                     <input
                                                         className={`e i-box form-control `}
                                                         disabled
-                                                        value={tipoRhOptions.find(item => item.ID_rh === empleado.id_rh)?.Tipo_rh || ''}
+                                                        value={tipoRhOptions.find(item => item.ID_RH === empleado.id_rh)?.T_RH || ''}
                                                     />
                                                 )
                                             ) : (
                                                 <input
                                                     className={`form-control '`}
                                                     disabled
-                                                    value={tipoRhOptions.find(item => item.ID_rh === empleado.id_rh)?.Tipo_rh || ''}
+                                                    value={tipoRhOptions.find(item => item.ID_RH === empleado.id_rh)?.T_RH || ''}
                                                 />
                                             )}
                                         </div>
@@ -866,14 +865,14 @@ export default function EmpleadoVerDetalles() {
                                                         <input
                                                             className={`e i-box form-control `}
                                                             disabled
-                                                            value={tipoDocumentoOptions.find(item => item.ID_Doc === empleado.id_doc)?.Nombre_documento || ''}
+                                                            value={tipoDocumentoOptions.find(item => item.ID_Doc === empleado.id_doc)?.N_TDoc || ''}
                                                         />
                                                     )
                                                 ) : (
                                                     <input
                                                         className={`form-control '`}
                                                         disabled
-                                                        value={tipoDocumentoOptions.find(item => item.ID_Doc === empleado.id_doc)?.Nombre_documento || ''}
+                                                        value={tipoDocumentoOptions.find(item => item.ID_Doc === empleado.id_doc)?.N_TDoc || ''}
                                                     />
                                                 )}
 
@@ -901,14 +900,14 @@ export default function EmpleadoVerDetalles() {
                                                     <input
                                                         className={`e i-finish i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                                         disabled={!isEditing}
-                                                        value={tprol.find(item => item.ID_rol === rolemp.id_rol)?.Tipo_rol || ''}
+                                                        value={tprol.find(item => item.ID_rol === rolemp.id_rol)?.N_rol || ''}
                                                     />
                                                 )
                                             ) : (
                                                 <input
                                                     className={`i-finish i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                                     disabled={!isEditing}
-                                                    value={tprol.find(item => item.ID_rol === rolemp.id_rol)?.Tipo_rol || ''}
+                                                    value={tprol.find(item => item.ID_rol === rolemp.id_rol)?.N_rol || ''}
                                                 />
                                             )}
                                         </div>
@@ -1139,13 +1138,13 @@ export default function EmpleadoVerDetalles() {
                                         <input
                                             className={`e mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={epsOptions.find(item => item.ID_eps === empleado.id_eps)?.Nombre_eps || ''}
+                                            value={epsOptions.find(item => item.ID_eps === empleado.id_eps)?.N_eps || ''}
                                         />
                                     ) : (
                                         <input
                                             className={`mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={epsOptions.find(item => item.ID_eps === empleado.id_eps)?.Nombre_eps || ''}
+                                            value={epsOptions.find(item => item.ID_eps === empleado.id_eps)?.N_eps || ''}
                                         />
                                     )}
 
@@ -1170,13 +1169,13 @@ export default function EmpleadoVerDetalles() {
                                         <input
                                             className={`e mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={cesOptions.find(item => item.ID_ces === empleado.id_ces)?.Nombre_ces || ''}
+                                            value={cesOptions.find(item => item.ID_ces === empleado.id_ces)?.N_ces || ''}
                                         />
                                     ) : (
                                         <input
                                             className={`mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={cesOptions.find(item => item.ID_ces === empleado.id_ces)?.Nombre_ces || ''}
+                                            value={cesOptions.find(item => item.ID_ces === empleado.id_ces)?.N_ces || ''}
 
                                         />
                                     )}
@@ -1201,13 +1200,13 @@ export default function EmpleadoVerDetalles() {
                                         <input
                                             className={`e mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={arlOptions.find(item => item.ID_arl === empleado.id_arl)?.Nombre_arl || ''}
+                                            value={arlOptions.find(item => item.ID_arl === empleado.id_arl)?.N_arl || ''}
                                         />
                                     ) : (
                                         <input
                                             className={`mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={arlOptions.find(item => item.ID_arl === empleado.id_arl)?.Nombre_arl || ''} />
+                                            value={arlOptions.find(item => item.ID_arl === empleado.id_arl)?.N_arl || ''} />
                                     )}
 
                                 </div>
@@ -1230,13 +1229,13 @@ export default function EmpleadoVerDetalles() {
                                         <input
                                             className={`e mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={penOptions.find(item => item.ID_pens === empleado.id_pens)?.Nombre_pens || ''}
+                                            value={penOptions.find(item => item.ID_pens === empleado.id_pens)?.N_pens || ''}
                                         />
                                     ) : (
                                         <input
                                             className={`mt-2 i-para i-box form-control ${isEditing ? 'editing-mode' : ''}`}
                                             disabled
-                                            value={penOptions.find(item => item.ID_pens === empleado.id_pens)?.Nombre_pens || ''} />
+                                            value={penOptions.find(item => item.ID_pens === empleado.id_pens)?.N_pens || ''} />
                                     )}
                                 </div>
                             </div>
