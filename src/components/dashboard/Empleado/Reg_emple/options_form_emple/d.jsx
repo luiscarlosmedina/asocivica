@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import swal from 'sweetalert';
+import { useAuth } from "../../../../../autenticate";
 
 
 function DEmple(props) {
   const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
   const [errores, setErrores] = useState({});
+  const {token} = useAuth();
 
   const validarcamposd = () => {
     let campos = ["n_coe", "csag", "t_cem"];
@@ -17,26 +19,32 @@ function DEmple(props) {
 
     if (documentosValidos) {
       fetchDataValidaciontel();
-  } else{
+    } else {
       swal("¡Completa los campos!", "Por favor. Verifica los campos para seguir con el proceso...", "error");
-  }
+    }
     return documentosValidos;
   };
 
   const fetchDataValidaciontel = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readtelcontact&t_cem=${valores.t_cem}`)
+    fetch(`http://localhost/api_sisinov/public/api/readveritelempleado/${valores.t_cem}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "nToken": token }),
+    })
       .then((response) => response.json())
       .then((respuesta) => {
         if (respuesta.encontrado) {
           swal("¡Telefono existente!", "El Teléfono ya existe en el sistema.", "error");
         } else {
-   
+
           siguientePaso();
         }
       })
       .catch((error) => {
         console.log(error);
-        swal("Error", "Hubo un error al validar en el sistema. Por favor, inténtalo de nuevo.", "error");
+        swal("Error", `Hubo un error${error}`, "error");
       });
   };
 
@@ -71,13 +79,13 @@ function DEmple(props) {
         break;
 
       case "t_cem":
-          const telefonoRegex = /^[0-9]{10}$/;
-          if (!telefonoRegex.test(valorCampo)) {
-            nuevosErrores.t_cem =
-              "Por favor, ingrese un número de teléfono válido";
-          } else {
-            delete nuevosErrores.t_cem;
-          }
+        const telefonoRegex = /^[0-9]{10}$/;
+        if (!telefonoRegex.test(valorCampo)) {
+          nuevosErrores.t_cem =
+            "Por favor, ingrese un número de teléfono válido";
+        } else {
+          delete nuevosErrores.t_cem;
+        }
 
         break;
 
@@ -101,7 +109,7 @@ function DEmple(props) {
                 type="Text"
                 name="n_coe"
                 placeholder="Ingrese el nombre completo"
-                
+
                 className={`form-control ${errores.n_coe ? "is-invalid" : valores.n_coe ? "is-valid" : ""
                   }`}
                 onChange={(e) => {
@@ -146,16 +154,16 @@ function DEmple(props) {
               <div className="invalid-feedback">{errores.t_cem}</div>
             </div>
             <div className="espbots">
-            <div className="float-end">
-            <button className="btnfs btn btn-primary"  onClick={() => { validarcamposd();  /*siguientePaso();*/ }}>
-                siguiente
-              </button>
-            </div>
-            <div className="float-start ">
-            <button className="btnfa btn btn-primary" onClick={() => { anteriorPaso(); }}>
-                volver
-              </button>
-            </div>
+              <div className="float-end">
+                <button className="btnfs btn btn-primary" onClick={() => { validarcamposd();  /*siguientePaso();*/ }}>
+                  siguiente
+                </button>
+              </div>
+              <div className="float-start ">
+                <button className="btnfa btn btn-primary" onClick={() => { anteriorPaso(); }}>
+                  volver
+                </button>
+              </div>
             </div>
           </div>
         </div>

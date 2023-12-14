@@ -14,7 +14,7 @@ import { useAuth } from "../../../../autenticate";
 
 export default function Empleadofr() {
   //--------------------------------------------------------------------------------------//
-  const {user} = useAuth();
+  const {user, token} = useAuth();
   //-----------------------------------------------------------------------------------------------------
    //Variable de estado para almacenar los pasos del Formulario multi-progeso
     const [pasos, setPasos] = useState({
@@ -31,6 +31,7 @@ export default function Empleadofr() {
    //-----------------------------------------------------------------------------------------------------
    //Variable de estado para almacenar el objeto del formulario Empleado
     const [empleadoData, setEmpleados] = useState({
+      nToken: token,
       id_doc: "",
       documento: "",
       n_em: "",
