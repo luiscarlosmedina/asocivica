@@ -567,7 +567,7 @@ export default function EmpleadoVerDetalles() {
                 body: JSON.stringify({ "nToken": token }),
               });
             const data = await response.json();
-            setEmpleadoestado(data.data);
+            setEmpleadoestado(data.data[0]);
             setLoading(false);
         } catch (error) {
             console.error('Error al obtener los datos del empleado:', error);
