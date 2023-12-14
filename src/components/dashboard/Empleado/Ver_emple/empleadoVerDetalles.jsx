@@ -9,7 +9,7 @@ import { useAuth } from '../../../../autenticate';
 export default function EmpleadoVerDetalles() {
     const { empleadoid } = useParams();
     const back = useNavigate();
-    const { user } = useAuth();
+    const { user, token } = useAuth();
     const [isEditing, setIsEditing] = useState(false);
     const [errores, setErrores] = useState({});
     const [empleadoOriginal, setEmpleadoOriginal] = useState({});
@@ -31,15 +31,21 @@ export default function EmpleadoVerDetalles() {
     }, []);
 
     const fetchDataTproles = () => {
-        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtprol")
+        fetch("http://localhost/api_sisinov/public/api/rol", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "nToken": token }),
+        })
             .then((response) => response.json())
             .then((data) => {
                 if (data.error) {
                     console.error("Error en la respuesta de la API:", data.message);
-                } else if (Array.isArray(data.contenido)) {
-                    setTprol(data.contenido);
+                } else if (Array.isArray(data.data)) {
+                    setTprol(data.data);
                 } else {
-                    console.error("El contenido de la respuesta no es un array:", data.contenido);
+                    console.error("El contenido de la respuesta no es un array");
                 }
             })
             .catch((error) => {
@@ -53,7 +59,13 @@ export default function EmpleadoVerDetalles() {
     // read Rol Emple ------------------------
 
     const fetchDatarol = () => {
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readempleadorol&id_em=${empleadoid}`)
+        fetch(`http://localhost/api_sisinov/public/api/readempleadorol/${empleadoid}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "nToken": token }),
+        })
             .then((response) => response.json())
             .then((data) => {
                 setRolemp((prevRolemp) => ({
@@ -114,16 +126,22 @@ export default function EmpleadoVerDetalles() {
     }, []);
     // read rhs ------------------------
     const fetchDataTprh = () => {
-        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtprh")
+        fetch("http://localhost/api_sisinov/public/api/rh", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "nToken": token }),
+        })
             .then((response) => response.json())
             .then((data) => {
                 if (data.error) {
                     console.error("Error en la respuesta de la API:", data.message);
                     // Puedes manejar el error de alguna manera si es necesario
-                } else if (Array.isArray(data.contenido)) {
-                    setTipoRhOptions(data.contenido);
+                } else if (Array.isArray(data.data)) {
+                    setTipoRhOptions(data.data);
                 } else {
-                    console.error("El contenido de la respuesta no es un array:", data.contenido);
+                    console.error("El contenido de la respuesta no es un array");
                 }
             })
             .catch((error) => {
@@ -142,16 +160,22 @@ export default function EmpleadoVerDetalles() {
     }, []);
     // read documentos ------------------------
     const fetchDataTpdoc = () => {
-        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtpdocu")
+        fetch("http://localhost/api_sisinov/public/api/tdoc", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "nToken": token }),
+          })
             .then((response) => response.json())
             .then((data) => {
                 if (data.error) {
                     console.error("Error en la respuesta de la API:", data.message);
                     // Puedes manejar el error de alguna manera si es necesario
-                } else if (Array.isArray(data.contenido)) {
-                    setTipoDocumentoOptions(data.contenido);
+                } else if (Array.isArray(data.data)) {
+                    setTipoDocumentoOptions(data.data);
                 } else {
-                    console.error("El contenido de la respuesta no es un array:", data.contenido);
+                    console.error("El contenido de la respuesta no es un array");
                 }
             })
             .catch((error) => {
@@ -170,16 +194,22 @@ export default function EmpleadoVerDetalles() {
     }, []);
     // read eps ------------------------
     const fetchDataTpeps = () => {
-        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtpeps")
+        fetch("http://localhost/api_sisinov/public/api/eps", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "nToken": token }),
+          })
             .then((response) => response.json())
             .then((data) => {
                 if (data.error) {
                     console.error("Error en la respuesta de la API:", data.message);
                     // Puedes manejar el error de alguna manera si es necesario
-                } else if (Array.isArray(data.contenido)) {
-                    setepsOptions(data.contenido);
+                } else if (Array.isArray(data.data)) {
+                    setepsOptions(data.data);
                 } else {
-                    console.error("El contenido de la respuesta no es un array:", data.contenido);
+                    console.error("El contenido de la respuesta no es un array");
                 }
             })
             .catch((error) => {
@@ -198,7 +228,13 @@ export default function EmpleadoVerDetalles() {
     }, [])
     // read ces ------------------------
     const fetchDataTpces = () => {
-        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtces")
+        fetch("http://localhost/api_sisinov/public/api/cesantias", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "nToken": token }),
+          })
             .then((response) => response.json())
             .then((data) => {
                 if (data.error) {
@@ -225,7 +261,13 @@ export default function EmpleadoVerDetalles() {
     }, [])
     // read arls ------------------------
     const fetchDataTparl = () => {
-        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtparl")
+        fetch("http://localhost/api_sisinov/public/api/arl", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "nToken": token }),
+          })
             .then((response) => response.json())
             .then((data) => {
                 if (data.error) {
@@ -254,7 +296,13 @@ export default function EmpleadoVerDetalles() {
     }, [])
     // read pens ------------------------
     const fetchDataTpen = () => {
-        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtppens")
+        fetch("http://localhost/api_sisinov/public/api/pensiones", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "nToken": token }),
+          })
             .then((response) => response.json())
             .then((data) => {
                 if (data.error) {
@@ -302,10 +350,16 @@ export default function EmpleadoVerDetalles() {
     const usersPhoto = require.context("../../../../assets/empleados", true)
     const fetchDataone = () => {
 
-        fetch(`http://localhost/api_sisinov/public/api/readempleadoone/${empleadoid}`)
+        fetch(`http://localhost/api_sisinov/public/api/readempleadoone/${empleadoid}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "nToken": token }),
+        })
             .then((response) => response.json())
             .then((data) => {
-                setEmpleado(data.data[0]); 
+                setEmpleado(data.data);
                 setLoading(false);
 
             })
@@ -506,7 +560,13 @@ export default function EmpleadoVerDetalles() {
 
     const fetchDataestado = async () => {
         try {
-            const response = await fetch(`http://localhost/api_sisinov/public/api/readempleadoestado/${empleadoid}`);
+            const response = await fetch(`http://localhost/api_sisinov/public/api/readempleadoestado/${empleadoid}`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ "nToken": token }),
+              });
             const data = await response.json();
             setEmpleadoestado(data.data[0]);
             setLoading(false);
@@ -526,6 +586,7 @@ export default function EmpleadoVerDetalles() {
                 body: JSON.stringify({
                     ...empleadoestado,
                     estado: nuevoEstado,
+                    nToken: token,
                 }),
             };
             const response = await fetch(`http://localhost/api_sisinov/public/api/updateestadoempleado`, requestOptions);
@@ -732,8 +793,8 @@ export default function EmpleadoVerDetalles() {
                                                         onChange={(e) => handleInputChange(e, 'id_rh')}
                                                     >
                                                         {tipoRhOptions.map((rh) => (
-                                                            <option key={rh.ID_rh} value={rh.ID_rh}>
-                                                                {rh.Tipo_rh}
+                                                            <option key={rh.ID_RH} value={rh.RH}>
+                                                                {rh.T_RH}
                                                             </option>
                                                         ))}
                                                     </select>
@@ -797,7 +858,7 @@ export default function EmpleadoVerDetalles() {
                                                         >
                                                             {tipoDocumentoOptions.map((doc) => (
                                                                 <option key={doc.ID_Doc} value={doc.ID_Doc}>
-                                                                    {doc.Nombre_documento}
+                                                                    {doc.N_TDoc}
                                                                 </option>
                                                             ))}
                                                         </select>
@@ -831,7 +892,7 @@ export default function EmpleadoVerDetalles() {
                                                         >
                                                             {tprol.map((rol) => (
                                                                 <option key={rol.ID_rol} value={rol.ID_rol}>
-                                                                    {rol.Tipo_rol}
+                                                                    {rol.N_rol}
                                                                 </option>
                                                             ))}
                                                         </select>
@@ -1070,7 +1131,7 @@ export default function EmpleadoVerDetalles() {
                                         >
                                             {epsOptions.map((eps) => (
                                                 <option key={eps.ID_eps} value={eps.ID_eps}>
-                                                    {eps.Nombre_eps}
+                                                    {eps.N_eps}
                                                 </option>
                                             ))}
                                         </select>
@@ -1101,7 +1162,7 @@ export default function EmpleadoVerDetalles() {
                                         >
                                             {cesOptions.map((ces) => (
                                                 <option key={ces.ID_ces} value={ces.ID_ces}>
-                                                    {ces.Nombre_ces}
+                                                    {ces.N_ces}
                                                 </option>
                                             ))}
                                         </select>
@@ -1132,7 +1193,7 @@ export default function EmpleadoVerDetalles() {
                                         >
                                             {arlOptions.map((arl) => (
                                                 <option key={arl.ID_arl} value={arl.ID_arl}>
-                                                    {arl.Nombre_arl}
+                                                    {arl.N_arl}
                                                 </option>
                                             ))}
                                         </select>
@@ -1161,7 +1222,7 @@ export default function EmpleadoVerDetalles() {
                                         >
                                             {penOptions.map((pen) => (
                                                 <option key={pen.ID_pens} value={pen.ID_pens}>
-                                                    {pen.Nombre_pens}
+                                                    {pen.N_pens}
                                                 </option>
                                             ))}
                                         </select>

@@ -20,7 +20,7 @@ export default function EmpleadoVer({ dataUpdated }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const {user} = useAuth();
+  const {user, token} = useAuth();
   const [filterStates, setFilterStates] = useState({
     active: true,
     inactive: false,
@@ -31,7 +31,13 @@ export default function EmpleadoVer({ dataUpdated }) {
   }, []);
 
   const fetchData = () => {
-    fetch(`http://localhost/api_sisinov/public/api/readminempleado`)
+    fetch(`http://localhost/api_sisinov/public/api/readminempleado`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "nToken": token }),
+    })
       .then((response) => response.json())
       .then((data) => {
         setData(data.data); 
