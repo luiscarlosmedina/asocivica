@@ -20,7 +20,8 @@ export default function ContactoEmergencia({ id, estado }) {
       id_cem: "",
       n_coe: "",
       csag: "",
-      t_cem: ""
+      t_cem: "",
+      
     }
   ]);
 
@@ -66,6 +67,7 @@ export default function ContactoEmergencia({ id, estado }) {
       },
       body: JSON.stringify({
         ...nuevoContacto
+        
       }),
 
     };
@@ -108,13 +110,17 @@ export default function ContactoEmergencia({ id, estado }) {
 
   // Actualizar un contacto de emergencia
   const fetchDatacmgUpdate = (contactoId) => {
-    const contactoActualizado = data.find((contacto) => contacto.id_cem === contactoId);
-    console.log(contactoActualizado)
+    let contactoActualizado = data.find((contacto) => contacto.id_cem === contactoId);
+
+    // Agregar la propiedad nToken al objeto contactoActualizado
+    contactoActualizado.nToken = token;
+
     const requestOptions = {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
+      // Convertir el objeto actualizado a una cadena JSON
       body: JSON.stringify(contactoActualizado),
     };
 
@@ -141,7 +147,7 @@ export default function ContactoEmergencia({ id, estado }) {
       swal("Imposible eliminar", "Debe haber al menos un contacto de emergencia.", "warning");
       return;
     }
-
+  
     swal({
       title: "¿Estás seguro?",
       text: "Una vez eliminado, no podrás recuperar este contacto de emergencia.",
@@ -151,16 +157,18 @@ export default function ContactoEmergencia({ id, estado }) {
     }).then((willDelete) => {
       if (willDelete) {
         // Usuario hizo clic en "Eliminar"
+        const objetc = {
+          "id_cem": contactoId,
+          "nToken": token,
+        };
         const requestOptions = {
-          method: 'POST',
+          method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            id_cem: contactoId,
-          }),
+          body: JSON.stringify(objetc),
         };
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=deletecontemg`, requestOptions)
+        fetch(`http://localhost/api_sisinov/public/api/deletecontemg`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
@@ -176,12 +184,12 @@ export default function ContactoEmergencia({ id, estado }) {
             console.error('Error al actualizar los datos del contacto de emergencia:', error);
             swal("Error", "Hubo un problema al actualizar los datos del contacto de emergencia.", "error");
           });
-
+  
       } else {
         // Usuario hizo clic en "Cancelar"
         swal("Operación cancelada", "El contacto de emergencia no ha sido eliminado.", "info");
       }
-
+  
     });
   };
 
@@ -189,6 +197,7 @@ export default function ContactoEmergencia({ id, estado }) {
 
   // Estado para almacenar los datos del nuevo contacto
   const [nuevoContacto, setNuevoContacto] = useState({
+    nToken:token,
     id_em: id,
     n_coe: "",
     csag: "",
@@ -222,7 +231,11 @@ export default function ContactoEmergencia({ id, estado }) {
 
   // Validar si el teléfono existe antes de crear un nuevo contacto
   const fetchDataValidaciontel = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readtelcontact&t_cem=${nuevoContacto.t_cem}`)
+    fetch(`http://localhost/api_sisinov/public/api/readveritelempleado/${nuevoContacto.t_cem}`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },body: JSON.stringify({nToken:token})})
       .then((response) => response.json())
       .then((respuesta) => {
         if (respuesta.encontrado) {
@@ -507,7 +520,7 @@ export default function ContactoEmergencia({ id, estado }) {
                           </button>
                         </div>
                         <div className="col-6">
-                          <button className="btn btnfd btn-danger eliminar-btn" onClick={() => eliminarContacto(data.id_cem)}>
+                          <button className="btn btnfd btn-danger eliminar-btn" onClick={()=>eliminarContacto(data[index].id_cem)} >
                             <i className="bi bi-trash eliminar-icon"></i>
                             Eliminar
                           </button>
