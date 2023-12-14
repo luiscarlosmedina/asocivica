@@ -23,7 +23,7 @@ export default function EmpleadoVerDetalles() {
     // ROL --------------------------------------------------------------------------------------------
     // read Roles ------------------------
     const [tprol, setTprol] = useState([]);
-    const [rolemp, setRolemp] = useState({ id_em: empleadoid, id_rol: '' });
+    const [rolemp, setRolemp] = useState({ id_em: empleadoid, id_rol: '', nToken:token });
 
     useEffect(() => {
         fetchDataTproles();
@@ -85,16 +85,17 @@ export default function EmpleadoVerDetalles() {
     // Update Rol ------------------------
     const fetchDataUpdaterol = () => {
         const requestOptions = {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 ...rolemp
+
             }),
         };
 
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=update_rol`, requestOptions)
+        fetch(`http://localhost/api_sisinov/public/api/updaterol`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 fetchDatarol(); // Llamada directa a la función de lectura después de la actualización
@@ -371,16 +372,17 @@ export default function EmpleadoVerDetalles() {
 
     const fetchDataoneUpdate = () => {
         const requestOptions = {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                ...empleado
+                ...empleado,
+                nToken:token,
             }),
         };
 
-        fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=updateempleadoinfoone`, requestOptions)
+        fetch(`http://localhost/api_sisinov/public/api/updateempleadoinfoone`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
@@ -792,7 +794,7 @@ export default function EmpleadoVerDetalles() {
                                                         onChange={(e) => handleInputChange(e, 'id_rh')}
                                                     >
                                                         {tipoRhOptions.map((rh) => (
-                                                            <option key={rh.ID_RH} value={rh.RH}>
+                                                            <option key={rh.ID_RH} value={rh.ID_RH}>
                                                                 {rh.T_RH}
                                                             </option>
                                                         ))}
