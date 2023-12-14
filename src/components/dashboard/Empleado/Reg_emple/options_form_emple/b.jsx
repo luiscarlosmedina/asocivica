@@ -46,7 +46,7 @@ function BEmple(props) {
 
   // RH  ------------------------------------------------------------------------------
   const fetchDataTprh = () => {
-    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtprh", {
+    fetch("http://localhost/api_sisinov/public/api/rh", {
       method: "POST", 
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +74,13 @@ function BEmple(props) {
    
   //validacion telefono -----------------------------------------------------------------------------------------------
   const fetchDataValidaciontelagg = () => {
-    fetch(`http://localhost/api_proyecto.github.io/api.php?apicall=readtelcontactagg&tel_em=${valores.tel_em}`)
+    fetch(`http://localhost/api_sisinov/public/api/readveritelaggempleado/${valores.tel_em}`, {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "nToken":token }),
+    })
       .then((response) => response.json())
       .then((respuesta) => {
         if (respuesta.encontrado) {
@@ -159,7 +165,7 @@ function BEmple(props) {
 
         case "id_rh":
           const valorNumeroRh = parseInt(valorCampo, 10);
-          const idsDeRh = tipoRhOptions.map(rh => rh.ID_rh);
+          const idsDeRh = tipoRhOptions.map(rh => rh.ID_RH);
         
           if (!idsDeRh.includes(valorNumeroRh)) {
             nuevosErrores.id_rh = "Por favor, seleccione un tipo de documento válido";
@@ -284,8 +290,8 @@ function BEmple(props) {
               >
                 <option value="" disabled selected>Seleccione un tipo de rh</option>
                 {tipoRhOptions.map((rh) => (
-                  <option key={rh.ID_rh} value={rh.ID_rh}>
-                    {rh.Tipo_rh}
+                  <option key={rh.ID_RH} value={rh.ID_RH}>
+                    {rh.T_RH}
                   </option>
                 ))}
               </select>
