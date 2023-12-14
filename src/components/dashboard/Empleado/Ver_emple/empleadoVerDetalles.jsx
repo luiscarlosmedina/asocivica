@@ -240,10 +240,10 @@ export default function EmpleadoVerDetalles() {
                 if (data.error) {
                     console.error("Error en la respuesta de la API:", data.message);
                     // Puedes manejar el error de alguna manera si es necesario
-                } else if (Array.isArray(data.contenido)) {
-                    setcesOptions(data.contenido);
+                } else if (Array.isArray(data.data)) {
+                    setcesOptions(data.data);
                 } else {
-                    console.error("El contenido de la respuesta no es un array:", data.contenido);
+                    console.error("El contenido de la respuesta no es un array");
                 }
             })
             .catch((error) => {
@@ -273,10 +273,10 @@ export default function EmpleadoVerDetalles() {
                 if (data.error) {
                     console.error("Error en la respuesta de la API:", data.message);
                     // Puedes manejar el error de alguna manera si es necesario
-                } else if (Array.isArray(data.contenido)) {
-                    setArlOptions(data.contenido);
+                } else if (Array.isArray(data.data)) {
+                    setArlOptions(data.data);
                 } else {
-                    console.error("El contenido de la respuesta no es un array:", data.contenido);
+                    console.error("El contenido de la respuesta no es un array");
                 }
             })
             .catch((error) => {
@@ -308,10 +308,10 @@ export default function EmpleadoVerDetalles() {
                 if (data.error) {
                     console.error("Error en la respuesta de la API:", data.message);
                     // Puedes manejar el error de alguna manera si es necesario
-                } else if (Array.isArray(data.contenido)) {
-                    setPenOptions(data.contenido);
+                } else if (Array.isArray(data.data)) {
+                    setPenOptions(data.data);
                 } else {
-                    console.error("El contenido de la respuesta no es un array:", data.contenido);
+                    console.error("El contenido de la respuesta no es un array");
                 }
             })
             .catch((error) => {
