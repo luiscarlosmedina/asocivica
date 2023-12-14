@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import swal from 'sweetalert';
+import { useAuth } from "../../../../../autenticate";
 
 function AEmple(props) {
   const { handleInputChange, valores, siguientePaso, resetearPasos, resetEmpleadoData } = props;
   const [errores, setErrores] = useState({});
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
+  const {token} = useAuth(); 
 
   const [tipoDocumentoOptions, setTipoDocumentoOptions] = useState([]);
   useEffect(() => {
@@ -12,16 +14,22 @@ function AEmple(props) {
   }, []);
   // read Roles ------------------------
   const fetchDataTpdoc = () => {
-    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtpdocu")
+    fetch("http://localhost/api_sisinov/public/api/tdoc", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "nToken":token }),
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
           console.error("Error en la respuesta de la API:", data.message);
           // Puedes manejar el error de alguna manera si es necesario
-        } else if (Array.isArray(data.contenido)) {
-          setTipoDocumentoOptions(data.contenido);
+        } else if (Array.isArray(data.data)) {
+          setTipoDocumentoOptions(data.data);
         } else {
-          console.error("El contenido de la respuesta no es un array:", data.contenido);
+          console.error("El contenido de la respuesta no es un array");
         }
       })
       .catch((error) => {
@@ -74,7 +82,13 @@ function AEmple(props) {
 
   const fetchDataValidacion = () => {
 
-      fetch(`http://localhost/api_sisinov/public/api/readveriemlempleado/${valores.eml_em}`) 
+      fetch(`http://localhost/api_sisinov/public/api/readveriemlempleado/${valores.eml_em}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ "nToken":token }),
+      }) 
       .then((response) => response.json())
       .then((respuesta) => {
         if (respuesta.data) {
@@ -211,7 +225,7 @@ function AEmple(props) {
               >
                 {tipoDocumentoOptions.map((doc) => (
                   <option key={doc.ID_Doc} value={doc.ID_Doc}>
-                    {doc.Nombre_documento}
+                    {doc.N_TDoc}
                   </option>
                 ))}
               </select>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import swal from 'sweetalert';
-
+import { useAuth } from '../../../../../autenticate';
 
 export default function Validador(props) {
     const { handleInputChange, valores, siguientePaso } = props;
     const [errores, setErrores] = useState({});
-
+    const {token} = useAuth();
     
     const [tipoDocumentoOptions, setTipoDocumentoOptions] = useState([]);
     useEffect(() => {
@@ -13,14 +13,20 @@ export default function Validador(props) {
     }, []);
     // read Roles ------------------------
     const fetchDataTpdoc = () => {
-        fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtpdocu")
+        fetch("http://localhost/api_sisinov/public/api/tdoc", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "nToken":token }),
+          })
             .then((response) => response.json())
             .then((data) => {
                 if (data.error) {
                     console.error("Error en la respuesta de la API:", data.message);
                     // Puedes manejar el error de alguna manera si es necesario
-                } else if (Array.isArray(data.contenido)) {
-                    setTipoDocumentoOptions(data.contenido);
+                } else if (Array.isArray(data.data)) {
+                    setTipoDocumentoOptions(data.data);
                 } else {
                     console.error("El contenido de la respuesta no es un array:", data.contenido);
                 }
@@ -52,7 +58,13 @@ export default function Validador(props) {
     };
 
     const fetchDataValidacion = () => {
-        fetch(`http://localhost/api_sisinov/public/api/readverificarempleado/${valores.id_doc}/${valores.documento}`) 
+        fetch(`http://localhost/api_sisinov/public/api/readverificarempleado/${valores.id_doc}/${valores.documento}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "nToken":token }),
+          }) 
             .then((response) => response.json())
             .then((respuesta) => {
                 if (respuesta.encontrado) {
@@ -153,7 +165,7 @@ export default function Validador(props) {
                                 <option value="" disabled selected>Seleccione un tipo de documento</option>
                                 {tipoDocumentoOptions.map((doc) => (
                                     <option key={doc.ID_Doc} value={doc.ID_Doc}>
-                                        {doc.Nombre_documento}
+                                        {doc.N_TDoc}
                                     </option>
                                 ))}
                             </select>

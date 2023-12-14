@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import swal from 'sweetalert';
+import { useAuth } from "../../../../../autenticate";
 
 function BEmple(props) {
   const { handleInputChange, valores, siguientePaso, anteriorPaso } = props;
   const [errores, setErrores] = useState({});
+  const {token} = useAuth();
 
   // variables para selects
   const [tprol, setTprol] = useState([]);
@@ -18,15 +20,21 @@ function BEmple(props) {
 
   // ROL ------------------------------------------------------------------------------
   const fetchDataTproles = () => {
-    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtprol")
+    fetch("http://localhost/api_sisinov/public/api/rol", {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "nToken":token }),
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
           console.error("Error en la respuesta de la API:", data.message);
-        } else if (Array.isArray(data.contenido)) {
-          setTprol(data.contenido);
+        } else if (Array.isArray(data.data)) {
+          setTprol(data.data);
         } else {
-          console.error("El contenido de la respuesta no es un array:", data.contenido);
+          console.error("El contenido de la respuesta no es un array");
         }
       })
       .catch((error) => {
@@ -38,16 +46,22 @@ function BEmple(props) {
 
   // RH  ------------------------------------------------------------------------------
   const fetchDataTprh = () => {
-    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtprh")
+    fetch("http://localhost/api_proyecto.github.io/api.php?apicall=readtprh", {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "nToken":token }),
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
           console.error("Error en la respuesta de la API:", data.message);
           // Puedes manejar el error de alguna manera si es necesario
-        } else if (Array.isArray(data.contenido)) {
-          setTipoRhOptions(data.contenido);
+        } else if (Array.isArray(data.data)) {
+          setTipoRhOptions(data.data);
         } else {
-          console.error("El contenido de la respuesta no es un array:", data.contenido);
+          console.error("El contenido de la respuesta no es un array");
         }
       })
       .catch((error) => {
@@ -191,7 +205,7 @@ function BEmple(props) {
                 <option value="" disabled selected>Seleccione un tipo rol</option>
                 {tprol.map((rol) => (
                   <option key={rol.ID_rol} value={rol.ID_rol}>
-                    {rol.Tipo_rol}
+                    {rol.N_rol}
                   </option>
                 ))}
               </select>

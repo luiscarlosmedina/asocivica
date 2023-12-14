@@ -116,7 +116,7 @@ export default function Addnovedad() {
 
     try {
       const response = await fetch(
-        `http://localhost/api_sisinov/public/api/tpnov`,
+        `http://localhost/api_sisinov/public/api/tnov`,
         {
           method: "PUT",
           headers: {
