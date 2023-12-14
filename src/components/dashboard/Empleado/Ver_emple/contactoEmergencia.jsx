@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import swal from 'sweetalert';
+import { useAuth } from "../../../../autenticate";
 
 export default function ContactoEmergencia({ id, estado }) {
 
   // Estado para manejar los errores de validación
   const [errores, setErrores] = useState({});
   const [errorestwo, setErrorestwo] = useState({});
+  const {token} = useAuth();
 
   // Obtener la lista de contactos de emergencia al cargar el componente
   useEffect(() => {
@@ -84,11 +86,17 @@ export default function ContactoEmergencia({ id, estado }) {
 
   // Obtener la lista de contactos de emergencia
   const fetchData = () => {
-    fetch(`https://localhost/api_sisinov/public/api/readcontemg/${id}`)
+    fetch(`http://localhost/api_sisinov/public/api/readcontemg/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "nToken": token }),
+    })
       .then((response) => response.json())
       .then((result) => {
         if (!result.error) {
-          setData(result.data);
+          setData(result.contenido);
         } else {
           console.error(result.message);
         }
