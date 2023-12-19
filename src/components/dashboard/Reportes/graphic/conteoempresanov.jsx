@@ -14,9 +14,9 @@ export default function Conteoempresanov({ startDate, endDate, ltempresa }) {
         const arreglo = {nToken:token,ltempresa:ltempresa, startDate: startDate, endDate:endDate} 
         let apiUrl = ``;
         if(ltempresa === null){
-            apiUrl = `https://localhost/api_sisinov/public/api/repempresanov`;
+            apiUrl = `https://api.siemnov.com/api/repempresanov`;
         }else {
-            apiUrl = `https://localhost/api_sisinov/public/api/repsedenov`;
+            apiUrl = `https://api.siemnov.com/api/repsedenov`;
         }
 
         fetch(apiUrl,{

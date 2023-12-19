@@ -9,7 +9,6 @@ export default function Perfil() {
   const [editing, setEditing] = useState(false);
 
   const [empleado, setEmpleado] = useState({
-    nToken: token,
     id_em: user.id_em,
     n_em: "",
     a_em: "",
@@ -25,16 +24,16 @@ export default function Perfil() {
   }, []);
 
   const fetchData = () => {
-    fetch(`http://localhost/api_sisinov/public/api/readperfil`,{
+    fetch(`https://api.siemnov.com/api/readperfil`,{
       method: 'POST',
       headers: {
           "Content-Type": "application/json",
       },
-      body: JSON.stringify({id:user.id_em, nToken:token}),
+      body: JSON.stringify({id_em:user.id_em, nToken:token}),
   })
       .then((response) => response.json())
       .then((data) => {
-        setEmpleado(data.data[0]);
+        setEmpleado(data.contenido[0]);
         setLoading(false);
       })
       .catch((error) => {
@@ -45,13 +44,14 @@ export default function Perfil() {
 
   const handleInputChange = (field, value) => {
     setEmpleado({
+      nToken: token,
       ...empleado,
       [field]: value,
     });
   };
 
   const handleSaveChanges = () => {
-    fetch(`http://localhost/api_sisinov/public/api/updateperfil`, {
+    fetch(`https://api.siemnov.com/api/updateperfil`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

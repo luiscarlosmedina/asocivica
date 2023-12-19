@@ -11,7 +11,7 @@ export default function EditarE({ id, onUpdate }) {
     //llamar los tipos de documentos
     const fetchDataDoc = () => {
         fetch(
-            `http://localhost/api_sisinov/public/api/tdoc`, {
+            `https://api.siemnov.com/api/tdoc`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ export default function EditarE({ id, onUpdate }) {
     };
 
     useEffect(() => {
-        fetch(`http://localhost/api_sisinov/public/api/empresa/${id}`, {
+        fetch(`https://api.siemnov.com/api/empresa/${id}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -120,7 +120,7 @@ export default function EditarE({ id, onUpdate }) {
                 "nToken": token
             };
 
-            fetch(`http://localhost/api_sisinov/public/api/empresa/${id}`, {
+            fetch(`https://api.siemnov.com/api/empresa/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

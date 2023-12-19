@@ -17,7 +17,7 @@ export default function Verificaempresa() {
     const fetchData = async (nit) => {
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost/api_sisinov/public/api/empresas/${nit}`, {
+            const response = await fetch(`https://api.siemnov.com/api/empresas/${nit}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

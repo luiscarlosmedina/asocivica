@@ -15,7 +15,7 @@ function Fin(props) {
     })
         .then((willDelete) => {
             if (willDelete) {
-                    fetch('http://localhost/api_sisinov/public/api/empleado', { 
+                    fetch('https://api.siemnov.com/api/empleado', { 
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

@@ -63,7 +63,7 @@ export default function VerNovedades({ dataUpdated }) {
 
   useEffect(() => {
     const fetchData = () => {
-      fetch(`http://localhost/api_sisinov/public/api/novedades`, {
+      fetch(`https://api.siemnov.com/api/novedades`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -82,7 +82,7 @@ export default function VerNovedades({ dataUpdated }) {
     };
 
     const fetchDataTpnoedad = () => {
-      fetch("http://localhost/api_sisinov/public/api/tpnovs", {
+      fetch("https://api.siemnov.com/api/tpnovs", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -98,7 +98,7 @@ export default function VerNovedades({ dataUpdated }) {
         });
     };
     const fetchDataListempresa = () => {
-      fetch("https://localhost/api_sisinov/public/api/novedadempresa", {
+      fetch("https://api.siemnov.com/api/novedadempresa", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

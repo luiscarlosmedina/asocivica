@@ -62,7 +62,7 @@ export default function Repnov() {
     }, []);
 
     const fetchDataTpnoedad = () => {
-        fetch("http://localhost/api_sisinov/public/api/tpnovs", {
+        fetch("https://api.siemnov.com/api/tpnovs", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

@@ -31,7 +31,7 @@ export default function EmpleadoVer({ dataUpdated }) {
   }, []);
 
   const fetchData = () => {
-    fetch(`http://localhost/api_sisinov/public/api/readminempleado`, {
+    fetch(`https://api.siemnov.com/api/readminempleado`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

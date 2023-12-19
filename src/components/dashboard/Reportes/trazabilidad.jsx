@@ -19,7 +19,7 @@ export default function Trazabilidad() {
     const {token} = useAuth();
 
     const fetchData = () => {
-        fetch(`http://localhost/api_sisinov/public/api/readtrazabilidad`,{
+        fetch(`https://api.siemnov.com/api/readtrazabilidad`,{
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

@@ -29,7 +29,7 @@ export default function Encargados({ id }) {
   const [errors, setErrors] = useState({}); // Estado para almacenar errores
 
   const fetchData = () => {
-    fetch(`http://localhost/api_sisinov/public/api/telsede/${id}`, {
+    fetch(`https://api.siemnov.com/api/telsede/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -66,7 +66,7 @@ export default function Encargados({ id }) {
 
   const saveEnc = async (ID_En, updatedEncargado) => {
     try {
-      const response = await fetch(`http://localhost/api_sisinov/public/api/encargado/${ID_En}`, {
+      const response = await fetch(`https://api.siemnov.com/api/encargado/${ID_En}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ export default function Encargados({ id }) {
   const deleteEnc = async (ID_En) => {
 
     try {
-      const response = await fetch(`http://localhost/api_sisinov/public/api/encargadoestado/${ID_En}`, {
+      const response = await fetch(`https://api.siemnov.com/api/encargadoestado/${ID_En}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -146,7 +146,7 @@ export default function Encargados({ id }) {
     }
 
     try {
-      const response = await fetch(`http://localhost/api_sisinov/public/api/encargado`, {
+      const response = await fetch(`https://api.siemnov.com/api/encargado`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

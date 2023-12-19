@@ -27,7 +27,6 @@ export default function VerDetalleNovedad() {
   });
 
   const [editedNovedad, setEditedNovedad] = useState({
-    nToken: token,
     ID_Nov: "",
     Des_Nov: "",
     id_em: "",
@@ -45,7 +44,7 @@ export default function VerDetalleNovedad() {
 
   const fetchData = () => {
     setLoading(true);
-    fetch(`http://localhost/api_sisinov/public/api/novedad/${novedadID}`, {
+    fetch(`https://api.siemnov.com/api/novedad/${novedadID}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -69,7 +68,7 @@ export default function VerDetalleNovedad() {
   };
 
   const fetchMotorizadoOptions = () => {
-    fetch("http://localhost/api_sisinov/public/api/novedadempleados", {
+    fetch("https://api.siemnov.com/api/novedadempleados", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -86,7 +85,7 @@ export default function VerDetalleNovedad() {
   };
 
   const fetchTpNovOptions = () => {
-    fetch("http://localhost/api_sisinov/public/api/tpnovs", {
+    fetch("https://api.siemnov.com/api/tpnovs", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -116,7 +115,7 @@ export default function VerDetalleNovedad() {
       swal("Error", "La descripción tiene un formato no valido.", "error");
       return;
     }
-    fetch(`http://localhost/api_sisinov/public/api/novedad`, {
+    fetch(`https://api.siemnov.com/api/novedad`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -263,6 +262,7 @@ export default function VerDetalleNovedad() {
                               className="form-select"
                               onChange={(e) =>
                                 setEditedNovedad({
+                                  nToken: token,
                                   ...editedNovedad,
                                   id_em: e.target.value,
                                 })

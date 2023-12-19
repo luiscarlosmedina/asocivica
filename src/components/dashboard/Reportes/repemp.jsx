@@ -44,7 +44,7 @@ export default function Repemp() {
   };
 
   const fetchDataListempresa = () => {
-    fetch("http://localhost/api_sisinov/public/api/novedadempresa", {
+    fetch("https://api.siemnov.com/api/novedadempresa", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

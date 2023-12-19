@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const AuthContext = createContext({
-  user: false,
+  user: null,
   error: null,
   token: null,
 });
@@ -29,8 +29,8 @@ export function AuthProvider({ children }) {
 
   const login = async (doc, password) => {
     try {
-      //http://localhost/api_sisinov/public/api/login
-      const response = await fetch("http://localhost/api_sisinov/public/api/login", {
+      //https://api.siemnov.com/api/login
+      const response = await fetch("https://api.siemnov.com/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

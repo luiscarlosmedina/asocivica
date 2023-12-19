@@ -13,7 +13,7 @@ export default function Validador(props) {
     }, []);
     // read Roles ------------------------
     const fetchDataTpdoc = () => {
-        fetch("http://localhost/api_sisinov/public/api/tdoc", {
+        fetch("https://api.siemnov.com/api/tdoc", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export default function Validador(props) {
     };
 
     const fetchDataValidacion = () => {
-        fetch(`http://localhost/api_sisinov/public/api/readverificarempleado/${valores.id_doc}/${valores.documento}`, {
+        fetch(`https://api.siemnov.com/api/readverificarempleado/${valores.id_doc}/${valores.documento}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

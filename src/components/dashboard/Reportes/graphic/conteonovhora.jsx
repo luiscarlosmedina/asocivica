@@ -11,7 +11,7 @@ export default function Conteonovhora({ startDate, endDate, tipoNovedad }) {
 
     const fetchData = () => {
         const arreglo = {nToken:token, tipoNovedad: tipoNovedad, startDate:startDate, endDate:endDate}
-        fetch(`http://localhost/api_sisinov/public/api/repnovhora`,{
+        fetch(`https://api.siemnov.com/api/repnovhora`,{
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

@@ -14,7 +14,7 @@ function AEmple(props) {
   }, []);
   // read Roles ------------------------
   const fetchDataTpdoc = () => {
-    fetch("http://localhost/api_sisinov/public/api/tdoc", {
+    fetch("https://api.siemnov.com/api/tdoc", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +82,7 @@ function AEmple(props) {
 
   const fetchDataValidacion = () => {
 
-      fetch(`http://localhost/api_sisinov/public/api/readveriemlempleado/${valores.eml_em}`, {
+      fetch(`https://api.siemnov.com/api/readveriemlempleado/${valores.eml_em}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

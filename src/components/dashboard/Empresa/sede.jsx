@@ -43,7 +43,7 @@ export default function Sede({ id }) {
 
   // Función para cargar datos
   const fetchData = () => {
-    fetch(`http://localhost/api_sisinov/public/api/sede/${id}`, {
+    fetch(`https://api.siemnov.com/api/sede/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -109,7 +109,7 @@ export default function Sede({ id }) {
       editedRow[field] = newValue;
       editedRow['nToken'] = token;
 
-      fetch(`http://localhost/api_sisinov/public/api/sede/${id}`, {
+      fetch(`https://api.siemnov.com/api/sede/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -173,7 +173,7 @@ export default function Sede({ id }) {
 
   // Función para realizar la eliminación de una sede
   const performDeleteSede = (id, estado) => {
-    return fetch(`http://localhost/api_sisinov/public/api/estadosede/${id}`, {
+    return fetch(`https://api.siemnov.com/api/estadosede/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -210,7 +210,7 @@ export default function Sede({ id }) {
     }
 
     // Envía los datos al servidor
-    fetch(`http://localhost/api_sisinov/public/api/sede`, {
+    fetch(`https://api.siemnov.com/api/sede`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

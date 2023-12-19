@@ -14,7 +14,7 @@ function CEmple(props) {
   }, []);
   // read eps ------------------------
   const fetchDataTpeps = () => {
-    fetch("http://localhost/api_sisinov/public/api/eps", {
+    fetch("https://api.siemnov.com/api/eps", {
       method: "POST", 
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ function CEmple(props) {
   }, [])
   // read ces ------------------------
   const fetchDataTpces = () => {
-    fetch("http://localhost/api_sisinov/public/api/cesantias", {
+    fetch("https://api.siemnov.com/api/cesantias", {
       method: "POST", 
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +81,7 @@ function CEmple(props) {
   }, [])
   // read pens ------------------------
   const fetchDataTpen = () => {
-    fetch("http://localhost/api_sisinov/public/api/pensiones", {
+    fetch("https://api.siemnov.com/api/pensiones", {
       method: "POST", 
       headers: {
         "Content-Type": "application/json",
@@ -116,7 +116,7 @@ function CEmple(props) {
   }, [])
   // read arls ------------------------
   const fetchDataTparl = () => {
-    fetch("http://localhost/api_sisinov/public/api/arl", {
+    fetch("https://api.siemnov.com/api/arl", {
       method: "POST", 
       headers: {
         "Content-Type": "application/json",

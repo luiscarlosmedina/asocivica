@@ -14,7 +14,7 @@ export default function Conteosectornov({ startDate, endDate, tipoNovedad }) {
 
     const fetchData = () => {   
         const arreglo = {nToken:token, tipoNovedad:tipoNovedad, startDate:startDate, endDate:endDate};
-        fetch(`http://localhost/api_sisinov/public/api/repnovsector`,{
+        fetch(`https://api.siemnov.com/api/repnovsector`,{
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
