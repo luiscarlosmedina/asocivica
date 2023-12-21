@@ -15,6 +15,7 @@ const DateTimeDisplay = () => {
 
   const formatDateTime = (date) => {
     const options = {
+      timeZone: 'America/Bogota',
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -23,7 +24,7 @@ const DateTimeDisplay = () => {
       minute: '2-digit',
       second: '2-digit',
     };
-    return date.toLocaleString(undefined, options);
+    return date.toLocaleString('es-CO', options);
   };
 
   return <>{formatDateTime(dateTime)}</>;

@@ -6,7 +6,9 @@ import Evidencia from "./ComponentsFunction/evidencia";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../autenticate";
 
-export default function VerDetalleNovedad() {
+const API_BASE_URL = "https://api.siemnov.com/api/";
+
+const VerDetalleNovedad = () => {
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   const { novedadID } = useParams();
@@ -44,12 +46,12 @@ export default function VerDetalleNovedad() {
 
   const fetchData = () => {
     setLoading(true);
-    fetch(`https://api.siemnov.com/api/novedad/${novedadID}`, {
-      method: 'POST',
+    fetch(`${API_BASE_URL}novedad/${novedadID}`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({nToken:token})
+      body: JSON.stringify({ nToken: token }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -68,12 +70,12 @@ export default function VerDetalleNovedad() {
   };
 
   const fetchMotorizadoOptions = () => {
-    fetch("https://api.siemnov.com/api/novedadempleados", {
-      method: 'POST',
+    fetch(`${API_BASE_URL}novedadempleados`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({nToken:token})
+      body: JSON.stringify({ nToken: token }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -85,12 +87,12 @@ export default function VerDetalleNovedad() {
   };
 
   const fetchTpNovOptions = () => {
-    fetch("https://api.siemnov.com/api/tpnovs", {
-      method: 'POST',
+    fetch(`${API_BASE_URL}tpnovs`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({nToken:token})
+      body: JSON.stringify({ nToken: token }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -101,31 +103,29 @@ export default function VerDetalleNovedad() {
       });
   };
 
-  //funcion para guardar la edicion
   const handleSaveChanges = () => {
-    // Validar que la descripción no esté vacía y no contenga scripts maliciosos
     if (editedNovedad.Des_Nov.trim() === "") {
       swal("Error!", "La descripción no puede estar vacía.", "error");
       return;
     }
 
-    // Validar que la descripción no contenga scripts
     const scriptPattern = /<script.*?>.*?<\/script>/i;
     if (scriptPattern.test(editedNovedad.Des_Nov)) {
-      swal("Error", "La descripción tiene un formato no valido.", "error");
+      swal("Error", "La descripción tiene un formato no válido.", "error");
       return;
     }
-    fetch(`https://api.siemnov.com/api/novedad`, {
-      method: 'PUT',
+
+    fetch(`${API_BASE_URL}novedad`, {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(editedNovedad)
-    })  
-      .then(response => response.json())
-      .then(responseData => {
+      body: JSON.stringify({ ...editedNovedad, nToken: token }),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
         if (responseData) {
-          swal("¡Buen trabajo!", 'Actualización exitosa', "success");
+          swal("¡Buen trabajo!", "Actualización exitosa", "success");
           setEditing(false);
           setEditedNovedad({
             ID_Nov: "",
@@ -136,22 +136,19 @@ export default function VerDetalleNovedad() {
           fetchData();
         }
       })
-      .catch(error => {
-        console.error('Error:', error);
-        swal("Ocurrió un error!", 'Inténtalo más tarde', "error");
+      .catch((error) => {
+        console.error("Error:", error);
+        swal("Ocurrió un error!", "Inténtalo más tarde", "error");
       });
   };
 
-
   const handleCancelEdit = () => {
-    // Cancelar la edición y restaurar los valores originales
     setEditedNovedad({
       Des_Nov: novedad.Des_Nov,
       id_em: novedad.id_em,
       T_Nov: novedad.T_Nov,
     });
 
-    // Desactivar el modo de edición
     setEditing(false);
   };
 
@@ -205,7 +202,6 @@ export default function VerDetalleNovedad() {
                                   })
                                 }
                               >
-                                {/* Mapear opciones de Tipo de Novedad */}
                                 {tipoNovedadOptions.map((option) => (
                                   <option key={option.T_Nov} value={option.T_Nov}>
                                     {option.Nombre_Tn}
@@ -268,7 +264,6 @@ export default function VerDetalleNovedad() {
                                 })
                               }
                             >
-                              {/* Mapear opciones de Motorizado */}
                               {motorizadoOptions.map((option) => (
                                 <option key={option.id_em} value={option.id_em}>
                                   {option.Nombre}
@@ -314,4 +309,6 @@ export default function VerDetalleNovedad() {
       </div>
     </>
   );
-}
+};
+
+export default VerDetalleNovedad;

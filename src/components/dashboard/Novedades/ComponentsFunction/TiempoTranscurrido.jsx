@@ -5,7 +5,9 @@ function TiempoTranscurrido({ fechaDada }) {
 
   useEffect(() => {
     const fechaDadaObj = new Date(fechaDada);
-    const fechaActual = new Date();
+    const fechaOriginal = new Date();
+    const fechaSumada = new Date(fechaOriginal);
+    const fechaActual = fechaSumada.setHours(fechaSumada.getHours() - 5);
 
     const diferenciaEnMilisegundos = fechaActual - fechaDadaObj;
     const diferenciaEnMinutos = Math.floor(diferenciaEnMilisegundos / (1000 * 60));

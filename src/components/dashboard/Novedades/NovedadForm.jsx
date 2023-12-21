@@ -100,12 +100,12 @@ export default function NovedadForm({ onDataUpdate }) {
   const fetchDataEmpleado = () => {
     fetch(
       "https://api.siemnov.com/api/novedadempleados", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({nToken:token})
-      })
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ nToken: token })
+    })
       .then((response) => response.json())
       .then((empleado) => {
         setEmpleado(empleado.data);
@@ -115,9 +115,19 @@ export default function NovedadForm({ onDataUpdate }) {
       });
   };
   //configurar fecha
-  const fecha = new Date()
-  const hoy = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate() + " " + fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds();
-
+  const fecha = new Date();
+  const options = {
+    timeZone: 'America/Bogota',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  };
+  
+  const hoy = fecha.toLocaleString('es-CO', options).replace(/\//g, '-').replace(/,/g, '');
   //funcion para enviar a api
   const [T_Nov, setT_Nov] = useState(null);
   const [Dic_Nov, setDic_Nov] = useState(null);
@@ -138,7 +148,7 @@ export default function NovedadForm({ onDataUpdate }) {
 
     // datos para crear la novedad
     const novedad = {
-      nToken:token,
+      nToken: token,
       T_Nov,
       Dic_Nov,
       Des_Nov,
