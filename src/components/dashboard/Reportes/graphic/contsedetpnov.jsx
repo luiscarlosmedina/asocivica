@@ -21,7 +21,7 @@ export default function Contsedetpnov({ startDate, endDate, ltempresa }) {
 
     const fetchData = () => {
         const arreglo = {nToken:token, ltempresa:ltempresa, startDate: startDate, endDate: endDate}
-        fetch(`https://api.siemnov.com/api/repsedetpnov`,{
+        fetch(`http://localhost/api_sisinov/public/api/repsedetpnov`,{
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

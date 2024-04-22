@@ -11,7 +11,7 @@ export default function Conteonovdia({ startDate, endDate, tipoNovedad }) {
 
     const fetchData = () => {
         const arreglo = {nToken:token, tipoNovedad: tipoNovedad, startDate:startDate, endDate:endDate}
-        fetch(`https://api.siemnov.com/api/repnovdia`,{
+        fetch(`http://localhost/api_sisinov/public/api/repnovdia`,{
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

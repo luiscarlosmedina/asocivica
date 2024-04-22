@@ -24,7 +24,7 @@ export default function Perfil() {
   }, []);
 
   const fetchData = () => {
-    fetch(`https://api.siemnov.com/api/readperfil`,{
+    fetch(`http://localhost/api_sisinov/public/api/readperfil`,{
       method: 'POST',
       headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export default function Perfil() {
   };
 
   const handleSaveChanges = () => {
-    fetch(`https://api.siemnov.com/api/updateperfil`, {
+    fetch(`http://localhost/api_sisinov/public/api/updateperfil`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -71,7 +71,7 @@ export default function ContactoEmergencia({ id, estado }) {
       }),
 
     };
-    fetch(`https://api.siemnov.com/api/createcontemg`, requestOptions)
+    fetch(`http://localhost/api_sisinov/public/api/createcontemg`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -88,7 +88,7 @@ export default function ContactoEmergencia({ id, estado }) {
 
   // Obtener la lista de contactos de emergencia
   const fetchData = () => {
-    fetch(`https://api.siemnov.com/api/readcontemg/${id}`, {
+    fetch(`http://localhost/api_sisinov/public/api/readcontemg/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -124,7 +124,7 @@ export default function ContactoEmergencia({ id, estado }) {
       body: JSON.stringify(contactoActualizado),
     };
 
-    fetch(`https://api.siemnov.com/api/updatecontemg`, requestOptions)
+    fetch(`http://localhost/api_sisinov/public/api/updatecontemg`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -168,7 +168,7 @@ export default function ContactoEmergencia({ id, estado }) {
           },
           body: JSON.stringify(objetc),
         };
-        fetch(`https://api.siemnov.com/api/deletecontemg`, requestOptions)
+        fetch(`http://localhost/api_sisinov/public/api/deletecontemg`, requestOptions)
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
@@ -231,7 +231,7 @@ export default function ContactoEmergencia({ id, estado }) {
 
   // Validar si el teléfono existe antes de crear un nuevo contacto
   const fetchDataValidaciontel = () => {
-    fetch(`https://api.siemnov.com/api/readveritelempleado/${nuevoContacto.t_cem}`,{
+    fetch(`http://localhost/api_sisinov/public/api/readveritelempleado/${nuevoContacto.t_cem}`,{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

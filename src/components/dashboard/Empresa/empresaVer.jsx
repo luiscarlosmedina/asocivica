@@ -31,7 +31,7 @@ export default function EmpresaVer({ dataUpdated }) {
   }, []);
 
   const fetchData = () => {
-    fetch(`https://api.siemnov.com/api/empresas`, {
+    fetch(`http://localhost/api_sisinov/public/api/empresas`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

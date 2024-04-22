@@ -21,7 +21,7 @@ export default function Conthistpnov({ startDate, endDate, ltempresa }) {
 
     const fetchData = () => {
         const arreglo = {nToken:token, ltempresa:ltempresa, startDate: startDate, endDate: endDate};
-        let apiUrl = `https://api.siemnov.com/api/rephistnov`;
+        let apiUrl = `http://localhost/api_sisinov/public/api/rephistnov`;
 
         fetch(apiUrl,{
             method: 'POST',

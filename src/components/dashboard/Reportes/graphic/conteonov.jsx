@@ -12,7 +12,7 @@ export default function Conteonov({ startDate, endDate, tipoNovedad }) {
 
     const fetchData = () => {        
         const arreglo = {nToken:token, tipoNovedad:tipoNovedad, startDate: startDate, endDate: endDate}
-        fetch(`https://api.siemnov.com/api/repnov`,{
+        fetch(`http://localhost/api_sisinov/public/api/repnov`,{
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

@@ -28,7 +28,7 @@ export default function Addnovedad() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `https://api.siemnov.com/api/tpnovs`,
+        `http://localhost/api_sisinov/public/api/tpnovs`,
         {
           method: "POST",
           headers: {
@@ -65,7 +65,7 @@ export default function Addnovedad() {
 
     try {
       const response = await fetch(
-        `https://api.siemnov.com/api/tnov`,
+        `http://localhost/api_sisinov/public/api/tnov`,
         {
           method: "PUT",
           headers: {
@@ -116,7 +116,7 @@ export default function Addnovedad() {
 
     try {
       const response = await fetch(
-        `https://api.siemnov.com/api/tpnov`,
+        `http://localhost/api_sisinov/public/api/tpnov`,
         {
           method: "POST",
           headers: {

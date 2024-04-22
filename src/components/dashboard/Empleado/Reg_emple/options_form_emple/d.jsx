@@ -26,7 +26,7 @@ function DEmple(props) {
   };
 
   const fetchDataValidaciontel = () => {
-    fetch(`https://api.siemnov.com/api/readveritelempleado/${valores.t_cem}`, {
+    fetch(`http://localhost/api_sisinov/public/api/readveritelempleado/${valores.t_cem}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

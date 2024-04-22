@@ -20,7 +20,7 @@ function BEmple(props) {
 
   // ROL ------------------------------------------------------------------------------
   const fetchDataTproles = () => {
-    fetch("https://api.siemnov.com/api/rol", {
+    fetch("http://localhost/api_sisinov/public/api/rol", {
       method: "POST", 
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ function BEmple(props) {
 
   // RH  ------------------------------------------------------------------------------
   const fetchDataTprh = () => {
-    fetch("https://api.siemnov.com/api/rh", {
+    fetch("http://localhost/api_sisinov/public/api/rh", {
       method: "POST", 
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +74,7 @@ function BEmple(props) {
    
   //validacion telefono -----------------------------------------------------------------------------------------------
   const fetchDataValidaciontelagg = () => {
-    fetch(`https://api.siemnov.com/api/readveritelaggempleado/${valores.tel_em}`, {
+    fetch(`http://localhost/api_sisinov/public/api/readveritelaggempleado/${valores.tel_em}`, {
       method: "POST", 
       headers: {
         "Content-Type": "application/json",

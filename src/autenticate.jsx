@@ -29,8 +29,8 @@ export function AuthProvider({ children }) {
 
   const login = async (doc, password) => {
     try {
-      //https://api.siemnov.com/api/login
-      const response = await fetch("https://api.siemnov.com/api/login", {
+      //http://localhost/api_sisinov/public/api/login
+      const response = await fetch("http://localhost/api_sisinov/public/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

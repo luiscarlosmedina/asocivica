@@ -11,7 +11,7 @@ export default function Evidencia({ id }) {
     }, [id]);
 
     const fetchData = () => {
-        fetch(`https://api.siemnov.com/api/evidencia/${id}`, {
+        fetch(`http://localhost/api_sisinov/public/api/evidencia/${id}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

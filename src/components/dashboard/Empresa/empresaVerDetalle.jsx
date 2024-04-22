@@ -30,7 +30,7 @@ export default function EmpresaVerDetalle() {
   //llamar los tipos de documentos
   const fetchDataDoc = () => {
     fetch(
-      `https://api.siemnov.com/api/tdoc`, {
+      `http://localhost/api_sisinov/public/api/tdoc`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ export default function EmpresaVerDetalle() {
   }, []);
 
   const fetchData = () => {
-    fetch(`https://api.siemnov.com/api/empresa/${empresaid}`, {
+    fetch(`http://localhost/api_sisinov/public/api/empresa/${empresaid}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

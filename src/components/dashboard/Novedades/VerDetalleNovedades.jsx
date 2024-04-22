@@ -6,7 +6,7 @@ import Evidencia from "./ComponentsFunction/evidencia";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../autenticate";
 
-const API_BASE_URL = "https://api.siemnov.com/api/";
+const API_BASE_URL = "http://localhost/api_sisinov/public/api/";
 
 const VerDetalleNovedad = () => {
   const [editing, setEditing] = useState(false);

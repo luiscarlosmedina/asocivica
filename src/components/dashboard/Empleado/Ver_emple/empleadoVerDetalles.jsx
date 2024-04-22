@@ -31,7 +31,7 @@ export default function EmpleadoVerDetalles() {
     }, []);
 
     const fetchDataTproles = () => {
-        fetch("https://api.siemnov.com/api/rol", {
+        fetch("http://localhost/api_sisinov/public/api/rol", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -59,7 +59,7 @@ export default function EmpleadoVerDetalles() {
     // read Rol Emple ------------------------
 
     const fetchDatarol = () => {
-        fetch(`https://api.siemnov.com/api/readempleadorol/${empleadoid}`, {
+        fetch(`http://localhost/api_sisinov/public/api/readempleadorol/${empleadoid}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -95,7 +95,7 @@ export default function EmpleadoVerDetalles() {
             }),
         };
 
-        fetch(`https://api.siemnov.com/api/updaterol`, requestOptions)
+        fetch(`http://localhost/api_sisinov/public/api/updaterol`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 fetchDatarol(); // Llamada directa a la función de lectura después de la actualización
@@ -127,7 +127,7 @@ export default function EmpleadoVerDetalles() {
     }, []);
     // read rhs ------------------------
     const fetchDataTprh = () => {
-        fetch("https://api.siemnov.com/api/rh", {
+        fetch("http://localhost/api_sisinov/public/api/rh", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -161,7 +161,7 @@ export default function EmpleadoVerDetalles() {
     }, []);
     // read documentos ------------------------
     const fetchDataTpdoc = () => {
-        fetch("https://api.siemnov.com/api/tdoc", {
+        fetch("http://localhost/api_sisinov/public/api/tdoc", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -195,7 +195,7 @@ export default function EmpleadoVerDetalles() {
     }, []);
     // read eps ------------------------
     const fetchDataTpeps = () => {
-        fetch("https://api.siemnov.com/api/eps", {
+        fetch("http://localhost/api_sisinov/public/api/eps", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -229,7 +229,7 @@ export default function EmpleadoVerDetalles() {
     }, [])
     // read ces ------------------------
     const fetchDataTpces = () => {
-        fetch("https://api.siemnov.com/api/cesantias", {
+        fetch("http://localhost/api_sisinov/public/api/cesantias", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -262,7 +262,7 @@ export default function EmpleadoVerDetalles() {
     }, [])
     // read arls ------------------------
     const fetchDataTparl = () => {
-        fetch("https://api.siemnov.com/api/arl", {
+        fetch("http://localhost/api_sisinov/public/api/arl", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -297,7 +297,7 @@ export default function EmpleadoVerDetalles() {
     }, [])
     // read pens ------------------------
     const fetchDataTpen = () => {
-        fetch("https://api.siemnov.com/api/pensiones", {
+        fetch("http://localhost/api_sisinov/public/api/pensiones", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -351,7 +351,7 @@ export default function EmpleadoVerDetalles() {
     const usersPhoto = require.context("../../../../assets/empleados", true)
     const fetchDataone = () => {
 
-        fetch(`https://api.siemnov.com/api/readempleadoone/${empleadoid}`, {
+        fetch(`http://localhost/api_sisinov/public/api/readempleadoone/${empleadoid}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -382,7 +382,7 @@ export default function EmpleadoVerDetalles() {
             }),
         };
 
-        fetch(`https://api.siemnov.com/api/updateempleadoinfoone`, requestOptions)
+        fetch(`http://localhost/api_sisinov/public/api/updateempleadoinfoone`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
@@ -561,7 +561,7 @@ export default function EmpleadoVerDetalles() {
 
     const fetchDataestado = async () => {
         try {
-            const response = await fetch(`https://api.siemnov.com/api/readempleadoestado/${empleadoid}`, {
+            const response = await fetch(`http://localhost/api_sisinov/public/api/readempleadoestado/${empleadoid}`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -590,7 +590,7 @@ export default function EmpleadoVerDetalles() {
                     nToken: token,
                 }),
             };
-            const response = await fetch(`https://api.siemnov.com/api/updateestadoempleado`, requestOptions);
+            const response = await fetch(`http://localhost/api_sisinov/public/api/updateestadoempleado`, requestOptions);
             const data = await response.json();
 
             console.log(data);

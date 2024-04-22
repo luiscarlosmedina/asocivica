@@ -17,7 +17,7 @@ export default function NovedadForm({ onDataUpdate }) {
   //traer tipo de novedades
   const fetchDataTpnoedad = () => {
     fetch(
-      "https://api.siemnov.com/api/tpnovs"
+      "http://localhost/api_sisinov/public/api/tpnovs"
       , {
         method: 'POST',
         headers: {
@@ -48,7 +48,7 @@ export default function NovedadForm({ onDataUpdate }) {
   //traer listado de empresas
   const fetchDataEmpresa = () => {
     fetch(
-      "https://api.siemnov.com/api/novedadempresa", {
+      "http://localhost/api_sisinov/public/api/novedadempresa", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ export default function NovedadForm({ onDataUpdate }) {
   //traer listado de sedes correspondientes a la empresa seleccionada
   const fetchDataSede = (id_e) => {
     fetch(
-      `https://api.siemnov.com/api/novedadsede/${id_e}`, {
+      `http://localhost/api_sisinov/public/api/novedadsede/${id_e}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -99,7 +99,7 @@ export default function NovedadForm({ onDataUpdate }) {
 
   const fetchDataEmpleado = () => {
     fetch(
-      "https://api.siemnov.com/api/novedadempleados", {
+      "http://localhost/api_sisinov/public/api/novedadempleados", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -159,7 +159,7 @@ export default function NovedadForm({ onDataUpdate }) {
     };
     console.log(novedad);
     //crear la novedad
-    fetch("https://api.siemnov.com/api/novedad", {
+    fetch("http://localhost/api_sisinov/public/api/novedad", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -247,7 +247,7 @@ export default function NovedadForm({ onDataUpdate }) {
     }
 
     fetch(
-      "https://api.siemnov.com/api/tpnov",
+      "http://localhost/api_sisinov/public/api/tpnov",
       {
         method: "POST",
         headers: {

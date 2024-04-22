@@ -11,7 +11,7 @@ function Empresafr({ nit, est, resetForm }) {
     //llamar los tipos de documentos
     const fetchDataDoc = () => {
         fetch(
-            `https://api.siemnov.com/api/tdoc`, {
+            `http://localhost/api_sisinov/public/api/tdoc`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -231,7 +231,7 @@ function Empresafr({ nit, est, resetForm }) {
         };
 
         // Realizar la solicitud POST
-        fetch("https://api.siemnov.com/api/empresa", {
+        fetch("http://localhost/api_sisinov/public/api/empresa", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
