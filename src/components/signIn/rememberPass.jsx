@@ -8,7 +8,7 @@ export default function RememberPass() {
     const [validar, setValidar] = useState(false);
     const [nuevaContraseña, setNuevaContraseña] = useState('');
     const [confirmarContraseña, setConfirmarContraseña] = useState('');
-    const [id, setId] = useState(0);
+    const [id, setId] = useState(null);
 
     //validadores
     const validateEmail = (eml_em) => {
@@ -55,16 +55,18 @@ export default function RememberPass() {
             const responseData = await response.json();
 
             if (response.ok) {
+                const datos = responseData.data
                 setValidar(true);
-                setId(responseData.data)
+                setId(datos.id_em)
                 setEmail("");
                 setDni("");
                 setMensaje('');
-                console.log(id);
             } else {
+                setValidar(false);
                 setMensaje('La información ingresada no es válida. Inténtalo de nuevo.');
             }
         } catch (error) {
+            setValidar(false);
             setMensaje('La información ingresada no es válida. Inténtalo de nuevo.');
         }
     };
@@ -75,13 +77,37 @@ export default function RememberPass() {
             setMensaje('Las contraseñas deben ser iguales y tener al menos 8 caracteres alfanuméricos.');
             return;
         }
-        // Aquí puedes implementar la lógica para enviar la solicitud al servidor para restablecer la contraseña
-        // Esto puede incluir la verificación de la igualdad de las contraseñas, etc.
-        swal("¡Buen trabajo!", 'La contraseña se ha restablecido con éxito.', "success").then(() => {
-            window.location.reload();
-        });
-        setNuevaContraseña('');
-        setConfirmarContraseña('');
+        try {
+            const response = await fetch(`http://localhost/api_sisinov/public/api/recuperarpassword/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({password : nuevaContraseña}),
+            });
+
+            if (response.ok) {
+                swal({
+                    title: "¡Buen trabajo!",
+                    text: "La contraseña se ha restablecido con éxito.",
+                    icon: "success",
+                    timer: 2000, // El mensaje se mostrará durante 2 segundos
+                    buttons: false // Oculta los botones de aceptar/cancelar
+                  }).then(() => {
+                    // Esta parte del código se ejecutará después de que el mensaje haya desaparecido
+                    window.location.reload();
+                  });
+                setNuevaContraseña('');
+                setConfirmarContraseña('');
+                setMensaje('');
+                setId(null)
+                setValidar(false);
+            } else {
+                setMensaje('No fue posible cambiar la contraseña, intentalo nuevamente');
+            }
+        } catch (error) {
+            setMensaje('No fue posible cambiar la contraseña, intentalo nuevamente');
+        }
     };
 
     return (
