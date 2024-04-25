@@ -72,7 +72,7 @@
   
   .texto-formulario h2,
   .input label,
-  .password-olvidada a,
+  .password-olvidada button,
   .texto-formulario p {
     color: var(--blanco);
   }
@@ -106,10 +106,12 @@
     margin: 10px 0 0 0;
   }
   
-  .password-olvidada a {
+  .password-olvidada button{
+    border: none;
+    background-color: var(--azul);
     display: inline-block;
-    margin-top: 20px;
-    font-size: 12px;
+    margin-top: 10px;
+    font-size: 15px;
   }
   
   .input input {

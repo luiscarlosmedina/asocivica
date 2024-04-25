@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Logo from "../../img/logosf.png";
 import { useAuth } from "../../autenticate";
 import "../../style/signIn/formSignIn.css";
+import RememberPass from "./rememberPass";
 
 export default function SignIn() {
   const { login, error } = useAuth();
@@ -95,13 +96,25 @@ export default function SignIn() {
             <p className="error-message text-red m-auto px-1">{error}</p>
           </div>
           <div className="password-olvidada">
-            {/* <a href="#">¿Olvidaste tu contraseña?</a> */}
+            <button type="button" data-bs-toggle="modal" data-bs-target="#olvidepass" data-bs-whatever="@mdo"> ¿Olvidaste la contraseña?</button>
           </div>
           <div className="input">
             <input type="submit" value="Ingresar" />
           </div>
         </div>
       </form>
+      <div
+            className="modal fade"
+            id="olvidepass"
+            tabIndex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+            data-bs-backdrop="static"
+          >
+            <div className="modal-dialog">
+              <RememberPass />
+            </div>
+          </div>
     </div>
   );
 }
